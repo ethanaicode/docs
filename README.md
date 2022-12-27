@@ -1,2 +1,2 @@
 # docs
-first press test
+This project will be managed and updated using GitKraken
