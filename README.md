@@ -1,4 +1,3 @@
-This project will be managed and updated using GitKraken,
-It is so convenient to use this visual git tool to manage.
+# Risen Docs
 
-now test push by GitVBash.
+Wait for the next release.
