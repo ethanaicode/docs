@@ -1,16 +1,14 @@
-## 常用的Linux命令
+## 常用的 Linux 命令
 
-> 230517: 单独拿出来，不再和笔记网站同步
->
-> php xx.php &: 加个“&”可以让php在后台运行进程
+> php xx.php &: 加个“&”可以让 php 在后台运行进程
 
 ### 常用的文件目录
 
-> Apache默认网站目录：/var/www/html
+> Apache 默认网站目录：/var/www/html
 >
-> Apache配置目录： /etc/apache2
+> Apache 配置目录： /etc/apache2
 >
-> sudo service apache2 stop 
+> sudo service apache2 stop
 >
 > sudo service apache2 start
 >
@@ -18,31 +16,35 @@
 
 ### 处理目录命令
 
-- ls（英文全拼：list files）: 列出目录及文件名
+- ls: 列出目录及文件名
 
-  （ls -l 可以查看权限等信息） 
+  （ls -l 可以查看权限等信息）
 
-- cd（英文全拼：change directory）：切换目录
+- cd：切换目录
 
-- pwd（英文全拼：print work directory）：显示目前的目录
+- pwd：显示目前的目录
 
-- mkdir（英文全拼：make directory）：创建一个新的目录
+- mkdir：创建一个新的目录
 
-- rmdir（英文全拼：remove directory）：删除一个空的目录
+- rmdir：删除一个空的目录
 
-- cp（英文全拼：copy file）: 复制文件或目录
+- cp: 复制文件或目录
 
-- mv（英文全拼：move file）: 移动文件与目录，或修改文件与目录的名称
+- mv: 移动文件与目录，或修改文件与目录的名称
 
-- rm（英文全拼：remove）: 删除文件或目录
+- rm: 删除文件
 
-- chmod -R 775 filename: 更改文件或者目录权限为775
+  （rm -r 可以删除目录）
 
-  （-R表示递归，可以同时修改文件夹及子文件夹和文件） 
-  
+- rmdir: 删除空目录
+
+- chmod -R 775 filename: 更改文件或者目录权限为 775
+
+  （-R 表示递归，可以同时修改文件夹及子文件夹和文件）
+
 - sudo -i: 提升用户权限
 
-#### mkdir的选项参数
+#### mkdir 的选项参数
 
 - **-m ：配置文件的权限！**
 
@@ -52,9 +54,9 @@
 
   帮助你直接将所需要的目录(包含上一级目录)递归创建起来！
 
-#### mv修改名称
+#### mv 修改名称
 
-例如：`mv file1.txt file2.txt`，可以将file1文本重命名为file2。
+例如：`mv file1.txt file2.txt`，可以将 file1 文本重命名为 file2。
 
 ![img](https://pic.shejibiji.com/i/2022/07/27/62e0d628bb9f6.png)
 
@@ -62,15 +64,15 @@
 
 sudo ufw status [numbered] 列出防火墙规则（可以选择加上序号）
 
-​	sudo ufw delete {num} 有序号后就可以指定删除某条规则
+​ sudo ufw delete {num} 有序号后就可以指定删除某条规则
 
-​	ufw delete deny 25/tcp comment 'Block access to smptd by default'
+​ ufw delete deny 25/tcp comment 'Block access to smptd by default'
 
 sudo ufw status verbose 查看当前防火墙状态
 
 sudo ufw app list 查看服务列表
 
-sudo ufw allow 22/tcp 允许22端口的TCP请求访问（不加“/tcp”为允许tcp和udp）
+sudo ufw allow 22/tcp 允许 22 端口的 TCP 请求访问（不加“/tcp”为允许 tcp 和 udp）
 
 sudo ufw deny 25[/tcp comment 'Block access to smptd by default'] 拒绝指定端口访问
 
@@ -112,7 +114,7 @@ passwd 修改密码
 
 #### more 查看文件
 
-####  touch 创建空白文件
+#### touch 创建空白文件
 
 **1.**命令含义：用于修改文件或者目录的时间属性，包括存取时间和更改时间。
 
@@ -120,7 +122,7 @@ passwd 修改密码
 
 **2.**主要用法示例：
 
-- touch file：修改file的时间属性，如果file不存在，则将创建一个新的空白文件。
+- touch file：修改 file 的时间属性，如果 file 不存在，则将创建一个新的空白文件。
 
 ![img](https://pic.shejibiji.com/i/2022/07/27/62e0d6306e323.png)
 
@@ -161,21 +163,21 @@ passwd 修改密码
 
 2、上一级目录可以直接用`../`表示，如果返回上级就可以直接输入命令：`cd ../`
 
-3、你可以使用 *man [命令]* 来查看各个命令的使用文档，
+3、你可以使用 _man [命令]_ 来查看各个命令的使用文档，
 
 如 ：`man cp`
 
-4、lsof -i :3306 查看端口号3306的占用情况。
+4、lsof -i :3306 查看端口号 3306 的占用情况。
 
 ![Ethan_2023-04-07_16-15-49](https://pic.shejibiji.com/i/2023/04/07/642fd1465e23c.jpg)
 
-5、`mdfind -name filename` 查看文件根据文件名，可以是完整的文件名和文件格式，也可以是关键词（关键词是头部关键词，并不是包含的意思，比如soft，你只能找到`softxxx`，而不能找到`xxxsoftxxx`）
+5、`mdfind -name filename` 查看文件根据文件名，可以是完整的文件名和文件格式，也可以是关键词（关键词是头部关键词，并不是包含的意思，比如 soft，你只能找到`softxxx`，而不能找到`xxxsoftxxx`）
 
-**知识点链接：**[Linux文件与目录管理](https://www.runoob.com/linux/linux-file-content-manage.html)
+**知识点链接：**[Linux 文件与目录管理](https://www.runoob.com/linux/linux-file-content-manage.html)
 
 ## Nginx 命令
 
-更新网站配置后需要重新加载一下nginx的配置。
+更新网站配置后需要重新加载一下 nginx 的配置。
 
 可以先确认下新的配置是否都正确：
 
@@ -217,11 +219,11 @@ touch departments/index.vue employees/index.vue setting/index.vue
  approvals/index.vue permission/index.vue
 ```
 
-就可以在1中创建的文件夹下分别创建vue文件
+就可以在 1 中创建的文件夹下分别创建 vue 文件
 
 ### 测试服务器是否可以连接某网站
 
-可以通过自带的连接工具，比如curl或者wget。
+可以通过自带的连接工具，比如 curl 或者 wget。
 
 ```bash
 wget -p http://site.com
@@ -243,4 +245,3 @@ os@osdeMacBook-Pro ~ % time curl -I https://www.shejibiji.com | grep HTTPS
 curl -I https://www.shejibiji.com  0.02s user 0.01s system 4% cpu 0.617 total
 grep HTTPS  0.00s user 0.00s system 0% cpu 0.616 total
 ```
-
