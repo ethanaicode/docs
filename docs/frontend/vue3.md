@@ -2,33 +2,33 @@
 
 > 主要参考视频教程：https://www.bilibili.com/video/BV1Rs4y127j8?p=13
 
+## 基础知识
+
 ### 基础方法
 
-split("")    切割字符串
+split("") 切割字符串
 
-reverse()    反转
+reverse() 反转
 
-join("")    合并字符串
+join("") 合并字符串
 
+### API 风格
 
+Vue 组件有两种风格：选项式 API（Options API）和组合式 API（Composition API），
 
-### API风格
-
-Vue组件有两种风格：选项式API（Options API）和组合式API（Composition API），
-
-组合式API是Vue3推荐的，看起来更接近React。
+组合式 API 是 Vue3 推荐的，看起来更接近 React。
 
 ### 模版语法
 
 双大括号 `{{ msg }}`
 
-每个绑定仅支持单一表达式，或者是可以被求值的JavaScript代码。
+每个绑定仅支持单一表达式，或者是可以被求值的 JavaScript 代码。
 
 （一个简单的判断方法是是否可以合法地写在`return`后面）
 
 **v-html**
 
-双大括号会将值转为纯文本，如果要插入HTML，则需要用到`v-html`指令。
+双大括号会将值转为纯文本，如果要插入 HTML，则需要用到`v-html`指令。
 
 ```vue
 <template>
@@ -43,11 +43,11 @@ Vue组件有两种风格：选项式API（Options API）和组合式API（Compos
 export default {
   data() {
     return {
-      message: 'Hello Vue!',
-      rawHtml: '<span style="color: red">This should be red.</span>'
-    }
-  }
-}
+      message: "Hello Vue!",
+      rawHtml: '<span style="color: red">This should be red.</span>',
+    };
+  },
+};
 </script>
 ```
 
@@ -55,9 +55,9 @@ export default {
 
 **v-bind**
 
-双大括号不能在HTML属性中用，想要绑定一个attribute，应该使用`v-bind`指令。
+双大括号不能在 HTML 属性中用，想要绑定一个 attribute，应该使用`v-bind`指令。
 
-如果绑定的值为`null`或者是`undefined`，那么这个attribute将从渲染的元素上移除。
+如果绑定的值为`null`或者是`undefined`，那么这个 attribute 将从渲染的元素上移除。
 
 因为`v-bind`非常常用，所以会有简写语法`:id="customeKey"`
 
@@ -74,12 +74,12 @@ export default {
 export default {
   data() {
     return {
-      message: 'Hello Vue!',
-      customeId: 'my-id',
-      customeIdSecond: 'my-id-second'
-    }
-  }
-}
+      message: "Hello Vue!",
+      customeId: "my-id",
+      customeIdSecond: "my-id-second",
+    };
+  },
+};
 </script>
 
 <style>
@@ -92,11 +92,11 @@ export default {
 </style>
 ```
 
-也可以动态绑定多个值，只需要绑定一个包含多个attribute的JavaScript对象即可。
+也可以动态绑定多个值，只需要绑定一个包含多个 attribute 的 JavaScript 对象即可。
 
 ### 条件渲染 v-if
 
-在Vue中，提供了条件渲染，类似JavaScript中的条件语句：
+在 Vue 中，提供了条件渲染，类似 JavaScript 中的条件语句：
 
 - v-if
 - v-else
@@ -109,7 +109,7 @@ export default {
 
 `v-show` 总是被渲染。
 
-总的来说，v-if 有更高的切换开销，而v-show有更高的初始渲染开销。
+总的来说，v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。
 
 因此，如果频繁切换，还是`v-show`更好。如果运行时条件很少改变，则`v-if`更合适。
 
@@ -132,33 +132,33 @@ export default {
   data() {
     return {
       listData: [
-        { id: 1, name: 'A' },
-        { id: 2, name: 'B' },
-        { id: 3, name: 'C' }
-      ]
-    }
-  }
-}
+        { id: 1, name: "A" },
+        { id: 2, name: "B" },
+        { id: 3, name: "C" },
+      ],
+    };
+  },
+};
 </script>
 ```
 
 `:key="index"`
 
-Vue默认“就地更新”，通过 `v-for` 来渲染列表，所以如果DOM元素顺序改变，也会重新渲染所有元素。
+Vue 默认“就地更新”，通过 `v-for` 来渲染列表，所以如果 DOM 元素顺序改变，也会重新渲染所有元素。
 
 如果想重用和重新排序现有的元素，就需要为每个元素对应的块提供一个唯一的`key`attribute，来减少内存的消耗。
 
-*绑定的期待是一个基础类型的值，如字符串或者 number 类型*
+_绑定的期待是一个基础类型的值，如字符串或者 number 类型_
 
 真实的应用中，不推荐使用`index`作为`key` 值，因为要确保每一条数据的唯一索性不会发生改变，一般使用自定义的`id` 来作为 `key` 值。
 
 ### 事件处理 v-on(@)
 
-监听DOM事件，并在事件触发时自信对应的JavaScript。
+监听 DOM 事件，并在事件触发时自信对应的 JavaScript。
 
 值可以为：
 
-1. 内联事件处理器（Javascript语句）
+1. 内联事件处理器（Javascript 语句）
 2. 方法事件处理器
 
 事件支持传递参数，默认参数为`e`事件，如果传递了别的参数，依然还想要传递`event`参数，就需要加`$event`，类似下面这样：
@@ -175,20 +175,20 @@ Vue默认“就地更新”，通过 `v-for` 来渲染列表，所以如果DOM�
 export default {
   data() {
     return {
-      count: 0
-    }
+      count: 0,
+    };
   },
   methods: {
     increment(text, e) {
-      e.target.innerText = text
-      this.count++
-    }
-  }
-}
+      e.target.innerText = text;
+      this.count++;
+    },
+  },
+};
 </script>
 ```
 
-Vue为`v-on`提供了**事件修饰符**，常用有以下：
+Vue 为`v-on`提供了**事件修饰符**，常用有以下：
 
 - .stop
 - .prevent
@@ -213,26 +213,18 @@ Vue为`v-on`提供了**事件修饰符**，常用有以下：
 <!-- 路径传递参数 -->
 id: {{ $route.params.id }}
 <!-- router/index.js -->
-const routes = [
-  {
-    path: "/users/:id?",	<!-- 如果有？表示是可选参数 -->
-    component: () => import("@/views/Users.vue"),
-  }
-];
+const routes = [ { path: "/users/:id?",
+<!-- 如果有？表示是可选参数 -->
+component: () => import("@/views/Users.vue"), } ];
 ```
 
 也可以定义别名，这样就可以使用别名来访问对应的组件
 
 ```vue
 <!-- router/index.js -->
-const routes = [
-  {
-    path: "/",
-    alias: ["/home", "/index"],    <!-- 如果是单个别名，可以使用字符串就好 -->
-    name: "Home",
-    component: () => import("@/views/Home.vue"),
-  }
-];
+const routes = [ { path: "/", alias: ["/home", "/index"],
+<!-- 如果是单个别名，可以使用字符串就好 -->
+name: "Home", component: () => import("@/views/Home.vue"), } ];
 ```
 
 **嵌套路由**
@@ -241,30 +233,11 @@ const routes = [
 
 ```vue
 <!-- router/index.js -->
-const routes = [
-  {
-    path: "/vip",
-    name: "VIP",
-    component: () => import("@/views/VIP.vue"),
-    children: [
-      {
-        path: "",
-        name: "VIPHome",
-        component: () => import("@/views/vip/Home.vue"),
-      },
-      {
-        path: "profile",
-        name: "VIPProfile",
-        component: () => import("@/views/vip/Profile.vue"),
-      },
-      {
-        path: "orders",
-        name: "VIPOrders",
-        component: () => import("@/views//vip/Orders.vue"),
-      },
-    ],
-  },
-];
+const routes = [ { path: "/vip", name: "VIP", component: () =>
+import("@/views/VIP.vue"), children: [ { path: "", name: "VIPHome", component:
+() => import("@/views/vip/Home.vue"), }, { path: "profile", name: "VIPProfile",
+component: () => import("@/views/vip/Profile.vue"), }, { path: "orders", name:
+"VIPOrders", component: () => import("@/views//vip/Orders.vue"), }, ], }, ];
 <!-- src/views/VIP.vue -->
 <template>
   <div>
@@ -273,7 +246,7 @@ const routes = [
     <router-link to="/vip/orders">Orders</router-link> |
     <router-link to="/vip/profile">Profile</router-link>
   </div>
-	<!-- 记得添加渲染标签，才能显示子路由的内容 -->
+  <!-- 记得添加渲染标签，才能显示子路由的内容 -->
   <router-view></router-view>
 </template>
 
@@ -286,30 +259,20 @@ const routes = [
 
 ```vue
 <!-- router/index.js -->
-const routes = [
-  {
-    path: "/",
-    alias: ["/home", "/index"],    <!-- 如果是单个别名，可以使用字符串就好 -->
-    name: "Home",
-    component: () => import("@/views/Home.vue"),
-  },
-  {
-    path: "/svip",
-    redirect: "/",
-  },
-];
+const routes = [ { path: "/", alias: ["/home", "/index"],
+<!-- 如果是单个别名，可以使用字符串就好 -->
+name: "Home", component: () => import("@/views/Home.vue"), }, { path: "/svip",
+redirect: "/", }, ];
 ```
 
 **动态属性绑定**
 
 ```vue
-<router-link :to="{ path: '/users', query: { id: 1 } }"
-  >Users</router-link
->
+<router-link :to="{ path: '/users', query: { id: 1 } }">Users</router-link>
 <!-- 必须在路由中定义了名字，才可以使用路径传参（params） -->
-<router-link :to="{ name: 'Users', params: { id: 1 } }"
-  >Users-Params</router-link
->
+<router-link
+  :to="{ name: 'Users', params: { id: 1 } }"
+>Users-Params</router-link>
 <!-- src/views/Users.vue -->
 <template>
   <div>
@@ -329,7 +292,7 @@ const routes = [
 
 **编程式导航**
 
-通过使用useRouter，可以实现编程导航，参数类似上面案例中的`:to="..."`。
+通过使用 useRouter，可以实现编程导航，参数类似上面案例中的`:to="..."`。
 
 ```vue
 <script setup>
@@ -357,30 +320,13 @@ const goTo = (path) => router.push(path);
 
 ```vue
 <!-- router/index.js -->
-import { createRouter, createWebHistory } from 'vue-router';
-
-const router = createRouter({
-  history: createWebHistory(),
-  routes: [
-    // 定义路由
-  ]
-});
-
-router.beforeEach((to, from, next) => {
-  // 在路由导航开始之前执行的逻辑
-  // 可以在这里进行权限验证、路由跳转等操作
-  
-  // 示例：验证用户是否已经登录
-  if (to.meta.requiresAuth && !isLoggedIn()) {
-    // 如果需要登录且用户未登录，则跳转到登录页面
-    next('/login');
-  } else {
-    // 否则，继续路由导航
-    next();
-  }
-});
-
-export default router;
+import { createRouter, createWebHistory } from 'vue-router'; const router =
+createRouter({ history: createWebHistory(), routes: [ // 定义路由 ] });
+router.beforeEach((to, from, next) => { // 在路由导航开始之前执行的逻辑 //
+可以在这里进行权限验证、路由跳转等操作 // 示例：验证用户是否已经登录 if
+(to.meta.requiresAuth && !isLoggedIn()) { //
+如果需要登录且用户未登录，则跳转到登录页面 next('/login'); } else { //
+否则，继续路由导航 next(); } }); export default router;
 ```
 
 `to`和`from`参数，分别记录了将要去的页面以及之前页面的对象信息。
@@ -391,61 +337,20 @@ export default router;
 
 ```vue
 <!-- router/index.js -->
-import { createRouter, createWebHistory } from 'vue-router';
-
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: Dashboard,
-    // 添加 requiresAuth 元信息
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login
-  }
-];
-
-const router = createRouter({
-  history: createWebHistory(),
-  routes
-});
-
-router.beforeEach((to, from, next) => {
-  // 在路由导航开始之前执行的逻辑
-  // 可以在这里根据路由的 meta 元信息进行权限验证等操作
-  
-  // 检查是否需要认证
-  if (to.meta.requiresAuth) {
-    // 假设在这里进行认证逻辑判断
-    const isAuthenticated = checkAuth();
-    
-    if (!isAuthenticated) {
-      // 如果用户未认证，则导航到登录页面
-      next('/login');
-    } else {
-      // 如果用户已认证，则继续路由导航
-      next();
-    }
-  } else {
-    // 如果不需要认证，则直接继续路由导航
-    next();
-  }
-});
-
-export default router;
+import { createRouter, createWebHistory } from 'vue-router'; const routes = [ {
+path: '/', name: 'Home', component: Home }, { path: '/dashboard', name:
+'Dashboard', component: Dashboard, // 添加 requiresAuth 元信息 meta: {
+requiresAuth: true } }, { path: '/login', name: 'Login', component: Login } ];
+const router = createRouter({ history: createWebHistory(), routes });
+router.beforeEach((to, from, next) => { // 在路由导航开始之前执行的逻辑 //
+可以在这里根据路由的 meta 元信息进行权限验证等操作 // 检查是否需要认证 if
+(to.meta.requiresAuth) { // 假设在这里进行认证逻辑判断 const isAuthenticated =
+checkAuth(); if (!isAuthenticated) { // 如果用户未认证，则导航到登录页面
+next('/login'); } else { // 如果用户已认证，则继续路由导航 next(); } } else { //
+如果不需要认证，则直接继续路由导航 next(); } }); export default router;
 ```
 
-**在Vue Router中，`useRoute` 和 `useRouter` 有什么区别？**
+**在 Vue Router 中，`useRoute` 和 `useRouter` 有什么区别？**
 
 `useRoute` 用于获取当前路由信息，而 `useRouter` 用于获取路由实例，它们各自用于不同的场景和目的。
 

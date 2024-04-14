@@ -7,10 +7,10 @@
 
 ### 批量更新数据
 
-可以加上where条件来更新部分数据。
+可以加上 where 条件来更新部分数据。
 
-```mysql
-UPDATE time_tracker 
+```sql
+UPDATE time_tracker
 SET user_id = 51
 
 WHERE user_id = 119
@@ -18,9 +18,9 @@ WHERE user_id = 119
 
 ### 批量插入数据
 
-```mysql
+```sql
 INSERT INTO rental.`rentalproperties` (`id`, `propertieName`, `propertyDescription`, `type`, `checkBoxStr`, `deletestatus`, `is_alert`)
-VALUES 
+VALUES
 (29, 'Business-Paket', 'DB3', 1, '', 'NOT_DELETED', 0),
 (30, 'Park-Paket mit 360°-Kamera', 'P47', 1, '', 'NOT_DELETED', 0);
 ```
@@ -29,17 +29,17 @@ VALUES
 
 ### DECIMAL(long,decimal) - 带精度的十进制数字
 
-例如：DECIMAL(10,2) 
+例如：DECIMAL(10,2)
 
 The `DECIMAL` type allows you to specify the total number of digits (precision) and the number of digits after the decimal point (scale).
 
-In the above example, `10` represents the total number of digits, and `2` represents the number of digits after the decimal point. 
+In the above example, `10` represents the total number of digits, and `2` represents the number of digits after the decimal point.
 
 ### ENUM(...value) - 预设单选值
 
 例如：ENUM('Active', 'Inactive', 'Pending')
 
-It allows you to specify a list of acceptable values for the field, and each field can only hold one of those specified values. 
+It allows you to specify a list of acceptable values for the field, and each field can only hold one of those specified values.
 
 ### TIMESTAMP - 时间类型
 
@@ -47,8 +47,8 @@ It allows you to specify a list of acceptable values for the field, and each fie
 
 例如：
 
-```mysql
-ALTER TABLE users 
+```sql
+ALTER TABLE users
 ADD COLUMN created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 ADD COLUMN updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 ```
@@ -57,27 +57,27 @@ ADD COLUMN updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CUR
 
 ### DELETE 删除行
 
-要记得放where条件，不然就是清空数据库表了。
+要记得放 where 条件，不然就是清空数据库表了。
 
-```mysql
+```sql
 DELETE FROM customer
 WHERE id_customer NOT IN (2,3,4,5,6,8,9,11,44,138,179,275,459,464);
 ```
 
 ### ALTER 新增字段
 
-```mysql
-ALTER TABLE tm_tt.customer 
+```sql
+ALTER TABLE tm_tt.customer
 ADD delete_status tinyint(1) DEFAULT 0 NOT NULL COMMENT '0 not deleted, 1 deleted';
 
--- or other 
+-- or other
 
-ALTER TABLE customer 
+ALTER TABLE customer
 ADD `deletestatus` enum('NOT_DELETED','USER_DELETED','TRASH_DELETED','DELETED') DEFAULT 'NOT_DELETED';
 
 -- AUTO_INCREMENT=1
 
-ALTER TABLE rental_db.logs 
+ALTER TABLE rental_db.logs
 AUTO_INCREMENT=1;
 ```
 
@@ -85,19 +85,19 @@ AUTO_INCREMENT=1;
 
 拼接多个字符串：
 
-```mysql
+```sql
 SELECT CONCAT("SQL ", "Tutorial ", "is ", "fun!") AS ConcatenatedString;
 ```
 
 **CONCAT_WS: **拼接多个表达式，并以符号分割他们：
 
-```mysql
+```sql
 SELECT CONCAT_WS("-", "SQL", "Tutorial", "is", "fun!") AS ConcatenatedString;
 ```
 
 ### GROUP_CONCAT 数据分组处理
 
-```mysql
+```sql
 -- 查出所有customer_id并去重
 SELECT GROUP_CONCAT(DISTINCT customer_id SEPARATOR ',') AS customer_ids
 FROM task;
@@ -107,13 +107,13 @@ FROM task;
 
 返回一个字符串的位置，从一个字符串列表里面：
 
-```mysql
+```sql
 SELECT FIND_IN_SET("q", "s,q,l");
 ```
 
 ## 高级操作
 
-### 查询所有的表名并输出为array()
+### 查询所有的表名并输出为 array()
 
 ```php
 public function getTableList()
@@ -129,7 +129,7 @@ public function getTableList()
 
 使用了 FOUND_ROW() 函数，配合 SQL_CALC_FOUND_ROWS 一起使用。
 
-```mysql
+```sql
 -- 告诉MySQL将sql处理的数量记下来
 
 SELECT SQL_CALC_FOUND_ROWS * FROM table_name LIMIT 0,10;
@@ -139,14 +139,14 @@ SELECT SQL_CALC_FOUND_ROWS * FROM table_name LIMIT 0,10;
 SELECT FOUND_ROW() AS total
 ```
 
-这个只有当where限制条件多时才会快点。
+这个只有当 where 限制条件多时才会快点。
 
 有覆盖索引时这个性能高，有覆盖索引时使用 COUNT() 性能高。
 
 ### 特殊查询
 
-```mysql
--- Mysql Vesion 
+```sql
+-- Mysql Vesion
 SELECT VERSION();
 ```
 
@@ -154,7 +154,7 @@ SELECT VERSION();
 
 ### 日期区间查询
 
-开始和结束时间包含在某区间，比如包含当日（2023年4月18日）：
+开始和结束时间包含在某区间，比如包含当日（2023 年 4 月 18 日）：
 
 ```sql
 AND BeginDateTime <= '2023-04-18 23:59:59' AND EndDateTime>= '2023-04-18 00:00:00'
@@ -164,7 +164,7 @@ AND BeginDateTime <= '2023-04-18 23:59:59' AND EndDateTime>= '2023-04-18 00:00:0
 
 查出一个表内容，并查处相关表中这个内容出现的次数。
 
-```mysql
+```sql
 SELECT rp.*, COUNT(rps.rentalpropertiesId) AS total
 FROM rentalproperties AS rp
 LEFT JOIN rentalpropertiesselection AS rps ON rp.id = rps.rentalpropertiesId
@@ -175,22 +175,22 @@ GROUP BY rp.id
 
 > CASE 语句类似于 if-else 结构，但需要注意的是，它按顺序评估每个条件，并返回第一个为真的条件的结果（如果没有条件为真，则返回默认值）。
 
-```mysql
+```sql
 -- 控制不同的排序
 
-ORDER BY 
-CASE 
-  WHEN type = 'project' THEN CONCAT(project_id, 'a') 
-  ELSE CONCAT(project_id, 'b', order_id) 
+ORDER BY
+CASE
+  WHEN type = 'project' THEN CONCAT(project_id, 'a')
+  ELSE CONCAT(project_id, 'b', order_id)
 END
 ASC
 
 -- 选择匹配值
 
 LEFT JOIN customer c ON c.id_customer =
-CASE 
-    WHEN t.customer_id IS NOT NULL THEN t.customer_id 
-    WHEN o.customer_id IS NOT NULL THEN o.customer_id 
+CASE
+    WHEN t.customer_id IS NOT NULL THEN t.customer_id
+    WHEN o.customer_id IS NOT NULL THEN o.customer_id
     WHEN p.customer_id IS NOT NULL THEN p.customer_id
 END
 
