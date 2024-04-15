@@ -1,4 +1,4 @@
-# Docker 基础命令及常用案例
+# Docker
 
 ## Docker 镜像
 
@@ -60,17 +60,15 @@ docker exec -it 2387174966a0 php /home/apollo/code_repository_v2/timetracker/wor
 docker exec -it 06a05968e5b6 php /home/apollo/code/timetracker/workers/BackgroundMailProcessor.php &
 ```
 
-
-
 ## Docker 网络
 
 `docker network ls `
 
-列出docker网络列表
+列出 docker 网络列表
 
 `docker network inspect bridge`
 
-检查docker网络配置状态
+检查 docker 网络配置状态
 
 bridge 为网络别名
 
@@ -82,11 +80,11 @@ bridge 为网络别名
 
 `docker-compose build` 重新构建组件
 
-当有更新在Dockerfile时，需要执行这条命令重新构建镜像，以确保改变被成功应用。
+当有更新在 Dockerfile 时，需要执行这条命令重新构建镜像，以确保改变被成功应用。
 
 ## Dockerfile
 
-### Dockerfile指令说明简洁版
+### Dockerfile 指令说明简洁版
 
 - FROM
 
@@ -102,7 +100,7 @@ bridge 为网络别名
 
 - CMD
 
-运行容器时执行的shell环境
+运行容器时执行的 shell 环境
 
 - VOLUME
 
@@ -110,7 +108,7 @@ bridge 为网络别名
 
 - USER
 
-为RUN、CMD、和 ENTRYPOINT 执行命令指定运行用户
+为 RUN、CMD、和 ENTRYPOINT 执行命令指定运行用户
 
 - WORKDIR
 
@@ -134,15 +132,15 @@ bridge 为网络别名
 
 - ADD
 
-拷贝文件或目录到容器中，如果是URL或压缩包便会自动下载或自动解压
+拷贝文件或目录到容器中，如果是 URL 或压缩包便会自动下载或自动解压
 
 - COPY
 
-拷贝文件或目录到容器中，跟ADD类似，但不具备自动下载或解压的功能
+拷贝文件或目录到容器中，跟 ADD 类似，但不具备自动下载或解压的功能
 
 - ENTRYPOINT
 
-运行容器时执行的shell命令
+运行容器时执行的 shell 命令
 
 ## 更多命令
 
@@ -154,41 +152,41 @@ bridge 为网络别名
 
 ## 常见案例
 
-### 一、从线上拉取的项目，已包含Dockerfile文件，该如何本地运行
+### 一、从线上拉取的项目，已包含 Dockerfile 文件，该如何本地运行
 
-1\. 首先确保你已经安装了Docker。
+1\. 首先确保你已经安装了 Docker。
 
-2\. 打开命令行终端，导航到包含Dockerfile的项目目录。
+2\. 打开命令行终端，导航到包含 Dockerfile 的项目目录。
 
-3\. 打开Dockerfile文件，查看它的内容，了解它是如何定义镜像的。
+3\. 打开 Dockerfile 文件，查看它的内容，了解它是如何定义镜像的。
 
-主要确认下它监听的端口是多少，如果使用的是80端口，就可以不用管。
+主要确认下它监听的端口是多少，如果使用的是 80 端口，就可以不用管。
 
-4\. 使用`docker build`命令来构建Docker镜像。
+4\. 使用`docker build`命令来构建 Docker 镜像。
 
-在终端中运行以下命令，将 `<image-name>` 替换为你想要为镜像命名的名称，`<path-to-dockerfile>` 替换为Dockerfile所在的路径（通常是当前目录）：
+在终端中运行以下命令，将 `<image-name>` 替换为你想要为镜像命名的名称，`<path-to-dockerfile>` 替换为 Dockerfile 所在的路径（通常是当前目录）：
 
-   ```bash
-   docker build -t <image-name> <path-to-dockerfile>
-   ```
+```bash
+docker build -t <image-name> <path-to-dockerfile>
+```
 
-   例如：
+例如：
 
-   ```bash
-   docker build -t myapp .
-   ```
+```bash
+docker build -t myapp .
+```
 
-   这将根据Dockerfile的定义构建一个Docker镜像，并将其命名为 `<image-name>`。
+这将根据 Dockerfile 的定义构建一个 Docker 镜像，并将其命名为 `<image-name>`。
 
-5\. 接下来，使用`docker run`命令来运行你的Docker镜像。在命令中，你需要指定镜像名称、端口映射和其他选项，以便将容器与主机连接。例如：
+5\. 接下来，使用`docker run`命令来运行你的 Docker 镜像。在命令中，你需要指定镜像名称、端口映射和其他选项，以便将容器与主机连接。例如：
 
 ```
 docker run -p 8080:80 myapp
 ```
 
-这将启动一个基于你的镜像的Docker容器，将容器的80端口映射到主机的8080端口。你可以根据需要修改端口映射。
+这将启动一个基于你的镜像的 Docker 容器，将容器的 80 端口映射到主机的 8080 端口。你可以根据需要修改端口映射。
 
-6\. 当容器运行时，你可以通过浏览器或其他HTTP客户端访问`http://localhost:8080`来查看应用程序，如果你的应用程序在容器中监听80端口的话。
+6\. 当容器运行时，你可以通过浏览器或其他 HTTP 客户端访问`http://localhost:8080`来查看应用程序，如果你的应用程序在容器中监听 80 端口的话。
 
 如果想把实时的改动反应到容器中，还需要挂载文件夹。
 
@@ -199,7 +197,7 @@ docker run -p 8080:80 myapp
 docker run -v /Applications/MAMP/htdocs/rental:/var/www/html -p 8080:80 myapp
 ```
 
-注意：`/Applications/MAMP/htdocs/rental`即为包含Dockerfile的项目目录，你需要根据自己的目录进行修改。
+注意：`/Applications/MAMP/htdocs/rental`即为包含 Dockerfile 的项目目录，你需要根据自己的目录进行修改。
 
 可选参数：
 
@@ -213,8 +211,7 @@ docker run -v /Applications/MAMP/htdocs/rental:/var/www/html -p 8080:80 myapp
 
 ```bash
 # 删除所有容器
-docker rm -f $(docker ps -aq)  
+docker rm -f $(docker ps -aq)
 # 删除所有镜像
 docker rmi $(docker images -q)
 ```
-

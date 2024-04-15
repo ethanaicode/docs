@@ -1,4 +1,4 @@
-# 本栏目导航
+# 更多笔记文档导航
 
 - [Docker](./docker)
 
@@ -7,3 +7,5 @@
 - [Mac](./mac)
 
 - [Brew](./brew)
+
+- [VS Code](./vscode)

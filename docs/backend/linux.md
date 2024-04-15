@@ -1,20 +1,24 @@
-## 常用的 Linux 命令
+# Linux
 
-> php xx.php &: 加个“&”可以让 php 在后台运行进程
+## 文件目录
 
-### 常用的文件目录
+- /etc：系统配置文件
 
-> Apache 默认网站目录：/var/www/html
->
-> Apache 配置目录： /etc/apache2
->
-> sudo service apache2 stop
->
-> sudo service apache2 start
->
-> sudo service apache2 restart
+  通常包括系统的配置文件和程序的配置文件
 
-### 处理目录命令
+- /var：系统运行时需要改变的文件
+
+  通常包括日志文件、缓存文件、软件包文件等
+
+### 常用的目录
+
+Apache 默认网站目录：/var/www/html
+
+Apache 配置目录： /etc/apache2
+
+## Linux 命令
+
+### 基础命令
 
 - ls: 列出目录及文件名
 
@@ -40,13 +44,27 @@
 
 - rm: 删除文件
 
-  （rm -r 可以删除目录）
+  -r 可以删除目录
 
 - rmdir: 删除空目录
 
 - chmod -R 775 filename: 更改文件或者目录权限为 775
 
-  （-R 表示递归，可以同时修改文件夹及子文件夹和文件）
+  -R 表示递归，可以同时修改文件夹及子文件夹和文件
+
+  三个数字分别代表所有者、所属组、其他用户的权限，7 代表读写执行，5 代表读和执行，0 代表无权限
+
+  也可以使用类似`ug=rwx, o=rw`的方式来修改权限, u 代表所有者，g 代表所属组，o 代表其他用户，a 代表所有用户
+
+- chwon -R USER:GROUP filename: 更改文件或者目录的所有者和所属组
+
+  -R 表示递归，可以同时修改文件夹及子文件夹和文件
+
+- cat filename: 查看文件内容
+
+  less filename: 逐页查看文件内容(空格翻页)
+
+  more filename: 逐页查看文件内容(空格翻页)
 
 - sudo -i: 提升用户权限
 
@@ -66,13 +84,39 @@
 
 ![img](https://pic.shejibiji.com/i/2022/07/27/62e0d628bb9f6.png)
 
+### 常用的应用命令
+
+### Apache 命令
+
+sudo service apache2 stop
+
+sudo service apache2 start
+
+sudo service apache2 restart
+
+#### Nginx 命令
+
+更新网站配置后需要重新加载一下 nginx 的配置。
+
+可以先确认下新的配置是否都正确：
+
+```bash
+nginx -t
+```
+
+重新加载配置命令：
+
+```bash
+nginx -s reload
+```
+
 ### 防火墙及端口的管理
 
 sudo ufw status [numbered] 列出防火墙规则（可以选择加上序号）
 
-​ sudo ufw delete {num} 有序号后就可以指定删除某条规则
+sudo ufw delete {num} 有序号后就可以指定删除某条规则
 
-​ ufw delete deny 25/tcp comment 'Block access to smptd by default'
+ufw delete deny 25/tcp comment 'Block access to smptd by default'
 
 sudo ufw status verbose 查看当前防火墙状态
 
@@ -98,7 +142,7 @@ To get information on Squid profile/app, run:
 
 passwd 修改密码
 
-### 更多常用命令
+### 常用命令详解
 
 #### cat 打印、合并文件
 
@@ -118,19 +162,13 @@ passwd 修改密码
 
 ![img](https://pic.shejibiji.com/i/2022/07/27/62e0d62515121.png)
 
-#### more 查看文件
+#### 文件权限的数字和权限之间的关系
 
-#### touch 创建空白文件
+待补充……
 
-**1.**命令含义：用于修改文件或者目录的时间属性，包括存取时间和更改时间。
+#### ls -l 长目录代表的意思
 
-若文件不存在，系统会建立一个新的空白文件。
-
-**2.**主要用法示例：
-
-- touch file：修改 file 的时间属性，如果 file 不存在，则将创建一个新的空白文件。
-
-![img](https://pic.shejibiji.com/i/2022/07/27/62e0d6306e323.png)
+待补充……
 
 ### 系统运行状态信息相关
 
@@ -181,23 +219,7 @@ passwd 修改密码
 
 **知识点链接：**[Linux 文件与目录管理](https://www.runoob.com/linux/linux-file-content-manage.html)
 
-## Nginx 命令
-
-更新网站配置后需要重新加载一下 nginx 的配置。
-
-可以先确认下新的配置是否都正确：
-
-```bash
-nginx -t
-```
-
-重新加载配置命令：
-
-```bash
-nginx -s reload
-```
-
-## 高阶使用案例
+## 高阶案例
 
 ### 远程复制文件到本地
 

@@ -1,4 +1,4 @@
-# Note HTML-JS-CSS
+# HTML-JS-CSS
 
 ## HTML
 
@@ -23,4 +23,3 @@ localStorage.setItem("lastname", "Smith");
 // Retrieve
 document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 ```
-

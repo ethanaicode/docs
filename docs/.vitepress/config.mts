@@ -56,6 +56,7 @@ export default defineConfig({
           { text: "Git", link: "/notes/git" },
           { text: "Mac", link: "/notes/mac" },
           { text: "Brew", link: "/notes/brew" },
+          { text: "VS Code", link: "/notes/vscode" },
         ],
       },
       // 外部链接
@@ -111,6 +112,7 @@ export default defineConfig({
               { text: "Git", link: "/notes/git" },
               { text: "Mac", link: "/notes/mac" },
               { text: "Brew", link: "/notes/brew" },
+              { text: "VS Code", link: "/notes/vscode" },
             ],
           },
           { text: "Main Site", link: "https://www.shejibiji.com/" },

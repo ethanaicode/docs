@@ -1,4 +1,6 @@
-> /etc/redis/redis.conf 
+# Redis
+
+> /etc/redis/redis.conf
 
 select
 
@@ -32,11 +34,11 @@ redis-cli -h 127.0.0.1 -p 6379 -a "mypass"
 config set requirepass youpassword
 ```
 
-但这个配置如果redis被重启就失效了，如果需要永久有效需要修改配置文件。
+但这个配置如果 redis 被重启就失效了，如果需要永久有效需要修改配置文件。
 
 一般路径为：`/usr/local/etc/redis.conf`
 
-编辑时可以直接搜索 `requirepass foobared` 找到对应的位置（输入`/`可以在vim中搜索）
+编辑时可以直接搜索 `requirepass foobared` 找到对应的位置（输入`/`可以在 vim 中搜索）
 
 然后输入自己的密码即可：
 
@@ -44,4 +46,3 @@ config set requirepass youpassword
 # requirepass foobared
 requirepass 123456
 ```
-

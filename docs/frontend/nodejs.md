@@ -1,6 +1,8 @@
->  npm用于包管理
+# NodeJs
+
+> npm 用于包管理
 >
-> npx用于简单命令（临时用）
+> npx 用于简单命令（临时用）
 
 > npm update
 >
@@ -19,6 +21,3 @@ npm set registry https://registry.npmjs.org/
 ### npx run
 
 本地开发：npm run dev
-
-
-
