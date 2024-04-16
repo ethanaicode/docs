@@ -5,6 +5,11 @@ export default defineConfig({
   lang: "zh-CN",
   title: "设计笔记",  // 网站标题
   description: "设计笔记的文档集合",
+  head: [
+    ["link", { rel: "icon", href: "/logo.jpg" }],
+    ["meta", { name: "author", content: "Ethan" }],
+    ["meta", { name: "keywords", content: "设计笔记,前端开发,后端运维,PHP开发文档,Vue3文档" }],
+  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     siteTitle: '设计笔记', // 导航栏标题
@@ -40,6 +45,15 @@ export default defineConfig({
           { text: "Vim", link: "/backend/vim" },
           { text: "Supervisor", link: "/backend/supervisor" },
           {
+            text: "PHP知识",
+            items: [
+              { text: "Methods", link: "/backend/php_methods" },
+              { text: "Advanced", link: "/backend/php_advanced" },
+              { text: "Basic", link: "/backend/php_fundamentals" },
+              { text: "Laravel", link: "/backend/php_laravel" },
+            ],
+          },
+          {
             text: "PHP扩展",
             items: [
               { text: "FPDF", link: "/backend/php_fpdf" },
@@ -56,7 +70,7 @@ export default defineConfig({
           { text: "Git", link: "/notes/git" },
           { text: "Mac", link: "/notes/mac" },
           { text: "Brew", link: "/notes/brew" },
-          { text: "VS Code", link: "/notes/vscode" },
+          { text: "VSCode", link: "/notes/vscode" },
         ],
       },
       // 外部链接
@@ -94,6 +108,16 @@ export default defineConfig({
               { text: "Vim", link: "/backend/vim" },
               { text: "Supervisor", link: "/backend/supervisor" },
               {
+                text: "PHP Knowledge",
+                collapsed: true,
+                items: [
+                  { text: "Methods", link: "/backend/php_methods" },
+                  { text: "Advanced", link: "/backend/php_advanced" },
+                  { text: "Basic", link: "/backend/php_fundamentals" },
+                  { text: "Laravel", link: "/backend/php_laravel" },
+                ],
+              },
+              {
                 text: "PHP Extension",
                 collapsed: true,
                 items: [
@@ -112,7 +136,7 @@ export default defineConfig({
               { text: "Git", link: "/notes/git" },
               { text: "Mac", link: "/notes/mac" },
               { text: "Brew", link: "/notes/brew" },
-              { text: "VS Code", link: "/notes/vscode" },
+              { text: "VSCode", link: "/notes/vscode" },
             ],
           },
           { text: "Main Site", link: "https://www.shejibiji.com/" },
@@ -121,7 +145,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      // { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/LargaRisen' }
     ],
 
     search: {

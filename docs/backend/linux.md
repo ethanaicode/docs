@@ -10,11 +10,13 @@
 
   通常包括日志文件、缓存文件、软件包文件等
 
-### 常用的目录
+### 网页开发目录
 
-Apache 默认网站目录：/var/www/html
+Apache 默认网站目录：/var/www/html/
 
-Apache 配置目录： /etc/apache2
+Apache 配置目录： /etc/apache2/
+
+PHP-FPM 配置目录：/etc/php-fpm.d/
 
 ## Linux 命令
 
@@ -22,7 +24,7 @@ Apache 配置目录： /etc/apache2
 
 - ls: 列出目录及文件名
 
-  -l 可以查看权限等信息
+  -l 长信息，可以查看权限等信息
 
   -h 显示文件尺寸
 
@@ -30,7 +32,29 @@ Apache 配置目录： /etc/apache2
 
 - cd：切换目录
 
+  `-`：返回上一次所在的目录
+
 - pwd：显示目前的目录
+
+- grep：查找文件内容
+
+  -i 忽略大小写
+
+  -n 显示行号
+
+  -v 反向选择
+
+  -r 递归查找
+
+- find：查找文件
+
+  /etc -name "passwd" 查找 /etc 目录下的 passwd 文件
+
+  /etc -iname "passwd" 忽略大小写查找
+
+  /etc -type f 查找文件
+
+  /etc -type d 查找目录
 
 - touch：创建文件
 
@@ -66,7 +90,33 @@ Apache 配置目录： /etc/apache2
 
   more filename: 逐页查看文件内容(空格翻页)
 
-- sudo -i: 提升用户权限
+- curl: 用于传输数据
+
+  -I 只显示响应头
+
+  -L 跟踪重定向
+
+  -o 将下载的内容保存到文件
+
+  -O 将下载的内容保存到文件，文件名为 URL 的最后部分
+
+- tar: 打包文件
+
+  -c 创建新的归档文件
+
+  -x 解开归档文件
+
+  -v 显示详细信息
+
+  -f 指定归档文件
+
+  -z 使用 gzip 压缩
+
+  -j 使用 bzip2 压缩
+
+  -r 向归档文件中添加文件
+
+  -t 显示归档文件中的内容
 
 #### mkdir 的选项参数
 
@@ -82,11 +132,55 @@ Apache 配置目录： /etc/apache2
 
 例如：`mv file1.txt file2.txt`，可以将 file1 文本重命名为 file2。
 
-![img](https://pic.shejibiji.com/i/2022/07/27/62e0d628bb9f6.png)
+### 用户相关命令
 
-### 常用的应用命令
+- id: 查看用户 ID 和所属组 ID
 
-### Apache 命令
+  -u 查看用户 ID，后面可以指定用户名
+
+  -g 查看所属组 ID，后面可以指定用户名
+
+- whoami: 查看当前用户
+
+- sudo -i: 提升用户权限
+
+- su: 切换用户
+
+  -l 切换到 root 用户
+
+  -s 指定 shell
+
+- useradd: 添加用户
+
+  -m 创建用户的家目录
+
+  -e 设置用户的过期时间
+
+- userdel: 删除用户
+
+  -r 删除用户的家目录
+
+- usermod: 修改用户
+
+  -l 修改用户名
+
+  -g 修改用户所属组
+
+  -G 修改用户所属附加组
+
+  -d 修改用户家目录
+
+  -s 修改用户 shell
+
+  -e 修改用户过期时间
+
+- passwd: 修改密码
+
+- users: 查看当前登录系统的用户
+
+### 应用及服务命令
+
+#### Apache 命令
 
 sudo service apache2 stop
 
@@ -112,6 +206,8 @@ nginx -s reload
 
 ### 防火墙及端口的管理
 
+#### ufw
+
 sudo ufw status [numbered] 列出防火墙规则（可以选择加上序号）
 
 sudo ufw delete {num} 有序号后就可以指定删除某条规则
@@ -126,7 +222,7 @@ sudo ufw allow 22/tcp 允许 22 端口的 TCP 请求访问（不加“/tcp”为
 
 sudo ufw deny 25[/tcp comment 'Block access to smptd by default'] 拒绝指定端口访问
 
-#### 更多案例
+**更多案例**
 
 To allow IP address 192.168.1.10 access to port 22 for all protocols
 `sudo ufw allow from 192.168.1.10 to any port 22`
@@ -138,29 +234,53 @@ To allows subnet 192.168.1.0/24 to Sabma services, enter:
 To get information on Squid profile/app, run:
 `ufw app info Squid`
 
-### 用户相关命令
-
-passwd 修改密码
-
 ### 常用命令详解
 
 #### cat 打印、合并文件
 
-**1.**命令含义：Print and concatenate files
+1.命令含义：Print and concatenate files
 
-**2.**主要用法示例：
+2.主要用法示例：
 
 - cat file：将文件内容打印显示。
 
-![img](https://pic.shejibiji.com/i/2022/07/27/62e0d620328e6.png)
-
 - cat file1 file2> target_file：将多个文件合并到目标文件中。
 
-![img](https://pic.shejibiji.com/i/2022/07/27/62e0d621eb72d.png)
+```bash
+cat file1 file2 > target_file
+```
 
 - cat file1 file2 >> target_file：将几个文件附加到目标文件中。
 
-![img](https://pic.shejibiji.com/i/2022/07/27/62e0d62515121.png)
+```bash
+cat file1 file2 >> target_file
+```
+
+#### grep 查找文本
+
+查找文本在某个文件中
+
+可以加`-a`参数，表示以文本方式查看二进制文件
+
+```bash
+grep -a "text" filename
+```
+
+其中字符串内容可以使用正则表达式
+
+```bash
+grep -a "sc[0-9]*" filename
+```
+
+#### less 和 more 的区别
+
+`less` 和 `more` 都用于分页显示文本文件的内容，但是 `less` 拥有更多的功能和交互性。
+
+`less` 允许你向前和向后浏览文件，可以使用方向键、Page Up、Page Down、Home 和 End 等键进行操作，而 `more` 只能向前浏览，使用空格键向下翻页，使用回车键向下滚动一行。
+
+`less` 支持搜索、跳转、标记等功能，而 `more` 通常只能按顺序浏览文件。
+
+总的来说，`less` 是更加功能强大和灵活的文本查看工具，而 `more` 则是 `less` 的简化版，适用于简单的文本浏览需求。`cat` 则是用于将文件内容输出到终端的简单工具，不提供分页和交互式浏览功能。
 
 #### 文件权限的数字和权限之间的关系
 
@@ -170,7 +290,7 @@ passwd 修改密码
 
 待补充……
 
-### 系统运行状态信息相关
+### 系统运行状态
 
 1. **查看系统信息**：
    - `uname -a`: 显示当前系统的内核版本和其他信息。
@@ -215,11 +335,42 @@ passwd 修改密码
 
 ![Ethan_2023-04-07_16-15-49](https://pic.shejibiji.com/i/2023/04/07/642fd1465e23c.jpg)
 
-5、`mdfind -name filename` 查看文件根据文件名，可以是完整的文件名和文件格式，也可以是关键词（关键词是头部关键词，并不是包含的意思，比如 soft，你只能找到`softxxx`，而不能找到`xxxsoftxxx`）
-
 **知识点链接：**[Linux 文件与目录管理](https://www.runoob.com/linux/linux-file-content-manage.html)
 
-## 高阶案例
+## 使用案例
+
+### 网络相关
+
+#### 查看TCP连接数
+
+1)统计80端口连接数
+
+```bash
+netstat -nat|grep -i "80"|wc -l
+```
+
+2）统计httpd协议连接数
+
+```bash
+ps -ef|grep httpd|wc -l
+```
+
+3）、统计已连接上的，状态为“established
+
+```bash
+netstat -na|grep ESTABLISHED|wc -l
+```
+
+4)、查出哪个IP地址连接最多
+
+```bash
+# 分析当前系统上的网络连接情况，并统计每个来源 IP 地址的连接数量
+netstat -ntu | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort  -r -n
+# 按照连接次数从高到低进行排序，显示出每个 IP 地址建立的连接数量
+netstat -na | grep ESTABLISHED | awk '{print $5}' | awk -F: '{print $1}' | sort | uniq -c|sort -r -n
+```
+
+`netstat -ntu`：这个部分执行了 netstat 命令来显示当前系统的网络连接情况。其中 `-n` 参数表示以数字形式显示 IP 地址和端口号，`-t` 参数表示显示 TCP 协议的连接，`-u` 参数表示显示 UDP 协议的连接。
 
 ### 远程复制文件到本地
 

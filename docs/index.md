@@ -21,12 +21,12 @@ hero:
       link: /notes/
 
 features:
-  - icon: 🚀
-    title: 不断进步 Keep Moving
-    details: 进步是一种态度，不断学习，不断进步<br/>Move on, Keep moving
   - icon: 📝
     title: 持续学习 Keep Learning
     details: 学习是一种习惯，持续学习，持续进步<br/>Learning, Keep learning
+  - icon: 🚀
+    title: 不断进步 Keep Moving
+    details: 进步是一种态度，不断学习，不断进步<br/>Move on, Keep moving
   - icon: 🌈
     title: 超越自己 Keep Beyond
     details: 超越自己，超越昨天的自己<br/>Beyond, Keep beyond

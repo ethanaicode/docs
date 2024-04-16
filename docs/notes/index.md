@@ -8,4 +8,4 @@
 
 - [Brew](./brew)
 
-- [VS Code](./vscode)
+- [VSCode](./vscode)

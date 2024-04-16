@@ -12,6 +12,16 @@
 
 - [Supervisor](./supervisor)
 
+### PHP 知识
+
+- [PHP Basic](./php_fundamentals)
+
+- [PHP Advanced](./php_advanced)
+
+- [PHP Methods](./php_methods)
+
+- [Laravel](./php_laravel)
+
 ### PHP 扩展
 
 - [FPDF](./php_fpdf)
