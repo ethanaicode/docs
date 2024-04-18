@@ -4,6 +4,24 @@
 
 - `Ctrl + Shift + P` - Open Command Palette
 
+## Tips
+
+### Launching from the command line
+
+We can launch VS Code from the command line to quickly open a file or folder.
+
+We need to install the `code` command in the PATH first.
+
+- Launch VS Code.
+
+- Open the Command Palette (`Ctrl + Shift + P`).
+
+- Type `shell command` to find the `Shell Command: Install 'code' command in PATH` command.
+
+Then we can use the `code` command to open files and folders.
+
+- `code -r filename` - Open the file in the current working directory and keep the terminal window open
+
 ## Extensions
 
 - [Github Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)

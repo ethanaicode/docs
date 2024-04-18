@@ -6,14 +6,14 @@ export default defineConfig({
   title: "设计笔记",  // 网站标题
   description: "设计笔记的文档集合",
   head: [
-    ["link", { rel: "icon", href: "/logo.jpg" }],
+    ["link", { rel: "icon", href: "/logo.png" }],
     ["meta", { name: "author", content: "Ethan" }],
     ["meta", { name: "keywords", content: "设计笔记,前端开发,后端运维,PHP开发文档,Vue3文档" }],
   ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     siteTitle: '设计笔记', // 导航栏标题
-    logo: '/logo.jpg',
+    logo: '/logo.png',
     outline: [1,4], // 侧边栏导航显示的文章标题层级
     lastUpdated: {
       text: 'Updated at', // 文章最后更新时间的显示文本
@@ -28,7 +28,6 @@ export default defineConfig({
       {
         text: "前端开发",
         items: [
-          { text: "Nav", link: "/frontend/" },
           { text: "Html", link: "/frontend/html" },
           { text: "NodeJs", link: "/frontend/nodejs" },
           { text: "Vue3", link: "/frontend/vue3" },
@@ -37,7 +36,6 @@ export default defineConfig({
       {
         text: "后端运维",
         items: [
-          { text: "Nav", link: "/backend/" },
           { text: "Linux", link: "/backend/linux" },
           { text: "Redis", link: "/backend/redis" },
           { text: "MySQL", link: "/backend/mysql" },
@@ -65,7 +63,6 @@ export default defineConfig({
       {
         text: "更多笔记",
         items: [
-          { text: "Nav", link: "/notes/" },
           { text: "Docker", link: "/notes/docker" },
           { text: "Git", link: "/notes/git" },
           { text: "Mac", link: "/notes/mac" },

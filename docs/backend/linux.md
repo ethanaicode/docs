@@ -10,14 +10,6 @@
 
   通常包括日志文件、缓存文件、软件包文件等
 
-### 网页开发目录
-
-Apache 默认网站目录：/var/www/html/
-
-Apache 配置目录： /etc/apache2/
-
-PHP-FPM 配置目录：/etc/php-fpm.d/
-
 ## Linux 命令
 
 ### 基础命令
@@ -55,6 +47,8 @@ PHP-FPM 配置目录：/etc/php-fpm.d/
   /etc -type f 查找文件
 
   /etc -type d 查找目录
+
+  `/` 表示搜索全部目录
 
 - touch：创建文件
 
@@ -118,6 +112,8 @@ PHP-FPM 配置目录：/etc/php-fpm.d/
 
   -t 显示归档文件中的内容
 
+- unzip: 解压缩文件
+
 #### mkdir 的选项参数
 
 - **-m ：配置文件的权限！**
@@ -178,33 +174,13 @@ PHP-FPM 配置目录：/etc/php-fpm.d/
 
 - users: 查看当前登录系统的用户
 
-### 应用及服务命令
-
-#### Apache 命令
-
-sudo service apache2 stop
-
-sudo service apache2 start
-
-sudo service apache2 restart
-
-#### Nginx 命令
-
-更新网站配置后需要重新加载一下 nginx 的配置。
-
-可以先确认下新的配置是否都正确：
-
-```bash
-nginx -t
-```
-
-重新加载配置命令：
-
-```bash
-nginx -s reload
-```
-
 ### 防火墙及端口的管理
+
+firewall-cmd --zone=public --add-port=3306/tcp --permanent
+
+firewall-cmd --reload
+
+firewall-cmd --zone=public --list-ports
 
 #### ufw
 
@@ -282,6 +258,87 @@ grep -a "sc[0-9]*" filename
 
 总的来说，`less` 是更加功能强大和灵活的文本查看工具，而 `more` 则是 `less` 的简化版，适用于简单的文本浏览需求。`cat` 则是用于将文件内容输出到终端的简单工具，不提供分页和交互式浏览功能。
 
+#### systemctl 命令
+
+`systemctl` 是一个 Linux 系统中用于管理 systemd 服务的命令行工具。
+
+systemd 是一个 init 系统和系统管理守护进程，用于启动、停止和管理系统中的各种服务和进程。
+
+以下是 `systemctl` 命令的一些常见用法和解释：
+
+1. **启动服务**：启动一个特定的服务。
+
+   ```bash
+   systemctl start <service_name>
+   ```
+
+2. **停止服务**：停止一个特定的服务。
+
+   ```bash
+   systemctl stop <service_name>
+   ```
+
+3. **重启服务**：停止并重新启动一个特定的服务。
+
+   ```bash
+   systemctl restart <service_name>
+   ```
+
+4. **重新加载配置**：重新加载一个特定服务的配置文件，使新的配置生效，而不需要重启服务。
+
+   ```bash
+   systemctl reload <service_name>
+   ```
+
+5. **查看服务状态**：查看特定服务的状态，包括是否正在运行。
+
+   ```bash
+   systemctl status <service_name>
+   ```
+
+6. **启用服务**：将一个服务设置为在系统启动时自动启动。
+
+   ```bash
+   systemctl enable <service_name>
+   ```
+
+7. **禁用服务**：将一个服务设置为在系统启动时不自动启动。
+
+   ```bash
+   systemctl disable <service_name>
+   ```
+
+8. **查看服务是否启用**：查看一个服务是否已经设置为在系统启动时自动启动。
+
+   ```bash
+   systemctl is-enabled <service_name>
+   ```
+
+9. **查看所有已启用的服务**：列出所有已经设置为在系统启动时自动启动的服务。
+
+   ```bash
+   systemctl list-unit-files --type=service | grep enabled
+   ```
+
+10. **查看所有正在运行的服务**：列出当前正在运行的所有服务。
+
+    ```bash
+    systemctl list-units --type=service | grep running
+    ```
+
+### service 和 systemctl 的区别
+
+`systemctl` 和 `service` 命令都用于管理系统服务，包括启动、停止、重启和检查服务状态等。它们的不同之处在于它们是不同的服务管理工具，适用于不同的系统。
+
+- `systemctl` 是 systemd 的主要命令，用于管理系统的服务和其他系统资源。
+
+- `systemctl` 可以启动、停止、重启和重新加载系统服务，并提供了更多高级功能，如启用/禁用服务、查看服务状态和日志等。
+
+- `service` 命令是一个简单的系统服务管理工具，用于启动、停止和重启系统服务。
+- `service` 命令主要用于 SysVinit 系统，这是旧版本的 Linux 系统使用的 init 系统。
+
+虽然在一些新的 Linux 发行版中，`systemctl` 取代了 `service` 命令成为了管理系统服务的首选工具，但在一些较旧的系统中，`service` 命令仍然可以使用，因为系统可能仍然使用着 SysVinit 系统。
+
 #### 文件权限的数字和权限之间的关系
 
 待补充……
@@ -337,19 +394,73 @@ grep -a "sc[0-9]*" filename
 
 **知识点链接：**[Linux 文件与目录管理](https://www.runoob.com/linux/linux-file-content-manage.html)
 
+## 应用及服务命令
+
+### 常用的应用目录
+
+Apache 默认网站目录：/var/www/html/
+
+Apache 配置目录： /etc/apache2/
+
+PHP-FPM 配置目录：/etc/php-fpm.d/
+
+MySQL 配置：/etc/my.cnf
+
+### yum
+
+查看所有软件列表：yum repolist all | grep mysql
+
+卸载应用：`yum remove [package_name]`
+
+深度卸载：`yum autoremove [package_name]`
+
+### Apache 命令
+
+sudo service apache2 stop
+
+sudo service apache2 start
+
+sudo service apache2 restart
+
+### Nginx 命令
+
+更新网站配置后需要重新加载一下 nginx 的配置。
+
+yum list installed
+
+可以先确认下新的配置是否都正确：
+
+```bash
+nginx -t
+```
+
+重新加载配置命令：
+
+```bash
+nginx -s reload
+```
+
+### MySQL 命令
+
+service mysqld start/stop/restart
+
+systemctl status mysqld
+
+systemctl start mysqld
+
 ## 使用案例
 
 ### 网络相关
 
-#### 查看TCP连接数
+#### 查看 TCP 连接数
 
-1)统计80端口连接数
+1)统计 80 端口连接数
 
 ```bash
 netstat -nat|grep -i "80"|wc -l
 ```
 
-2）统计httpd协议连接数
+2）统计 httpd 协议连接数
 
 ```bash
 ps -ef|grep httpd|wc -l
@@ -361,7 +472,7 @@ ps -ef|grep httpd|wc -l
 netstat -na|grep ESTABLISHED|wc -l
 ```
 
-4)、查出哪个IP地址连接最多
+4)、查出哪个 IP 地址连接最多
 
 ```bash
 # 分析当前系统上的网络连接情况，并统计每个来源 IP 地址的连接数量

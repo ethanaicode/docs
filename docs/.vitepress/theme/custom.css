@@ -1,0 +1,14 @@
+:root {
+  /* 定义首页大标题颜色 */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    #2af598,
+    #009efd
+  );
+
+  /* 定义品牌色，也就是网站主色 */
+  --vp-c-brand-1: #005e99ff;
+  --vp-c-brand-2: #007fccff;
+  --vp-c-brand-3: #009efd;
+}

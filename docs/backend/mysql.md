@@ -6,6 +6,7 @@
 - use [database] 选择用哪个数据库
 - show tables
 - desc [tableName]
+- status 查看版本等信息
 
 ### 批量更新数据
 
