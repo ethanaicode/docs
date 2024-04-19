@@ -68,6 +68,7 @@ export default defineConfig({
           { text: "Mac", link: "/notes/mac" },
           { text: "Brew", link: "/notes/brew" },
           { text: "VSCode", link: "/notes/vscode" },
+          { text: "Software", link: "/notes/software" },
         ],
       },
       // 外部链接
@@ -134,6 +135,7 @@ export default defineConfig({
               { text: "Mac", link: "/notes/mac" },
               { text: "Brew", link: "/notes/brew" },
               { text: "VSCode", link: "/notes/vscode" },
+              { text: "Software", link: "/notes/software" },
             ],
           },
           { text: "Main Site", link: "https://www.shejibiji.com/" },
