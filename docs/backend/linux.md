@@ -454,7 +454,7 @@ systemctl start mysqld
 
 #### 查看 TCP 连接数
 
-1)统计 80 端口连接数
+1）统计 80 端口连接数
 
 ```bash
 netstat -nat|grep -i "80"|wc -l
@@ -472,7 +472,7 @@ ps -ef|grep httpd|wc -l
 netstat -na|grep ESTABLISHED|wc -l
 ```
 
-4)、查出哪个 IP 地址连接最多
+4）、查出哪个 IP 地址连接最多
 
 ```bash
 # 分析当前系统上的网络连接情况，并统计每个来源 IP 地址的连接数量
@@ -482,6 +482,42 @@ netstat -na | grep ESTABLISHED | awk '{print $5}' | awk -F: '{print $1}' | sort 
 ```
 
 `netstat -ntu`：这个部分执行了 netstat 命令来显示当前系统的网络连接情况。其中 `-n` 参数表示以数字形式显示 IP 地址和端口号，`-t` 参数表示显示 TCP 协议的连接，`-u` 参数表示显示 UDP 协议的连接。
+
+5）、显示所有监听的 TCP 端口
+
+```bash
+netstat -ntlp
+```
+
+6）、显示特定端口的监听状态：
+
+```bash
+netstat -ntlp | grep 80
+```
+
+7）、显示所有活动的 UNIX 域套接字：
+
+```bash
+netstat -axu
+```
+
+8）、显统计 TCP 连接状态的类型和数量：
+
+```bash
+netstat -n | awk '/^tcp/ {++S[$NF]} END {for (a in S) print a, S[a]}'
+```
+
+9）、显示连接的进程 ID 和程序名称：
+
+```bash
+netstat -natp
+```
+
+10）、显示路由表
+
+```bash
+netstat -nr
+```
 
 ### 远程复制文件到本地
 
