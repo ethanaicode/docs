@@ -36,10 +36,11 @@ export default defineConfig({
       {
         text: "后端运维",
         items: [
-          { text: "Linux", link: "/backend/linux" },
-          { text: "Redis", link: "/backend/redis" },
           { text: "MySQL", link: "/backend/mysql" },
+          { text: "Redis", link: "/backend/redis" },
           { text: "Java", link: "/backend/java" },
+          { text: "Linux", link: "/backend/linux" },
+          { text: "Nginx", link: "/backend/nginx" },
           { text: "Vim", link: "/backend/vim" },
           { text: "Supervisor", link: "/backend/supervisor" },
           {
@@ -99,10 +100,11 @@ export default defineConfig({
             link: "/backend/",
             collapsed: true,
             items: [
-              { text: "Linux", link: "/backend/linux" },
-              { text: "Redis", link: "/backend/redis" },
               { text: "MySQL", link: "/backend/mysql" },
+              { text: "Redis", link: "/backend/redis" },
               { text: "Java", link: "/backend/java" },
+              { text: "Linux", link: "/backend/linux" },
+              { text: "Nginx", link: "/backend/nginx" },
               { text: "Vim", link: "/backend/vim" },
               { text: "Supervisor", link: "/backend/supervisor" },
               {

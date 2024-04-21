@@ -410,6 +410,8 @@ MySQL 配置：/etc/my.cnf
 
 查看所有软件列表：yum repolist all | grep mysql
 
+查看已安装的软件列表：yum list installed
+
 卸载应用：`yum remove [package_name]`
 
 深度卸载：`yum autoremove [package_name]`
@@ -421,24 +423,6 @@ sudo service apache2 stop
 sudo service apache2 start
 
 sudo service apache2 restart
-
-### Nginx 命令
-
-更新网站配置后需要重新加载一下 nginx 的配置。
-
-yum list installed
-
-可以先确认下新的配置是否都正确：
-
-```bash
-nginx -t
-```
-
-重新加载配置命令：
-
-```bash
-nginx -s reload
-```
 
 ### MySQL 命令
 
