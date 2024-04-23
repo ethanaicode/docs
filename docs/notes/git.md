@@ -18,6 +18,10 @@
 
   `--hard` 可以加上参数，来硬撤回
 
+- `git revert [commit_hash]` - 撤销某次提交
+
+  会生成一个新的提交，这个提交是对之前提交的撤销
+
 - `git switch` - 更换分支（version 2.23+）
 
   `-c` 创建并切换到新分支
@@ -42,6 +46,10 @@
 
   （如果远程分支名和本地分支名一样，可以省略":<本地分支名>"）
 
+- `git fetch` - 拉取远程分支
+
+  但是不会自动合并，需要手动合并
+
 - `git log` - 查看提交历史
 
 - `git branch` - 列出本地分支
@@ -51,6 +59,8 @@
   `-a` 列出本地远程所有分支
 
   `[branchname]` 创建新的分支
+
+  `-d [branchname]` 删除分支
 
 ## git 使用技巧
 
@@ -73,6 +83,22 @@ find ./ -type d -empty -exec touch {}/.gitkeep \;
 2.为空文件夹添加 `.gitignore` 文件
 
 用过 git 的老用户都知道 .gitignore 是为了忽略一些对项目无用的文件而设置的，我们添加这个文件也可以实现这个效果，但是不是最佳的，因此推荐用第一种（因为它本身是有意义的）。
+
+### 强制覆盖本地代码（与git 远程仓库保持一致）
+
+git强制覆盖本地命令（单条执行）：
+
+```bash
+git fetch --all && git reset --hard origin/master && git pull
+```
+
+git强制覆盖：
+
+```bash
+git fetch --all #取回远程库的所有修改；
+git reset --hard origin/master  #指向远程库origin的master
+git pull    #把远程库拉取到本地库
+```
 
 ### 更改 Git 代理配置（http.proxy）
 
@@ -129,7 +155,5 @@ git push origin branch_name
 > 自用 Git 工具，可视化的分支，管理起来非常方便，也支持控制台操作。
 >
 > 免费用户不支持管理私有库，但依然非常推荐。
->
-> 更新@2024-01-29，已不再推荐，年费太贵了，换个免费的吧。
 
 [![Ethan_2023-02-20_21-34-03.png](https://img.shejibiji.com/2023/02/20/63f37704e4079.png)](https://img.shejibiji.com/2023/02/20/63f37704e4079.png)
