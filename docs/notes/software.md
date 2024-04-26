@@ -13,11 +13,11 @@
 | 截图工具 | [Snipaste](https://www.snipaste.com/#)                       | Win/Mac |      | [-版本库-](https://bitbucket.org/liule/snipaste/downloads/) |
 | 压缩解压 | [bandizip](https://www.bandisoft.com/)                       | Win     |      | 6.25+ 收费                                                  |
 | 卸载工具 | [Geek Uninstaller](https://geekuninstaller.com/)             | Win     |      |                                                             |
+| 卸载工具 | [AppCleaner](https://freemacsoft.net/appcleaner/)            | Mac     |      |                                                             |
 | 文本编辑 | [Notepad++](https://notepad-plus-plus.org/downloads/)        | Win     |      |                                                             |
 | MD编辑器 | [typora](https://www.shejibiji.com/archives/8450)            | Win/Mac |      | 新版本开始收费                                              |
 | 快捷搜索 | [Listary](https://www.listary.com/)                          | Win     |      | 双击ctrl搜索右键，方便的右键菜单                            |
 | ——       | [everything](https://www.voidtools.com/zh-cn/downloads/)     | Win     |      | 纯粹的快速搜索                                              |
-| 文档办公 | [Office 365](https://www.office.com/)                        | Win/Mac |      | 年付，可以合买                                              |
 
 ## 平面设计软件
 
@@ -32,6 +32,7 @@
 
 | 类别      | 推荐                                             | 系统    | 费用 | 备注           |
 | --------- | ------------------------------------------------ | ------- | ---- | -------------- |
+| 文档办公  | [Office 365](https://www.office.com/)            | Win/Mac |      | 年付，可以合买 |
 | 办公套件  | [LibreOffice](https://www.libreoffice.org/)      | Win/Mac | free | 完美替代Office |
 | 思维导图  | [Xmind](https://www.xmind.net/)                  | Win/Mac |      |                |
 | PDF阅读器 | [Sumatra PDF](https://www.sumatrapdfreader.org/) |         |      |                |
@@ -46,6 +47,7 @@
 | 视频剪辑         | [剪映](https://lv.ulikecam.com/)                             |      |      |                    |
 | 字幕工具         | [ARCTIME](https://arctime.org/)                              |      |      |                    |
 | DirectShow解码器 | LAVFilters                                                   |      |      |                    |
+| 视频转换工具     | [HandBrake](https://handbrake.fr/)                           | Mac  |      |                    |
 | AVS视频处理脚本  | [AviSynth](http://www.avisynth.org/)                         |      |      | 代码操作，功能强大 |
 | AV元数据刮削     | [Movie_Data_Capture](https://github.com/yoshiko2/Movie_Data_Capture) |      |      |                    |
 

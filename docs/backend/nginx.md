@@ -125,3 +125,36 @@ server {
 }
 ```
 
+## 高级
+
+### Nginx 的服务器块（server block）匹配规则
+
+在定义了多个服务器块配置后，如果没找到匹配的`Host`，会默认使用哪一个配置呢？
+
+可以先了解匹配规则，主要有以下几步：
+
+1->监听端口，找对应的 server block
+
+2->查找`server_name`，检查`Host`头部字段，根据目标域名匹配每个server block，匹配成功则用该块。
+
+3->都不匹配，使用第一个没有指定 server_name 的 server block 来处理请求。
+
+4->确定块后，使用该 server block 处理请求（重定向、代理、负载均衡等），生成相应返回客户端。
+
+如果没有匹配到对应的块，也没有找到没有指定 server_name 的 server block，则直接使用第一个 server block。
+
+如果我们想要自定义默认 server block，则可以创建一个默认的配置，并且不指定 server_name，类似这样：
+
+```nginx
+# default.conf
+server {
+    listen 80 default_server;
+    server_name _;
+
+    # 默认服务器的配置，无法匹配到域名时将匹配到这里
+    # 显示404文字
+    return 200 "404";
+    add_header Content-Type text/plain;
+}
+```
+

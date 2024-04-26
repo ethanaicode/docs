@@ -1,6 +1,8 @@
 # Vue3
 
-> 主要参考视频教程：https://www.bilibili.com/video/BV1Rs4y127j8?p=13
+> 官方中文文档：https://cn.vuejs.org/guide/introduction.html
+>
+> 主要参考教程：https://www.bilibili.com/video/BV1Rs4y127j8?p=15
 
 ## 基础知识
 
@@ -14,13 +16,33 @@ join("") 合并字符串
 
 ### API 风格
 
-Vue 组件有两种风格：选项式 API（Options API）和组合式 API（Composition API），
+Vue 组件有两种风格：**选项式 API（Options API）**和**组合式 API（Composition API）**，
 
-组合式 API 是 Vue3 推荐的，看起来更接近 React。
+选项式 API 通过在组件定义中使用 `data`、`methods`、`computed`、`watch` 等选项来组织组件的逻辑。组件的状态和行为都被封装在组件实例中。
+
+**组合式 API**基于函数的 API，使用 `setup` 函数来定义组件的状态和行为，其中可以使用 Composition API 提供的函数（如 `ref`、`reactive`、`computed` 等），组件的状态和行为可以更灵活地组织，可以更好地重用和组合逻辑。
+
+**setup来标记组合式**
+
+```vue
+<template>
+  <!-- code -->
+</template>
+
+<script setup>
+  <!-- code -->
+</script>
+```
+
+*本文档两种方式都有使用，主要是因为教程中的案例都是传统式，刚开始我也不知道区别，所以按照教程中的写法进行了测试并记录，有时间我会都调整为组合式API*
 
 ### 模版语法
 
-双大括号 `{{ msg }}`
+最基础的为文本插值，它使用的是“Mustache”语法 (即双大括号)：
+
+```vue
+<span>Message: {{ msg }}</span>
+```
 
 每个绑定仅支持单一表达式，或者是可以被求值的 JavaScript 代码。
 
@@ -32,26 +54,18 @@ Vue 组件有两种风格：选项式 API（Options API）和组合式 API（Com
 
 ```vue
 <template>
-  <div id="app">
+  <div>
     <h1>Vue3</h1>
-    <p>{{ message }}</p>
     <p v-html="rawHtml"></p>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      message: "Hello Vue!",
-      rawHtml: '<span style="color: red">This should be red.</span>',
-    };
-  },
-};
+<script setup>
+const rawHtml = '<span style="color: red">This should be red.</span>';
 </script>
 ```
 
-### 属性绑定 v-bind
+### 属性绑定 v-bind(\:)
 
 **v-bind**
 
@@ -154,7 +168,7 @@ _绑定的期待是一个基础类型的值，如字符串或者 number 类型_
 
 ### 事件处理 v-on(@)
 
-监听 DOM 事件，并在事件触发时自信对应的 JavaScript。
+监听 DOM 事件，并在事件触发时执行对应的 JavaScript。
 
 值可以为：
 
@@ -197,6 +211,60 @@ Vue 为`v-on`提供了**事件修饰符**，常用有以下：
 - ...
 
 具体可以参考：https://vuejs.org/guide/essentials/event-handling.html#event-modifiers
+
+### 数组变化侦测
+
+数组变化有两种方法：变更方法和替换数组
+
+变更方法：Vue能够侦听响应式数组的变更方法，并在调用时触发相关的更新。这些变更方法包括：
+
+- push()
+- pop()
+- shift()
+- unshift()
+- splice()
+- sort()
+- reverse
+
+替换数组：有一些不可变的方法(immnutable)，如`filter()`，`concat()`和`slice()`，这些不会更改数组，而是**返回一个新数组**，这些方法就不会导致UI变化，需要重新赋值才能更新页面：
+
+```vue
+<template>
+  <div>
+    <!-- 第一种方式数组会直接更新 -->
+    <button @click="name1.push('Smith')">Add Smith</button>
+    <!-- 第二种方式如果不重新赋值是没有变化的 -->
+    <button @click="addName()">Add Smith</button>
+    <ul>
+      <li v-for="(name, index) in name1" :key="index">{{ name }}</li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      name1: ["John", "Doe", "Jane"],
+    };
+  },
+  methods: {
+    addName() {
+      this.name1 = this.name1.concat("Smith");
+    },
+  },
+};
+</script>
+
+```
+
+### [计算属性 computed()](https://cn.vuejs.org/guide/essentials/computed.html)
+
+
+
+### 表单输入绑定 v-model
+
+
 
 ## Router
 
