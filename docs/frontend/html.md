@@ -1,6 +1,6 @@
-# HTML-JS-CSS
+> 目前包含了html，css以及js的内容，展示这部分笔记不多，先不分开。
 
-## HTML
+# HTML
 
 ### HTML APIs
 
@@ -24,7 +24,118 @@ localStorage.setItem("lastname", "Smith");
 document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 ```
 
-## JS
+# CSS
+
+文字内容元素存在默认宽度`min-content`，宽度由内容中最长单词来决定（避免单词被拆开）。
+
+## Flex
+
+> MDN文档：[flex 布局的基本概念](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox)
+
+### Flex 轴线及容器
+
+当使用 flex 布局时，首先想到的是两根轴线 — 主轴和交叉轴。主轴由 `flex-direction` 定义，另一根轴垂直于它。
+
+#### flex-direction
+
+定义主轴的方向，可以取 4 个值：
+
+- `row`
+- `row-reverse`
+- `column`
+- `column-reverse`
+
+#### flex-warp
+
+用来实现多行 Flex 容器。
+
+- `nowrap`：默认值，不会换行
+- `warp`：允许换行
+- `wrap-reverse`：不常用，了解即可
+
+### Flex 元素上的属性
+
+#### flex-basis
+
+指定 flex 元素在主轴方向上的初始大小。
+
+#### flex-grow
+
+用来规定在 flex 容器中**分配剩余空间**的相对比例。
+
+**注意:** 因为是在分配剩余空间，所以不能简单理解为倍数，除非各个元素的宽度为0，才可以直接理解为倍数。
+
+> 小考题：
+>
+> 比如容器宽度110px，元素A的flex-grow为1，元素B的flex-grow为2，元素A和B的flex-basis都为10px，那么最终元素B在容器中的宽度是多少？
+>
+> 计算：10px + 1x + 10px + 2x = 110px，算出 x 为30px，所以元素B的宽度为20px+2x，也就是80px。
+
+#### flex-shrink
+
+指定了 flex 元素的收缩规则。
+
+这个仅在默认宽度之和大于容器的时候才会发生收缩，其收缩的大小是依据 flex-shrink 的值。
+
+#### flex
+
+此属性是以下 CSS 属性的简写：
+
+- [`flex-grow`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex-grow)
+- [`flex-shrink`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex-shrink)
+- [`flex-basis`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex-basis)
+
+**默认值**
+
+`initial`：相当于将属性设置为"`flex: 0 1 auto`"。
+
+`auto`：相当于将属性设置为 "`flex: 1 1 auto`".
+
+`none`：相当于将属性设置为"`flex: 0 0 auto`"。
+
+### 元素间的对其和空间分配
+
+#### justify-content
+
+使元素在主轴方向上对齐。
+
+- `stretch`
+- `flex-start`
+- `flex-end`
+- `center`
+- `space-between`：把元素排列好之后的剩余空间拿出来，平均分配到元素之间，所以元素之间间隔相等
+- `space-around`：使每个元素的左右空间相等（头尾会共用一个空间距离）
+- `space-evenly`：使每个元素的左右空间相等（包括头尾也是一致的）
+
+#### align-items
+
+可以使元素在交叉轴方向对齐。
+
+- `stretch`：默认值，拉伸到最高元素的高度
+- `flex-start`：使 flex 元素按 flex 容器的顶部对齐
+- `flex-end`：使 flex 元素按 flex 容器的底部对齐
+- `center`：使 flex 元素按 flex 容器的中心对齐
+- `baseline`：和start类似，但是会以文字的基线对齐（这意味着文字大小不同时，会和start有明显不同）
+
+#### align-content
+
+适用于允许换行后，如何在交叉轴上分布内容。
+
+- `normal`：默认值
+- `flex-start`：交叉轴的开始对齐
+- `flex-end`：交叉轴的结束对齐
+- `center`
+- `space-between`
+- `space-around`
+- `space-evenly`
+
+#### [order](https://developer.mozilla.org/zh-CN/docs/Web/CSS/order)
+
+规定了弹性容器中的可伸缩项目在布局时的顺序。
+
+可以配合 flex 元素实现想要的元素顺序。
+
+# JS
 
 ### 表达式和参考符
 
