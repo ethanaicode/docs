@@ -30,6 +30,8 @@
 
 - grep：查找文件内容
 
+  grep [选项] [搜索内容] [文件名]
+
   -i 忽略大小写
 
   -n 显示行号
@@ -40,15 +42,31 @@
 
 - find：查找文件
 
-  /etc -name "passwd" 查找 /etc 目录下的 passwd 文件
+  find [搜索范围] [搜索条件] [操作]
 
-  /etc -iname "passwd" 忽略大小写查找
-
-  /etc -type f 查找文件
-
-  /etc -type d 查找目录
+  如：/etc -name "passwd" 查找 /etc 目录下的 passwd 文件
 
   `/` 表示搜索全部目录
+
+  `.` 表示搜索当前目录
+
+  `-name` 指定文件名（支持通配符）
+
+  `-iname` 忽略大小写
+
+  `-type` 指定类型(f: 文件, d: 目录, l: 链接文件)
+
+  `-user` 指定所有者
+
+  `-group` 指定所属组
+
+  `-size` 指定文件大小
+
+  `-mtime` 指定修改时间
+
+  `-exec` 执行操作
+
+  `-print` 显示搜索结果
 
 - touch：创建文件
 

@@ -1,4 +1,4 @@
-# PHP进阶知识
+# PHP 进阶知识
 
 ## 进阶技巧
 
@@ -12,7 +12,7 @@ public function delete($id)
     {
         // use $id
     }
-    
+
 // two
 public function delete()
     {
@@ -22,7 +22,7 @@ public function delete()
     }
 ```
 
-为什么推荐这func_get_args()获取方法参数。
+为什么推荐这 func_get_args()获取方法参数。
 
 最大的好处是不用再考虑方法需要获取多少个参数。
 
@@ -42,7 +42,7 @@ public function delete()
 App\Controller\Foo::show()
 ```
 
-如果一个函数的命名为  `App\Controller` ，那我们要使用这个方法，就应该是这样的：
+如果一个函数的命名为 `App\Controller` ，那我们要使用这个方法，就应该是这样的：
 
 ```
 App\Controller\show()
@@ -120,7 +120,7 @@ class Comment
 
 所以需要补上子‘文件夹’名称`Controller`才可以正确找到。
 
-1. 第三个使用了不同的命名空间`Blog`，所以就需要去根目录下，所以要加上` \ `来表示不要在本命名空间找啦，而是去根空间下去找吧（相当于绝对路径）。
+1. 第三个使用了不同的命名空间`Blog`，所以就需要去根目录下，所以要加上`\`来表示不要在本命名空间找啦，而是去根空间下去找吧（相当于绝对路径）。
 
 #### 类与空间声明
 
@@ -250,7 +250,7 @@ ToolOrder::show();
 
 ### 自动加载
 
-> 不需要频繁在文件中使用require和include，可以使用一个函数，当找不到一个文件时，自动去加载这个文件。
+> 不需要频繁在文件中使用 require 和 include，可以使用一个函数，当找不到一个文件时，自动去加载这个文件。
 >
 > 需要命名空间和文件夹路径匹配 !important。
 
@@ -300,9 +300,9 @@ ToolOrder::show();
 
 这样就和上面那个案例是一样的了。
 
-#### 使用composer自动加载
+#### 使用 composer 自动加载
 
-非常简单，首先在项目中初始化composer（使用`composer init`），然后在`composer.json`中，定义下自动加载即可，自动加载内容如：
+非常简单，首先在项目中初始化 composer（使用`composer init`），然后在`composer.json`中，定义下自动加载即可，自动加载内容如：
 
 ```JSON
 {
@@ -316,7 +316,7 @@ ToolOrder::show();
 
 注意内容需要根据实际项目修改。
 
-我们还可以自动加载文件，只要修改下composer的文件，并`composer update`一下即可：
+我们还可以自动加载文件，只要修改下 composer 的文件，并`composer update`一下即可：
 
 ```JSON
 "autoload": {
@@ -331,7 +331,7 @@ ToolOrder::show();
 
 ## 面向对象
 
-推荐教程：[学习PHP面向对象从未如此清晰](https://www.bilibili.com/video/BV14x411o7SL)
+推荐教程：[学习 PHP 面向对象从未如此清晰](https://www.bilibili.com/video/BV14x411o7SL)
 
 ### 类和对象
 
@@ -417,7 +417,7 @@ echo Model::NB;
 
 继承后，子类就可以用`$this`来调用父类的内容。
 
-（感觉就类似引入php文件，只是调用父类比较简单点。）
+（感觉就类似引入 php 文件，只是调用父类比较简单点。）
 
 **重写**
 
@@ -497,7 +497,7 @@ echo (new User)->register();
 
 #### 多继承（变相） trait
 
-> php是单继承的，新版本可以实现变相多继承
+> php 是单继承的，新版本可以实现变相多继承
 
 **trait**的优先级要比继承**extends**要高。
 
@@ -565,7 +565,7 @@ echo $topic->saveComment();
 
 #### 接口类 interface
 
-> interface定义接口，和上面的抽象类类似，都是不在父类定义具体方法，只定义标准。
+> interface 定义接口，和上面的抽象类类似，都是不在父类定义具体方法，只定义标准。
 >
 > 当你使用这个接口或者类时，需要在类中定义具体方法。
 
@@ -623,15 +623,15 @@ var_dump($cache);
 
 #### 构造函数及析构函数
 
-> __instruct() 构造函数，类开始时自动执行函数
+> \_\_instruct() 构造函数，类开始时自动执行函数
 >
-> __destruct() 析构函数，类结束时自动执行函数
+> \_\_destruct() 析构函数，类结束时自动执行函数
 
 一个是生，一个是死。
 
 #### 魔术方法
 
-##### __get && __set
+##### **get && **set
 
 > 当访问私有的或者受保护的属性时，`__set()` `__get()` 这两个魔术方法会被调用，用来设置或者获取私有属性而不报错。
 
@@ -702,31 +702,31 @@ try {
 }
 ```
 
-##### __unset()和__isset()
+##### **unset()和**isset()
 
 > 分别是各自方法被使用时，调用这个魔术方法。
 
-##### __call() 
+##### \_\_call()
 
 > 找不到方法时，调用这个方法
 
 https://www.bilibili.com/video/BV14x411o7SL?p=22&vd_source=e697d97c11963b497ea46a09033367c0
 
-##### __callStatic()
+##### \_\_callStatic()
 
 ## PDO 连接
 
-> 推荐教程：[打通PHP数据库任督二脉](http://bilibili.com/video/BV1v4411A74Q/?p=2)
+> 推荐教程：[打通 PHP 数据库任督二脉](http://bilibili.com/video/BV1v4411A74Q/?p=2)
 
 ### 连接数据库
 
-可以通过创建一个新的PDO实例来简历连接。
+可以通过创建一个新的 PDO 实例来简历连接。
 
-需要传入参数，具体可以看知识点：[PDO::__construct](https://www.php.net/manual/en/pdo.construct.php)
+需要传入参数，具体可以看知识点：[PDO::\_\_construct](https://www.php.net/manual/en/pdo.construct.php)
 
-第四个参数为数组，可以实现对PDO的参数配置修改，比如错误的处理，和修改查询属性 ::setAttribute 一样。
+第四个参数为数组，可以实现对 PDO 的参数配置修改，比如错误的处理，和修改查询属性 ::setAttribute 一样。
 
-具体可以看教程P3。
+具体可以看教程 P3。
 
 例如：
 
@@ -735,7 +735,7 @@ protected function dsn()
     {
         return sprintf("mysql:host=%s;dbname=%s;chartset=%s", DB_HOST, DB_DBNAME, DB_CHARSET);
     }
-    
+
 protected function pdo()
     {
         try {
@@ -763,19 +763,19 @@ $count = $pdo->exec("DELETE FROM fruit");
 
 知识点链接：[PDO::exec](https://www.php.net/manual/en/pdo.exec.php)
 
-还可以通过 **lastInsertId()** 来获取最后插入行的ID或序列值（挺有用的）。
+还可以通过 **lastInsertId()** 来获取最后插入行的 ID 或序列值（挺有用的）。
 
 ### 快速执行查询 ::query & fetchAll
 
 ### 修改查询属性 ::setAttribute
 
-在连接数据库那一节案例中有（设置了返回的结果集未关联数据，默认是BOTH，返回关联及索引数组）。
+在连接数据库那一节案例中有（设置了返回的结果集未关联数据，默认是 BOTH，返回关联及索引数组）。
 
 ### 单条查询操作 ::fetch()
 
 > 它是递归（？是这么叫吗）查询，每查一次指针指向下一条
 
-我们可以使用循环，来实现fetchAll的效果，比如：
+我们可以使用循环，来实现 fetchAll 的效果，比如：
 
 ```PHP
 while($field = $query->fetch())
@@ -787,7 +787,7 @@ while($field = $query->fetch())
 
 ### 预准备的语句执行操作
 
-> 在数据库层面，解决了SQL注入的问题
+> 在数据库层面，解决了 SQL 注入的问题
 
 其实就是把语句及参数分开发送，因为参数不是直接写到语句里面，所以也不担心注入。
 
@@ -795,7 +795,7 @@ while($field = $query->fetch())
 
 发送参数用 execute()
 
-返回的结果为bool值，也就是说get方法无法用这个。
+返回的结果为 bool 值，也就是说 get 方法无法用这个。
 
 ### 链式查询（查询构造器）
 
@@ -807,9 +807,9 @@ while($field = $query->fetch())
 protected $options = [
     'table' => '', 'field' => ' * ', 'order' => '', 'limit' => '', 'where' => ''
 ];
-    
+
 // ...
-    
+
 public function field(...$fields)
 {
     $this->options['field'] = '`' . implode('`,`', $fields) . '`';
@@ -821,6 +821,26 @@ public function field(...$fields)
 
 ## 优化配置
 
-> PHP- FPM配置文件位置：
+> PHP-FPM 配置文件位置（通常情况下）：/etc/php/{version}/fpm/php-fpm.conf
+
+`pm.max_children` 允许创建的最大进程数，这个值越大，可以处理的并发请求数就越多。
+
+`pm.start_servers` 启动时创建的进程数。
+
+`pm.min_spare_servers` 最小空闲进程数（清理空闲进程后保留的最小进程数）。
+
+`pm.max_spare_servers` 最大空闲进程数（当空闲进程数超过这个值时，就会被清理）。
+
+`pm.max_children`的值一般可以根据内存来计算，一般会预留 20%内存给操作系统及其它服务，其余的可以根据每个 PHP 进程的平均内存消耗量（可以假设为 20MB），计算出合适的值。
+
+假设内存为 2G，则可以计算出值大概为 84（2048 \* 0.8 / 20）
+
+一般来说，可以将 `pm.min_spare_servers` 设置为 `pm.max_children` 的一定比例，比如 `pm.max_children` 的 10% - 20%。这样可以确保在任何时候都有足够的空闲进程可用来处理请求。
+
+修改后记得重启 PHP-FPM：
+
+```bash
+sudo systemctl restart php-fpm
+```
 
 ## 错误处理

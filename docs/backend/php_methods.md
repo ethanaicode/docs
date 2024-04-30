@@ -1,10 +1,10 @@
-# PHP常用方法
+# PHP 常用方法
 
 ## 数组相关
 
 ### [array_column()](https://www.php.net/manual/zh/function.array-column) 返回输入数组中指定列的值
 
-> array_column(*array*,*column_key*,*index_key*);
+> array*column(\_array*,_column_key_,_index_key_);
 
 案例：
 
@@ -15,7 +15,7 @@
         [   'key' => 2,
             'name' => '普通会员',    ],
     ];
-    
+
     $gradeLevel=array_column($this->grade_info,'name','key');
 ```
 
@@ -74,7 +74,7 @@ foreach ($result as $key => $value) {
 
 > array_filter(array `$array`, ?[callable](https://www.php.net/manual/zh/language.types.callable.php) `$callback` = **`null`**, int `$mode` = 0): array
 
-可以用来过滤掉null或者empty值
+可以用来过滤掉 null 或者 empty 值
 
 ### [array_map()](https://www.php.net/manual/zh/function.array-map.php) 为数组的每个元素应用回调函数
 
@@ -89,9 +89,9 @@ $projectLeaderIds = array_map(function ($item) {
 
 ### [array_intersect_key()](https://www.php.net/manual/zh/function.array-intersect-key.php) 使用键名比较计算数组的交集
 
-就是比较键名，如果一样就放入新的数组中，和顺序无关（就不用再使用foreach来实现了）。
+就是比较键名，如果一样就放入新的数组中，和顺序无关（就不用再使用 foreach 来实现了）。
 
-三个方法可以一起使用，来实现根据数组中的某一个id(本例为rentaiunitId)去重的效果，例如：
+三个方法可以一起使用，来实现根据数组中的某一个 id(本例为 rentaiunitId)去重的效果，例如：
 
 ```PHP
 // Extracting the rentaiunitId column as a separate array
@@ -106,7 +106,7 @@ $uniqueData = array_intersect_key($result['data'], $uniqueRentaiunitIds);
 
 ### implode() / explode()
 
-> implode(*separator,array*)
+> implode(_separator,array_)
 
 *separator*可选，规定数组元素之间放置的内容。默认是 ""（空字符串）。
 
@@ -114,7 +114,7 @@ $uniqueData = array_intersect_key($result['data'], $uniqueRentaiunitIds);
 
 知识点链接：[PHP implode()函数](https://www.runoob.com/php/func-string-implode.html)
 
-### in_array($value, $params) 
+### in_array($value, $params)
 
 - 可以判断值是否在数组中
 
@@ -122,20 +122,20 @@ $uniqueData = array_intersect_key($result['data'], $uniqueRentaiunitIds);
 
 ### array_slice()、array_splice()
 
-> array_slice(*array,start,length,preserve*)
+> array*slice(\_array,start,length,preserve*)
 >
-> array_splice(*array1,start,length,array2*)
+> array*splice(\_array1,start,length,array2*)
 
 - 实现：array_slice() 函数返回数组中的选定部分
 - array_splice() 函数从数组中移除选定的元素，并用新元素取代它
 
 利用这个可以取出或者移除自己想要的元素，头两个参数都是必需的，这两个默认都会重置数组索引。
 
-这两个和unset()很类似。
+这两个和 unset()很类似。
 
-如果array_slice()中，参数preserve为false，则不会重置索引
+如果 array_slice()中，参数 preserve 为 false，则不会重置索引
 
-知识点链接：[PHP array_slide()函数](https://www.runoob.com/php/func-array-slice.html) 
+知识点链接：[PHP array_slide()函数](https://www.runoob.com/php/func-array-slice.html)
 
 ### [array_chunk()](https://php.net/manual/en/function.array-chunk.php) 分割数组
 
@@ -153,7 +153,7 @@ $content = implode("\n", $tempContent[0]);
 
 ### array_push() 追加元素
 
-> array_push(*array,value1,value2...*)
+> array*push(\_array,value1,value2...*)
 
 - 向数组尾部插入一个或多个元素
 
@@ -167,7 +167,7 @@ $content = implode("\n", $tempContent[0]);
 
 ### [array_multisort()](https://www.php.net/manual/zh/function.array-multisort.php) 对多个数组或多维数组进行排序
 
-> array_multisort(    array `&$array1`,    [mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed) `$array1_sort_order` = SORT_ASC,    [mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed) `$array1_sort_flags` = SORT_REGULAR,    [mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed) `...$rest` ): bool
+> array_multisort( array `&$array1`, [mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed) `$array1_sort_order` = SORT_ASC, [mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed) `$array1_sort_flags` = SORT_REGULAR, [mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed) `...$rest` ): bool
 
 ### [ksort()](https://www.php.net/manual/zh/array.sorting.php) 等多个对数组排序的方法
 
@@ -187,7 +187,7 @@ $content = implode("\n", $tempContent[0]);
 
 ### substr() - 分割字符串
 
-> substr(*string,start,length*)
+> substr(_string,start,length_)
 >
 > start：必需，规定在字符串的何处开始
 >
@@ -200,7 +200,7 @@ $content = implode("\n", $tempContent[0]);
 
 ### trim() - 移除空格
 
-> trim(*string,**charlist*)
+> trim(_string,\*\*charlist_)
 
 案例：
 
@@ -214,7 +214,7 @@ $name = trim($name);  //去除名字两边的空格
 
 知识点链接：[PHP trim() 函数](https://www.runoob.com/php/func-string-trim.html)
 
-### rtrim() -  移除末尾空格（可以是预定义的字符）
+### rtrim() - 移除末尾空格（可以是预定义的字符）
 
 案例：
 
@@ -229,7 +229,7 @@ $customerIdString = rtrim($customerIdString, ',');
 
 使用另一个字符串填充字符串为指定长度
 
-> str_pad(    string `$string`,    int `$length`,    string `$pad_string` = " ",    int `$pad_type` = `STR_PAD_RIGHT` ): string
+> str_pad( string `$string`, int `$length`, string `$pad_string` = " ", int `$pad_type` = `STR_PAD_RIGHT` ): string
 
 比如用字符串制表的时候这个就非常有用了，例如：
 
@@ -282,7 +282,7 @@ public function handleFormat()
 
 ### highlight_string(string) - 语法高亮
 
-> highlight_string(*string,return*)
+> highlight*string(\_string,return*)
 
 - 实现：对字符串进行 PHP 语法高亮显示
 
@@ -290,9 +290,9 @@ highlight_string() 函数对字符串进行 PHP 语法高亮显示。字符串�
 
 用于高亮的颜色可通过 php.ini 文件进行设置或者通过调用 ini_set() 函数进行设置。
 
-### htmlentities(string) - 字符串转HTML
+### htmlentities(string) - 字符串转 HTML
 
-> htmlentities(*string,flags,character-set,double_encode*)
+> htmlentities(_string,flags,character-set,double_encode_)
 
 案例：
 
@@ -304,7 +304,7 @@ echo htmlentities($str);
 
 - 实现：把字符转换为 HTML 实体
 
-展示代码时，这个就比较好用，避免被html给输出了
+展示代码时，这个就比较好用，避免被 html 给输出了
 
 ### preg_match() - 正则匹配
 
@@ -316,18 +316,18 @@ echo htmlentities($str);
 
 > iconv(string `$from_encoding`, string `$to_encoding`, string `$string`): string|false
 
- 例如：
+例如：
 
 ```PHP
 // 解决部分文字出现奇怪符号
 $grandNameTextMore = iconv('UTF-8', 'windows-1252', $grandNameTextMore);
 ```
 
-## URL相关
+## URL 相关
 
-### **parse_url()**
+**parse_url()**
 
-> 解析 URL，并返回url的组成部分
+> 解析 URL，并返回 url 的组成部分
 >
 > parse_url(string `$url`, int `$component` = -1): int|string|array|null|false
 
@@ -335,9 +335,23 @@ $grandNameTextMore = iconv('UTF-8', 'windows-1252', $grandNameTextMore);
 $uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 ```
 
-- 实现：获取上传文件的后缀，或者请求URL的部分地址
+- 实现：获取上传文件的后缀，或者请求 URL 的部分地址
 
 知识点链接：[parse_url](https://www.php.net/manual/en/function.parse-url)
+
+**http_build_query**
+
+> http*build_query(\_query_data*)
+>
+> query_data：必需，规定要转换的数组
+
+- 实现：生成 URL-encode 之后的请求字符串
+
+**urlencode**
+
+> urlencode(_string_)
+
+- 实现：对 URL 字符串进行编码
 
 ## 数字相关
 
@@ -349,7 +363,7 @@ $uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
 > ceil(int|float `$num`): float
 
-- 向上取整，比如1.4，则返回2。返回值为浮点数。
+- 向上取整，比如 1.4，则返回 2。返回值为浮点数。
 
 另外还有 **floor** 向下取整；
 
@@ -369,23 +383,23 @@ $num_format = number_format($num,2);
 
 推荐就传入两个参数，第二个是要保留的小数点位置，如果不传，则默认取整数。
 
-### [uniqid()](https://www.php.net/manual/zh/function.uniqid.php) 生成一个唯一ID
+### [uniqid()](https://www.php.net/manual/zh/function.uniqid.php) 生成一个唯一 ID
 
 > uniqid(string `$prefix` = "", bool `$more_entropy` = **`false`**): string
 
-获取一个带前缀、基于当前时间微秒数的唯一ID。
+获取一个带前缀、基于当前时间微秒数的唯一 ID。
 
-**参数****[ ](https://www.php.net/manual/zh/function.uniqid.php#refsect1-function.uniqid-parameters)**
+**参数\*\***[ ](https://www.php.net/manual/zh/function.uniqid.php#refsect1-function.uniqid-parameters)\*\*
 
 **`prefix`**
 
-有用的参数。例如：如果在多台主机上可能在同一微秒生成唯一ID。
+有用的参数。例如：如果在多台主机上可能在同一微秒生成唯一 ID。
 
 `prefix`为空，则返回的字符串长度为 13。`more_entropy` 为 `true`，则返回的字符串长度为 23。
 
 **`more_entropy`**
 
-如果设置为 `true`，uniqid() 会在返回的字符串结尾增加额外的熵（使用线性同余组合发生器）。 使得唯一ID更具唯一性。
+如果设置为 `true`，uniqid() 会在返回的字符串结尾增加额外的熵（使用线性同余组合发生器）。 使得唯一 ID 更具唯一性。
 
 ## 时间相关
 
@@ -402,7 +416,7 @@ date( 'Y-m-d ',strtotime($v->create_time));
 
 //截止日期的玩法
 //$num为你想延后的时间，单位可以为hour、day、month、year
-$new_time = date('Y-m-d H:i:s',strtotime("+$num hour",strtotime($old_time))); 
+$new_time = date('Y-m-d H:i:s',strtotime("+$num hour",strtotime($old_time)));
 ```
 
 实现：时间截断、截止日期
@@ -427,7 +441,7 @@ $new_time = date('Y-m-d H:i:s',strtotime("+$num hour",strtotime($old_time)));
 
 ### [scandir() - 列出文件和目录](https://www.php.net/manual/zh/function.scandir.php)
 
-> scandir(*directory,sorting_order,context*);
+> scandir(_directory,sorting_order,context_);
 
 ### [fopen() - 打开文件](https://www.php.net/manual/zh/function.fopen.php)
 
@@ -439,7 +453,7 @@ $new_time = date('Y-m-d H:i:s',strtotime("+$num hour",strtotime($old_time)));
 
 > int file_put_contents ( string $filename , mixed $data [, int $flags = 0 [, resource $context ]] )
 
-### fgetcsv() - 解析一行CSV文件
+### fgetcsv() - 解析一行 CSV 文件
 
 > fgetcsv(file,length,separator,enclosure)
 
@@ -462,7 +476,7 @@ fclose($file);
 
 ## 其它拓展
 
-### **json_encode()** 
+### **json_encode()**
 
 > string json_encode ( $value [, $options = 0 ] )
 
@@ -490,7 +504,7 @@ $data['img'] = json_encode($img,JSON_UNESCAPED_UNICODE); //编码
 $img = json_decode($data['img'],true); //解码（加true为数组，否则为对象）
 ```
 
-- 实现：数组转成json格式，方便数据库储存
+- 实现：数组转成 json 格式，方便数据库储存
 
 知识点链接：[PHP JSON](https://www.runoob.com/php/php-json.html)
 

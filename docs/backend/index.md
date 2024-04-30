@@ -1,12 +1,14 @@
 # 后端运维文档导航
 
-- [Linux](./linux)
+- [MySQL](./mysql)
 
 - [Redis](./redis)
 
-- [MySQL](./mysql)
-
 - [Java](./java)
+
+- [Linux](./linux)
+
+- [Nginx](./nginx)
 
 - [Vim](./vim)
 

@@ -31,6 +31,7 @@ export default defineConfig({
           { text: "Html", link: "/frontend/html" },
           { text: "NodeJs", link: "/frontend/nodejs" },
           { text: "Vue3", link: "/frontend/vue3" },
+          { text: "TypeScript", link: "/frontend/typescript" },
         ],
       },
       {
@@ -93,6 +94,7 @@ export default defineConfig({
               { text: "Html", link: "/frontend/html" },
               { text: "NodeJs", link: "/frontend/nodejs" },
               { text: "Vue3", link: "/frontend/vue3" },
+              { text: "TypeScript", link: "/frontend/typescript" },
             ],
           },
           {
