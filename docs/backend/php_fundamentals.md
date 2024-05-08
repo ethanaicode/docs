@@ -20,6 +20,10 @@
 
 - `php -a`: 进入交互模式
 
+- `php -i`: 查看 php 配置
+
+  php -i | grep php.ini: 查看 php.ini 文件路径
+
 ## 技巧
 
 ### \<\?=\$a\?\>
