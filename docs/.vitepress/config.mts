@@ -47,9 +47,8 @@ export default defineConfig({
           {
             text: "PHP知识",
             items: [
-              { text: "Methods", link: "/backend/php_methods" },
+              { text: "Basic", link: "/backend/php_basic" },
               { text: "Advanced", link: "/backend/php_advanced" },
-              { text: "Basic", link: "/backend/php_fundamentals" },
               { text: "Laravel", link: "/backend/php_laravel" },
             ],
           },
@@ -113,9 +112,8 @@ export default defineConfig({
                 text: "PHP Knowledge",
                 collapsed: true,
                 items: [
-                  { text: "Methods", link: "/backend/php_methods" },
+                  { text: "Basic", link: "/backend/php_basic" },
                   { text: "Advanced", link: "/backend/php_advanced" },
-                  { text: "Basic", link: "/backend/php_fundamentals" },
                   { text: "Laravel", link: "/backend/php_laravel" },
                 ],
               },

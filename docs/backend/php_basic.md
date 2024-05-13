@@ -1,8 +1,66 @@
-# PHP 常用方法
+## PHP 基础知识
 
-## 数组相关
+### 对象和数组
 
-### [array_column()](https://www.php.net/manual/zh/function.array-column) 返回输入数组中指定列的值
+> 新手一定要注意这两个的区别，不然取值的时候能折磨死
+
+对象取值用 尖头->
+
+数组取值用 方括号[]
+
+## 命令
+
+- `php -m`: 查看已经安装的模块
+
+- `php -v`: 查看版本
+
+- `php -S localhost:8000`: 启动一个简单的服务器
+
+- `php -a`: 进入交互模式
+
+- `php -i`: 查看 php 配置
+
+  php -i | grep php.ini: 查看 php.ini 文件路径
+
+## 技巧
+
+### \<\?=\$a\?\>
+
+> 等同于 \<\?php echo \$a; \?\>
+
+## 试题
+
+### php 单引号和双引号的区别与用法
+
+php 里的单引号把内容当成纯文本，不会经过服务器翻译。
+
+而双引号则与此相反。里面的内容会经过服务器处理(process)。
+
+> 说人话就是双引号支持变量，单引号会将文本原样输出
+
+### require 和 include
+
+他们大部分时候都是可以互换的。
+
+但是`include`遇到问题会发出警告脚本继续运行，`require`则生成致命错误并停止运行程序。
+
+### require_once 和 include_once
+
+使用方法跟 require、include 一样，差别在于在引入文件前，会先检查文件是否已经在其他地方被引入过了，
+
+若有，就不会再重复引入。
+
+## 命名符 和 占位符
+
+:xxx
+
+?
+
+## PHP 常用方法
+
+### 数组相关
+
+#### [array_column()](https://www.php.net/manual/zh/function.array-column) 返回输入数组中指定列的值
 
 > array*column(\_array*,_column_key_,_index_key_);
 
@@ -29,7 +87,7 @@
 
 **column_key**也可以是 **`null`** ，此时将返回整个数组（配合 **`index_key`** 参数来重新索引数组时非常好用）。
 
-### [array_key_exists()](https://www.php.net/manual/en/function.array-key-exists.php) 检查数组里是否有指定的键名或索引
+#### [array_key_exists()](https://www.php.net/manual/en/function.array-key-exists.php) 检查数组里是否有指定的键名或索引
 
 > array_key_exists(string|int `$key`, array `$array`): bool
 
@@ -47,7 +105,7 @@ foreach ($result as $key => $value) {
 }
 ```
 
-### [array_unique()](https://www.php.net/manual/zh/function.array-unique.php) 移除数组中重复的值
+#### [array_unique()](https://www.php.net/manual/zh/function.array-unique.php) 移除数组中重复的值
 
 注意键名保留不变（意味着可以保留以前的键名，为之后的操作留下方便）。
 
@@ -70,13 +128,13 @@ foreach ($result as $key => $value) {
 - `SORT_STRING` - 按照字符串形式比较
 - `SORT_LOCALE_STRING` - 根据当前的本地化设置，按照字符串比较。
 
-### [array_filter()](https://www.php.net/manual/zh/function.array-filter.php) 过滤数组的元素
+#### [array_filter()](https://www.php.net/manual/zh/function.array-filter.php) 过滤数组的元素
 
 > array_filter(array `$array`, ?[callable](https://www.php.net/manual/zh/language.types.callable.php) `$callback` = **`null`**, int `$mode` = 0): array
 
 可以用来过滤掉 null 或者 empty 值
 
-### [array_map()](https://www.php.net/manual/zh/function.array-map.php) 为数组的每个元素应用回调函数
+#### [array_map()](https://www.php.net/manual/zh/function.array-map.php) 为数组的每个元素应用回调函数
 
 > array_map(?[callable](https://www.php.net/manual/zh/language.types.callable.php) `$callback`, array `$array`, array `...$arrays`): array
 
@@ -87,7 +145,7 @@ $projectLeaderIds = array_map(function ($item) {
 }, $projectLeaderIds);
 ```
 
-### [array_intersect_key()](https://www.php.net/manual/zh/function.array-intersect-key.php) 使用键名比较计算数组的交集
+#### [array_intersect_key()](https://www.php.net/manual/zh/function.array-intersect-key.php) 使用键名比较计算数组的交集
 
 就是比较键名，如果一样就放入新的数组中，和顺序无关（就不用再使用 foreach 来实现了）。
 
@@ -104,7 +162,7 @@ $uniqueRentaiunitIds = array_unique($rentaiunitIds, SORT_REGULAR);
 $uniqueData = array_intersect_key($result['data'], $uniqueRentaiunitIds);
 ```
 
-### implode() / explode()
+#### implode() / explode()
 
 > implode(_separator,array_)
 
@@ -114,13 +172,13 @@ $uniqueData = array_intersect_key($result['data'], $uniqueRentaiunitIds);
 
 知识点链接：[PHP implode()函数](https://www.runoob.com/php/func-string-implode.html)
 
-### in_array($value, $params)
+#### in_array($value, $params)
 
 - 可以判断值是否在数组中
 
-### array_keys() 返回键名
+#### array_keys() 返回键名
 
-### array_slice()、array_splice()
+#### array_slice()、array_splice()
 
 > array*slice(\_array,start,length,preserve*)
 >
@@ -137,7 +195,7 @@ $uniqueData = array_intersect_key($result['data'], $uniqueRentaiunitIds);
 
 知识点链接：[PHP array_slide()函数](https://www.runoob.com/php/func-array-slice.html)
 
-### [array_chunk()](https://php.net/manual/en/function.array-chunk.php) 分割数组
+#### [array_chunk()](https://php.net/manual/en/function.array-chunk.php) 分割数组
 
 > array_chunk(array `$array`, int `$length`, bool `$preserve_keys` = `false`): array
 
@@ -151,7 +209,7 @@ $tempContent = array_chunk($tempContent, $maxContentLinesCount);
 $content = implode("\n", $tempContent[0]);
 ```
 
-### array_push() 追加元素
+#### array_push() 追加元素
 
 > array*push(\_array,value1,value2...*)
 
@@ -159,17 +217,17 @@ $content = implode("\n", $tempContent[0]);
 
 即使您的数组有字符串键名，您所添加的元素将是数字键名
 
-### [array_merge() ](https://php.net/manual/en/function.array-merge.php) 合并一个或多个数组
+#### [array_merge() ](https://php.net/manual/en/function.array-merge.php) 合并一个或多个数组
 
 > array_merge(array `...$arrays`): array
 
 可以实现一维数组后面继续追加另一个一维数组
 
-### [array_multisort()](https://www.php.net/manual/zh/function.array-multisort.php) 对多个数组或多维数组进行排序
+#### [array_multisort()](https://www.php.net/manual/zh/function.array-multisort.php) 对多个数组或多维数组进行排序
 
 > array_multisort( array `&$array1`, [mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed) `$array1_sort_order` = SORT_ASC, [mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed) `$array1_sort_flags` = SORT_REGULAR, [mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed) `...$rest` ): bool
 
-### [ksort()](https://www.php.net/manual/zh/array.sorting.php) 等多个对数组排序的方法
+#### [ksort()](https://www.php.net/manual/zh/array.sorting.php) 等多个对数组排序的方法
 
 > ksort(array `&$array`, int `$flags` = **`SORT_REGULAR`**): true
 
@@ -177,15 +235,15 @@ $content = implode("\n", $tempContent[0]);
 
 还有多个排序方法，可以根据键或者值来排序，具体可以点击标题查看官方完整文档
 
-### [array_diff()](https://www.php.net/manual/zh/function.array-diff.php) 计算数组的差集
+#### [array_diff()](https://www.php.net/manual/zh/function.array-diff.php) 计算数组的差集
 
 > array_diff(array `$array`, array `...$arrays`): array
 
 - 仅仅保留不在后面数组的值
 
-## 字符串相关
+### 字符串相关
 
-### substr() - 分割字符串
+#### substr() - 分割字符串
 
 > substr(_string,start,length_)
 >
@@ -196,9 +254,9 @@ $content = implode("\n", $tempContent[0]);
 
 - 实现：substr() 函数返回字符串的一部分
 
-### sublen() - 统计字符串长度
+#### sublen() - 统计字符串长度
 
-### trim() - 移除空格
+#### trim() - 移除空格
 
 > trim(_string,\*\*charlist_)
 
@@ -214,7 +272,7 @@ $name = trim($name);  //去除名字两边的空格
 
 知识点链接：[PHP trim() 函数](https://www.runoob.com/php/func-string-trim.html)
 
-### rtrim() - 移除末尾空格（可以是预定义的字符）
+#### rtrim() - 移除末尾空格（可以是预定义的字符）
 
 案例：
 
@@ -225,7 +283,7 @@ $customerIdString .= $value['customer_id'] . ',';
 $customerIdString = rtrim($customerIdString, ',');
 ```
 
-### str_pad 填充字符串长度
+#### str_pad 填充字符串长度
 
 使用另一个字符串填充字符串为指定长度
 
@@ -280,7 +338,7 @@ public function handleFormat()
 
 ![img](https://pic.shejibiji.com/i/2024/04/16/661e1ef9b63b3.png)
 
-### highlight_string(string) - 语法高亮
+#### highlight_string(string) - 语法高亮
 
 > highlight*string(\_string,return*)
 
@@ -290,7 +348,7 @@ highlight_string() 函数对字符串进行 PHP 语法高亮显示。字符串�
 
 用于高亮的颜色可通过 php.ini 文件进行设置或者通过调用 ini_set() 函数进行设置。
 
-### htmlentities(string) - 字符串转 HTML
+#### htmlentities(string) - 字符串转 HTML
 
 > htmlentities(_string,flags,character-set,double_encode_)
 
@@ -306,13 +364,13 @@ echo htmlentities($str);
 
 展示代码时，这个就比较好用，避免被 html 给输出了
 
-### preg_match() - 正则匹配
+#### preg_match() - 正则匹配
 
 > int preg_match ( string $pattern , string $subject [, array &$matches [, int $flags = 0 [, int $offset = 0 ]]] )
 
 - preg_match 函数用于执行一个正则表达式匹配。
 
-### iconv() - 字符串转码
+#### iconv() - 字符串转码
 
 > iconv(string `$from_encoding`, string `$to_encoding`, string `$string`): string|false
 
@@ -323,7 +381,7 @@ echo htmlentities($str);
 $grandNameTextMore = iconv('UTF-8', 'windows-1252', $grandNameTextMore);
 ```
 
-## URL 相关
+### URL 相关
 
 **parse_url()**
 
@@ -353,13 +411,13 @@ $uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
 - 实现：对 URL 字符串进行编码
 
-## 数字相关
+### 数字相关
 
-### [round](https://www.php.net/manual/zh/function.round.php) 四舍五入取整
+#### [round](https://www.php.net/manual/zh/function.round.php) 四舍五入取整
 
 > round(int|float `$num`, int `$precision` = 0, int `$mode` = `PHP_ROUND_HALF_UP`): float
 
-### [ceil](https://www.php.net/manual/zh/function.ceil.php) 进一法取整
+#### [ceil](https://www.php.net/manual/zh/function.ceil.php) 进一法取整
 
 > ceil(int|float `$num`): float
 
@@ -369,7 +427,7 @@ $uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
 **intval** 对变数转成整数。
 
-### **number_format()**
+#### **number_format()**
 
 案例：
 
@@ -383,7 +441,7 @@ $num_format = number_format($num,2);
 
 推荐就传入两个参数，第二个是要保留的小数点位置，如果不传，则默认取整数。
 
-### [uniqid()](https://www.php.net/manual/zh/function.uniqid.php) 生成一个唯一 ID
+#### [uniqid()](https://www.php.net/manual/zh/function.uniqid.php) 生成一个唯一 ID
 
 > uniqid(string `$prefix` = "", bool `$more_entropy` = **`false`**): string
 
@@ -401,9 +459,9 @@ $num_format = number_format($num,2);
 
 如果设置为 `true`，uniqid() 会在返回的字符串结尾增加额外的熵（使用线性同余组合发生器）。 使得唯一 ID 更具唯一性。
 
-## 时间相关
+### 时间相关
 
-### **data()、strtotime()**
+#### **data()、strtotime()**
 
 案例：
 
@@ -421,39 +479,39 @@ $new_time = date('Y-m-d H:i:s',strtotime("+$num hour",strtotime($old_time)));
 
 实现：时间截断、截止日期
 
-### 插件：Carbon
+#### 插件：Carbon
 
 知识点链接：[Carbon](https://github.com/briannesbitt/Carbon)
 
-## 方法相关
+### 方法相关
 
-### **call_user_func**
+#### **call_user_func**
 
 > 把第一个参数作为回调函数调用
 >
 > call_user_func([callable](https://www.php.net/manual/zh/language.types.callable.php) `$callback`, [mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed) `...$args`): [mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed)
 
-### func_get_args()
+#### func_get_args()
 
 获取调用方法时的参数。
 
-## 文件相关
+### 文件相关
 
-### [scandir() - 列出文件和目录](https://www.php.net/manual/zh/function.scandir.php)
+#### [scandir() - 列出文件和目录](https://www.php.net/manual/zh/function.scandir.php)
 
 > scandir(_directory,sorting_order,context_);
 
-### [fopen() - 打开文件](https://www.php.net/manual/zh/function.fopen.php)
+#### [fopen() - 打开文件](https://www.php.net/manual/zh/function.fopen.php)
 
-### fputcsv() - 将行格式化为 CSV 并写入一个打开的文件中
+#### fputcsv() - 将行格式化为 CSV 并写入一个打开的文件中
 
 > fputcsv(file,fields,seperator,enclosure)
 
-### [file_put_contents() - 把一个字符串写入文件](https://www.php.net/manual/zh/function.file-put-contents.php)
+#### [file_put_contents() - 把一个字符串写入文件](https://www.php.net/manual/zh/function.file-put-contents.php)
 
 > int file_put_contents ( string $filename , mixed $data [, int $flags = 0 [, resource $context ]] )
 
-### fgetcsv() - 解析一行 CSV 文件
+#### fgetcsv() - 解析一行 CSV 文件
 
 > fgetcsv(file,length,separator,enclosure)
 
@@ -472,15 +530,15 @@ fclose($file);
 ?>
 ```
 
-### fclose() - 关闭文件
+#### fclose() - 关闭文件
 
-## 其它拓展
+### 其它拓展
 
-### **json_encode()**
+#### **json_encode()**
 
 > string json_encode ( $value [, $options = 0 ] )
 
-### **json_decode()**
+#### **json_decode()**
 
 > mixed json_decode ($json_string [,$assoc = false [, $depth = 512 [, $options = 0 ]]])
 
@@ -508,7 +566,7 @@ $img = json_decode($data['img'],true); //解码（加true为数组，否则为�
 
 知识点链接：[PHP JSON](https://www.runoob.com/php/php-json.html)
 
-### [serialize - 生成值的可存储表示](https://www.php.net/manual/zh/function.serialize.php)
+#### [serialize - 生成值的可存储表示](https://www.php.net/manual/zh/function.serialize.php)
 
 > serialize([mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed) `$value`): string
 
@@ -518,7 +576,7 @@ $img = json_decode($data['img'],true); //解码（加true为数组，否则为�
 
 想要将已序列化的字符串变回 PHP 的值，可使用 [unserialize()](https://www.php.net/manual/zh/function.unserialize.php)。
 
-### unset()
+#### unset()
 
 > void unset ( mixed $var [, mixed $... ] )
 
