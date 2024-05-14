@@ -34,15 +34,15 @@ VALUES
 
 例如：DECIMAL(10,2)
 
-The `DECIMAL` type allows you to specify the total number of digits (precision) and the number of digits after the decimal point (scale).
+`DECIMAL` 数据类型用于存储精确的十进制数字。在 `DECIMAL` 数据类型中，`long` 参数表示数字的最大总位数，而 `decimal` 参数表示小数点后的位数。
 
-In the above example, `10` represents the total number of digits, and `2` represents the number of digits after the decimal point.
+在 `DECIMAL(10,2)` 中，`10` 表示总位数，`2` 表示小数点后的位数。这意味着，`DECIMAL(10,2)` 可以存储最大 `10` 位数字，其中 `2` 位是小数位。
 
 ### ENUM(...value) - 预设单选值
 
 例如：ENUM('Active', 'Inactive', 'Pending')
 
-It allows you to specify a list of acceptable values for the field, and each field can only hold one of those specified values.
+`ENUM` 数据类型用于存储预定义的值。在 `ENUM` 数据类型中，您可以指定一个值列表，然后列中的值必须是该列表中的一个。
 
 ### TIMESTAMP - 时间类型
 
@@ -57,6 +57,12 @@ ADD COLUMN updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CUR
 ```
 
 ## 基础操作
+
+### ORDER BY 排序
+
+```sql
+SELECT * FROM table_name ORDER BY column_name ASC|DESC;
+```
 
 ### DELETE 删除行
 
@@ -92,18 +98,28 @@ AUTO_INCREMENT=1;
 SELECT CONCAT("SQL ", "Tutorial ", "is ", "fun!") AS ConcatenatedString;
 ```
 
-**CONCAT_WS: **拼接多个表达式，并以符号分割他们：
+**CONCAT_WS**拼接多个表达式，并以符号分割他们：
 
 ```sql
 SELECT CONCAT_WS("-", "SQL", "Tutorial", "is", "fun!") AS ConcatenatedString;
 ```
 
-### GROUP_CONCAT 数据分组处理
+### GROUP_CONCAT 聚合函数
 
 ```sql
 -- 查出所有customer_id并去重
 SELECT GROUP_CONCAT(DISTINCT customer_id SEPARATOR ',') AS customer_ids
 FROM task;
+```
+
+### DISTINCT 去重
+
+```sql
+SELECT DISTINCT column1, column2, ...
+FROM table_name;
+-- 统计数量
+SELECT COUNT(DISTINCT column_name)
+FROM table_name;
 ```
 
 ### FIND_IN_SET() 查找字符串位置
@@ -115,6 +131,32 @@ SELECT FIND_IN_SET("q", "s,q,l");
 ```
 
 ## 高级操作
+
+### EXPLAIN 查询分析
+
+使用了 `EXPLAIN` 关键字，则查询将返回有关数据库引擎执行查询的信息，而不会返回实际结果。`EXPLAIN` 语句告诉数据库引擎它将如何执行查询，包括哪些索引将被使用，以及执行查询的步骤。
+
+```sql
+EXPLAIN
+SELECT COUNT(DISTINCT requester_ip)
+FROM zai_ma.api_requests_logs
+WHERE request_timestamp >= '2024-05-14 00:00:00'
+```
+
+结果从左到右分别会出现以下字段：
+
+- `id`: 查询的序列号
+- `select_type`: 查询的类型。
+- `table`: 正在访问的表。
+- `partitions`: 分区信息，NULL 表示没有分区。
+- `type`: 访问表的方式，这里是范围扫描（range），表示在索引上执行了范围查找。
+- `possible_keys`: 可能使用的索引，比如有一个索引 `idx_request_timestamp`。
+- `key`: 实际使用的索引。
+- `key_len`: 使用的索引的长度。
+- `ref`: 表示索引的参考。
+- `rows`: 预估扫描的行数。
+- `filtered`: 表示查询的过滤条件的估计百分比，这里是 100%。
+- `Extra`: 额外的信息，这里是使用了索引条件`Using index condition`。
 
 ### 查询所有的表名并输出为 array()
 
@@ -134,23 +176,24 @@ public function getTableList()
 
 ```sql
 -- 告诉MySQL将sql处理的数量记下来
-
 SELECT SQL_CALC_FOUND_ROWS * FROM table_name LIMIT 0,10;
 
 -- 取到这个记录
-
 SELECT FOUND_ROW() AS total
 ```
 
 这个只有当 where 限制条件多时才会快点。
 
-有覆盖索引时这个性能高，有覆盖索引时使用 COUNT() 性能高。
+有覆盖索引时这个性能会更好，如果没有索引，使用 count(\*)会更好。
 
 ### 特殊查询
 
 ```sql
 -- Mysql Vesion
 SELECT VERSION();
+
+-- 查看当前数据库
+SELECT DATABASE();
 ```
 
 ## 常用案例
@@ -180,7 +223,6 @@ GROUP BY rp.id
 
 ```sql
 -- 控制不同的排序
-
 ORDER BY
 CASE
   WHEN type = 'project' THEN CONCAT(project_id, 'a')
@@ -189,7 +231,6 @@ END
 ASC
 
 -- 选择匹配值
-
 LEFT JOIN customer c ON c.id_customer =
 CASE
     WHEN t.customer_id IS NOT NULL THEN t.customer_id
@@ -198,7 +239,6 @@ CASE
 END
 
 -- 计算结果（完整查询语句）
-
 SELECT COUNTRY ，
 SUM(CASE WHEN GENDER ='1' THEN SALARY ELSE 0 END) AS COUNTG ，
 SUM(CASE WHEN GENDER ='2' THEN SALARY ELSE 0 END) AS COUNTB

@@ -812,6 +812,29 @@ systemctl start mysqld
 
 ### 网络相关
 
+#### 使用 cURL 下载文件
+
+cURL 是一个用于传输数据的命令行工具，支持多种协议，如 HTTP、HTTPS、FTP 等。
+
+下面是使用 cURL 下载文件的一些常见用法：
+
+```bash
+curl -f -SOJL -H "License: license_key" \
+https://chevereto.com/api/download/latest
+```
+
+`-f` 参数表示如果下载失败，则不创建文件。
+
+`-S` 参数表示显示错误信息。
+
+`-O` 参数表示将下载的文件保存到本地，并使用远程文件的文件名。
+
+`-J` 参数表示使用远程文件的文件名。
+
+`-L` 参数表示跟踪重定向。
+
+`-H` 参数表示添加请求头。
+
 #### 测试服务器是否可以连接某网站
 
 可以通过自带的连接工具，比如 curl 或者 wget。
