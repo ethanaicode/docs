@@ -1,8 +1,6 @@
-# Mac 快捷键和操作技巧
+# Mac 笔记
 
-> 只收集自己会用到的（随时更新，如果自己用不到将会删除）
-
-## Mac 快捷键 shortcut
+## Mac shortcut
 
 ### 快捷操作
 
@@ -49,3 +47,63 @@
 可以使用命令：**Command⌘ + Option⌥ + Esc** 打开强制退出应用程序窗口。
 
 或者使用活动监视器：**在“应用程序”文件夹中打开“实用工具”文件夹，然后双击“活动监视器”**。
+
+## Brew 管理工具
+
+### Basics
+
+- brew list
+
+  将会显示所有已安装的 Homebrew 软件包
+
+  此外，`brew list --cask` 将提供使用 [Homebrew Cask](https://github.com/Homebrew/homebrew-cask) 安装的项目。
+
+- brew leaves
+
+  列出所有顶级包，不包括依赖项的包。
+
+- brew search TEXT
+
+  搜索软件，支持`/`的正则匹配
+
+- brew info PACKAGE_NAME
+
+  查看 package name 的详细信息
+
+- brew install PACKAGE_NAME
+
+- brew upgrade PACKAGE_NAME
+
+  如果不输入具体的 fomula，将更新全部
+
+- brew uninstall
+
+- brew cleanup
+
+  删除安装过程中的缓存，会清理掉 Cask 套件
+
+### Services
+
+- brew services list
+
+- brew services star/stop/restart serviceName
+
+### Cask
+
+Cask 是 Homebrew 的扩展，原本的 Homebrew 是管理命令行的，而 Cask 是管理 GUI 桌面软件的部分。
+Cask 的管理和 brew 相似，在 brew 后加上 cask 即可使用。
+
+下面是一些常用的：
+
+```bash
+# 查看软件详情
+brew cask info PACKAGE_NAME
+# 安装软件
+brew cask install PACKAGE_NAME
+# 列出所有已安裝的软件
+brew cask list
+# 更新软件
+brew cask upgrade PACKAGE_NAME
+# 卸载软件
+brew cask uninstall PACKAGE_NAME
+```

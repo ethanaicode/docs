@@ -6,8 +6,6 @@
 
 - [Mac](./mac)
 
-- [Brew](./brew)
-
 - [VSCode](./vscode)
 
 - [Software](./software)
