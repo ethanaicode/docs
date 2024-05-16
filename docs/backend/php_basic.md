@@ -526,19 +526,27 @@ $img = json_decode($data['img'],true); //解码（加true为数组，否则为�
 
 #### [serialize - 生成值的可存储表示](https://www.php.net/manual/zh/function.serialize.php)
 
-> serialize([mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed) `$value`): string
-
-- 通俗理解就是把数据及结构转成字符串存到数据库，要用的时候再转回去。
+> serialize(mixed $value): string
 
 这有利于存储或传递 PHP 的值，同时不丢失其类型和结构。
 
 想要将已序列化的字符串变回 PHP 的值，可使用 [unserialize()](https://www.php.net/manual/zh/function.unserialize.php)。
 
+*通俗理解就是把数据及结构转成字符串存到数据库，要用的时候再转回去。*
+
 #### unset()
 
 > void unset ( mixed $var [, mixed $... ] )
 
-- 实现：用于销毁给定的变量。
+销毁给定的变量。
+
+#### sleep 延缓执行
+
+> sleep(int $seconds): int
+
+程序延迟执行指定的 `seconds` 的秒数。
+
+*只能传整数，如果要用微妙请用usleep*
 
 ## 常见问题
 

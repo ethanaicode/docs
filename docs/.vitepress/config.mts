@@ -43,7 +43,6 @@ export default defineConfig({
           { text: "Linux", link: "/backend/linux" },
           { text: "Nginx", link: "/backend/nginx" },
           { text: "Vim", link: "/backend/vim" },
-          { text: "Supervisor", link: "/backend/supervisor" },
           {
             text: "PHP知识",
             items: [
@@ -106,7 +105,6 @@ export default defineConfig({
               { text: "Linux", link: "/backend/linux" },
               { text: "Nginx", link: "/backend/nginx" },
               { text: "Vim", link: "/backend/vim" },
-              { text: "Supervisor", link: "/backend/supervisor" },
               {
                 text: "PHP Knowledge",
                 collapsed: true,

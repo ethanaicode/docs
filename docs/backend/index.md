@@ -12,8 +12,6 @@
 
 - [Vim](./vim)
 
-- [Supervisor](./supervisor)
-
 ### PHP 知识
 
 - [PHP Basic](./php_basic)

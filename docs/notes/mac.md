@@ -107,3 +107,55 @@ brew cask upgrade PACKAGE_NAME
 # 卸载软件
 brew cask uninstall PACKAGE_NAME
 ```
+
+### 管理镜像源配置
+
+** 查看当前镜像源**
+
+`brew tap` 命令可以查看当前的镜像源。
+
+```bash
+brew tap
+```
+
+如果需要查看更详细的信息，可以使用 `brew config` 命令。
+
+```bash
+brew config
+```
+
+可以通过`git -C "$(brew --repo)" remote -v`查看当前的源。
+
+**切换镜像源**
+
+国内镜像地址：
+
+- 清华：https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+- 中科大：https://mirrors.ustc.edu.cn/homebrew-bottles
+- 阿里云：https://mirrors.aliyun.com/homebrew/homebrew-bottles
+
+```bash
+# 临时使用
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+# 永久使用（使用zsh）
+echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' >> ~/.zshrc
+```
+
+最后，使用 `brew update` 更新 Homebrew。
+
+**恢复默认源**
+
+```bash
+# 临时使用
+export HOMEBREW_BOTTLE_DOMAIN=https://homebrew.bintray.com/bottles
+# 永久使用（使用zsh）
+echo 'export HOMEBREW_BOTTLE_DOMAIN=https://homebrew.bintray.com/bottles' >> ~/.zshrc
+```
+
+**如果发生问题**
+
+```bash
+brew doctor
+brew update-reset
+brew update
+```
