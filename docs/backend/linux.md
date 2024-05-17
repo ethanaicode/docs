@@ -734,7 +734,7 @@ scp  -r  -P 2347 apollo@87.143.145.146:/home/apollo/bak/20240202  /Users/ethan/D
 
 清除缓存：`yum clean all`
 
-重新生成缓存：`yum makecache`
+重新生成缓存：`yum makecache`（更换源后需要执行）
 
 ### 服务管理
 

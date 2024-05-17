@@ -6,6 +6,8 @@
 
 - `git clone` - 拷贝远程仓库
 
+  （如果要自定义文件夹名，可以在后面加上文件夹名）
+
 - `git status` - **显示变更**
 
 - `git add .` - 添加文件到暂存区
@@ -84,15 +86,15 @@ find ./ -type d -empty -exec touch {}/.gitkeep \;
 
 用过 git 的老用户都知道 .gitignore 是为了忽略一些对项目无用的文件而设置的，我们添加这个文件也可以实现这个效果，但是不是最佳的，因此推荐用第一种（因为它本身是有意义的）。
 
-### 强制覆盖本地代码（与git 远程仓库保持一致）
+### 强制覆盖本地代码（与 git 远程仓库保持一致）
 
-git强制覆盖本地命令（单条执行）：
+git 强制覆盖本地命令（单条执行）：
 
 ```bash
 git fetch --all && git reset --hard origin/master && git pull
 ```
 
-git强制覆盖：
+git 强制覆盖：
 
 ```bash
 git fetch --all #取回远程库的所有修改；
