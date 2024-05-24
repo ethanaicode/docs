@@ -453,6 +453,46 @@ $new_time = date('Y-m-d H:i:s',strtotime("+$num hour",strtotime($old_time)));
 
 获取调用方法时的参数。
 
+### 图像生成及处理
+
+#### GD 库
+
+- [getimagesize()](https://www.php.net/manual/zh/function.getimagesize.php)
+
+  获取图像的大小，类型等信息（可以利用此方法获取真实的图片类型）
+
+- [imagecreatetrucolor()](https://www.php.net/manual/zh/function.imagecreatetruecolor.php)
+
+  新建一个真彩色图像
+
+- [imagecreatefrompng()](https://www.php.net/manual/zh/function.imagecreatefrompng.php)
+
+  从文件或 URL 创建一个新图像
+
+- [imagecreatefromjpeg()](https://www.php.net/manual/zh/function.imagecreatefromjpeg.php)
+
+  从文件或 URL 创建一个新图像
+
+- [imagecopyresampled()](https://www.php.net/manual/zh/function.imagecopyresampled.php)
+
+  重采样拷贝部分图像并调整大小（常用于缩略图，或者合并图片）
+
+- [imagecolorallocate()](https://www.php.net/manual/zh/function.imagecolorallocate.php)
+
+  为一幅图像分配颜色（返回的是颜色索引，可以在后续操作中用于填充颜色）
+
+- [imagefill()](https://www.php.net/manual/zh/function.imagefill.php)
+
+  用给定的颜色填充图像
+
+- [imagecopy()](https://www.php.net/manual/zh/function.imagecopy.php)
+
+  拷贝图像的一部分
+
+- [imagepng()](https://www.php.net/manual/zh/function.imagepng.php)
+
+  以 PNG 格式将图像输出到浏览器或文件
+
 ### 文件相关
 
 #### [scandir() - 列出文件和目录](https://www.php.net/manual/zh/function.scandir.php)

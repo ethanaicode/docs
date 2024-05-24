@@ -73,6 +73,14 @@ DELETE FROM customer
 WHERE id_customer NOT IN (2,3,4,5,6,8,9,11,44,138,179,275,459,464);
 ```
 
+### UPDATE 更新行
+
+```sql
+UPDATE customer
+SET customer_name = 'New Name'
+WHERE customer_id = 1;
+```
+
 ### ALTER 新增字段
 
 ```sql
@@ -194,6 +202,30 @@ SELECT VERSION();
 
 -- 查看当前数据库
 SELECT DATABASE();
+```
+
+### 指定 ip 或者全部 ip 访问
+
+```sql
+-- 指定 ip 访问
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'192.168.1.1' IDENTIFIED BY 'password' WITH GRANT OPTION;
+-- 设置全部 ip 访问
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
+```
+
+这些记录都被保存在 `mysql.user` 表中。这意味着你也可以通过 `UPDATE` 等命令来修改这些记录。
+
+```sql
+use mysql;
+select host, user from user;
+-- 更新用户的可访问 host
+update user set host='%' where user='root';
+```
+
+最后记得刷新权限，使其生效：
+
+```sql
+FLUSH PRIVILEGES;
 ```
 
 ## 常用案例

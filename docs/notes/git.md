@@ -20,6 +20,14 @@
 
   `--hard` 可以加上参数，来硬撤回
 
+- `git reset` - 撤销提交（可以撤销未 commit 的改变）
+
+  `--soft` 可以加上参数，来软撤回
+
+  `--hard` 可以加上参数，来硬撤回
+
+  可以通过`fetch`和`reset`来撤销未 pushed 的改变
+
 - `git revert [commit_hash]` - 撤销某次提交
 
   会生成一个新的提交，这个提交是对之前提交的撤销
@@ -63,6 +71,45 @@
   `[branchname]` 创建新的分支
 
   `-d [branchname]` 删除分支
+
+## git 配置
+
+使用 `git config` 命令可以配置 git 的一些参数，比如用户名、邮箱、代理等。
+
+Git 的配置分为三个级别：系统(`--system`)、用户(`--global`)、仓库(`--local`)。
+
+它们的优先级是：仓库 > 用户 > 系统。
+
+设置为全局，只需要加上 `--global` 参数即可。
+
+```bash
+git config --global user.name "yourname"
+git config --global user.email "youremail"
+```
+
+如果需要查看配置，可以使用 `git config --list` 命令。
+
+移除配置可以使用 `--unset` 参数。
+
+```bash
+git config --global --unset user.name
+```
+
+### 常用配置
+
+- `user.name` - 用户名
+
+- `user.email` - 邮箱
+
+- `core.editor` - 编辑器
+
+- `core.ignorecase` - 区分文件名大小写
+
+- `core.filemode` - 是否检查文件权限（如果 false 忽略文件权限的变化）
+
+- `http.proxy` - 代理
+
+- `http.sslVerify` - 是否验证 SSL 证书
 
 ## git 使用技巧
 

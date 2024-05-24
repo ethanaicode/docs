@@ -248,6 +248,7 @@
    - `ifconfig`: 显示网络接口的配置信息。
    - `netstat`: 显示网络连接、路由表、接口统计等。🌟🌟
    - `ss`: 类似于 `netstat`，用于获取套接字统计信息。
+   - `nslookup`: 查询 DNS 服务器，获取域名对应的 IP 地址。
 
 ### Cron 任务
 
@@ -841,37 +842,43 @@ Cron 任务的配置文件通常位于 `/etc/crontab` 或者 `/var/spool/cron` �
    0 3 * * * /path/to/backup.sh
    ```
 
-2. **每周一凌晨 2 点执行清理日志脚本**：
+2. **每 3 小时执行一次脚本**：
 
    ```bash
-    0 2 * * 1 /path/to/clean_logs.sh
+   0 */3 * * * /path/to/script.sh
    ```
 
-3. **每隔 30 分钟执行一次脚本**：
+3. **每周一凌晨 2 点执行清理日志脚本**：
+
+   ```bash
+   0 2 * * 1 /path/to/clean_logs.sh
+   ```
+
+4. **每隔 30 分钟执行一次脚本**：
 
    ```bash
    */30 * * * * /path/to/script.sh
    ```
 
-4. **每小时执行一次脚本**：
+5. **每小时执行一次脚本**：
 
    ```bash
    0 * * * * /path/to/script.sh
    ```
 
-5. **每月 1 号凌晨 1 点执行脚本**：
+6. **每月 1 号凌晨 1 点执行脚本**：
 
    ```bash
-    0 1 1 * * /path/to/script.sh
+   0 1 1 * * /path/to/script.sh
    ```
 
-6. **使用@reboot 标记在系统启动时执行脚本**：
+7. **使用@reboot 标记在系统启动时执行脚本**：
 
    ```bash
    @reboot /path/to/script.sh
    ```
 
-7. **使用@daily 标记每天执行脚本**：
+8. **使用@daily 标记每天执行脚本**：
 
    ```bash
    @daily /path/to/script.sh

@@ -8,4 +8,6 @@
 
 - [VSCode](./vscode)
 
+- [Command-Line Tools](./cli_tools)
+
 - [Software](./software)
