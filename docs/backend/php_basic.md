@@ -339,6 +339,18 @@ echo htmlentities($str);
 $grandNameTextMore = iconv('UTF-8', 'windows-1252', $grandNameTextMore);
 ```
 
+#### htmlspecialchars() - 转义特殊字符
+
+> htmlspecialchars(_string,flags,character-set,double_encode_)
+
+- 实现：把一些预定义的字符转换为 HTML 实体（也可以通过这个方法避免被 html 输出）
+
+```php
+$str = "&para";
+echo htmlspecialchars($str);
+// 输出 &para 而不是符号 ¶
+```
+
 ### URL 相关
 
 **parse_url()**
