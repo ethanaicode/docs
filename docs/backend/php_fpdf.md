@@ -2,9 +2,11 @@
 
 > http://www.fpdf.org/
 
-**文字乱码解决：（使用 iconv转换）**
+**文字乱码解决：（使用 iconv 转换）**
 
+```php
 $content = iconv('UTF-8', 'windows-1252', $content);
+```
 
 **最简单的案例：**
 
@@ -20,11 +22,11 @@ $pdf->Output();
 ?>
 ```
 
-### __construct --> 初始化
+### \_\_construct --> 初始化
 
-> __construct([**string** orientation [, **string** unit [, **mixed** size]]])
+> \_\_construct([**string** orientation [, **string** unit [, **mixed** size]]])
 
-方向（P竖版，L横版）、单位（点、毫米、厘米、英寸）、大小（A3、A4、A5...或者包含长宽的数组）
+方向（P 竖版，L 横版）、单位（点、毫米、厘米、英寸）、大小（A3、A4、A5...或者包含长宽的数组）
 
 例如：
 
@@ -76,7 +78,7 @@ $pdf = new FPDF('P', 'mm', array(100,150));
 
 - `align`
 
-  设置文本对齐方式。可能的值是：`L`: 左对齐    `C`： 中心    `R`: 右对齐    `J`: 理由（默认值）
+  设置文本对齐方式。可能的值是：`L`: 左对齐 `C`： 中心 `R`: 右对齐 `J`: 理由（默认值）
 
 - `fill`
 
@@ -114,7 +116,7 @@ $pdf->Write(5, 'www.fpdf.org', 'http://www.fpdf.org');
 
 > Image(**string** file [, **float** x [, **float** y [, **float** w [, **float** h [, **string** type [, **mixed** link]]]]]])
 
- file 文件支持插入本地图片，或者图片url
+file 文件支持插入本地图片，或者图片 url
 
 type 类型支持：`JPG`, `JPEG`, `PNG` and `GIF `
 
@@ -126,7 +128,7 @@ type 类型支持：`JPG`, `JPEG`, `PNG` and `GIF `
 
 > Rect(**float** x, **float** y, **float** w, **float** h [, **string** style])
 
-style可以是描边D或者填充F。
+style 可以是描边 D 或者填充 F。
 
 ### SetLineWidth --> 设置线条宽度
 
@@ -144,7 +146,7 @@ style可以是描边D或者填充F。
 
 > SetFont(**string** family [, **string** style [, **float** size]])
 
-核心字体包括：`courier`,  `helvetica`,  `times`,  `symbol`,  `zapfdingbats`
+核心字体包括：`courier`, `helvetica`, `times`, `symbol`, `zapfdingbats`
 
 ### [SetTextColor](http://www.fpdf.org/en/doc/settextcolor.htm) --> 设置字体颜色
 
@@ -154,7 +156,7 @@ style可以是描边D或者填充F。
 
 > SetFontSize(**float** size)
 
-### [SetXY](http://www.fpdf.org/en/doc/setxy.htm) --> 设置XY的位置
+### [SetXY](http://www.fpdf.org/en/doc/setxy.htm) --> 设置 XY 的位置
 
 > SetXY(**float** x, **float** y)
 
@@ -215,7 +217,7 @@ $pdf->SetLink($link);
 
   `F`: 使用给定的名称`name`（可能包含路径）保存到本地文件。
 
-  ​        最好包含文件保存的路径，如果只有名字，会直接保存到网站根目录。
+  ​ 最好包含文件保存的路径，如果只有名字，会直接保存到网站根目录。
 
   `S`: 将文档作为字符串返回。默认值为`I`。
 
@@ -231,6 +233,6 @@ $pdf->SetLink($link);
 
 ## Script 推荐脚本插件
 
-### [HTML conversion](http://www.fpdf.org/en/script/script53.php) HTML转换
+### [HTML conversion](http://www.fpdf.org/en/script/script53.php) HTML 转换
 
-把HTML标签转成PDF，支持大部分标签
+把 HTML 标签转成 PDF，支持大部分标签

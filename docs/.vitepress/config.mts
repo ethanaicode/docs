@@ -25,6 +25,7 @@ export default defineConfig({
     externalLinkIcon: true, // 是否显示外部链接图标
 
     nav: [
+      { text: "首页", link: "/"},
       {
         text: "前端开发",
         items: [

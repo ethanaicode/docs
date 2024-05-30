@@ -1,4 +1,4 @@
-> 目前包含了html，css以及js的内容，展示这部分笔记不多，先不分开。
+> 目前包含了 html，css 以及 js 的内容，由于之前学的时候，也没怎么做笔记，所以这部分内容目前较少，就先不分开了。
 
 # HTML
 
@@ -30,7 +30,7 @@ document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 
 ## Flex
 
-> MDN文档：[flex 布局的基本概念](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox)
+> MDN 文档：[flex 布局的基本概念](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox)
 
 ### Flex 轴线及容器
 
@@ -63,13 +63,13 @@ document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 
 用来规定在 flex 容器中**分配剩余空间**的相对比例。
 
-**注意:** 因为是在分配剩余空间，所以不能简单理解为倍数，除非各个元素的宽度为0，才可以直接理解为倍数。
+**注意:** 因为是在分配剩余空间，所以不能简单理解为倍数，除非各个元素的宽度为 0，才可以直接理解为倍数。
 
 > 小考题：
 >
-> 比如容器宽度110px，元素A的flex-grow为1，元素B的flex-grow为2，元素A和B的flex-basis都为10px，那么最终元素B在容器中的宽度是多少？
+> 比如容器宽度 110px，元素 A 的 flex-grow 为 1，元素 B 的 flex-grow 为 2，元素 A 和 B 的 flex-basis 都为 10px，那么最终元素 B 在容器中的宽度是多少？
 >
-> 计算：10px + 1x + 10px + 2x = 110px，算出 x 为30px，所以元素B的宽度为20px+2x，也就是80px。
+> 计算：10px + 1x + 10px + 2x = 110px，算出 x 为 30px，所以元素 B 的宽度为 20px+2x，也就是 80px。
 
 #### flex-shrink
 
@@ -115,7 +115,7 @@ document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 - `flex-start`：使 flex 元素按 flex 容器的顶部对齐
 - `flex-end`：使 flex 元素按 flex 容器的底部对齐
 - `center`：使 flex 元素按 flex 容器的中心对齐
-- `baseline`：和start类似，但是会以文字的基线对齐（这意味着文字大小不同时，会和start有明显不同）
+- `baseline`：和 start 类似，但是会以文字的基线对齐（这意味着文字大小不同时，会和 start 有明显不同）
 
 #### align-content
 

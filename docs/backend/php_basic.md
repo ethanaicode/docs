@@ -10,6 +10,8 @@
 
 - `php -a`: 进入交互模式
 
+= `php -r "echo 'Hello World';"`: 执行一行代码
+
 - `php -i`: 查看 php 配置
 
   `php -i | grep php.ini`: 查看 php.ini 文件路径
@@ -440,7 +442,6 @@ $num_format = number_format($num,2);
 //$v->create_time 为 2022-10-26 17:47:42
 //处理后为 2022-10-26
 date( 'Y-m-d ',strtotime($v->create_time));
-
 
 //截止日期的玩法
 //$num为你想延后的时间，单位可以为hour、day、month、year

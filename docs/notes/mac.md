@@ -110,7 +110,7 @@ brew cask uninstall PACKAGE_NAME
 
 ### 管理镜像源配置
 
-** 查看当前镜像源**
+**查看当前镜像源**
 
 `brew tap` 命令可以查看当前的镜像源。
 
@@ -159,3 +159,30 @@ brew doctor
 brew update-reset
 brew update
 ```
+
+## MAMP 开发环境搭建
+
+### 常用目录及文件
+
+**MAMP Apache Conf:** /Applications/MAMP/conf/apache/httpd.conf
+
+**MAMP PHP Conf:** /Applications/MAMP/bin/php/php8.2.0/conf
+
+### 使用技巧
+
+MAMP 的服务及应用都放在目录`/Applications/MAMP/bin`下，
+
+可以通过 WEBROOT + 目录名 访问对应的服务，比如想要使用 phpMyAdmin，可以通过 http://localhost:8888/phpMyAdmin/ 访问。
+
+**目前查看目录并测试，知道可用的服务包括：**
+
+- **mamp**：MAMP 管理工具
+
+- **adminer**：数据库管理工具
+
+- **phpLiteAdmin**：SQLite 管理工具
+
+- **phpPgAdmin**：PostgreSQL 管理工具
+
+- **phpMyAdmin**：MySQL 管理工具
+
