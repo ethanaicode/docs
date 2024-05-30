@@ -8,7 +8,8 @@
 .temp
 .vite_opt_cache
 .vscode
-dist
+# 直接本地构建，服务器直接拉取来部署（文件不大，可以不用那么麻烦）
+# dist
 cache
 temp
 examples-temp

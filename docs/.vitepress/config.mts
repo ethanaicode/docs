@@ -69,6 +69,7 @@ export default defineConfig({
           { text: "VSCode", link: "/notes/vscode" },
           { text: "命令行工具", link: "/notes/cli_tools" },
           { text: "软件推荐", link: "/notes/software" },
+          { text: "软件使用指南", link: "/notes/app_guides" },
         ],
       },
       // 外部链接
@@ -135,7 +136,8 @@ export default defineConfig({
               { text: "Mac", link: "/notes/mac" },
               { text: "VSCode", link: "/notes/vscode" },
               { text: "CliTools", link: "/notes/cli_tools" },
-              { text: "Software", link: "/notes/software" },
+              { text: "App Recommend", link: "/notes/software" },
+              { text: "App Guides", link: "/notes/app_guides" },
             ],
           },
           { text: "Main Site", link: "https://www.shejibiji.com/" },

@@ -10,4 +10,6 @@
 
 - [Command-Line Tools](./cli_tools)
 
-- [Software](./software)
+- [App Recommend](./software)
+
+- [App Guides](./app_guides)
