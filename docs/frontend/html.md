@@ -49,9 +49,9 @@ document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 
 用来实现多行 Flex 容器。
 
-- `nowrap`：默认值，不会换行
-- `warp`：允许换行
-- `wrap-reverse`：不常用，了解即可
+- `nowrap`: 默认值，不会换行
+- `warp`: 允许换行
+- `wrap-reverse`: 不常用，了解即可
 
 ### Flex 元素上的属性
 
@@ -87,11 +87,11 @@ document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 
 **默认值**
 
-`initial`：相当于将属性设置为"`flex: 0 1 auto`"。
+`initial`: 相当于将属性设置为"`flex: 0 1 auto`"。
 
-`auto`：相当于将属性设置为 "`flex: 1 1 auto`".
+`auto`: 相当于将属性设置为 "`flex: 1 1 auto`".
 
-`none`：相当于将属性设置为"`flex: 0 0 auto`"。
+`none`: 相当于将属性设置为"`flex: 0 0 auto`"。
 
 ### 元素间的对其和空间分配
 
@@ -103,27 +103,27 @@ document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 - `flex-start`
 - `flex-end`
 - `center`
-- `space-between`：把元素排列好之后的剩余空间拿出来，平均分配到元素之间，所以元素之间间隔相等
-- `space-around`：使每个元素的左右空间相等（头尾会共用一个空间距离）
-- `space-evenly`：使每个元素的左右空间相等（包括头尾也是一致的）
+- `space-between`: 把元素排列好之后的剩余空间拿出来，平均分配到元素之间，所以元素之间间隔相等
+- `space-around`: 使每个元素的左右空间相等（头尾会共用一个空间距离）
+- `space-evenly`: 使每个元素的左右空间相等（包括头尾也是一致的）
 
 #### align-items
 
 可以使元素在交叉轴方向对齐。
 
-- `stretch`：默认值，拉伸到最高元素的高度
-- `flex-start`：使 flex 元素按 flex 容器的顶部对齐
-- `flex-end`：使 flex 元素按 flex 容器的底部对齐
-- `center`：使 flex 元素按 flex 容器的中心对齐
-- `baseline`：和 start 类似，但是会以文字的基线对齐（这意味着文字大小不同时，会和 start 有明显不同）
+- `stretch`: 默认值，拉伸到最高元素的高度
+- `flex-start`: 使 flex 元素按 flex 容器的顶部对齐
+- `flex-end`: 使 flex 元素按 flex 容器的底部对齐
+- `center`: 使 flex 元素按 flex 容器的中心对齐
+- `baseline`: 和 start 类似，但是会以文字的基线对齐（这意味着文字大小不同时，会和 start 有明显不同）
 
 #### align-content
 
 适用于允许换行后，如何在交叉轴上分布内容。
 
-- `normal`：默认值
-- `flex-start`：交叉轴的开始对齐
-- `flex-end`：交叉轴的结束对齐
+- `normal`: 默认值
+- `flex-start`: 交叉轴的开始对齐
+- `flex-end`: 交叉轴的结束对齐
 - `center`
 - `space-between`
 - `space-around`

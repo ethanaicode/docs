@@ -48,9 +48,21 @@
 
 或者使用活动监视器：**在“应用程序”文件夹中打开“实用工具”文件夹，然后双击“活动监视器”**。
 
+### 获取本机的 IP
+
+```bash
+ipconfig getifaddr en0
+```
+
 ## Brew 管理工具
 
 ### Basics
+
+Brew 的应用一般会安装到`/usr/local/Cellar`目录下，软件的链接会放在`/usr/local/bin`目录下。
+
+Brew 的应用配置一般可以在`/usr/local/etc`目录下找到。
+
+**Brew 的基本命令**：
 
 - brew list
 
@@ -185,4 +197,3 @@ MAMP 的服务及应用都放在目录`/Applications/MAMP/bin`下，
 - **phpPgAdmin**：PostgreSQL 管理工具
 
 - **phpMyAdmin**：MySQL 管理工具
-

@@ -6,8 +6,6 @@
 
 - [Mac](./mac)
 
-- [VSCode](./vscode)
-
 - [Command-Line Tools](./cli_tools)
 
 - [App Recommend](./software)
