@@ -60,11 +60,13 @@ Then we can use the `code` command to open files and folders.
 
 - **Ctrl + Alt + C/V**: 复制/粘贴 元素样式
 
+- **Ctrl + Y**: 路径显示
+
 ## Inkscape
 
 ### Hotkeys
 
-- **s / F1**:  Selector，选择
+- **s / F1**: Selector，选择
 
 - **space**: 可以临时选择
 

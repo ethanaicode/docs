@@ -96,11 +96,7 @@
 
   `-f` 强制创建
 
-- history: 查看历史命令
-
-  `-c` 清空历史命令
-
-  `-d` 删除某个历史命令
+- **env**: 显示环境变量
 
 ### 文件相关
 
@@ -194,7 +190,15 @@
 
   `-s` 指定 shell
 
+- **groupadd**: 添加组
+
+  `-g` 指定组 ID
+
 - **useradd**: 添加用户
+
+  `-g` 指定用户所属组
+
+  `-G` 指定用户所属附加组
 
   `-m` 创建用户的家目录
 
@@ -219,6 +223,14 @@
   `-e` 修改用户过期时间
 
 - **passwd**: 修改密码
+
+- **getent**: 获取用户信息
+
+  `passwd` 获取用户密码信息
+
+  `group` 获取组信息
+
+  `shadow` 获取用户密码信息
 
 - **users**: 查看当前登录系统的用户
 
@@ -430,13 +442,13 @@ env | less
 **定义变量**
 
 ```bash
-variable_name=value
+VARIABLE_NAME=value
 ```
 
 这样设置的变量只在当前 shell 中有效，如果想要在其他 shell 中也生效，可以使用`export`命令。
 
 ```bash
-export variable_name=value
+export VARIABLE_NAME=value
 ```
 
 如果你希望永远生效，可以将变量写入配置文件中，如`~/.bashrc`。
@@ -496,7 +508,7 @@ which wget
 
 - **Ctrl + D**: 退出当前 shell（比如 sort 进入读键盘操作后）
 
-- **Ctrl + L**: 清屏
+- **Ctrl + L**: 清屏（常用）
 
 - **Ctrl + W**: 删除光标前的一个单词
 

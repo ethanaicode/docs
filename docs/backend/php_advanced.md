@@ -2,7 +2,9 @@
 
 ## 进阶技巧
 
-### func_get_args() 获取方法参数
+### 实用技巧
+
+**func_get_args() 获取方法参数**
 
 方法中传递参数一般有两种方式：
 
@@ -27,6 +29,100 @@ public function delete()
 最大的好处是不用再考虑方法需要获取多少个参数。
 
 如果之后调用方法时想多传几个参数，只需要在方法中修改即可，不用再修改方法定义，从而避免影响在其它位置调用此方法的写法。
+
+### 优化 PHP - FPM 配置
+
+> PHP-FPM 配置文件位置（通常情况下）：/etc/php/{version}/fpm/php-fpm.conf
+
+`pm.max_children` 允许创建的最大进程数，这个值越大，可以处理的并发请求数就越多。
+
+`pm.start_servers` 启动时创建的进程数。
+
+`pm.min_spare_servers` 最小空闲进程数（清理空闲进程后保留的最小进程数）。
+
+`pm.max_spare_servers` 最大空闲进程数（当空闲进程数超过这个值时，就会被清理）。
+
+`pm.max_children`的值一般可以根据内存来计算，一般会预留 20%内存给操作系统及其它服务，其余的可以根据每个 PHP 进程的平均内存消耗量（可以假设为 20MB），计算出合适的值。
+
+假设内存为 2G，则可以计算出值大概为 84（2048 \* 0.8 / 20）
+
+一般来说，可以将 `pm.min_spare_servers` 设置为 `pm.max_children` 的一定比例，比如 `pm.max_children` 的 10% - 20%。这样可以确保在任何时候都有足够的空闲进程可用来处理请求。
+
+修改后记得重启 PHP-FPM：
+
+```bash
+sudo systemctl restart php-fpm
+```
+
+### PHP 编译安装相关知识
+
+> 官方版本下载：[PHP 官方下载](https://www.php.net/releases/)
+
+**PHP 的配置选项**
+
+> 官方配置选项指南：[PHP 配置选项](https://www.php.net/manual/zh/configure.about.php)
+
+PHP 的编译安装，需要先下载 PHP 源码，然后解压，进入解压后的目录，执行 `./configure` 命令，然后执行 `make` 和 `make install` 命令。
+
+`./configure` 命令是用来检查系统环境，生成 Makefile 文件，Makefile 文件是用来编译 PHP 的。
+
+**常用的配置推荐**
+
+```bash
+./configure --prefix=/www/server/php/82 \
+--with-config-file-path=/www/server/php/82/etc \
+--enable-fpm \
+--with-fpm-user=www \
+--with-fpm-group=www \
+--enable-mysqlnd \
+--with-mysqli=mysqlnd \
+--with-pdo-mysql=mysqlnd \
+--enable-mysqlnd-compression-support \
+--with-zlib \
+--enable-xml \
+--disable-rpath \
+--enable-bcmath \
+--enable-shmop \
+--enable-sysvsem \
+--with-curl \
+--enable-mbregex \
+--enable-mbstring \
+--enable-intl \
+--enable-ftp \
+--enable-gd-jis-conv \
+--with-openssl \
+--with-mhash \
+--enable-pcntl \
+--enable-sockets \
+--enable-soap \
+--with-gettext \
+--enable-fileinfo \
+--enable-opcache \
+--with-pear \
+--with-ldap=shared \
+--without-gdbm \
+--enable-gd
+```
+
+- `--prefix` 指定 PHP 安装目录
+
+- `--with-config-file-path` 指定 PHP 配置文件目录
+
+- `--enable-fpm` 启用 PHP-FPM
+
+- `--enable-mysqlnd` 启用 MySQL Native Driver
+
+- `--with-zlib` 启用 Zlib 支持
+
+- `--enable-xml` 启用 XML 支持
+
+- `--disable-rpath` 禁用 RPATH（RPATH 是一个用来指定运行时库路径的机制）
+
+- `--with-openssl` 启用 OpenSSL 支持
+
+- `--without-gdbm` 禁用 GDBM 支持（GDBM 是一个开源的数据库管理系统，PHP 7.4 之后已经移除了对 GDBM 的支持）
+
+- `--enable-gd` 启用 GD 图形库
 
 ## 命名空间
 
@@ -818,29 +914,3 @@ public function field(...$fields)
 
 // ...
 ```
-
-## 优化配置
-
-> PHP-FPM 配置文件位置（通常情况下）：/etc/php/{version}/fpm/php-fpm.conf
-
-`pm.max_children` 允许创建的最大进程数，这个值越大，可以处理的并发请求数就越多。
-
-`pm.start_servers` 启动时创建的进程数。
-
-`pm.min_spare_servers` 最小空闲进程数（清理空闲进程后保留的最小进程数）。
-
-`pm.max_spare_servers` 最大空闲进程数（当空闲进程数超过这个值时，就会被清理）。
-
-`pm.max_children`的值一般可以根据内存来计算，一般会预留 20%内存给操作系统及其它服务，其余的可以根据每个 PHP 进程的平均内存消耗量（可以假设为 20MB），计算出合适的值。
-
-假设内存为 2G，则可以计算出值大概为 84（2048 \* 0.8 / 20）
-
-一般来说，可以将 `pm.min_spare_servers` 设置为 `pm.max_children` 的一定比例，比如 `pm.max_children` 的 10% - 20%。这样可以确保在任何时候都有足够的空闲进程可用来处理请求。
-
-修改后记得重启 PHP-FPM：
-
-```bash
-sudo systemctl restart php-fpm
-```
-
-## 错误处理

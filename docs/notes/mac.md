@@ -4,31 +4,29 @@
 
 ### 快捷操作
 
-- **Command⌘ + Tab** = 切换应用 switch between applications
+- **Command⌘ + Tab** = 切换应用
 
-- **Command⌘ + ~** = 切换应用窗口（VScode 切换多个窗口很方便） switch between windows of an application
+- **Command⌘ + ~** = 切换应用窗口（VScode 切换多个窗口很方便）
 
-- **Command⌘ + up or down(↑ or ↓） arrow key** = 移动到页面顶部/底部 move to page home or page end
+- **Command⌘ + up or down(↑ or ↓） arrow key** = 移动到页面顶部/底部
 
-- **Control + Up arrow (↑) key** = 打开任务管理器 open mission control
+- **Control + Up arrow (↑) key** = 打开任务管理器
 
   或者双指双击鼠标（需要 Mac 鼠标）
 
-  下图中的快捷键也是同样效果（需要 Mac 键盘）
+- **Command⌘ + Option⌥ + (left or right) arrow key** = 切换标签页
 
-  ![Ethan_2023-09-19_10-52-19](https://pic.shejibiji.com/i/2023/09/19/65090d0a7f4ff.jpg)
+- **Control + Tab** = 切换到上一个标签页
 
-- **Command⌘ + Option⌥ + (left or right) arrow key** = 切换标签页 switch between tab
-
-- **Control + Tab** = 切换到上一个标签页 move forward through tabs (in same window)
-
-- **Control + Shift + Tab** = 切换到下一个标签页 move backward through tabs (in same window)
+- **Control + Shift + Tab** = 切换到下一个标签页
 
 ### 访达页面
 
-- **Command⌘ + Option⌥ + `P`** = 打开访达的文件路径显示
+- **Command⌘ + Option⌥ + P** = 打开访达的文件路径显示
+
 - **Command⌘ + Shift + `.`** = 显示隐藏文件
-- **Command⌘ + Option⌥ + Drag** = 拖动快速创建快捷方式 create an alias and move it in one step
+
+- **Command⌘ + Option⌥ + Drag** = 拖动快速创建快捷方式
 
 ## Mac 操作技巧
 
@@ -52,6 +50,47 @@
 
 ```bash
 ipconfig getifaddr en0
+```
+
+### 获取域名的解析 IP
+
+最简单的就是使用`nslookup`命令，可以获取到域名的解析 IP：
+
+```bash
+nslookup domain.com
+```
+
+另外还可以用`dig`命令，来获取到更多的 DNS 信息：
+
+```bash
+dig domain.com
+```
+
+`dig`命令支持参数，可以查看更详细的信息：
+
+- `+short`：只显示 IP 地址
+
+- `+trace`：显示 DNS 解析的路径
+
+### 创建自己的执行命令
+
+macOS 通过系统完整性保护（SIP）来保护某些系统目录，如`/usr/bin/`。
+
+不允许修改这些目录，可以保护系统的安全性和稳定性。
+
+`/usr/local/bin/` 是一个可以自由修改的目录，可以用来存放自己写的脚本。
+
+我们可以通过创建符号链接的方式，将自己写的脚本链接到`/usr/local/bin/`目录下，这样就可以在终端中直接执行。
+
+```bash
+# 创建符号链接
+sudo ln -s ~/bin/lookupwin.sh /usr/local/bin/lookupwin
+```
+
+一定要需要确保自己写的脚本有执行权限：
+
+```bash
+chmod +x lookupwin.sh
 ```
 
 ## Brew 管理工具

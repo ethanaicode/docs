@@ -2,29 +2,31 @@
 
 ## 基础命令
 
-- `git init` - 初始化仓库
+- **git init**: 初始化仓库
 
-- `git clone` - 拷贝远程仓库
+- **git clone**: 拷贝远程仓库
 
   （如果要自定义文件夹名，可以在后面加上文件夹名）
 
-- `git status` - **显示变更**
+- **git status**: **显示变更**
 
-- `git diff` - **显示变更内容**
+- **git diff**: **显示变更内容**
 
-- `git log` - 查看提交历史
+- **git log**: 查看提交历史
 
-- `git add .` - 添加文件到暂存区
+  `--oneline` 可以加上参数，来显示简洁的提交历史
 
-- `git commit -m [message]` - 提交到仓库，注释为 message
+- **git add .**: 添加文件到暂存区
 
-- `git restore .` - 撤销修改（version 2.23+）
+- `git commit -m [message]`: 提交到仓库，注释为 message
+
+- **git restore .**: 撤销修改（version 2.23+）
 
   `.` 表示全部，如果要撤销单个文件可以指定文件名
 
   `--hard` 可以加上参数，来硬撤回
 
-- `git reset` - 撤销提交（可以撤销未 commit 的改变）
+- **git reset**: 撤销提交（可以撤销未 commit 的改变）
 
   `--soft` 可以加上参数，来软撤回
 
@@ -32,15 +34,21 @@
 
   可以通过`fetch`和`reset`来撤销未 pushed 的改变
 
-- `git revert [commit_hash]` - 撤销某次提交
+- **git revert [commit_hash]**: 撤销某次提交
 
   会生成一个新的提交，这个提交是对之前提交的撤销
 
-- `git switch` - 更换分支（version 2.23+）
+- **git rebase**: 变基
+
+  `git rebase -i HEAD~[n]` 可以合并 n 个提交
+
+  `git rebase -i [commit_hash]` 可以合并某个提交
+
+- **git switch**: 更换分支（version 2.23+）
 
   `-c` 创建并切换到新分支
 
-- `git checkout` - 更换分支/创建分支/丢弃修改/切到特定的提交版本
+- **git checkout**: 更换分支/创建分支/丢弃修改/切到特定的提交版本
 
   `-b [branch name]` 如果没有分支则创建
 
@@ -48,23 +56,23 @@
 
   `[commit_hash_or_tag]` 输入 hash 或者 tag 可以切到具体版本
 
-- `git merge xxx` - 合并 xxx 分支到当前分支
+- **git merge xxx**: 合并 xxx 分支到当前分支
 
-- `git push` - 推送到远程分支
+- **git push**: 推送到远程分支
 
   git push <远程主机名> <本地分支名>:<远程分支名>
 
-- `git pull` - 拉取远程分支
+- **git pull**`\*\*: 拉取远程分支
 
   git pull <远程主机名> <远程分支名>:<本地分支名>
 
   （如果远程分支名和本地分支名一样，可以省略":<本地分支名>"）
 
-- `git fetch` - 拉取远程分支
+- **git fetch**: 拉取远程分支
 
   但是不会自动合并，需要手动合并
 
-- `git branch` - 列出本地分支
+- **git branch**: 列出本地分支
 
   `-r` 列出远程分支
 
@@ -99,19 +107,19 @@ git config --global --unset user.name
 
 ### 常用配置
 
-- `user.name` - 用户名
+- `user.name` 用户名
 
-- `user.email` - 邮箱
+- `user.email` 邮箱
 
-- `core.editor` - 编辑器
+- `core.editor` 编辑器
 
-- `core.ignorecase` - 区分文件名大小写
+- `core.ignorecase` 区分文件名大小写
 
-- `core.filemode` - 是否检查文件权限（如果 false 忽略文件权限的变化）
+- `core.filemode` 是否检查文件权限（如果 false 忽略文件权限的变化）
 
-- `http.proxy` - 代理
+- `http.proxy` 代理
 
-- `http.sslVerify` - 是否验证 SSL 证书
+- `http.sslVerify` 是否验证 SSL 证书
 
 ## 案例及技巧
 

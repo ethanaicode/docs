@@ -14,6 +14,8 @@
 
 - `:set number` : 显示行号(set number 可以简写为 set nu)
 
+- `:set nonumber` : 隐藏行号(set nonumber 可以简写为 set nonu)
+
 **查找及替换**
 
 - `/` : 搜索
