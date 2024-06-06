@@ -142,22 +142,20 @@ Brew 的应用配置一般可以在`/usr/local/etc`目录下找到。
 ### Cask
 
 Cask 是 Homebrew 的扩展，原本的 Homebrew 是管理命令行的，而 Cask 是管理 GUI 桌面软件的部分。
-Cask 的管理和 brew 相似，在 brew 后加上 cask 即可使用。
 
-下面是一些常用的：
+管理 Cask 和管理普通软件的命令是一样的，只是在命令后面加上`--cask`参数。
 
-```bash
-# 查看软件详情
-brew cask info PACKAGE_NAME
-# 安装软件
-brew cask install PACKAGE_NAME
-# 列出所有已安裝的软件
-brew cask list
-# 更新软件
-brew cask upgrade PACKAGE_NAME
-# 卸载软件
-brew cask uninstall PACKAGE_NAME
-```
+- brew install --cask PACKAGE_NAME
+
+- brew uninstall --cask PACKAGE_NAME
+
+- brew upgrade --cask PACKAGE_NAME
+
+- brew list --cask
+
+- brew search --cask TEXT
+
+- brew info --cask PACKAGE_NAME
 
 ### 管理镜像源配置
 
@@ -165,15 +163,7 @@ brew cask uninstall PACKAGE_NAME
 
 `brew tap` 命令可以查看当前的镜像源。
 
-```bash
-brew tap
-```
-
 如果需要查看更详细的信息，可以使用 `brew config` 命令。
-
-```bash
-brew config
-```
 
 可以通过`git -C "$(brew --repo)" remote -v`查看当前的源。
 
@@ -181,9 +171,9 @@ brew config
 
 国内镜像地址：
 
-- 清华：https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 - 中科大：https://mirrors.ustc.edu.cn/homebrew-bottles
 - 阿里云：https://mirrors.aliyun.com/homebrew/homebrew-bottles
+- 清华：https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 
 ```bash
 # 临时使用

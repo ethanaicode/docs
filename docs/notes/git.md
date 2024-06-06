@@ -97,29 +97,30 @@ git config --global user.name "yourname"
 git config --global user.email "youremail"
 ```
 
-如果需要查看配置，可以使用 `git config --list` 命令。
+另外如果你想对配置管理，可以使用下列命令：
 
-移除配置可以使用 `--unset` 参数。
-
-```bash
-git config --global --unset user.name
-```
+- `--list` 查看配置
+- `--unset` 移除配置
+- `--get` 获取配置
+- `--replace-all` 替换所有配置（这表示会覆盖原有的配置）
+  ```bash
+  git config --global --replace-all user.name "yourname"
+  ```
 
 ### 常用配置
 
 - `user.name` 用户名
-
 - `user.email` 邮箱
-
-- `core.editor` 编辑器
-
-- `core.ignorecase` 区分文件名大小写
-
+- `core.ignorecase` 区分文件名大小写（如果 false 区分大小写）
 - `core.filemode` 是否检查文件权限（如果 false 忽略文件权限的变化）
-
-- `http.proxy` 代理
-
+- `core.editor` 编辑器
+- `core.base` 默认分支名
+- `core.repositoryformatversion` 仓库格式版本
+- `core.precomposeunicode` 是否使用 Unicode
+- `core.logallrefupdates` 是否记录所有引用更新
 - `http.sslVerify` 是否验证 SSL 证书
+- `http.proxy` 代理（值为 http://proxy.com:8080）
+- `https.proxy` 代理（值为 http://proxy.com:8080）
 
 ## 案例及技巧
 
@@ -146,7 +147,7 @@ git 默认会忽略空文件夹，如果我们希望提交一些空的文件夹�
 
 1. 为空文件夹添加 `.gitkeep` 文件(推荐)
 
-这个文件它本身是没有意义的，git 好像也没有赋予它特殊使命，更像是团队使用者之间的一种约定，仅仅是为了标记这个空的文件夹是需要添加到仓库的。
+这个文件它本身是没有意义的，更像是团队使用者之间的一种约定，仅仅是为了标记这个空的文件夹是需要添加到仓库的。
 
 ```bash
 find ./ -type d -empty -exec touch {}/.gitkeep \;
@@ -154,7 +155,7 @@ find ./ -type d -empty -exec touch {}/.gitkeep \;
 
 2. 为空文件夹添加 `.gitignore` 文件
 
-用过 git 的老用户都知道 .gitignore 是为了忽略一些对项目无用的文件而设置的，我们添加这个文件也可以实现这个效果，但是不是最佳的，因此推荐用第一种（因为它本身是有意义的）。
+添加这个文件也可以实现这个效果，但不是最佳的，因此推荐用第一种（因为它本身是有意义的）。
 
 ### 强制覆盖本地代码（与 git 远程仓库保持一致）
 
@@ -164,29 +165,6 @@ find ./ -type d -empty -exec touch {}/.gitkeep \;
 git fetch --all #取回远程库的所有修改；
 git reset --hard origin/master  #指向远程库origin的master
 git pull    #把远程库拉取到本地库
-```
-
-### 更改 Git 代理配置（http.proxy）
-
-如果用了科学工具，有时候就需要更改下代理端口，可以通过下面命令来获取当前的 `http.proxy` 配置：
-
-```bash
-git config --global --get http.proxy
-```
-
-如果需要修改，则可以这样：
-
-```bash
-git config --global http.proxy http://127.0.0.1:7890
-```
-
-http://127.0.0.1:7890可以改成你自己的代理服务及端口。
-
-去掉这个设置：
-
-```bash
-git config --global --unset http.proxy
-git config --global --unset https.proxy
 ```
 
 ### Git 区分文件名大小写
@@ -223,5 +201,3 @@ git push origin BRANCH_NAME
 可视化的分支，管理起来非常方便，也支持控制台操作。
 
 注意免费用户不支持管理私有库。
-
-[![Ethan_2023-02-20_21-34-03.png](https://img.shejibiji.com/2023/02/20/63f37704e4079.png)](https://img.shejibiji.com/2023/02/20/63f37704e4079.png)

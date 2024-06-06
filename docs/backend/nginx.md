@@ -146,7 +146,7 @@ server {
 如果我们想要自定义默认 server block，则可以创建一个默认的配置，并且不指定 server_name，类似这样：
 
 ```nginx
-# default.conf
+# 0.default.conf
 server {
     listen 80 default_server;
     server_name _;
@@ -155,5 +155,17 @@ server {
     # 显示404文字
     return 200 "404";
     add_header Content-Type text/plain;
+}
+```
+
+也可以参考宝塔的默认配置：
+
+```nginx
+# 0.default.conf
+server{
+    listen 80;
+    server_name _;
+    index index.html;
+    root /www/wwwroot/html;
 }
 ```

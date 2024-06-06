@@ -802,10 +802,44 @@ locate filename
 
 #### 远程复制文件到本地
 
-适用于复制远程备份文件到本地保存
+**可以使用`scp` (secure copy) 来实现。**
+
+`scp` 命令是一个用于在 Linux 系统之间复制文件和目录的命令行工具。它使用 SSH 协议来加密传输数据，因此非常安全。`scp` 命令通常用于将文件从本地系统复制到远程系统，也可以用于在远程系统之间复制文件。
 
 ```bash
-scp  -r  -P 2347 apollo@87.143.145.146:/home/apollo/bak/20240202  /Users/ethan/Downloads
+# 远程文件复制到本地
+scp username@remote_host:/path/to/remote/file /path/to/local/destination
+# 本地文件复制到远程服务器
+scp /path/to/local/file username@remote_host:/path/to/remote/destination
+```
+
+还可以添加参数:
+
+- `-r` 递归复制
+
+- `-P` 指定端口
+
+- `-p` 保留文件属性
+
+- `-q` 静默模式
+
+**也可以使用`rsync`命令来实现。**
+
+`rsync` 是另一个用于在本地系统之间或者本地和远程系统之间同步文件和目录的命令行工具及，它在复制大量文件或者同步目录时特别有用。
+
+```bash
+# 本地文件复制到远程服务器
+rsync -avz /path/to/local/file username@remote_host:/path/to/remote/destination
+# 远程文件复制到本地
+rsync -avz username@remote_host:/path/to/remote/file /path/to/local/destination
+```
+
+- `avz` 分别代表着 `archive`、`verbose` 和 `compress` 选项，它们分别用于保留文件属性、显示详细信息和压缩传输数据。
+
+如果需要指定端口，可以使用`-e`参数，它允许你指定一个自定义的 SSH 端口。
+
+```bash
+rsync -avz -e "ssh -p 22" /path/to/local/file username@remote_host:/path/to/remote/destination
 ```
 
 ### 应用管理
@@ -1072,27 +1106,42 @@ wget -O filename https://example.com/file
 
 #### 测试服务器是否可以连接某网站
 
-可以通过自带的连接工具，比如 curl 或者 wget。
+可以通过自带的连接工具，比如使用`wget`来下载页面内容。
 
 ```bash
 wget -p http://site.com
 ```
 
-或者
+- `P` 参数表示下载页面的所有资源
+
+或者使用`curl`命令，可以查看响应头信息
 
 ```bash
-time curl -I http://yourpage.com | grep HTTP
+time curl -I http://yourpage.com
 ```
 
-例如:
+- `-I` 参数表示只显示响应头信息
+
+#### 查看网站的 SSL 证书及部署情况
+
+可以使用`openssl`来模拟请求，查看证书详细信息：
 
 ```bash
-os@osdeMacBook-Pro ~ % time curl -I https://www.shejibiji.com | grep HTTPS
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-curl -I https://www.shejibiji.com  0.02s user 0.01s system 4% cpu 0.617 total
-grep HTTPS  0.00s user 0.00s system 0% cpu 0.616 total
+echo | openssl s_client -connect localhost:443 -servername your_domain.com 2>/dev/null
+```
+
+- `echo` 命令用于向管道发送空字符串，给 `openssl` 命令提供输入
+
+- `-connect` 参数表示连接的地址和端口，这里是本地 443 端口，如果是远程的话，需要替换为远程地址，可以为域名或者 IP 地址
+
+- `-servername` 参数表示指定域名，远程服务器可能会根据域名来返回不同的证书
+
+- `2>/dev/null` 表示将错误信息重定向到 `/dev/null`，这样就不会显示错误信息
+
+也可以继续把输出信息交给`openssl`来只显示证书有效期：
+
+```bash
+echo | openssl s_client -connect localhost:443 -servername your_domain.com 2>/dev/null | openssl x509 -noout -dates
 ```
 
 #### 查看 TCP 连接数
