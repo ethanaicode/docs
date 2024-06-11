@@ -2,6 +2,9 @@
 
 ## Linux 命令
 
+> Linux 的知识是非常多的，一篇文章肯定是不够的。
+> 这里只列出常用的命令，更多命令可以结合使用需求及公司场景进行学习和使用。
+
 ### 基础命令
 
 - **ls**: 列出目录及文件名
@@ -130,6 +133,16 @@
 
   `-r` 递归查找
 
+- **du**: 查看文件大小
+
+  `-h` 人性化显示文件大小
+
+  `-s` 只显示总大小
+
+  `-a` 显示所有文件大小
+
+  `-c` 显示总大小
+
 - **find**: 查找文件
 
   find [搜索范围] [搜索条件] [操作]
@@ -163,6 +176,8 @@
   sort [选项] [文件名]
 
   `-r` 逆序
+
+  `-h` 人性化排序
 
   `-n` 按数字排序
 
@@ -257,9 +272,7 @@
    - `kill`: 终止指定进程。🌟🌟
    - `killall`: 终止指定名称的所有进程。
 4. **查看内存使用情况**:
-   - `free`: 显示系统内存的空闲和已用情况。🌟🌟
-     `-m`: 以 MB 为单位显示内存使用情况。
-     `-g`: 以 GB 为单位显示内存使用情况。
+   - `free -h`: 显示系统内存的空闲和已用情况。🌟🌟
    - `vmstat`: 显示虚拟内存统计信息，包括内存、进程、IO 等。
 5. **查看网络情况**:
    - `netstat`: 显示网络连接、路由表、接口统计等。🌟🌟
@@ -406,7 +419,7 @@ crontab 是用来让使用者在固定时间或固定间隔执行程序之用，
 
 ### 常用的文件
 
-**配置文件**
+#### 配置文件
 
 - **/etc/hosts**: 主机名和 IP 地址映射文件
 
@@ -415,6 +428,42 @@ crontab 是用来让使用者在固定时间或固定间隔执行程序之用，
 - **/etc/sysconfig/network-scripts/ifcfg-eth0**: 网络配置文件
 
 - **/etc/cron.allow[/deny]**: 允许/拒绝用户使用 crontab 命令（每行一个账号名称）
+
+#### 敏感文件
+
+- **/etc/passwd**: 用户信息文件
+
+- **/etc/group**: 组信息文件
+
+- **/etc/shadow**: 用户密码文件
+
+- **/etc/sudoers**: sudo 配置文件，用于查看哪些用户可以使用 sudo 命令
+
+- **/etc/crontab[cron.d]**: 定时任务配置文件
+
+- **/etc/ssh/sshd_config**: SSH 配置文件
+
+#### 日志文件
+
+- **/var/log/secure**: 安全日志文件，如 SSH 登录日志
+
+- **/var/log/syslog**: 系统日志文件
+
+- **/var/log/messages**: 系统消息日志文件
+
+- **/var/log/kern.log**: 内核日志文件，如硬件故障日志
+
+- **/var/log/maillog**: 邮件日志文件
+
+- **/var/log/cron**: 计划任务日志文件
+
+- **/var/log/boot.log**: 启动日志文件
+
+- **/var/log/access.log**: Web 访问日志文件，如 Nginx 访问日志
+
+- **/var/log/error.log**: Web 错误日志文件
+
+- **/root[~]/.bash_history**: 用户历史命令记录文件，记录用户执行过的命令
 
 ### Bash shell 中的变量
 
@@ -646,27 +695,37 @@ drwxr-xr-x 2 user group 4096 May  1 09:59 directory
 
 ### 文件相关
 
-#### 使用 du 查看文件大小
+#### 查找大文件和日志
 
-- du: 查看所占磁盘空间
+第一种方式是使用`du`命令查找大文件，`du`命令用于查看文件和目录的磁盘使用情况。
 
-  `-h` 人性化显示文件大小
+```bash
+du -ah /path/to/directory | sort -rh | head -n 10
+```
 
-  `-d` 指定显示目录深度
+这条命令用于查找指定目录下最大的 10 个文件和目录。`du -ah /path/to/directory` 用于查看指定目录下所有文件和目录的大小，`sort -rh` 用于按照文件大小逆序排序，`head -n 10` 用于显示前 10 行。
 
-  `-s` 只显示总大小
+第二种方式是使用`find`命令查找大文件，`find`命令用于查找文件和目录。
 
-  `-a` 显示所有文件大小
+```bash
+find /path/to/directory -type f -size +100M -print0 | xargs -0 ls -lh | awk '{ print $9 ": " $5 }'
+```
 
-  `-c` 显示总大小
+这条命令用于查找指定目录下大于 100MB 的文件。`find /path/to/directory -type f -size +100M -print0` 用于查找大于 100MB 的文件，`xargs -0 ls -lh` 用于显示文件的详细信息，`awk '{ print $9 ": " $5 }'` 用于显示文件名和大小。
 
-**使用案例**
+或者：
 
-- `du -h *`: 查看当前目录下所有文件的大小
+```bash
+find /path/to/directory -type f -size +20M -print0 | xargs -0 du -h | sort -nr
+```
 
-- `du -sh *`: 查看当前目录下所有文件的总大小
+这条命令用于查找指定目录下大于 20MB 的文件。`find /path/to/directory -type f -size +20M -print0` 用于查找大于 20MB 的文件，`xargs -0 du -h` 用于显示文件的大小，`sort -nr` 用于按照文件大小逆序排序。
 
-- `du -h -d 1 | sort -n`: 查看当前目录下一级目录的大小并排序
+还可以使用`ncdu`命令查找大文件，`ncdu` 是一个交互式的磁盘使用情况分析工具，需要安装。
+
+```bash
+ncdu /path/to/directory
+```
 
 #### 使用 cat 合并追加文件
 
@@ -809,8 +868,8 @@ locate filename
 ```bash
 # 远程文件复制到本地
 scp username@remote_host:/path/to/remote/file /path/to/local/destination
-# 本地文件复制到远程服务器
-scp /path/to/local/file username@remote_host:/path/to/remote/destination
+# 本地文件复制到远程服务器（指定远程服务器端口）
+scp -P 22 /path/to/local/file username@remote_host:/path/to/remote/destination
 ```
 
 还可以添加参数:
@@ -823,24 +882,24 @@ scp /path/to/local/file username@remote_host:/path/to/remote/destination
 
 - `-q` 静默模式
 
+- `-C` 压缩传输数据
+
 **也可以使用`rsync`命令来实现。**
 
-`rsync` 是另一个用于在本地系统之间或者本地和远程系统之间同步文件和目录的命令行工具及，它在复制大量文件或者同步目录时特别有用。
+`rsync`比`scp`更加强大，它可以在本地和远程系统之间同步文件和目录，支持增量传输，可以快速复制大量文件。
 
 ```bash
 # 本地文件复制到远程服务器
-rsync -avz /path/to/local/file username@remote_host:/path/to/remote/destination
+rsync -avz -e "ssh -p 22" /path/to/local/file username@remote_host:/path/to/remote/destination
 # 远程文件复制到本地
 rsync -avz username@remote_host:/path/to/remote/file /path/to/local/destination
 ```
 
 - `avz` 分别代表着 `archive`、`verbose` 和 `compress` 选项，它们分别用于保留文件属性、显示详细信息和压缩传输数据。
 
-如果需要指定端口，可以使用`-e`参数，它允许你指定一个自定义的 SSH 端口。
+- `-e`参数，它允许你指定一个自定义的 SSH 端口，如果是默认的 22 端口，可以省略。
 
-```bash
-rsync -avz -e "ssh -p 22" /path/to/local/file username@remote_host:/path/to/remote/destination
-```
+默认情况下，`rsync`是没有进度条的，如果想要显示进度条，可以添加`--progress`参数，或者使用`--info=progress2`参数。
 
 ### 应用管理
 
@@ -1077,6 +1136,10 @@ https://chevereto.com/api/download/latest
 `-L` 参数表示跟踪重定向。
 
 `-H` 参数表示添加请求头。
+
+`-s` 参数表示安静模式，不显示进度。
+
+`-k` 参数表示允许不安全的 SSL 连接。
 
 也可以使用**wget**来下载文件
 
