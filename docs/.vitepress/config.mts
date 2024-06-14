@@ -2,6 +2,9 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  // 禁用markdown扩展语法，来避免错误：plugin:vite:vue] Duplicate attribute.（出现在 python_basic文档中）
+  markdown: { attrs: { disable: true } },
+  ignoreDeadLinks: true, // 忽略死链接（编译时会检查）
   lang: "zh-CN",
   title: "设计笔记",  // 网站标题
   description: "设计笔记的文档集合",
@@ -40,23 +43,15 @@ export default defineConfig({
         items: [
           { text: "MySQL", link: "/backend/mysql" },
           { text: "Redis", link: "/backend/redis" },
-          { text: "Java", link: "/backend/java" },
           { text: "Linux", link: "/backend/linux" },
           { text: "Nginx", link: "/backend/nginx" },
           { text: "Vim", link: "/backend/vim" },
           {
-            text: "PHP知识",
+            text: "Languages",
             items: [
-              { text: "Basic", link: "/backend/php_basic" },
-              { text: "Advanced", link: "/backend/php_advanced" },
-              { text: "Laravel", link: "/backend/php_laravel" },
-            ],
-          },
-          {
-            text: "PHP扩展",
-            items: [
-              { text: "FPDF", link: "/backend/php_fpdf" },
-              { text: "PHPWord", link: "/backend/php_phpword" },
+              { text: "PHP", link: "/backend/php/" },
+              { text: "Python", link: "/backend/python/" },
+              { text: "Java", link: "/backend/java" },
             ],
           },
         ],
@@ -103,25 +98,16 @@ export default defineConfig({
             items: [
               { text: "MySQL", link: "/backend/mysql" },
               { text: "Redis", link: "/backend/redis" },
-              { text: "Java", link: "/backend/java" },
               { text: "Linux", link: "/backend/linux" },
               { text: "Nginx", link: "/backend/nginx" },
               { text: "Vim", link: "/backend/vim" },
               {
-                text: "PHP Knowledge",
+                text: "Languages",
                 collapsed: true,
                 items: [
-                  { text: "Basic", link: "/backend/php_basic" },
-                  { text: "Advanced", link: "/backend/php_advanced" },
-                  { text: "Laravel", link: "/backend/php_laravel" },
-                ],
-              },
-              {
-                text: "PHP Extension",
-                collapsed: true,
-                items: [
-                  { text: "FPDF", link: "/backend/php_fpdf" },
-                  { text: "PHPWord", link: "/backend/php_phpword" },
+                  { text: "PHP", link: "/backend/php/" },
+                  { text: "Python", link: "/backend/python/" },
+                  { text: "Java", link: "/backend/java" },
                 ],
               },
             ],

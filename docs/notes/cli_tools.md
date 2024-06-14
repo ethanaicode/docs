@@ -76,11 +76,25 @@ magick input.jpg -quality 80 output.jpg
 magick input.jpg -thumbnail 100x100 output.jpg
 ```
 
-如果要指定源文件目录，可以使用命令：
+如果要指定输出文件目录，可以使用命令：
 
 ```bash
 magick -path /path/to/output input.jpg output.png
 ```
+
+#### 制作动图
+
+首先需要准备好一系列的图片，确保名字在字典序下是有序的。
+
+```bash
+magick -delay 10 -loop 0 *.png output.gif
+```
+
+- `-delay 10`: 每帧之间的延迟时间。单位是 1/100 秒。（如果每秒 25 帧，那么延迟时间就是 4ms）
+
+- `-loop 0`: 循环次数，0 表示无限循环。
+
+_实测参数需要写在前面，否则参数可能无效。_
 
 #### 编辑图片
 
@@ -153,34 +167,3 @@ magick input.jpg -edge 1 output.jpg
 ```bash
 magick input.jpg -sepia-tone 80% output.jpg
 ```
-
-## gifski
-
-> 官方文档：[gifski](https://gif.ski/)
-
-gifski 是一款用于将视频转换为 GIF 的工具，支持高质量的输出。
-
-### 使用方法
-
-支持从 PNG 或者 YUV4MPEGPIPE 格式的输入文件生成 GIF。
-
-如果是从 PNG 帧生成 GIF，首先需要用 `ffmpeg` 将视频转换为 PNG 帧：
-
-```bash
-ffmpeg -i input.mp4 frame%04d.png
-```
-
-然后使用 `gifski` 将 PNG 帧转换为 GIF：
-
-```bash
-gifski frame*.png -o output.gif
-```
-
-**优化 GIF 文件大小**
-
-了获得更小的文件大小，你可以尝试以下方法：
-
-- 使用`--width`和`--height`参数来缩小动画尺寸，这对减小文件大小最为有效。
-- 通过`--quality=80`（或更低的数值）降低整体质量。你还可以进一步调整质量参数，如：
-  - `--lossy-quality=60`：降低值会使动画更嘈杂/颗粒感，但可以减小文件大小。
-  - `--motion-quality=60`：降低值可能导致运动帧中出现涂抹或条纹，但同样可以减小文件大小。

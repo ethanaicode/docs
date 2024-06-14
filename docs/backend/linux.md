@@ -949,7 +949,7 @@ rsync -avz username@remote_host:/path/to/remote/file /path/to/local/destination
 
 #### 使用 ln 命令为服务创建快捷方式
 
-例如: `ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx`，则可以通过`nginx`命令启动 Nginx 服务
+例如: `ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/nginx`，则可以通过`nginx`命令启动 Nginx 服务
 
 #### 使用 systemctl 命令管理服务
 

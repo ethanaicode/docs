@@ -4,24 +4,16 @@
 
 - [Redis](./redis)
 
-- [Java](./java)
-
 - [Linux](./linux)
 
 - [Nginx](./nginx)
 
 - [Vim](./vim)
 
-### PHP 知识
+## Languages
 
-- [PHP Basic](./php_basic)
+- [PHP](./php/)
 
-- [PHP Advanced](./php_advanced)
+- [Python](./python/)
 
-- [Laravel](./php_laravel)
-
-### PHP 扩展
-
-- [FPDF](./php_fpdf)
-
-- [PHPWord](./php_phpword)
+- [Java](./java)

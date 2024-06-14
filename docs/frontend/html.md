@@ -28,15 +28,39 @@ document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 
 文字内容元素存在默认宽度`min-content`，宽度由内容中最长单词来决定（避免单词被拆开）。
 
-## Flex
+## CSS 自定义属性
 
-> MDN 文档：[flex 布局的基本概念](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox)
+通过 `--` 开头的属性名，可以定义自己的 CSS 变量。
 
-### Flex 轴线及容器
+和其他属性一样，自定义属性也是写在规则集之内的，如下：
+
+```css
+:root {
+  --main-color: #ff0000;
+}
+```
+
+注意，规则集所指定的选择器定义了自定义属性的可见作用域。通常的最佳实践是定义在根伪类 :root 下，这样就可以在 HTML 文档的任何地方访问到它了。
+
+之后，可以通过 `var()` 函数来引用这个变量：
+
+```css
+p {
+  color: var(--main-color);
+}
+```
+
+> 参考：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_custom_properties)
+
+## CSS 布局
+
+### Flex
+
+#### Flex 轴线及容器
 
 当使用 flex 布局时，首先想到的是两根轴线 — 主轴和交叉轴。主轴由 `flex-direction` 定义，另一根轴垂直于它。
 
-#### flex-direction
+##### flex-direction
 
 定义主轴的方向，可以取 4 个值：
 
@@ -45,7 +69,7 @@ document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 - `column`
 - `column-reverse`
 
-#### flex-warp
+##### flex-warp
 
 用来实现多行 Flex 容器。
 
@@ -53,13 +77,13 @@ document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 - `warp`: 允许换行
 - `wrap-reverse`: 不常用，了解即可
 
-### Flex 元素上的属性
+#### Flex 元素上的属性
 
-#### flex-basis
+##### flex-basis
 
 指定 flex 元素在主轴方向上的初始大小。
 
-#### flex-grow
+##### flex-grow
 
 用来规定在 flex 容器中**分配剩余空间**的相对比例。
 
@@ -71,13 +95,13 @@ document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 >
 > 计算：10px + 1x + 10px + 2x = 110px，算出 x 为 30px，所以元素 B 的宽度为 20px+2x，也就是 80px。
 
-#### flex-shrink
+##### flex-shrink
 
 指定了 flex 元素的收缩规则。
 
 这个仅在默认宽度之和大于容器的时候才会发生收缩，其收缩的大小是依据 flex-shrink 的值。
 
-#### flex
+##### flex
 
 此属性是以下 CSS 属性的简写：
 
@@ -93,9 +117,9 @@ document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 
 `none`: 相当于将属性设置为"`flex: 0 0 auto`"。
 
-### 元素间的对其和空间分配
+#### 元素间的对其和空间分配
 
-#### justify-content
+##### justify-content
 
 使元素在主轴方向上对齐。
 
@@ -107,7 +131,7 @@ document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 - `space-around`: 使每个元素的左右空间相等（头尾会共用一个空间距离）
 - `space-evenly`: 使每个元素的左右空间相等（包括头尾也是一致的）
 
-#### align-items
+##### align-items
 
 可以使元素在交叉轴方向对齐。
 
@@ -117,7 +141,7 @@ document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 - `center`: 使 flex 元素按 flex 容器的中心对齐
 - `baseline`: 和 start 类似，但是会以文字的基线对齐（这意味着文字大小不同时，会和 start 有明显不同）
 
-#### align-content
+##### align-content
 
 适用于允许换行后，如何在交叉轴上分布内容。
 
@@ -129,11 +153,13 @@ document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 - `space-around`
 - `space-evenly`
 
-#### [order](https://developer.mozilla.org/zh-CN/docs/Web/CSS/order)
+##### [order](https://developer.mozilla.org/zh-CN/docs/Web/CSS/order)
 
 规定了弹性容器中的可伸缩项目在布局时的顺序。
 
 可以配合 flex 元素实现想要的元素顺序。
+
+> 参考：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox)
 
 # JS
 

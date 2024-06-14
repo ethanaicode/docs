@@ -4,6 +4,20 @@
 
 ### 快捷操作
 
+::: info symbols for certain keys
+Command (or Cmd) ⌘
+
+Shift ⇧
+
+Option (or Alt) ⌥
+
+Control (or Ctrl) ⌃
+
+Caps Lock ⇪
+
+Fn (Function)
+:::
+
 - **Command⌘ + Tab** = 切换应用
 
 - **Command⌘ + ~** = 切换应用窗口（VScode 切换多个窗口很方便）
@@ -27,6 +41,8 @@
 - **Command⌘ + Shift + `.`** = 显示隐藏文件
 
 - **Command⌘ + Option⌥ + Drag** = 拖动快速创建快捷方式
+
+- **Command⌘ + J** = 显示或隐藏视图选项（用来设置排序等，很方便）
 
 ## Mac 操作技巧
 
