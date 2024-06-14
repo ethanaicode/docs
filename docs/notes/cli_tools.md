@@ -14,10 +14,10 @@
 ffmpeg -i input.mp4 -vn -acodec aac output.aac
 ```
 
-- `-i input.mp4`: 指定输入文件。
-- `-vn`: 取消视频流，只保留音频流。
-- `-acodec aac`: 指定音频编码格式为 AAC。
-- `output.aac`: 指定输出文件。
+- `-i input.mp4`: 指定输入文件
+- `-vn`: 取消视频流，只保留音频流
+- `-acodec aac`: 指定音频编码格式为 AAC
+- `output.aac`: 指定输出文件
 
 **Convert to MP3**
 
@@ -37,7 +37,7 @@ ffmpeg -i input.mp4 -vf scale=-1:360 output_360p.mp4
 ffmpeg -i input.mp4 -s 640x360 output_360p.mp4
 ```
 
-- `-vf scale=-1:360`: 使用视频滤镜来缩放视频。宽度设置为 `-1` 以保持纵横比，同时将高度设置为 `360` 像素。
+- `-vf scale=-1:360`: 使用视频滤镜来缩放视频。宽度设置为 `-1` 以保持纵横比，同时将高度设置为 `360` 像素
 
 #### 视频格式之间转换
 
@@ -92,7 +92,7 @@ magick -delay 10 -loop 0 *.png output.gif
 
 - `-delay 10`: 每帧之间的延迟时间。单位是 1/100 秒。（如果每秒 25 帧，那么延迟时间就是 4ms）
 
-- `-loop 0`: 循环次数，0 表示无限循环。
+- `-loop 0`: 循环次数，0 表示无限循环
 
 _实测参数需要写在前面，否则参数可能无效。_
 
@@ -104,8 +104,8 @@ _实测参数需要写在前面，否则参数可能无效。_
 magick input.jpg -crop 800x600+100+100 output.jpg
 ```
 
-- `800x600`: 裁剪的宽高。
-- `+100+100`: 裁剪的起始坐标。
+- `800x600`: 裁剪的宽高
+- `+100+100`: 裁剪的起始坐标
 
 也可以从中心裁剪：
 
@@ -119,18 +119,32 @@ magick input.jpg -gravity center -crop 800x600+0+0 output.jpg
 magick input.jpg -fill white -pointsize 40 -annotate +100+100 "Hello World" output.jpg
 ```
 
-- `-fill white`: 文字颜色。
-- `-pointsize 40`: 文字大小。
-- `-annotate +100+100 "Hello World"`: 文字内容和位置。
+- `-fill white`: 文字颜色
+- `-pointsize 40`: 文字大小
+- `-annotate +100+100 "Hello World"`: 文字内容和位置
 
-**拼接图片**
+**拼接图片**（很实用！）
 
 ```bash
 magick montage 1.jpg 2.jpg 3.jpg -geometry +2+2 -tile 1x3 output.jpg
 ```
 
-- `-geometry +2+2`: 图片间距。
-- `-tile 1x3`: 拼接方式, 1 行 3 列。
+- `-geometry +2+2`: 图片间距，没有间距则为`+0+0`
+- `-tile 1x3`: 拼接方式, 1 行 3 列（如果是 1 列或者一行则为`1x/x1`）
+
+如果要保持透明度，可以使用 `-background none` 参数：
+
+```bash
+magick montage 1.png 2.png 3.png -geometry +2+2 -tile 1x3 -background none output.png
+```
+
+如果想要修改拼接后的图片尺寸，可以修改 `-geometry` 参数：
+
+```bash
+magick montage 1.jpg 2.jpg 3.jpg -geometry 800x600+2+2 -tile 1x3 output.jpg
+```
+
+要注意的是，尺寸变小，由于压缩算法以及存储格式的不同，文件大小可能会更大（虽然这有点反直觉，但，是的，我测试后就是会这样）。
 
 #### 图片滤镜
 
@@ -140,7 +154,7 @@ magick montage 1.jpg 2.jpg 3.jpg -geometry +2+2 -tile 1x3 output.jpg
 magick input.jpg -blur 0x8 output.jpg
 ```
 
-- `-blur 0x8`: 模糊程度。
+- `-blur 0x8`: 模糊程度，0x8 表示水平方向模糊 0 像素，垂直方向模糊 8 像素
 
 **灰度化**
 
@@ -156,7 +170,8 @@ magick input.jpg -negate output.jpg
 
 **边缘检测**
 
-边缘检测是一种常见的图像处理技术，用于检测图像中的边缘。
+边缘检测是一种常见的图像处理技术，用于检测图像中的边缘，并将其突出显示。
+（就是会显示出边缘，常用于图像识别）
 
 ```bash
 magick input.jpg -edge 1 output.jpg

@@ -6,6 +6,8 @@
 
 - [Mac](./mac)
 
+- [Tips](./tips)
+
 - [Command-Line Tools](./cli_tools)
 
 - [App Recommend](./software)
