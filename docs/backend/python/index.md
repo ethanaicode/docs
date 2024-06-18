@@ -5,3 +5,7 @@
 - [Python Basic](./python_basic)
 
 - [Python Advanced](./python_advanced)
+
+### Python 库
+
+- [Selenium](./python_selenium)
