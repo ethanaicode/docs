@@ -12,3 +12,14 @@
   --vp-c-brand-2: #007fccff;
   --vp-c-brand-3: #009efd;
 }
+
+/*
+ * 自定义 emoji 页面样式
+ */
+.emoji-page-class h2 + p,
+.emoji-page-class h3 + p {
+  letter-spacing: 2px;
+  line-height: 1.5;
+  border: 1px solid #009efd;
+  font-size: 2rem;
+}

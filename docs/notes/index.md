@@ -13,3 +13,5 @@
 - [App Recommend](./software)
 
 - [App Guides](./app_guides)
+
+- [Emoji](./emoji)

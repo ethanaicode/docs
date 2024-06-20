@@ -66,6 +66,7 @@ export default defineConfig({
           { text: "命令行工具", link: "/notes/cli_tools" },
           { text: "软件推荐", link: "/notes/software" },
           { text: "软件使用指南", link: "/notes/app_guides" },
+          { text: "Emoji 表情", link: "/notes/emoji" },
         ],
       },
       // 外部链接
@@ -125,6 +126,7 @@ export default defineConfig({
               { text: "CliTools", link: "/notes/cli_tools" },
               { text: "App Recommend", link: "/notes/software" },
               { text: "App Guides", link: "/notes/app_guides" },
+              { text: "Emoji", link: "/notes/emoji" },
             ],
           },
           { text: "Main Site", link: "https://www.shejibiji.com/" },
