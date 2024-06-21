@@ -24,6 +24,16 @@
 
 - `pip3 install -r requirements.txt`：从 `requirements.txt` 文件中安装包
 
+**pip 修改配置文件**
+
+你可以使用 `pip config` 命令修改配置文件，例如：
+
+```bash
+pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+这里将全局的 `index-url` 设置为清华大学的镜像源。
+
 ### virtualenv
 
 `virtualenv` 是一个用于创建独立 Python 环境的工具。
@@ -39,7 +49,7 @@
 - 激活虚拟环境：
 
   ```bash
-    source /path/to/new/virtual/environment/bin/activate
+  source /path/to/new/virtual/environment/bin/activate
   ```
 
   激活后，命令行提示符会显示虚拟环境的名称。

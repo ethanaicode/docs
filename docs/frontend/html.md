@@ -28,7 +28,14 @@ document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 
 文字内容元素存在默认宽度`min-content`，宽度由内容中最长单词来决定（避免单词被拆开）。
 
-## CSS 选择器
+## CSS 基础
+
+### CSS 属性
+
+- `letter-spacing` 字母间距
+- `word-spacing` 单词间距
+
+### CSS 选择器
 
 **分组选择器**
 
@@ -86,30 +93,6 @@ document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 - `!important` 优先级最高
 
 - `伪类` > `类` > `标签`
-
-## CSS 自定义属性
-
-通过 `--` 开头的属性名，可以定义自己的 CSS 变量。
-
-和其他属性一样，自定义属性也是写在规则集之内的，如下：
-
-```css
-:root {
-  --main-color: #ff0000;
-}
-```
-
-注意，规则集所指定的选择器定义了自定义属性的可见作用域。通常的最佳实践是定义在根伪类 :root 下，这样就可以在 HTML 文档的任何地方访问到它了。
-
-之后，可以通过 `var()` 函数来引用这个变量：
-
-```css
-p {
-  color: var(--main-color);
-}
-```
-
-> 参考：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_custom_properties)
 
 ## CSS 布局
 
@@ -219,6 +202,30 @@ p {
 可以配合 flex 元素实现想要的元素顺序。
 
 > 参考：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox)
+
+## CSS 自定义属性
+
+通过 `--` 开头的属性名，可以定义自己的 CSS 变量。
+
+和其他属性一样，自定义属性也是写在规则集之内的，如下：
+
+```css
+:root {
+  --main-color: #ff0000;
+}
+```
+
+注意，规则集所指定的选择器定义了自定义属性的可见作用域。通常的最佳实践是定义在根伪类 :root 下，这样就可以在 HTML 文档的任何地方访问到它了。
+
+之后，可以通过 `var()` 函数来引用这个变量：
+
+```css
+p {
+  color: var(--main-color);
+}
+```
+
+> 参考：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_custom_properties)
 
 # JS
 

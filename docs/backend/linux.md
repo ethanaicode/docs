@@ -502,6 +502,12 @@ export VARIABLE_NAME=value
 
 如果你希望永远生效，可以将变量写入配置文件中，如`~/.bashrc`。
 
+如果你想取消掉某个环境变量，可以使用`unset`命令。
+
+```bash
+unset VARIABLE_NAME
+```
+
 **特殊变量**
 
 Bash shell 还提供了一些特殊的内置变量，例如:

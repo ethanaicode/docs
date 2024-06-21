@@ -19,7 +19,7 @@
 .emoji-page-class h2 + p,
 .emoji-page-class h3 + p {
   letter-spacing: 2px;
-  line-height: 1.5;
-  border: 1px solid #009efd;
-  font-size: 2rem;
+  line-height: 1.2;
+  /* border: 1px solid #009efd; */
+  font-size: 3rem;
 }
