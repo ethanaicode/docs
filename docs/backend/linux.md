@@ -865,6 +865,14 @@ find . -type f -printf "%s %p\n" | sort -n
 locate filename
 ```
 
+**查找文件并随机选择一个**
+
+```bash
+find . -type f | shuf -n 1
+```
+
+- `shuf` 命令用于随机排序输入行，`-n 1` 用于显示一个随机行。
+
 #### 远程复制文件到本地
 
 **可以使用`scp` (secure copy) 来实现。**

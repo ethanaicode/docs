@@ -2,7 +2,9 @@
 
 > 官方文档: [ThinkPHP 官方手册 v6](https://doc.thinkphp.cn/v6_1/default.html)
 >
-> 本教程已放弃更新，推荐了解下 PHP 的框架原理，再配合官方手册，使用起来才丝滑。
+> 本笔记来自之前刚开始学习 TP6 时做的笔记，以前整理了，之后应该不会更新的，
+>
+> 推荐了解下 PHP 的框架原理，再配合官方手册，使用起来才丝滑。
 
 ## 安装 TP6 并开启调试
 
@@ -918,3 +920,423 @@ Db::table('user')->field('title,email,content')->insert($data);
 使用`alias()`方法，给数据库起一个别名：
 
 `Db::name('user')->alias('a')->select();`
+
+## 路由
+
+[路由定义](https://www.kancloud.cn/manual/thinkphp6_0/1037495)
+
+开启强制路由后，原始的路由就会失效。
+
+[变量规则](https://www.kancloud.cn/manual/thinkphp6_0/1037496)
+
+看到路由上增加了`pattern([...])`，就表示这是限制变量的规则的。
+
+设置全局变量规则，全部路由有效。
+
+（针对它下面的路由有效）
+
+_动态路由挺有意思，感觉像套娃_
+
+[路由地址](https://www.kancloud.cn/manual/thinkphp6_0/1037497)
+
+路由到类的方法中，类名是需要完整的地址，相当于从`\app\`开始写，比如：
+
+```php
+Route::rule('dt-<func>', 'app\controller\Datatest@:func');
+```
+
+那么输入`dt-index`，就访问到 Datatest 下面的`index`方法。
+
+静态方法就别考虑了，反正@都可以访问到动静态方法。
+
+[域名路由](https://www.kancloud.cn/manual/thinkphp6_0/1037504)
+
+可以用来设定域名限制，支持多个域名。
+
+[跨域请求](https://www.kancloud.cn/manual/thinkphp6_0/1037507)
+
+可以用来支持跨域请求，也可以用来限制某些域名支持跨域。
+
+_跨域请求大概的意思，就是允许多个域名请求同一个数据。_
+
+[路由分组](https://www.kancloud.cn/manual/thinkphp6_0/1037500)
+
+分组最大的好处，就是可以一起控制，这样如果需要相同参数，只要写一次就好了，比较方便。
+
+[MISS 路由](https://www.kancloud.cn/manual/thinkphp6_0/1037506)
+
+其中的分组 MISS 路由，表示可以单独设置 miss 的方法。
+
+把 miss 方法单独写在控制器下对应的类中来实现。
+
+[资源路由](https://www.kancloud.cn/manual/thinkphp6_0/1037501)
+
+[注解路由](https://www.kancloud.cn/manual/thinkphp6_0/1037502)
+
+有了这个就不用在路由配置文件中配置了，可以直接利用注释来实现路由配置。
+
+## 项目实战
+
+> 数据表正常要把 id 设置为主键并自增（AI）
+
+### 1-5 模板渲染
+
+```php
+    public function viewtest()
+    {
+        $number = 8;
+        // 读取的是视图根目录下的index.html文件
+        return view::fetch('/index', [
+            'number'  => $number
+        ]);
+        // 读取的是视图根目录下index文件夹下的index.html文件
+        return view::fetch('index', [
+            'number'  => $number
+        ]);
+        // 不写参数读取的是视图根目录下viewtest文件夹下的index.html文件
+        return view::fetch('', [
+            'number'  => $number
+        ]);
+    }
+```
+
+知识点链接：[视图-模板渲染](https://www.kancloud.cn/manual/thinkphp6_0/1037611)
+
+知识点链接：[TT 开发-变量输出](https://www.kancloud.cn/manual/think-template/1286406)
+
+知识点链接：[TT 开发-循环标签](https://www.kancloud.cn/manual/think-template/1286417)
+
+### 2-2 后台登录功能实现
+
+如果引入验证码一直验证都失败，可能是因为 Session 未启用有关。
+
+知识点链接：[杂项-Session](https://www.kancloud.cn/manual/thinkphp6_0/1037635)
+
+### 2-5 后台登录拦截逻辑
+
+如果管理员登录了，打开后台登录页应该直接跳转到后台，而不是再次登录。
+
+这时候就需要后台登录拦截。
+
+**主要有以下两种方式：**
+
+1、传统 base 控制器，父类控制器，后台所有控制器都去继承 base 在 base 控制器做登录拦截。
+
+2、应用中间件。👍
+
+因为是应用中间件，需要把`middleware.php`放到应用目录下。并在中间件`middleware.php`中引入**check**类。
+
+### 2-9 弹出询问框+公告删除方法
+
+我们可以利用`$_SERVER['HTTP_REFERER']`快速得到返回键（上一步的网址）。
+
+[PHP 超级全局变量](https://www.runoob.com/php/php-superglobals.html)
+
+### 3-1 管理员列表
+
+**join**
+
+支持的写法：
+
+- 写法 1：[ '完整表名或者子查询'=>'别名' ]
+- 写法 2：'不带数据表前缀的表名'（自动作为别名）
+- 写法 2：'不带数据表前缀的表名 别名'
+
+知识点链接：[链式查询-Join](https://www.kancloud.cn/manual/thinkphp6_0/1037549)
+
+### 3-2 公共方法提取
+
+> 公共方法请统一放到 APP 目录下的 common.php 里面
+
+**unset()函数**
+
+去掉某个字段，常用于不需要修改密码，传递数据时使用。
+
+#### 内置标签
+
+系统内置标签库的所有标签无需引入标签库即可直接使用。
+
+例如：
+
+```php
+<!--这里用到了比较输出，neq表示不等于-->
+<!--下句等同于这句：{if $vo.status !== 1}-->
+{if condition="$vo.status neq 1"}
+
+<a href="{:url('base/status',array('id'=>$vo.id,'status'=>1,'dbname'=>'admin'))}"><span class='label label-danger radius'>停用</span></a>
+
+{else/}
+
+<a href="{:url('base/status',array('id'=>$vo.id,'status'=>0,'dbname'=>'admin'))}"><span class='label label-success radius'>正常</span></a>
+
+{/if}
+```
+
+知识点链接：[TT 开发-内置标签](https://www.kancloud.cn/manual/think-template/1286416)
+
+### 3-4 用户组权限管理
+
+> 很重要！涉及二三级菜单的实现。
+
+通过以下代码可以实现三级菜单
+
+```php
+$categoryData = Db::name('category')->field('id,cate_name,parent_id')->where('parent_id',0)->select()->toArray();
+        foreach($categoryData as $k=>$v){
+            $categoryData[$k]['children']=Db::name('category')->field('id,cate_name,parent_id')->where('parent_id',$v['id'])->select()->toArray();
+
+            foreach($categoryData[$k]['children'] as $x=>$y){
+                $categoryData[$k]['children'][$x]['siblings']=Db::name('category')->field('id,cate_name,parent_id')->where('parent_id',$y['id'])->select()->toArray();
+            }
+        }
+
+        //可以通过尝试访问多维数组
+        halt($categoryData[0]['children'][0]['sibilings']);
+```
+
+**implode()函数**
+
+我们获取到的规则是数组，我们可以通过 **implode()** 函数，把数组元素组合为一个字符串再传入数据库。
+
+例如：
+
+```php
+ $data['rules']=implode(',',$data['rules']);
+// 与之对应的是explode
+$rulesArr=explode(',',$authGroupData['rules']);
+```
+
+**in_array()函数**
+
+in_array() 函数搜索数组中是否存在指定的值。
+
+我们可以用它来判断规则，以此来通过 JS 决定选中框是否被选中。
+
+例如：
+
+```php
+// 通过这一段来判断规则中是否有对应的id，如果有则被选中状态
+{php}if(in_array($vo['id'],$rulesArr)){echo 'checked';}{/php}
+```
+
+知识点链接：[PHP implode() 函数](https://www.runoob.com/php/func-string-implode.html)
+
+知识点链接：[PHP in_array() 函数](https://www.runoob.com/php/func-array-in-array.html)
+
+### 3-5 权限节点搜索
+
+搜索功能实现！
+
+（通过传递搜索关键词作为数据表查询条件）
+
+### 3-8 initialize 中的跳转
+
+重定向**redirect**只能在控制器中的方法中生效。
+
+如果需要可以通过抛出异常的方式实现跳转：
+
+```php
+public function redirect(...$args){
+    throw new HttpResponseException(redirect(...$args));
+  }
+//把需要跳转的地址传入作为参数即可。
+```
+
+### 3-10 左侧菜单排序以及图标处理
+
+- `->order('id', 'desc')`可以按照 id 进行倒序排序。
+
+- 如果发现图标无法显示，而是显示字符，可能是因为系统自动转义了，我们可以使用 raw 过滤规则来避免转义。
+
+  例如：`{$data.iconfont|raw}`
+
+知识点链接：[链式查询 order](https://www.kancloud.cn/manual/thinkphp6_0/1037546)
+
+知识点链接：[TT 开发-使用函数](https://www.kancloud.cn/manual/think-template/1286407) ⭐ 很重要，可以实现高阶操作，其中 5-1 中也有用到
+
+### 5-2 优惠券管理
+
+**strtotime()函数**
+
+将任何字符串的日期时间描述解析为 Unix 时间戳。
+
+时间数据添加入库的时候，是需要把类似 2020-05-20 12：12：12 的字符串转成时间戳再入库的，就会用到上面函数。
+
+### 6-3 图片上传验证
+
+应用异常处理类为`app\ExceptionHandle.php`，可以自己添加异常处理规则。
+
+知识点链接：[杂项-上传](https://www.kancloud.cn/manual/thinkphp6_0/1037639)
+
+### 6-4 图片实时删除
+
+助手函数`app()`可以获得容器中的实例。
+
+下面的这种对于地址的处理需要熟练掌握：
+
+```php
+$path='public'.$path; // 拼接
+$path=app()->getRootPath().$path;
+$path=str_replace('\\','/',$path); // 替换
+```
+
+**unlink()函数**
+
+删除一个文件。
+
+知识点链接：[unlink.php](https://www.php.net/manual/en/function.unlink.php)
+
+知识点链接：[杂项-上传](https://www.kancloud.cn/manual/thinkphp6_0/1037639)
+
+知识点链接：[助手函数](https://www.kancloud.cn/manual/thinkphp6_0/1037653)
+
+### 7-2 公共方法：排序
+
+> 涉及知识 jquery 状态监听，来实现数据的实时排序更新
+
+知识点链接：[jQuery blur() 方法](https://www.runoob.com/jquery/event-blur.html)
+
+### 9-3 商品分类
+
+**无限极分类**
+
+涉及 PHP 无限极分类，可以根据关键词再单独学习。
+
+主要要用到的知识为递归循环。
+
+（方法是建立在对应的模型中）
+
+**展开折叠分类内容**
+
+用到 jQ 的基础知识，通过点击来控制内容的显示与隐藏。
+
+### 9-5 商品分类的删除
+
+**whereIn 查询**
+
+例如：`->whereIn('id',$childStr)`
+
+知识点链接：[查询表达式](https://www.kancloud.cn/manual/thinkphp6_0/1037537)
+
+### 9-7 图片排序逻辑+商品分类联动效果
+
+本章需要用到 jQ 的相关知识实现排序。
+
+**jQuery parent() 方法:** 获取父元素；
+
+**jQuery prev() 方法:** 获取前一个同级元素；
+
+**jQuery next() 方法:** 获取后一个同级元素；
+
+**jQuery after() 方法:** 当前元素后插入内容。
+
+例如：
+
+```js
+$(".prev").click(function () {
+  var prev = $(this).parent().prev(); //1
+  $(this).parent().after(prev);
+});
+```
+
+通过这个实现了顺序的改变。
+
+**分类联动通过 JS 实现**
+
+> 需要补一下 ajax 资料，通过 get 发送数据并实时返回
+
+根据第一个选择，发送一个 ajax 请求，来获取第二个选择，再根据第二个选择，发送 ajax 请求，来获取第三个选择。
+
+### 9-12 商品添加-事务操作
+
+事务操作主要用于同时添加数据到多个表时，如果后面的添加操作失败时，把前面的操作也一起撤销掉。
+
+（不然部分操作就会出现重复）
+
+例如：
+
+```php
+// 启动事务
+Db::startTrans();
+try {
+    // 放入业务代码
+    Db::table('think_user')->find(1);
+    // 提交事务（这句不能少）
+    Db::commit();
+} catch (\Exception $e) {
+    // 回滚事务
+    Db::rollback();
+}
+```
+
+事务操作需要使用 `InnoDB` 引擎。
+
+MySQL 的 `MyISAM` 不支持事务处理！
+
+知识点链接：[事务操作](https://www.kancloud.cn/manual/thinkphp6_0/1037573)
+
+### 9-21 商品列表实现
+
+通过模型，实现了根据选择，来显示不同的列表内容。
+
+### 9-23 商品列表搜索扩展-搜索器
+
+这块有点难度，比较没听懂
+
+知识点链接：[搜索器](https://www.kancloud.cn/manual/thinkphp6_0/1037590)
+
+### 10-3 会员注册+validate 验证
+
+TP6 自带验证器，直接调用就可以完成数据验证。
+
+公共的部分可以用到验证场景，
+
+知识点链接：[验证器](https://www.kancloud.cn/manual/thinkphp6_0/1037624)
+
+### 10-7 php7 严格模式下的短信发送逻辑
+
+短信实现模块重要步骤。
+
+**随机验证码生成后可以存入缓存，通过缓存获取并进行核对。**
+
+### 10-8 redis 介绍
+
+Redis 支持数据的持久化，可以将内存中的数据保存在磁盘中。
+
+需要先安装 Redis 扩展，如果是 Win 电脑，还需要启动 Redis 服务才可以。
+
+可以动态切换缓存类型，例如：
+
+```php
+// 使用文件缓存
+Cache::set('name','value',3600);
+Cache::get('name');
+
+// 使用Redis缓存
+Cache::store('redis')->set('name','value',3600);
+Cache::store('redis')->get('name');
+```
+
+知识点链接：[Redis 简介](https://www.runoob.com/redis/redis-intro.html)
+
+知识点链接：[杂项-缓存](https://www.kancloud.cn/manual/thinkphp6_0/1037634)
+
+### 10-10 登录逻辑+微信登录准备
+
+清空 Session 数据：`session('sessionUserData',null);`
+
+微信登陆开放平台：https://open.weixin.qq.com
+
+### 10-18 whereFindInSet 使用
+
+FIND_IN_SET 查询，相当于 where 的高级版，只要满足一个条件都算。
+
+比如根据 id 查询，可能表中有多个 id，但只要有查询的 id，都满足查询条件。
+
+例如：
+
+```php
+$noticeData=Db::name('notice')->where('type',1)->whereFindInSet('user_id',$sessionUserData['id'])->paginate(10);
+```
+
+知识点链接：[查询表达式](https://www.kancloud.cn/manual/thinkphp6_0/1037537)

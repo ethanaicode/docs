@@ -18,9 +18,9 @@ Caps Lock ⇪
 Fn (Function)
 :::
 
-- **Command⌘ + Tab** = 切换应用
+- **Command⌘ + Tab** = 切换应用 🌟
 
-- **Command⌘ + ~** = 切换应用窗口（VScode 切换多个窗口很方便）
+- **Command⌘ + ~** = 切换应用窗口（VScode 切换多个窗口很方便）🌟
 
 - **Command⌘ + up or down(↑ or ↓） arrow key** = 移动到页面顶部/底部
 
@@ -36,6 +36,8 @@ Fn (Function)
 
 ### 访达页面
 
+- **长按 Space** = 临时预览文件（松开空格就会关闭）
+
 - **Command⌘ + Option⌥ + P** = 打开访达的文件路径显示
 
 - **Command⌘ + Shift + `.`** = 显示隐藏文件
@@ -43,6 +45,14 @@ Fn (Function)
 - **Command⌘ + Option⌥ + Drag** = 拖动快速创建快捷方式
 
 - **Command⌘ + J** = 显示或隐藏视图选项（用来设置排序等，很方便）
+
+### 截屏录屏
+
+- **Command⌘ + Shift + 3** = 截取整个屏幕
+
+- **Command⌘ + Shift + 4** = 截取部分屏幕
+
+- **Command⌘ + Shift + 5** = 截取屏幕或录屏
 
 ## Mac 操作技巧
 

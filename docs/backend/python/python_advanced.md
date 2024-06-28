@@ -59,3 +59,19 @@ pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
   ```bash
   deactivate
   ```
+
+## Module
+
+### OS 模块
+
+`os` 模块提供了一种使用操作系统功能的方法。
+
+```python
+import os
+
+# 获取当前工作目录
+print(os.getcwd())
+
+# 列出目录下的文件
+print(os.listdir())
+```
