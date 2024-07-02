@@ -71,6 +71,8 @@ ffmpeg -i input.mp4 -ss 00:00:10 -t 00:00:30 -c copy output.mp4
 
 - `-quality 80`: 调整图片质量
 
+- `-tile 1x3`: 拼接方式
+
 - `-thumbnail 100x100`: 创建缩略图
 
 - `-crop 800x600+100+100`: 裁剪图片
@@ -150,12 +152,19 @@ magick input.jpg -fill white -pointsize 40 -annotate +100+100 "Hello World" outp
 
 **拼接图片**（很实用！）
 
+可以使用 `montage` 命令，可以将多张图片拼接在一起。
+
+常用到的参数有：
+
+- `-geometry +2+2`: 图片间距，没有间距则为`+0+0`
+
+- `-tile 1x3`: 拼接方式, 1 行 3 列（如果是 `1x` 表示 1 列， `x1` 表示 1 行）
+
+比如我们横向拼接三张图片：
+
 ```bash
 magick montage 1.jpg 2.jpg 3.jpg -geometry +2+2 -tile 1x3 output.jpg
 ```
-
-- `-geometry +2+2`: 图片间距，没有间距则为`+0+0`
-- `-tile 1x3`: 拼接方式, 1 行 3 列（如果是 1 列或者一行则为`1x/x1`）
 
 如果要保持透明度，可以使用 `-background none` 参数：
 
