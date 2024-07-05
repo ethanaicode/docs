@@ -1118,6 +1118,42 @@ Cron 任务的配置文件通常位于 `/etc/crontab` 或者 `/var/spool/cron` �
 @daily /path/to/script.sh
 ```
 
+#### 使用 logrotate 管理日志文件
+
+`logrotate` 是一个在 Linux 操作系统中用来管理日志文件的工具。`logrotate` 可以定期对日志文件进行压缩、删除、邮件通知等操作。
+
+配置文件通常位于 `/etc/logrotate.conf` 和 `/etc/logrotate.d/` 目录中，系统管理员可以在这些配置文件中定义具体的日志轮换策略。
+
+简单的 `logrotate` 配置示例如下：
+
+```bash
+/var/log/syslog {
+    daily
+    missingok
+    rotate 7
+    compress
+    delaycompress
+    notifempty
+    create 0640 root utmp
+    sharedscripts
+    postrotate
+        /usr/lib/rsyslog/rsyslog-rotate
+    endscript
+}
+```
+
+这个配置对 `/var/log/syslog` 日志文件进行如下操作：
+
+- `daily`：每天轮换一次日志文件。
+- `missingok`：如果日志文件不存在，不会报错继续执行。
+- `rotate 7`：保留最近的7个日志文件，超出部分将被删除。
+- `compress`：轮换后的日志文件进行压缩。
+- `delaycompress`：延迟压缩到下次轮换时。
+- `notifempty`：如果日志文件为空，不进行轮换。
+- `create 0640 root utmp`：创建新日志文件，权限设置为0640，所有者为root，所属组为utmp。
+- `sharedscripts`：在日志文件轮换前后执行脚本。
+- `postrotate` 到 `endscript`：在日志文件轮换后执行 `/usr/lib/rsyslog/rsyslog-rotate` 脚本。
+
 ### 网络相关
 
 #### 获取本机的网络信息

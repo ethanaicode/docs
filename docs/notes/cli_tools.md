@@ -112,9 +112,17 @@ magick input.jpg -rotate 90 output.jpg
 magick input.jpg -quality 80 output.jpg
 # 创建缩略图
 magick input.jpg -thumbnail 100x100 output.jpg
-# 转换图片格式为ico（多尺寸）
+```
+
+#### 将多张图片转成 ico 图标
+
+这个是多尺寸的图片转成一个图标文件。
+
+```bash
 magick 16px.png 32px.png 48px.png 128px.png -colors 256 favicon.ico
 ```
+
+- `-colors 256`: 指定颜色数量（可选参数，加上这个参数会使得图标文件更小，但可能会有颜色损失）
 
 #### 图片序列转动图
 
@@ -250,9 +258,9 @@ magick identify input.jpg
 magick -size 900x385 canvas:skyblue -fill white -gravity center -pointsize 96 -annotate 0 "Hello World" output.jpg
 
 # 渐变色背景，标题居中
-magick -size 900x385 gradient:red-blue -gravity center -fill white -pointsize 96 -annotate 0 "Hello World" output.jpg
+magick -size 900x385 gradient:#4facfe-#00f2fe -gravity center -fill white -pointsize 96 -annotate 0 "Hello World" output.jpg
 # 指定角度渐变，标题居中（先 生成渐变色图片，再旋转，再裁剪）
-magick -size 1280x1280 gradient:red-blue -rotate 45 -crop 900x385+190+447 +repage -gravity center -fill white -pointsize 96 -annotate 0 "Hello World" output.jpg
+magick -size 1280x1280 gradient:#4facfe-#00f2fe -rotate 90 -crop 900x385+190+447 +repage -gravity center -fill white -pointsize 96 -annotate 0 "Hello World" output.jpg
 ```
 
 **生成渐变色的标题文字**

@@ -12,6 +12,56 @@ Python 的内存管理是通过引用计数和垃圾回收机制来实现的。
 
 - 垃圾回收：Python 通过垃圾回收机制来处理循环引用的问题。垃圾回收器会定期检查对象的引用计数，当引用计数为 0 时，对象被销毁。
 
+Python 的垃圾回收机制有两种：分代垃圾回收和循环垃圾回收。
+
+- 分代垃圾回收：Python 将对象分为三代，每代对象的存活时间越长，就越不可能被销毁。Python 会根据对象的存活时间来决定何时销毁对象。
+
+- 循环垃圾回收：Python 通过引用计数和标记清除算法来处理循环引用的问题。当对象之间存在循环引用时，Python 会通过标记清除算法来检测和销毁循环引用的对象。
+
+**如何避免内存泄漏**
+
+- 避免循环引用：当对象之间存在循环引用时，Python 的垃圾回收机制无法正确处理，会导致内存泄漏。
+
+- 使用 `with` 语句：`with` 语句可以自动关闭文件和释放资源，避免资源泄漏。
+
+- 使用 `gc` 模块：`gc` 模块提供了一些函数，可以手动触发垃圾回收机制。
+
+**如何避免被错误的垃圾回收**
+
+- 引用计数：当对象的引用计数为 0 时，对象会被销毁。如果对象的引用计数不为 0，对象就不会被销毁。
+
+这个可以通过保持显式引用来避免对象被销毁。
+
+在下面这个例子中，当你创建一个 `PhotoImage` 对象时，由于 `Tkiner` 不会管理这个对象的生命周期，当这个对象被销毁时，图像就会消失（表现就是莫名其妙不显示了）。
+
+```python
+# 没有显式应用
+photo_image = ImageTk.PhotoImage(image)
+image_label = tk.Label(image_frame, image=photo_image)
+image_label.pack()
+# 显式应用
+photo_image = ImageTk.PhotoImage(image)
+image_label = tk.Label(image_frame, image=photo_image)
+image_label.image = photo_image
+image_label.pack()
+```
+
+在这里，通过将 `PhotoImage` 对象赋值给 `Label` 的 `image` 属性，你可以确保 `PhotoImage` 对象在 `Label` 存在期间保持活动状态，从而防止图像意外消失。这是 Tkinter 处理中常见的做法。
+
+- 强制引用：可以使用强制引用来阻止对象被销毁。强制引用可以通过 `gc.get_referrers()` 函数来获取。
+
+```python
+import gc
+
+class A:
+    pass
+
+a = A()
+
+# 强制引用
+gc.get_referrers(a)
+```
+
 ### Python 的数据类型
 
 **集合类型**：

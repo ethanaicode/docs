@@ -1,34 +1,31 @@
 # PHP 进阶知识
 
-## 进阶技巧
+## 进阶知识
 
 ### 实用技巧
 
-**func_get_args() 获取方法参数**
+**...参数**
 
-方法中传递参数一般有两种方式：
+> 用于函数参数，可以接受任意数量的参数，可以用来代替数组。
+
+例如：
 
 ```PHP
-// one
-public function delete($id)
-    {
-        // use $id
-    }
-
-// two
-public function delete()
-    {
-        $params = func_get_args();
-        $id = $params[0];
-        // use $id
-    }
+function sum(...$nums)
+{
+    return array_sum($nums);
+}
 ```
 
-为什么推荐这 func_get_args()获取方法参数。
+### PHP 的数据在内存中的存储位置
 
-最大的好处是不用再考虑方法需要获取多少个参数。
+PHP 的数据在内存中的存储位置有两种：
 
-如果之后调用方法时想多传几个参数，只需要在方法中修改即可，不用再修改方法定义，从而避免影响在其它位置调用此方法的写法。
+- 栈内存：存储基本数据类型，如整型、浮点型、布尔型等。
+
+- 堆内存：存储复杂数据类型，如数组、对象等。
+
+> 堆(heap)和栈(stack)的区别：堆经典的实现是完全二叉树，栈是一种先进后出的数据结构，所以堆是一种树形结构，栈是一种线性结构。想象一下画面就比较好记了。
 
 ### 优化 PHP - FPM 配置
 
@@ -809,6 +806,101 @@ try {
 https://www.bilibili.com/video/BV14x411o7SL?p=22&vd_source=e697d97c11963b497ea46a09033367c0
 
 ##### \_\_callStatic()
+
+## 魔术方法
+
+### \_\_invoke()
+
+> 当对象被当作函数调用时，会调用这个方法。
+
+例如：
+
+```PHP
+class User
+{
+    public function __invoke()
+    {
+        echo 'Hello, World!';
+    }
+}
+
+$user = new User;
+
+$user();
+```
+
+**应用场景**
+
+1. 用来实现一个类似闭包的功能，比如：
+
+```PHP
+class Closure
+{
+    public function __invoke($name)
+    {
+        return 'Hello, ' . $name;
+    }
+}
+
+$obj = new Closure;
+
+echo $obj('设计笔记');
+```
+
+2. 用来实现单例模式，比如：
+
+```PHP
+class Singleton
+{
+    private static $instance;
+
+    private function __construct()
+    {
+    }
+
+    public static function getInstance()
+    {
+        if (!self::$instance) {
+            self::$instance = new self;
+        }
+        return self::$instance;
+    }
+
+    public function __invoke()
+    {
+        return 'Hello, World!';
+    }
+}
+
+$obj = Singleton::getInstance();
+
+echo $obj();
+```
+
+3. 用来实现策略模式，比如：
+
+```PHP
+class Strategy
+{
+    private $strategy;
+
+    public function __construct(callable $strategy)
+    {
+        $this->strategy = $strategy;
+    }
+
+    public function __invoke($name)
+    {
+        return call_user_func($this->strategy, $name);
+    }
+}
+
+$obj = new Strategy(function ($name) {
+    return 'Hello, ' . $name;
+});
+
+echo $obj('设计笔记');
+```
 
 ## PDO 连接
 

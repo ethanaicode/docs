@@ -8,6 +8,8 @@
 
 - [Tips](./tips)
 
+- [计算机科学](./computer_science)
+
 - [Command-Line Tools](./cli_tools)
 
 - [App Recommend](./software)

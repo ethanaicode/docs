@@ -46,11 +46,33 @@ Master 进程和 Worker 进程之间通过进程间通信（IPC）来协调工�
 
 主要分为三大块，全局块，events 块，以及 http 块。
 
-events 块主要是服务器和客户端之间的网络连接的一些配置，比如指定每个 worker 进程可以同时接收多少个网络连接（worker_connections）。
+- **全局块**: 主要是一些配置文件的路径、用户、工作进程数等。
 
-http 块是修改比较多的部分。
+  `worker_processes`: nginx 进程数，可以和 CPU 核心数保持一致，或者使用 `auto`值。
 
-`worker_processes`: nginx 进程数，可以和 CPU 核心数保持一致，或者使用 `auto`值。
+  `pid`: nginx 进程的 PID 文件路径。
+
+- **events**: 主要是服务器和客户端之间的网络连接的一些配置，比如指定每个 worker 进程可以同时接收多少个网络连接（worker_connections）。
+
+- **http**: 主要是 HTTP 协议相关的配置，比如设置 MIME 类型、日志格式、访问日志的路径等。这一块也是我们经常修改的地方
+
+#### 日志配置
+
+我们可以自定义日志的格式，比如下面的配置：
+
+```nginx
+http {
+    log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+    access_log /var/log/nginx/access.log main;
+    error_log /var/log/nginx/error.log;
+}
+```
+
+Nginx 日志在 Linux 系统中，通常由 logrotate 来进行日志切割，配置文件在`/etc/logrotate.d/nginx`。
+
+具体有关日志的配置，可以参考[官方文档](http://nginx.org/en/docs/http/ngx_http_log_module.html)。
 
 #### 反向代理
 
