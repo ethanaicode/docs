@@ -116,7 +116,17 @@ magick input.jpg -thumbnail 100x100 output.jpg
 
 #### 将多张图片转成 ico 图标
 
-这个是多尺寸的图片转成一个图标文件。
+> ico 图标在 Windows 上会缓存，所以如果修改了图标，可能需要清空缓存或者新的文件名，才能看到变化。
+
+可以只准备一张图片，然后通过 `-define icon:auto-resize` 参数来生成多尺寸的图标：
+
+```bash
+magick input.png -define icon:auto-resize=256,128,96,64,48,32,16 favicon.ico
+```
+
+- `-define icon:auto-resize=256,128,96,64,48,32,16`: 指定尺寸
+
+或者自己准备多张图片，然后合成：
 
 ```bash
 magick 16px.png 32px.png 48px.png 128px.png -colors 256 favicon.ico
@@ -255,12 +265,13 @@ magick identify input.jpg
 
 ```bash
 # 纯色背景，标题居中
-magick -size 900x385 canvas:skyblue -fill white -gravity center -pointsize 96 -annotate 0 "Hello World" output.jpg
-
+magick -size 900x385 canvas:skyblue -gravity center -fill white -pointsize 96 -annotate 0 "Hello World" output.jpg
 # 渐变色背景，标题居中
 magick -size 900x385 gradient:#4facfe-#00f2fe -gravity center -fill white -pointsize 96 -annotate 0 "Hello World" output.jpg
-# 指定角度渐变，标题居中（先 生成渐变色图片，再旋转，再裁剪）
+# 指定角度渐变，标题居中（先 生成渐变色图片，再旋转裁剪）
 magick -size 1280x1280 gradient:#4facfe-#00f2fe -rotate 90 -crop 900x385+190+447 +repage -gravity center -fill white -pointsize 96 -annotate 0 "Hello World" output.jpg
+# 通过图片着色生成彩色图片，标题居中（黑白图片，黑色部分会被着色，颜色越深越明显）
+magick grayscale_base.png +level-colors "#536a49," -gravity center -fill white -pointsize 96 -annotate 0 "#Hello World" output.jpg
 ```
 
 **生成渐变色的标题文字**
@@ -283,9 +294,15 @@ magick -size 900x385 canvas:white gradient_text.png -gravity center -composite o
 **修改图片尺寸并添加文字标题**
 
 ```bash
-magick input.jpg -resize 900x385^ -gravity center -extent 900x385 -gravity center -pointsize 96 -fill #474859 -font /Users/ethan/Downloads/Fonts/alibaba_v2.0/Alibaba_PuHuiTi_2.0_65_Medium_65_Medium.ttf -annotate 0 "支持中文" output.jpg
+magick input.jpg -resize 900x385^ -gravity center -extent 900x385 -gravity center -pointsize 96 -fill #474859 -annotate 0 "Hello World" output.jpg
 ```
 
 - `-resize 900x385^`: 指定图片尺寸，`^` 表示只缩放不拉伸
 
 - `-gravity center -extent 900x385`: 裁剪图片（居中裁剪）
+
+### 官方文档导航
+
+- [v7 使用说明](https://imagemagick.org/Usage/)
+
+  - [颜色修改](https://imagemagick.org/Usage/color_mods/)

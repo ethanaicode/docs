@@ -1146,11 +1146,11 @@ Cron 任务的配置文件通常位于 `/etc/crontab` 或者 `/var/spool/cron` �
 
 - `daily`：每天轮换一次日志文件。
 - `missingok`：如果日志文件不存在，不会报错继续执行。
-- `rotate 7`：保留最近的7个日志文件，超出部分将被删除。
+- `rotate 7`：保留最近的 7 个日志文件，超出部分将被删除。
 - `compress`：轮换后的日志文件进行压缩。
 - `delaycompress`：延迟压缩到下次轮换时。
 - `notifempty`：如果日志文件为空，不进行轮换。
-- `create 0640 root utmp`：创建新日志文件，权限设置为0640，所有者为root，所属组为utmp。
+- `create 0640 root utmp`：创建新日志文件，权限设置为 0640，所有者为 root，所属组为 utmp。
 - `sharedscripts`：在日志文件轮换前后执行脚本。
 - `postrotate` 到 `endscript`：在日志文件轮换后执行 `/usr/lib/rsyslog/rsyslog-rotate` 脚本。
 
@@ -1190,6 +1190,8 @@ https://chevereto.com/api/download/latest
 `-s` 参数表示安静模式，不显示进度。
 
 `-k` 参数表示允许不安全的 SSL 连接。
+
+`-X` 参数表示设置请求方法
 
 也可以使用**wget**来下载文件
 

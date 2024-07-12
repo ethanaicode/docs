@@ -1,5 +1,7 @@
 # Tkinter
 
+> @2024-07-09 如果是简单界面，可以使用，但官方文档不够详细，推荐还是使用 Qt 或者 Kivy
+
 > 官方文档：[https://docs.python.org/3/library/tkinter.html](https://docs.python.org/3/library/tkinter.html)
 >
 > TkDocs：[https://tkdocs.com/tutorial/index.html](https://tkdocs.com/tutorial/index.html)

@@ -11,3 +11,5 @@
 - [Tkinter](./python_tkinter)
 
 - [Selenium](./python_selenium)
+
+- [PyInstaller](./python_pyinstaller)
