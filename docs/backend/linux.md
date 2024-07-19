@@ -133,6 +133,8 @@
 
   `-r` 递归查找
 
+  `-E` 扩展正则表达式
+
 - **du**: 查看文件大小
 
   `-h` 人性化显示文件大小
@@ -696,6 +698,56 @@ drwxr-xr-x 2 user group 4096 May  1 09:59 directory
 6. 第六列至第八列: 最后修改的日期和时间
    - 表示文件或目录最后一次修改的日期和时间。
 7. 最后一列: 文件或目录的名称
+
+### 编译安装的常用操作及知识
+
+**一般步骤**
+
+1. 下载源代码
+
+   ```bash
+   wget http://example.com/package.tar.gz
+   ```
+
+2. 解压源代码
+
+   ```bash
+   tar -zxvf package.tar.gz
+   ```
+
+3. 进入源代码目录
+
+   ```bash
+   cd package
+   ```
+
+4. 配置
+
+   ```bash
+   ./configure
+   ```
+
+   如果需要指定安装目录，可以使用`--prefix`参数
+
+   ```bash
+   ./configure --prefix=/usr/local
+   ```
+
+5. 编译
+
+   ```bash
+   make
+   ```
+
+6. 安装
+
+   ```bash
+   make install
+   ```
+
+**编译安装后，撤销安装**
+
+可以通过 `make uninstall` 来卸载已经安装的软件，但是并不是所有的软件都支持这个命令。
 
 ## 使用案例
 
