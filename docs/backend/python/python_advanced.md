@@ -4,6 +4,255 @@
 
 ## 进阶知识
 
+### Python 的数据类型
+
+**集合类型**：
+
+- list：列表，有序可变序列（类似于数组）
+
+  如: `[1, 2, 3]`
+
+- dict：字典，无序键值对集合（关键词：键值对）
+
+  如: `{'name': 'Alice', 'age': 18}`
+
+- tuple：元组，有序不可变序列（关键词：不可变）
+
+  如: `(1, 2, 3)`
+
+- set：集合，无序不重复元素集（关键词：不重复）
+
+  如: `{1, 2, 3}`
+
+**可变对象和不可变对象**
+
+Python 中的数据类型分为可变对象和不可变对象。
+
+是否可变是指对象的内容改变后，id 是否会改变。不可变对象因为它不能在原地修改，所以每次修改都会创建一个新的对象，因此 id 会改变。
+
+- 不可变对象：int、float、str、tuple 等
+
+- 可变对象：list、dict、set 等
+
+```python
+a = 1
+print(id(a))  # 4316875464
+a = 2
+print(id(a))  # 4316875496
+```
+
+### Python 的内置函数
+
+**map() 函数**
+
+`map()` 函数是 Python 的内置函数，它接受一个函数和一个可迭代对象作为参数，**返回一个迭代器，**迭代器中的每个元素都是将函数应用于可迭代对象中的元素得到的结果。
+
+```python
+def square(x):
+    return x * x
+
+print(list(map(square, [1, 2, 3, 4, 5])))
+```
+
+**super() 函数**
+
+`super()` 函数是 Python 的内置函数，它返回一个代理对象，这个代理对象可以调用父类的方法。
+
+```python
+class A:
+    def __init__(self):
+        print('A.__init__')
+
+class B(A):
+    def __init__(self):
+        super().__init__()
+        print('B.__init__')
+
+b = B()
+```
+
+简单理解就是，`super()` 函数可以直接调用父类的方法，而不用指定父类的名字。
+
+### Python 的装饰器
+
+#### 装饰器基础
+
+装饰器是 Python 的一种高级特性，它可以在不修改原函数的情况下，为函数添加额外的功能。
+
+简单点理解就是，装饰器是一个函数，它接受一个函数作为参数，它会返回一个新的函数，这个新的函数会在原函数执行前后执行一些额外的代码。
+
+```python
+def decorator(func):
+    def wrapper(*args, **kwargs):
+        print('Before function')
+        result = func(*args, **kwargs)
+        print('After function')
+        return result
+    return wrapper
+
+@decorator
+def hello():
+    print('Hello, world!')
+
+hello()
+```
+
+上面的案例类似于下面的代码：
+
+```python
+def hello():
+    print('Hello, world!')
+
+hello = decorator(hello)
+hello()
+```
+
+如果需要给装饰器传递参数，可以在装饰器外再套一层函数：
+
+```python
+def decorator_with_args(arg):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            print(f'Before function with arg: {arg}')
+            result = func(*args, **kwargs)
+            print('After function')
+            return result
+        return wrapper
+    return decorator
+
+@decorator_with_args('arg')
+def hello():
+    print('Hello, world!')
+
+hello()
+```
+
+#### 常用的装饰器
+
+**@staticmethod**
+
+`@staticmethod` 装饰器用于将类中的方法定义为静态方法。静态方法不需要传入 `self` 参数，可以直接通过类名调用。
+
+```python
+class A:
+    @staticmethod
+    def hello():
+        print('Hello, world!')
+
+A.hello()
+```
+
+**@classmethod**
+
+`@classmethod` 装饰器用于将类中的方法定义为类方法。类方法的第一个参数是类本身，通常命名为 `cls`。
+
+```python
+class A:
+    @classmethod
+    def hello(cls):
+        print(f'Hello, {cls.__name__}!')
+
+A.hello()
+```
+
+**@staticmethod 和 @classmethod 的区别**
+
+- `@staticmethod`：静态方法不需要传入 `self` 或 `cls` 参数，可以直接通过类名调用
+
+- `@classmethod`：类方法需要传入 `cls` 参数，可以通过类名或实例调用
+
+- `@classmethod` 可以访问类属性和类方法，因为有类的引用，而 `@staticmethod` 无法访问类属性和类方法
+
+**@property**
+
+`@property` 装饰器用于将类中的方法定义为属性。属性方法可以像属性一样访问，不需要加括号。
+
+```python
+class A:
+    def __init__(self):
+        self._name = 'Alice'
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        self._name = value
+
+a = A()
+print(a.name)
+a.name = 'Bob'
+print(a.name)
+```
+
+**@abstractmethod**
+
+> 在 Python 中定义抽象类时，必须从 abc 模块导入 ABC 类和 abstractmethod 装饰器。ABC 是“抽象基类”的缩写，abstractmethod 装饰器用于标记抽象方法。
+
+`@abstractmethod` 装饰器用于将类中的方法定义为抽象方法。抽象方法必须在子类中实现。
+
+```python
+from abc import ABC, abstractmethod
+
+class A(ABC):
+    @abstractmethod
+    def hello(self):
+        pass
+
+class B(A):
+    def hello(self):
+        print('Hello, world!')
+
+b = B()
+b.hello()
+```
+
+### Python 的模块和包
+
+**from ... import ...**
+
+`from` 后面跟的是 `.py` 文件及其路径，`import` 后面跟的是模块名或者模块中的函数名。
+
+比如下面的文件结构：
+
+```python
+-root
+  |-app.py
+  |-lib
+    |-__init__.py
+    |-model
+      |-__init__.py
+      |-classA.py
+```
+
+在 `app.py` 中，可以这样引入 `classA`：
+
+```python
+from lib.model.classA import classA
+```
+
+**\_\_init\_\_.py**
+
+`__init__.py` 文件是一个空文件，它的存在告诉 Python 这个目录是一个 Python 包。
+
+没有它，Python 就不会把这个目录当作包来处理，也就无法引入包中的模块。
+
+**\_\_name\_\_**
+
+`__name__` 是 Python 的一个内置变量，它的值取决于 Python 如何运行当前的模块。
+
+通常这样使用：
+
+```python
+if __name__ == '__main__':
+    # do something
+```
+
+这样可以让模块既可以被导入，也可以作为脚本直接运行。
+
+通过将要运行的脚本中的代码写在 `if __name__ == '__main__':` 之后，避免了在导入模块时运行脚本中的代码。
+
 ### Python 的内存管理
 
 Python 的内存管理是通过引用计数和垃圾回收机制来实现的。
@@ -61,132 +310,6 @@ a = A()
 # 强制引用
 gc.get_referrers(a)
 ```
-
-### Python 的数据类型
-
-**集合类型**：
-
-- list：列表，有序可变序列（类似于数组）
-
-- tuple：元组，有序不可变序列（关键词：不可变）
-
-- set：集合，无序不重复元素集（关键词：不重复）
-
-- dict：字典，无序键值对集合（关键词：键值对）
-
-**可变对象和不可变对象**
-
-Python 中的数据类型分为可变对象和不可变对象。
-
-是否可变是指对象的内容改变后，id 是否会改变。不可变对象因为它不能在原地修改，所以每次修改都会创建一个新的对象，因此 id 会改变。
-
-- 不可变对象：int、float、str、tuple 等
-
-- 可变对象：list、dict、set 等
-
-```python
-a = 1
-print(id(a))  # 4316875464
-a = 2
-print(id(a))  # 4316875496
-```
-
-### Python 的装饰器
-
-装饰器是 Python 的一种高级特性，它可以在不修改原函数的情况下，为函数添加额外的功能。
-
-简单点理解就是，装饰器是一个函数，它接受一个函数作为参数，它会返回一个新的函数，这个新的函数会在原函数执行前后执行一些额外的代码。
-
-```python
-def decorator(func):
-    def wrapper(*args, **kwargs):
-        print('Before function')
-        result = func(*args, **kwargs)
-        print('After function')
-        return result
-    return wrapper
-
-@decorator
-def hello():
-    print('Hello, world!')
-
-hello()
-```
-
-上面的案例类似于下面的代码：
-
-```python
-def hello():
-    print('Hello, world!')
-
-hello = decorator(hello)
-hello()
-```
-
-如果需要给装饰器传递参数，可以在装饰器外再套一层函数：
-
-```python
-def decorator_with_args(arg):
-    def decorator(func):
-        def wrapper(*args, **kwargs):
-            print(f'Before function with arg: {arg}')
-            result = func(*args, **kwargs)
-            print('After function')
-            return result
-        return wrapper
-    return decorator
-
-@decorator_with_args('arg')
-def hello():
-    print('Hello, world!')
-
-hello()
-```
-
-### Python 的模块和包
-
-**from ... import ...**
-
-`from` 后面跟的是 `.py` 文件及其路径，`import` 后面跟的是模块名或者模块中的函数名。
-
-比如下面的文件结构：
-
-```python
--root
-  |-app.py
-  |-lib
-    |-__init__.py
-    |-model
-      |-__init__.py
-      |-classA.py
-```
-
-在 `app.py` 中，可以这样引入 `classA`：
-
-```python
-from lib.model.classA import classA
-```
-
-**\_\_init\_\_.py**
-
-`__init__.py` 文件是一个空文件，它的存在告诉 Python 这个目录是一个 Python 包。
-
-没有它，Python 就不会把这个目录当作包来处理，也就无法引入包中的模块。
-
-**\_\_name\_\_**
-
-`__name__` 是 Python 的一个内置变量，它的值取决于 Python 如何运行当前的模块。
-
-通常这样使用：
-
-```python
-if __name__ == '__main__':
-    # do something
-```
-
-这样可以让模块既可以被导入，也可以作为脚本直接运行。
-
-通过将要运行的脚本中的代码写在 `if __name__ == '__main__':` 之后，避免了在导入模块时运行脚本中的代码。
 
 ## pip 和 virtualenv
 
