@@ -40,21 +40,29 @@
 
 ### 使用技巧 Tips
 
-#### Launching from the command lin
+#### 从命令行启动 VS Code
 
-We can launch VS Code from the command line to quickly open a file or folder.
+我们可以从命令行启动 VS Code 快速打开文件或文件夹。
 
-We need to install the `code` command in the PATH first.
+首先需要安装 `code` 命令到 PATH 中：
 
-- Launch VS Code.
+- 打开 VS Code
 
-- Open the Command Palette (`Ctrl + Shift + P`).
+- 打开命令面板（`Ctrl + Shift + P`）。
 
-- Type `shell command` to find the `Shell Command: Install 'code' command in PATH` command.
+- 输入 `shell command` 找到 `Shell Command: Install 'code' command in PATH` 命令
 
-Then we can use the `code` command to open files and folders.
+然后我们就可以使用 `code` 命令来打开文件和文件夹了。
 
-- `code -r filename` - Open the file in the current working directory and keep the terminal window open
+- `code -r filename` - 打开当前工作目录中的文件并保持终端窗口打开
+
+**在 Windows 中手动添加 Path 实现命令行打开 VS Code**
+
+1、首先找到 VS Code 安装目录，然后找到 `bin` 目录，复制路径
+
+2、打开环境变量设置，找到 `Path`，然后添加 VS Code 的 `bin` 目录路径
+
+3、保存后，打开命令行，输入 `code`，就可以打开 VS Code 了
 
 ### Extensions
 
