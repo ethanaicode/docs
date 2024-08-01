@@ -32,7 +32,7 @@ element = driver.find_element(By.ID, 'element_id')
 
 - `By.XPATH` 通过 XPath 选择（这是一种强大的选择器，有点类似于正则表达式）
 
-#### Interaction 交互
+#### Interaction 网页元素交互
 
 目前主要有 3 个交互方法：
 
@@ -52,7 +52,7 @@ element = driver.find_element(By.ID, 'element_id')
 
 - `select_by_index(index)` 通过索引选择
 
-### Interactions 交互
+### Interactions 浏览器交互
 
 #### Windows 窗口
 
@@ -63,6 +63,23 @@ element = driver.find_element(By.ID, 'element_id')
 ```python
 # 清除掉输入框中的文本（clear 不起作用时就可以用这个方法）
 driver.execute_script("arguments[0].value = '';", input_element)
+```
+
+### Actions 动作链
+
+> 用于模拟了标或者键盘的动作，比如鼠标点击、移动、拖放等操作。
+
+Actions 接口 还提供了对指定输入设备 可以执行的确切操作的精细控制。
+
+动作链（ActionChains）是一种用于模拟用户交互的工具，比如鼠标点击、移动、拖放等操作。它非常强大，但动作链本身并不会自动滚动页面以确保元素可见。它只会按照你指定的操作顺序执行。
+
+比如，要移动鼠标到某个元素上：
+
+```python
+from selenium.webdriver.common.action_chains import ActionChains
+
+action = ActionChains(driver)
+action.move_to_element(element).perform()
 ```
 
 ### Waits 等待

@@ -1,0 +1,35 @@
+# Packages Index
+
+这里收集了一些常用的 Python 包，以及它们的简单介绍和使用方法。
+
+- **Requests**: Python 的 HTTP 请求库。
+
+- **Selenium**: Python 的 Web 自动化测试库。
+
+- **Selenium-Wire**: Selenium 的扩展，用于拦截和修改 HTTP 请求和响应。
+
+- **BeautifulSoup**: 用于解析 HTML 和 XML 的 Python 库。
+
+- **Pillow**: Python 的图像处理库。
+
+- **PyInstaller**: 用于将 Python 脚本打包成可执行文件的工具。
+
+- **PyQT5**: Python 的 GUI 开发库。
+
+- **Faker**: 生成 Mock 数据的 Python 库。
+
+- **setuptools**: 用于打包 Python 库的工具。
+
+  `setuptools` 主要用于创建和管理 Python 包，使得发布和安装 Python 代码变得更容易。
+
+- **GCC**: GNU 编译器套件，用于编译 Python 的 C 扩展。
+
+- **Blinker**: Python 的事件通知库。
+
+  它允许不同的组件之间进行松散耦合的通信，通过信号来触发和响应事件。blinker 是在处理事件驱动编程时非常有用的工具，特别适用于构建插件系统、框架和其他需要组件之间通信的应用。
+
+- **Pygame**: 用于编写 2D 游戏的 Python 库。
+
+- **python-dotenv**: 用于从 `.env` 文件中加载环境变量的 Python 库。
+
+  如果要安装，使用命令: `pip install python-dotenv`
