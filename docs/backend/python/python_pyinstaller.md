@@ -54,3 +54,22 @@ pyinstaller --add-data 'src:dst' --onefile --windowed myscript.py
 - `--specpath=dir`：指定 spec 文件的输出目录
 - `--clean`：清理临时文件
 - `--noconfirm`：替换输出目录中的文件时不提示
+
+### Windows 下的打包
+
+下面是一个基础的打包构建命令：
+
+```bash
+pyinstaller -F -w -i icon.ico -n appname myscript.py
+```
+
+- `-F`：`--onefile` 的缩写
+- `-w`：`--windowed` 的缩写
+- `-i icon.ico`：指定应用程序的图标
+- `-n appname`：指定生成的可执行文件的名称
+
+### Mac OS 和 Windows 的应用图标格式
+
+- Windows：`.ico` 格式
+
+- Mac OS：`.icns` 格式
