@@ -43,17 +43,61 @@ pyinstaller --add-data 'src:dst' --onefile --windowed myscript.py
 
 ### PyInstaller 的选项
 
-#### 常用选项
+#### 选项列表
 
-- `--onefile`：将所有文件打包成一个可执行文件
+- `--onefile`：将所有文件打包成一个可执行文件（运行时会解压到临时目录）
+
+  `--onedir`: 默认选项，将所有文件打包成一个文件夹
+
 - `--windowed`：隐藏控制台窗口，额外生成一个 GUI 应用程序
+
 - `--icon=icon.ico`：指定应用程序的图标
+
 - `--name=appname`：指定生成的可执行文件的名称
+
+- `--add-data 'src:dst'`：添加非代码文件到你的包里
+
+  在 Unix 系统中使用冒号（:）而在 Windows 中使用分号（;）作为分隔符（测试时好像不是这样的，需要确认）
+
+  另外，如果是单执行文件，执行时会被释放到临时目录，程序中可以通过参数`sys._MEIPASS`获取到，如果是单目录，则在目标目录中
+
 - `--distpath=dir`：指定输出目录
+
 - `--workpath=dir`：指定工作目录
+
 - `--specpath=dir`：指定 spec 文件的输出目录
+
 - `--clean`：清理临时文件
+
 - `--noconfirm`：替换输出目录中的文件时不提示
+
+- `--hidden-import=module`：指定打包过程中需要包含的隐藏导入
+
+- `--exclude-module=module`：指定打包过程中需要排除的（减小最终文件的体积）
+
+- `--version-file=version_info.txt`：指定版本文件（Windows）
+
+  有些时候自动侦测可能不会包含一些模块。
+
+#### 版本文件
+
+版本文件主要用于为 Windows 可执行文件添加元数据，这是 Windows 操作系统特有的功能。
+
+`version_info.txt` 文件的格式如下：
+
+```txt
+CompanyName: Your Company
+FileDescription: Your Program
+FileVersion: 1.0.0
+InternalName: Your Program
+LegalCopyright: Your Company
+OriginalFilename: Your Program.exe
+ProductName: Your Program
+ProductVersion: 1.0.0
+```
+
+macOS 不使用与 Windows 相同的可执行文件资源系统来处理版本信息或其他元数据。
+在 macOS 上，应用程序通常使用包（Bundle）结构，其中包含一个名为 Info.plist 的属性列表文件，用于存储应用程序的元数据，如版本号、应用程序标识符、版权信息等。
 
 ### Windows 下的打包
 
