@@ -14,7 +14,21 @@
 
 - **PyInstaller**: 用于将 Python 脚本打包成可执行文件的工具。
 
+- **cv2**: OpenCV 的 Python 绑定。
+
+- **pywin32**: Python 的 Windows 扩展。
+
+  `pywin32` 是一个 Python 扩展，它提供了访问 Windows API 的功能。
+
 - **PyQT5**: Python 的 GUI 开发库。
+
+- **PySide2**: Python 的 GUI 开发库。
+
+- **shiboken2**: 与 PySide2 一起使用的工具，可以将 C++ 代码转换为 Python 代码。
+
+- **psutil**: 用于获取系统信息的 Python 库（process and system utilities）。
+
+  用于在 Python 中获取进程和系统利用（如监控硬件和网络统计）的信息。
 
 - **Faker**: 生成 Mock 数据的 Python 库。
 
@@ -23,6 +37,8 @@
   `setuptools` 主要用于创建和管理 Python 包，使得发布和安装 Python 代码变得更容易。
 
 - **GCC**: GNU 编译器套件，用于编译 Python 的 C 扩展。
+
+- **cryptography(cryptography.hazmat)**: 用于加密和解密的 Python 库。
 
 - **Blinker**: Python 的事件通知库。
 
