@@ -42,6 +42,8 @@
 
 - **gc**: Python 内置的垃圾回收模块。
 
+- **uuid**: Python 内置的 UUID 生成模块。
+
 ### pdb 调试器
 
 Python 内置了一个调试器模块 `pdb`，可以用于在代码中设置断点、单步执行、查看变量等操作。
@@ -131,3 +133,27 @@ Python 的垃圾回收使用了三代策略（generational approach），即将�
 
    `gc.get_count()`：获取当前的垃圾回收计数，返回一个包含每代垃圾回收计数的元组。
    `gc.get_objects()`：获取当前所有被追踪的对象，主要用于调试和分析内存使用情况。
+
+### uuid
+
+Python 内置了一个 UUID 生成模块 `uuid`，可以用于生成 UUID（Universally Unique Identifier）。
+
+**主要方法**
+
+- `uuid.uuid1()`: 基于主机的 MAC 地址和当前时间戳生成 UUID。
+
+- `uuid.uuid3(namespace, name)`: 基于名字的 MD5 散列值生成 UUID。
+
+- `uuid.uuid4()`: 随机生成 UUID。
+
+- `uuid.uuid5(namespace, name)`: 基于名字的 SHA-1 散列值生成 UUID。
+
+**使用方法**
+
+```python
+import uuid
+
+# 生成一个随机的 UUID
+uuid_obj = uuid.uuid4()
+print(uuid_obj)
+```

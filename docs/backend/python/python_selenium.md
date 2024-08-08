@@ -104,3 +104,31 @@ element = WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.ID, 'element_id'))
 )
 ```
+
+### Support Features 支持特性
+
+#### Expected Conditions 预期条件
+
+**presence_of_element_located**
+
+等待元素出现在 DOM 中。
+
+这意味着只要元素已经被加载到了 DOM 中，不管它是否可见（例如，它可能被 CSS 隐藏了），该条件就会返回 True。
+
+```python
+element = WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.ID, 'element_id'))
+)
+```
+
+**visibility_of_element_located**
+
+等待元素在页面上可见。
+
+这并不意味着元素一定可见，只是它在页面上是可见的（即它的 height 和 width 都大于 0, display 不是 none）。
+
+```python
+element = WebDriverWait(driver, 10).until(
+    EC.visibility_of_element_located((By.ID, 'element_id'))
+)
+```

@@ -402,9 +402,11 @@ while i < len("shejibiji"):
 
 **range() 函数**
 
+> 记住这个范围是不包含结束值的
+
 range() 会帮你生成一个数字序列，它的用法有以下三种：
 
-- range(stop) - 将生成一个从 0 开始，到 stop（不包含）的整数数列
+- range(stop) - 将生成一个从 0 开始，到 stop （不包含）的整数数列
 - range(start, stop) - 将生成一个从 start 开始，到 stop（不包含）的整数数列
 - range(start, stop, step) - 将生成一个从 start 开始，到 stop（不包含）结束，步进跨度为 step 的整数数列
 

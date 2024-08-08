@@ -49,3 +49,7 @@
 - **python-dotenv**: 用于从 `.env` 文件中加载环境变量的 Python 库。
 
   如果要安装，使用命令: `pip install python-dotenv`
+
+- **lxml**: 用于解析 XML 和 HTML 的 Python 库。
+
+  支持用 XPATH 来查找元素（可以考虑代替 bs4）。
