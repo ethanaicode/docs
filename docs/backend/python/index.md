@@ -18,4 +18,6 @@
 
 - [Selenium](./python_selenium)
 
+- [BeautifulSoup](./python_beautifulsoup)
+
 - [PyInstaller](./python_pyinstaller)

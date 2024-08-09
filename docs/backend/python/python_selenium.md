@@ -32,6 +32,8 @@ element = driver.find_element(By.ID, 'element_id')
 
 - `By.XPATH` 通过 XPath 选择（这是一种强大的选择器，有点类似于正则表达式）
 
+  这里要注意的是，如果想要从元素内部查找，xpath 语法是`.//`。
+
 #### Interaction 网页元素交互
 
 目前主要有 3 个交互方法：
@@ -80,6 +82,33 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 action = ActionChains(driver)
 action.move_to_element(element).perform()
+```
+
+**常用方法**：
+
+- `move_to_element(element)` 移动鼠标到某个元素上
+- `pause(seconds)` 暂停
+- `click()` 单击鼠标左键
+- `double_click()` 双击鼠标左键
+- `context_click()` 单击鼠标右键
+- `drag_and_drop(source, target)` 拖放操作
+- `key_down(key)` 按下键盘按键
+- `key_up(key)` 释放键盘按键
+- `click_and_hold()` 按住鼠标左键
+- `release()` 释放鼠标左键
+
+动作链的执行是按照添加的顺序执行的，可以通过`perform()`方法执行。
+
+```python
+action.perform()
+```
+
+**释放所有的动作**：
+
+驱动程序会记住所有的动作，直到调用`perform()`方法执行。如果要清除所有的动作，可以使用`reset_actions()`方法。
+
+```python
+action.reset_actions()
 ```
 
 ### Waits 等待
