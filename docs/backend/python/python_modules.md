@@ -2,6 +2,10 @@
 
 这里收集了一些常用的 Python 模块，以及它们的简单介绍和使用方法。
 
+- **site**: Python 内置的站点配置模块。
+
+  可以使用 `python -m site` 命令来查看 Python 的站点配置信息，包括模块搜索路径、用户配置文件等。
+
 - **urllib**: Python 内置的 HTTP 请求库。
 
   `urllib.request` 用于发送网络请求和处理响应。

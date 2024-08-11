@@ -14,6 +14,8 @@
 
 - [Requests](./python_requests)
 
+- [PyQt5](./python_pyqt5)
+
 - [Tkinter](./python_tkinter)
 
 - [Selenium](./python_selenium)

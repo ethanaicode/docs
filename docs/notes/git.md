@@ -44,6 +44,16 @@
 
   `git rebase -i [commit_hash]` 可以合并某个提交
 
+- **git stash**: 暂存工作区
+
+  `git stash list` 查看暂存列表
+
+  `git stash pop` 恢复并删除暂存
+
+  `git stash apply` 恢复不删除暂存
+
+  `git stash drop` 删除暂存
+
 - **git switch**: 更换分支（version 2.23+）
 
   `-c` 创建并切换到新分支
