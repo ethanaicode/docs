@@ -22,19 +22,19 @@ Master 进程和 Worker 进程之间通过进程间通信（IPC）来协调工�
 
 `nginx`: 启动
 
-​ 通过`ps =ef | grep nginx`来查看 nginx 进程
+通过`ps =ef | grep nginx`来查看 nginx 进程
 
-​ 通过`lsof -i:80`来确认端口占用情况
+通过`lsof -i:80`来确认端口占用情况
 
 `nginx -s [SIGNAL]`: 控制
 
-​ `quit` 优雅停止
+`quit` 优雅停止
 
-​ `stop` 立即停止
+`stop` 立即停止
 
-​ `reload` 重载配置文件
+`reload` 重载配置文件
 
-​ `reopen` 重新打开日志文件
+`reopen` 重新打开日志文件
 
 `nginx -V`: 查看信息（可以看到安装配置等目录）
 
@@ -83,6 +83,28 @@ http {
 
 - `index`: 默认的首页
 
+#### try_files 指令
+
+`try_files` 是一个 Nginx 指令，用于尝试按照指定的顺序查找文件。如果找不到前面的文件或资源，就尝试下一个。
+
+```nginx
+location / {
+    root /var/www/html;
+    index index.html;
+    try_files $uri $uri/ /index.html =404;
+}
+```
+
+- `$uri`: 请求的路径
+
+- `$uri/`: 请求的路径加上`/`
+
+- `/index.html`: 默认的首页
+
+- `=404`: 如果找不到则返回 404
+
+- 这里表示先去寻找对应的 $uri 文件，如果找不到则去找 $uri/ 目录，如果还找不到则返回 /index.html，如果还找不到则返回 404。
+
 #### include
 
 可以使用`include`来引入其他配置文件。
@@ -94,7 +116,55 @@ http {
 }
 ```
 
+#### location 匹配规则
+
+- `/`: 通用匹配，任何请求都会匹配到。
+
+- `=`: 精确匹配，只有完全匹配时才会生效。
+
+- `^~`: 匹配 URL 前缀，如果匹配成功，则不再匹配其他规则。
+
+- `~`: 区分大小写的正则匹配。
+
+- `~*`: 不区分大小写的正则匹配。
+
+**案例**
+
+```nginx
+# 匹配 /app 开头的请求
+location = /app {
+    ...
+}
+
+# 静态资源直接处理
+location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
+    expires 30d;
+    add_header Cache-Control "public, no-transform";
+    try_files $uri =404;
+}
+```
+
+#### rewrite 指令
+
+`rewrite` 指令用于重写 URL，可以将请求重定向到其他 URL，或者修改请求参数等。
+
+```nginx
+location / {
+    rewrite ^/user/(.*)$ /profile/$1 last;
+}
+```
+
+- `^/user/(.*)$`: 匹配的正则表达式
+
+- `/profile/$1`: 重定向的 URL
+
+- `last`: 重定向后是否继续匹配其他规则
+
 #### MIME 类型
+
+MIME 表示 Multipurpose Internet Mail Extensions，是一种互联网标准，用来表示文档的性质和格式。
+
+在 Nginx 中，我们可以通过`types`指令来配置 MIME 类型，比如下面的配置：
 
 ```nginx
 http {
@@ -108,6 +178,20 @@ http {
         application/json json;
         application/xml xml;
     }
+}
+```
+
+它的作用是告诉 Nginx，当返回的文件是`html`、`htm`、`shtml`时，它的 MIME 类型是`text/html`。
+
+#### 重定向
+
+可以使用`return`指令来进行重定向，比如下面的配置：
+
+```nginx
+server {
+    listen 80;
+    server_name www.example.com;
+    return 301 https://$server_name$request_uri;
 }
 ```
 
@@ -246,3 +330,33 @@ server{
     root /www/wwwroot/html;
 }
 ```
+
+### if 指令中的 try_files 使用
+
+`try_files` 指令不能直接在 `if` 指令内使用。Nginx 的 `if` 指令有很多限制，其中之一就是不能在 `if` 块中包含诸如 `try_files` 这样复杂的指令。
+
+为了解决这个问题，我们可以通过 `map` 指令来实现类似的功能。
+
+```nginx
+map $arg_password $valid_password {
+    default 0;
+    "your_secret_password" 1;
+}
+
+server {
+    location / {
+        if ($valid_password = 0) {
+            return 403;
+        }
+        try_files $uri $uri/ /index.html;
+    }
+}
+```
+
+- `map` 指令用于创建一个变量映射表，将请求参数`password`的值映射为`valid_password`变量的值。
+
+- `if` 指令检查`valid_password`变量的值，如果不等于`1`，则返回`403 Forbidden`。
+
+- `arg_password`是请求参数`password`的值，`valid_password`是映射后的变量值。
+
+  通过 `arg_xxx` 可以获取请求参数的值，这里的 `xxx` 是参数名。
