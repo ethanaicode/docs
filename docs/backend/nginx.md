@@ -56,6 +56,61 @@ Master 进程和 Worker 进程之间通过进程间通信（IPC）来协调工�
 
 - **http**: 主要是 HTTP 协议相关的配置，比如设置 MIME 类型、日志格式、访问日志的路径等。这一块也是我们经常修改的地方
 
+### http 配置
+
+#### 静态资源
+
+```nginx
+http {
+    server {
+        listen 80;
+        server_name localhost;
+        location / {
+            root /var/www/html;
+            index index.html;
+        }
+    }
+}
+```
+
+- `listen`: 监听的端口
+
+- `server_name`: 域名
+
+- `location`: 匹配的路径
+
+- `root`: 静态资源的根目录
+
+- `index`: 默认的首页
+
+#### include
+
+可以使用`include`来引入其他配置文件。
+
+```nginx
+http {
+    include /etc/nginx/mime.types;
+    include /etc/nginx/conf.d/*.conf;
+}
+```
+
+#### MIME 类型
+
+```nginx
+http {
+    types {
+        text/html html htm shtml;
+        text/css css;
+        text/xml xml;
+        image/gif gif;
+        image/jpeg jpeg jpg;
+        application/javascript js;
+        application/json json;
+        application/xml xml;
+    }
+}
+```
+
 #### 日志配置
 
 我们可以自定义日志的格式，比如下面的配置：
