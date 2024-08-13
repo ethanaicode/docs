@@ -335,6 +335,8 @@ gc.get_referrers(a)
 
 - `pip install -r requirements.txt`：从 `requirements.txt` 文件中安装包
 
+- `pip install -e .`: 以可编辑的方式安装包（即在当前目录下安装包，可以直接修改包的源码）
+
 **pip 修改配置文件**
 
 你可以使用 `pip config` 命令修改配置文件，例如：

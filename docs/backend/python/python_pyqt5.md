@@ -2,9 +2,60 @@
 
 PyQt5 是一个用于创建桌面应用程序的 Python 模块。它是 Qt 库的 Python 绑定，用于创建图形用户界面。
 
-## Qt Designer
+## 组件
 
-Qt Designer 是一个用于创建 PyQt5 界面的可视化工具。它允许你通过拖放方式设计界面，然后将其导出为 Python 代码。
+### Qt Weidget
+
+在 Qt 中，所有用户界面元素都是 QWidget 的子类。QWidget 是一个基本的用户界面类，它提供了一些基本的功能，如绘制、事件处理、布局等。
+
+可以把它理解为 html 中的 div，是一个容器，可以包含其他的控件。
+
+### PyQt5 基本组件
+
+PyQt5 提供了一些基本的组件，用于创建用户界面。以下是一些常用的组件：
+
+- **QLabel**：用于显示文本或图像。
+
+- **QPushButton**：用于创建按钮。
+
+- **QLineEdit**：用于输入文本。
+
+- **QCheckBox**：用于创建复选框。
+
+- **QRadioButton**：用于创建单选按钮。
+
+- **QComboBox**：用于创建下拉框。
+
+- **QSlider**：用于创建滑块。
+
+- **QProgressBar**：用于显示进度条。
+
+- **QTextEdit**：用于显示和编辑文本。
+
+- **QListWidget**：用于显示列表。
+
+- **QTableWidget**：用于显示表格。
+
+- **QMenuBar**：用于创建菜单栏。
+
+- **QToolBar**：用于创建工具栏。
+
+### QSpacerItem 空白区域
+
+在 PyQt5 中，`QSpacerItem` 是一个用于创建空白区域的小部件。它可以用来推动其他小部件到布局的一端，或在小部件之间创建空间。
+
+`QSpacerItem` 可以在水平布局和垂直布局中使用，通过设置伸展因子（stretch factor）来控制空白区域的大小。
+
+```python
+spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+layout.addItem(spacer)
+```
+
+- `QSpacerItem(width, height, hPolicy, vPolicy)`：创建一个空白区域，指定宽度、高度和水平、垂直的策略。
+
+- `QSizePolicy.Expanding`：指定空白区域可以扩展，填充剩余空间。
+
+- `QSizePolicy.Minimum`：指定空白区域的最小尺寸。
 
 ## 知识实践总结
 
@@ -104,3 +155,32 @@ create_window()
 
 - **退出机制**：你可以通过调用 `QCoreApplication.quit()` 或关闭所有 GUI 窗口来停止事件循环，使 `app.exec_()` 返回。返回值通常是一个状态码，指示程序是如何结束的。
 - **异常处理**：在事件循环中，所有未捕获的异常都会被忽略，不会导致程序崩溃。这意味着如果事件处理函数中出现异常，它应该在函数内部被捕获和处理，否则可能会导致不稳定的行为或潜在的内存泄漏。
+
+## Qt Designer
+
+Qt Designer 是一个用于创建 PyQt5 界面的可视化工具。它允许你通过拖放方式设计界面，然后将其导出为 Python 代码。
+
+### 基础操作
+
+- **布局管理器**：可以选择不同的布局管理器，如水平布局、垂直布局、网格布局等，来自动管理小部件的位置和大小。
+
+- **添加小部件**：从左侧的小部件库中拖放小部件到窗口中，然后调整大小和位置。
+
+- **设置属性**：在右侧的属性编辑器中，可以设置小部件的属性，如名称、文本、大小、位置等。
+
+- **修改样式表**：右键选择编辑样式表，就可以像编辑 `css` 一样，通过样式表编辑器修改小部件的样式，如颜色、字体、边框等。
+
+- **预览和调试**：菜单 → 表格中，可以找到预览功能，可以查看界面的效果，也可以通过连接到 Python 解释器来调试界面。
+
+![Qt Designer](/images/qt_designer_01.jpg)
+
+### pyuic 工具
+
+Qt Designer 生成的 `.ui` 文件可以通过 `pyuic` 工具转换为 Python 代码。`pyuic` 是 PyQt5 提供的一个命令行工具，用于将 `.ui` 文件转换为 Python 代码。
+
+```bash
+pyuic5 -x input.ui -o output.py
+```
+
+- `-x`：表示生成的 Python 代码中包含 `if __name__ == '__main__':` 代码块，可以直接运行。
+- `-o`：指定输出的 Python 文件名。
