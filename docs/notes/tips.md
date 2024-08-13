@@ -81,23 +81,3 @@ Xpath 是一种在 XML 文档中定位节点的语言，也可以用于 HTML 文
 ```bash
 //*[contains(@class, 'index-module__')]
 ```
-
-## Windows Shortcut
-
-Windows 快捷键是提高效率的好帮手，这里记录一些常用的快捷键。
-
-- **Win + D** = 显示桌面
-
-- **Win + E** = 打开资源管理器
-
-- **Win + R** = 打开运行
-
-- **Win + X** = 打开快捷菜单
-
-- **Win + L** = 锁定屏幕
-
-- **Win + I** = 打开设置
-
-- **Win + S** = 打开搜索
-
-- **Win + Tab** = 切换任务视图

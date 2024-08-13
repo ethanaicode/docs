@@ -6,6 +6,8 @@
 
 - [Mac](./mac)
 
+- [Windows](./windows)
+
 - [Tips](./tips)
 
 - [计算机科学](./computer_science)

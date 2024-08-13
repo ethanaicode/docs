@@ -8,35 +8,35 @@
 
 ### 快捷键 Hotkeys
 
-- **Command + `**: 打开/关闭终端
+- **Command + \`** = 打开/关闭终端
 
-- **Command + Shift + P**: 打开命令面板
+- **Command + Shift + P** = 打开命令面板
 
-- **Command + P**: 快速打开文件
+- **Command + P** = 快速打开文件
 
 **编辑**
 
-- **Command + D**: 选中当前单词，继续按下则选中下一个相同的单词
+- **Command + D** = 选中当前单词，继续按下则选中下一个相同的单词
 
-- **Command + Shift + L**: 选中所有相同的单词
+- **Command + Shift + L** = 选中所有相同的单词
 
-- **Option + Up/Down**: 移动当前行
+- **Option + Up/Down** = 移动当前行
 
-- **Command + Shift + Up/Down**: 复制当前行
+- **Command + Shift + Up/Down** = 复制当前行
 
-- **Command + Shift + K**: 删除当前行
+- **Command + Shift + K** = 删除当前行
 
-- **Command + Enter**: 在当前行下方插入新行
+- **Command + Enter** = 在当前行下方插入新行
 
-- **Command + Shift + Enter**: 在当前行上方插入新行
+- **Command + Shift + Enter** = 在当前行上方插入新行
 
-- **Command + Shift + \\**: 跳转到匹配的括号
+- **Command + Shift + \\** = 跳转到匹配的括号
 
-- **Command + \/**: 注释/取消注释当前行
+- **Command + \/** = 注释/取消注释当前行
 
-- **Command + Shift + \/**: 注释/取消注释选中的代码块
+- **Command + Shift + \/** = 注释/取消注释选中的代码块
 
-- **Command + Up/Down**: 移动到文件的开头/结尾
+- **Command + Up/Down** = 移动到文件的开头/结尾
 
 ### 使用技巧 Tips
 
@@ -94,13 +94,13 @@
 
 ### 快捷键 Hotkeys
 
-- **I / O**: 设置入点/出点
+- **I / O** = 设置入点/出点
 
-- **Ctrl + Shift + K**: 剪切
+- **Ctrl + Shift + K** = 剪切
 
-- **Ctrl + K**: 分割（小剪刀）
+- **Ctrl + K** = 分割（小剪刀）
 
-- **M**: 添加标记
+- **M** = 添加标记
 
 ### 使用技巧 Tips
 
@@ -114,9 +114,9 @@
 
 ### 快捷键 Hotkeys
 
-- **U**: 关闭/打开 关键帧
+- **U** = 关闭/打开 关键帧
 
-- **Ctrl + left Click 时间轴**: 显示 时间/帧
+- **Ctrl + left Click 时间轴** = 显示 时间/帧
 
 ### 常用表达式 Expressions
 
@@ -274,23 +274,23 @@
 
 ### 快捷键 Hotkeys
 
-- **Shift + R**: 打开/关闭 标尺
+- **Shift + R** = 打开/关闭 标尺
 
-- **Shift + X**: 切换填充和边框颜色
+- **Shift + X** = 切换填充和边框颜色
 
-- **Ctrl + Alt + C/V**: 复制/粘贴 元素样式
+- **Ctrl + Alt + C/V** = 复制/粘贴 元素样式
 
-- **Ctrl + Y**: 路径显示
+- **Ctrl + Y** = 路径显示
 
 ## Inkscape
 
 ### 快捷键 Hotkeys
 
-- **s / F1**: Selector，选择
+- **s / F1** = Selector，选择
 
-- **space**: 可以临时选择
+- **space** = 可以临时选择
 
-- **d / F7**: 吸色笔，吸取颜色（默认填充颜色，按住 shift 为边框填色）
+- **d / F7** = 吸色笔，吸取颜色（默认填充颜色，按住 shift 为边框填色）
 
 ### 使用技巧 Tips
 
@@ -302,4 +302,4 @@
 
 ### 快捷键 Hotkeys
 
-- **tab**: 显示/隐藏 视频详情
+- **tab** = 显示/隐藏 视频详情
