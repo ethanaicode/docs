@@ -91,6 +91,10 @@
 
   `-v` 显示详细信息
 
+  `-x` 设置代理
+
+  例如：`curl -v -x http://proxy.com:8080 -L https://ipv4.icanhazip.com` 设置代理并查看代理后的 IP
+
 - **ln**: 创建链接文件（类似于 Windows 的快捷方式）
 
   `-s` 创建软链接（符号链接）
