@@ -184,3 +184,20 @@ pyuic5 -x input.ui -o output.py
 
 - `-x`：表示生成的 Python 代码中包含 `if __name__ == '__main__':` 代码块，可以直接运行。
 - `-o`：指定输出的 Python 文件名。
+
+如果有资源文件（如图片、样式表等），通常是一个 `.qrc` 文件，可以使用 `pyrcc5` 工具将其转换为 Python 代码。
+
+```bash
+pyrcc5 -o resources.py resources.qrc
+```
+
+然后在生成的 Python 代码中导入这个资源文件：
+
+```python
+import resources
+
+# 使用资源文件中的图片
+label.setPixmap(QtGui.QPixmap(':/images/icon.png'))
+```
+
+这样就可以将 Qt Designer 设计的界面转换为 Python 代码，然后在应用程序中使用。
