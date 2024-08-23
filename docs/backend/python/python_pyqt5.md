@@ -57,6 +57,60 @@ layout.addItem(spacer)
 
 - `QSizePolicy.Minimum`：指定空白区域的最小尺寸。
 
+### QFrame 框架
+
+`QFrame` 是 `QWidget` 的子类，提供了一些额外的功能，如设置边框样式、背景颜色等。
+
+`QFrame` 的属性和方法与 `QWidget` 类似，但它还提供了一些额外的属性，如 `frameShape`、`frameShadow` 等，用于设置边框的形状和阴影效果。
+
+`frameShape` 属性用于设置边框的形状，可以是：
+
+- `QFrame.NoFrame`：无边框。
+
+- `QFrame.Box`：矩形边框。
+
+- `QFrame.Panel`：带有阴影的矩形边框。
+
+- `QFrame.StyledPanel`：带有阴影和样式的矩形边框。
+
+`frameShadow` 属性用于设置边框的阴影效果，可以是：
+
+- `QFrame.Plain`：无阴影。
+
+- `QFrame.Raised`：凸起的阴影。
+
+- `QFrame.Sunken`：凹陷的阴影。
+
+### QLayout 布局管理器
+
+在 PyQt5 中，布局管理器用于自动管理窗口中的小部件的位置和大小。布局管理器可以确保小部件在不同的窗口大小和屏幕分辨率下具有一致的布局。
+
+PyQt5 提供了几种布局管理器，如 `QHBoxLayout`、`QVBoxLayout`、`QGridLayout`、`QFormLayout` 等，用于实现不同的布局方式。
+
+### QPushButton 按钮
+
+`QPushButton` 是 PyQt5 中用于创建按钮的类。按钮是用户界面中常用的交互元素，用于触发操作或执行特定的功能。
+
+`QPushButton` 的构造函数如下：
+
+```python
+QPushButton(text, parent)
+```
+
+**按钮的方法**
+
+- `setText(text)`：设置按钮的文本。
+
+- `setIcon(icon)`：设置按钮的图标。
+
+- `clicked.connect(slot)`：连接按钮的点击事件到槽函数。
+
+- `setDefault(True)`：设置按钮为默认按钮（Enter 键触发）。
+
+**按钮的信号**
+
+- `clicked`：当按钮被点击时触发。
+
 ## 知识实践总结
 
 ### 布局技巧
@@ -158,6 +212,16 @@ create_window()
 - 如果想要自定义单选按钮或复选框的高度，就需要单独为图标设置高度，否则图标可能还是在默认的高度。图标的高度可以考虑少 2 个像素，这样在视觉上才是对齐的。
 
   - 单独设置图标的方式是增加 `::indicator` 伪元素选择器，然后设置高度和宽度。
+
+- 在 Qt Designer 中，可以通过设置 `sizePolicy` 属性来控制小部件的大小策略，如 `Expanding`、`Minimum`、`Maximum` 等。
+
+  - `Expanding`：小部件可以扩展以填充剩余空间。
+
+  - `Minimum`：小部件的最小尺寸。
+
+  - `Maximum`：小部件的最大尺寸。
+
+- 在 Qt Designer 中，QFrame 默认`frameShape` 是 `StyledPanel`，这意味着它会绘制一个带有阴影的矩形边框。如果不需要边框，可以将 `frameShape` 设置为 `NoFrame`。
 
 ### app.exec\_()
 
