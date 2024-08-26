@@ -163,3 +163,7 @@ element = WebDriverWait(driver, 10).until(
     EC.visibility_of_element_located((By.ID, 'element_id'))
 )
 ```
+
+### 实践经验和补充
+
+- `ChromeDriver` 并不一定会支持所有的中文字符，如果`send_keys`方法无法输入中文，可以尝试使用`execute_script`方法执行 JavaScript 代码，或者在输入前对内容进行筛选。
