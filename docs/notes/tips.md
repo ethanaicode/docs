@@ -34,50 +34,62 @@
 
 Xpath 是一种在 XML 文档中定位节点的语言，也可以用于 HTML 文档。
 
+### 基础语法
+
 在网页爬虫中，我们经常会用到 Xpath 来定位元素，这里记录一些常用的 Xpath 语法。
 
-**1. 匹配所有节点**
+- `//`：从根节点选取节点。(如果已经在根节点，可以省略`/`)
 
-```bash
-//*
-```
+- `/`：从当前节点选取**直接**子节点。
 
-**2. 匹配所有子节点**
+- `.`：选取当前节点。
 
-```bash
-/*
-```
+- `..`：选取当前节点的父节点。
 
-**3. 匹配所有子节点的文本**
+- `@`：选取属性。
 
-```bash
-/*/text()
-```
+- `[]`：用于筛选节点。
 
-**4. 匹配所有子节点的属性**
+- `contains()`：用于匹配包含指定文本的节点。
 
-```bash
-/*/@*
-```
+- `text()`：选取文本节点。
 
-**5. 匹配所有子节点的属性值**
+- `last()`：选取最后一个节点。
 
-```bash
-/*/attribute::*
-```
+- `position()`：选取当前节点的位置。
 
-**6. 匹配所有子节点的属性值为`value`的节点**
+- `and`：逻辑与。
 
-```bash
-/*[@*='value']
-```
+### 使用案例
 
-### contains() 函数
+1. 找到所有 div 元素，并且类名为`content`：
 
-`contains()` 函数用于匹配包含指定文本的节点。
+   ```bash
+   //div[@class='content']
+   ```
 
-**1. 匹配所有包含`text`的节点**
+2. 找到所有 div 元素，并且类名包含`content`：
 
-```bash
-//*[contains(@class, 'index-module__')]
-```
+   ```bash
+   //div[contains(@class, 'content')]
+   ```
+
+3. 找到所有 div 元素，并且类名包含`content__`，并且 id 为`main`：
+
+   （通过这个方法可以实现一些模糊匹配）
+
+   ```bash
+   //div[contains(@class, 'content__') and @id='main']
+   ```
+
+4. 找到类名为`content`的 div 下面的所有 a 元素：
+
+   ```bash
+   //div[@class='content']//a
+   ```
+
+5. 找到类名为`content`的 div 下面的 span 元素，并且文本为`添加商品`：
+
+   ```bash
+   //div[@class='content' and ./span[text()='添加商品']]
+   ```

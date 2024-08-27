@@ -164,6 +164,28 @@ element = WebDriverWait(driver, 10).until(
 )
 ```
 
+**element_to_be_clickable**
+
+等待元素可被点击。
+
+这意味着元素是可见的，并且它的大小大于 0，即它是可点击的。
+
+```python
+element = WebDriverWait(driver, 10).until(
+    EC.element_to_be_clickable((By.ID, 'element_id'))
+)
+```
+
+**presence_of_all_elements_located**
+
+等待至少一个元素出现在 DOM 中。
+
+```python
+elements = WebDriverWait(driver, 10).until(
+    EC.presence_of_all_elements_located((By.CLASS_NAME, 'element_class'))
+)
+```
+
 ### 实践经验和补充
 
 - `ChromeDriver` 并不一定会支持所有的中文字符，如果`send_keys`方法无法输入中文，可以尝试使用`execute_script`方法执行 JavaScript 代码，或者在输入前对内容进行筛选。

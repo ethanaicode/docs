@@ -107,9 +107,77 @@ QPushButton(text, parent)
 
 - `setDefault(True)`：设置按钮为默认按钮（Enter 键触发）。
 
+- `setVisible(True)`：显示按钮。
+
 **按钮的信号**
 
 - `clicked`：当按钮被点击时触发。
+
+## 线程和信号
+
+### QThread 线程
+
+在 PyQt5 中，`QThread` 类用于创建线程，可以在后台执行耗时的任务，以避免阻塞主线程。
+
+### QRunnable 接口
+
+`QRunnable` 是一个接口类，用于创建可运行的任务。它是 `QThreadPool` 线程池中任务的基类，可以通过实现 `run()` 方法来定义任务的执行逻辑。
+
+### QThreadPool 线程池
+
+`QThreadPool` 是一个线程池类，用于管理和调度多个线程。它可以在后台执行多个任务，并控制线程的数量和调度方式。
+
+### 线程的实战应用
+
+**QRunnable** 和 **QThreadPool** 的组合使用可以实现多线程任务的并发执行，提高程序的性能和响应速度。
+
+```python
+class Worker(QRunnable):
+    def __init__(self, data):
+        super().__init__()
+        self.data = data
+
+    def run(self):
+        # 执行耗时任务
+        time.sleep(2)
+        print(f'Worker: {self.data}')
+
+# 创建线程池
+pool = QThreadPool.globalInstance()
+
+# 创建任务并提交到线程池
+for i in range(5):
+    worker = Worker(i)
+    pool.start(worker)
+```
+
+### 信号和槽
+
+在 PyQt5 中，信号和槽是一种用于实现事件处理和通信的机制。信号是一种事件，当某个条件满足时发出，槽是一个函数，用于处理信号。
+
+- **信号**：当某个事件发生时，会发出一个信号。信号可以带有参数，用于传递额外的信息。
+
+- **槽**：槽是一个函数，用于处理信号。当信号发出时，与之连接的槽函数会被调用。
+
+- **连接**：通过 `connect()` 方法将信号和槽连接起来，当信号发出时，与之连接的槽函数会被调用。
+
+- **断开连接**：通过 `disconnect()` 方法断开信号和槽的连接。
+
+### 信号和槽的使用
+
+在 PyQt5 中，可以通过 `QObject.connect()` 方法将信号和槽连接起来，当信号发出时，与之连接的槽函数会被调用。
+
+```python
+sender.signal.connect(receiver.slot)
+```
+
+- `sender`：发送信号的对象。
+
+- `signal`：信号的名称。
+
+- `receiver`：接收信号的对象。
+
+- `slot`：槽函数的名称。
 
 ## 知识实践总结
 
@@ -191,37 +259,60 @@ create_window()
 
 这种方法的组合使用可以创建直观、灵活和响应式的用户界面。
 
-### QFrame 和 QWidget
+### 实战经验分享
 
-在 PyQt5 中，选择使用 `QWidget` 或 `QFrame` 主要取决于你是否需要边框或背景。`QFrame` 是 `QWidget` 的子类，提供了额外的功能，如边框和背景样式。
-
-**何时使用 `QWidget`**
-
-- 当你需要一个通用的容器来放置其他控件时。
-- 当你不需要边框或特殊的背景样式时。
-
-**何时使用 `QFrame`**
-
-- 当你想要为控件设置边框或特殊背景样式时。
-- 当你需要一个可视化区分的面板时。
-
-### 注意事项
-
-- 使用样式表时，尽量避免使用 `border: none;` 来隐藏边框，因为这可能会导致一些不可预测的行为。可以使用 `border: 0;` 来达到相同的效果。
+- 使用样式表时，尽量避免使用 `border: none;` 来隐藏边框，特别是按钮时，可能会导致点击后按钮偏移，如果遇到可以通过渲染后主动点击一次按钮来避免。
 
 - 如果想要自定义单选按钮或复选框的高度，就需要单独为图标设置高度，否则图标可能还是在默认的高度。图标的高度可以考虑少 2 个像素，这样在视觉上才是对齐的。
 
   - 单独设置图标的方式是增加 `::indicator` 伪元素选择器，然后设置高度和宽度。
 
-- 在 Qt Designer 中，可以通过设置 `sizePolicy` 属性来控制小部件的大小策略，如 `Expanding`、`Minimum`、`Maximum` 等。
-
-  - `Expanding`：小部件可以扩展以填充剩余空间。
-
-  - `Minimum`：小部件的最小尺寸。
-
-  - `Maximum`：小部件的最大尺寸。
+  ```python
+  checkbox.setStyleSheet('''
+      QCheckBox {
+          min-height: 52px;
+      }
+      QCheckBox::indicator {
+          hmin-height: 50px;
+      }
+  ''')
+  ```
 
 - 在 Qt Designer 中，QFrame 默认`frameShape` 是 `StyledPanel`，这意味着它会绘制一个带有阴影的矩形边框。如果不需要边框，可以将 `frameShape` 设置为 `NoFrame`。
+
+### QFrame 和 QWidget
+
+在 PyQt5 中，选择使用 `QWidget` 或 `QFrame` 主要取决于你是否需要边框或背景。`QFrame` 是 `QWidget` 的子类，提供了额外的功能，如边框和背景样式。
+
+所以当你仅仅需要一个容器来放置其他控件时，可以使用 `QWidget`；当你需要为控件设置边框或特殊背景样式时，可以使用 `QFrame`。
+
+### hide() 和 close()
+
+在 PyQt5 中，`hide()` 和 `close()` 是两个不同的方法，用于隐藏和关闭窗口。
+
+- `hide()`：隐藏窗口，但不会销毁窗口对象，窗口仍然存在于内存中，可以通过 `show()` 方法重新显示窗口。
+
+- `close()`：关闭窗口，销毁窗口对象，释放窗口占用的资源。关闭窗口后，窗口对象将不再可用。
+
+在实际开发中，如果需要临时隐藏窗口并在需要时重新显示，可以使用 `hide()` 方法；如果需要关闭窗口并释放资源，可以使用 `close()` 方法。
+
+### 元素的 hide() 和 setVisible()
+
+在 PyQt5 中，元素的 `hide()` 和 `setVisible()` 方法都可以用于隐藏元素，只是在使用场景上有所不同。
+
+- `hide()` 方法是 `setVisible(False)` 的简写，用于隐藏控件。
+
+- `setVisible(bool)` 方法更通用，因为它允许你根据传递的布尔值来显示或隐藏控件。
+
+### clicked 和 toggled 信号的区别
+
+`QPushButton`、`QCheckBox` 等小部件都有 `clicked` 和 `toggled` 两个信号，这两个信号的区别是：
+
+- `clicked` 信号在用户点击复选框时触发，无论复选框的状态是从未选中到选中，还是从选中到未选中。
+
+- `toggled` 信号在复选框的状态发生变化时触发，即从未选中到选中，或从选中到未选中。
+
+所以如果你需要关心复选框的状态变化，应该使用 `toggled` 信号，而如果只需要在用户点击复选框时触发某个操作，可以使用 `clicked` 信号。
 
 ### app.exec\_()
 
