@@ -6,21 +6,17 @@
 
 #### [Web Storage](https://www.w3schools.com/html/html5_webstorage.asp)
 
-With web storage, web applications can store data locally within the user's browser.
+通过 Web Storage，网页可以在本地存储数据（类似于 Cookie，但是更安全，更快）。
 
 ##### The localStorage Object
 
-对象存储可以一直使用
-
-The localStorage object stores the data with no expiration date. The data will not be deleted when the browser is closed, and will be available the next day, week, or year.
-
-**Example**
+对象存储可以一直使用，直到用户清除浏览器缓存。
 
 ```js
-// Store
+// 设置
 localStorage.setItem("lastname", "Smith");
 
-// Retrieve
+// 获取
 document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 ```
 
@@ -229,6 +225,8 @@ p {
 
 # JS
 
+## JavaScript 基础
+
 ### 表达式和参考符
 
 **typeof**
@@ -254,3 +252,37 @@ const map1 = array1.map((x) => x * 2);
 console.log(map1);
 // Expected output: Array [2, 8, 18, 32]
 ```
+
+## 元素 (Element)
+
+### 滚动相关 (Scroll)
+
+- `element.scrollTop`：获取或设置一个元素的内容垂直滚动的像素数。
+
+- `element.scrollHeight`：获取元素的内容高度，包括溢出的内容。
+
+- `element.scrollLeft`：获取或设置一个元素的内容水平滚动的像素数。
+
+- `element.scrollIntoView()`：使元素滚动到可见区域。
+
+还可以使用 `scrollTop` 属性来指定滚动的位置：
+
+```js
+element.scrollTop = 100;
+```
+
+> 参考：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Element)
+
+## Dom 操作 (Document Object Model)
+
+### 实例方法 (Instance methods)
+
+#### querySelector
+
+返回文档中匹配指定 CSS 选择器的一个元素。
+
+```js
+document.querySelector(".auxo-table-body");
+```
+
+> 参考：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Document)
