@@ -1,4 +1,6 @@
-# Sql
+# MySQL
+
+> 本篇额外包含 sqlite 的使用，sqlite 是一个轻量级的数据库，和 mysql 的使用方法类似，所以也就放到一起了。
 
 ## 数据类型
 
@@ -396,4 +398,15 @@ update user set host='%' where user='root';
 
 ```sql
 FLUSH PRIVILEGES;
+```
+
+## SQLite
+
+### 连表查询
+
+要注意，SQLite 是不支持全连接，但是可以通过左连接和右连接来实现。
+
+```sql
+SELECT * FROM table1
+LEFT JOIN table2 ON table1.id = table2.id;
 ```

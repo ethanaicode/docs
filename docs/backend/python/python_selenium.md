@@ -54,6 +54,42 @@ element = driver.find_element(By.ID, 'element_id')
 
 - `select_by_index(index)` 通过索引选择
 
+#### 获取元素信息及属性
+
+**获取元素文本**：
+
+可以通过`text`属性获取元素的文本内容。
+
+```python
+element.text
+```
+
+**获取元素属性**：
+
+可以通过`get_attribute`方法获取元素的属性。
+
+```python
+element.get_attribute('attribute_name')
+```
+
+常用的属性名包括：
+
+- `outerHTML` 获取元素的 HTML 内容
+
+- `value` 获取输入框的值
+
+- `href` 获取链接的地址
+
+- `src` 获取图片的地址
+
+**是否被选中**：
+
+对于 checkbox 和 radio 元素，可以通过`is_selected`属性判断是否被选中。
+
+```python
+element.is_selected()
+```
+
 ### Interactions 浏览器交互
 
 #### Windows 窗口

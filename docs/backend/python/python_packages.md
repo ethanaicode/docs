@@ -50,6 +50,18 @@
 
   如果要安装，使用命令: `pip install python-dotenv`
 
+- **Pandas**: 用于数据处理和分析的 Python 库。
+
+  1. 高效的 DataFrame 对象，用于数据处理，以及强大的数据聚合和转换等功能。
+
+  2. 读取和写入多种文件格式的数据，包括 CSV、Excel、SQL 数据库等。
+
+  3. 提供多种方式来对数据进行筛选、排序、分组、合并等操作。
+
+  4. 与 Matplotlib、Seaborn 等数据可视化库结合使用，方便生成图表和报表。
+
+- **openpyxl (openpyxl.worksheet)**: 用于读写 Excel 文件的 Python 库。
+
 - **lxml**: 用于解析 XML 和 HTML 的 Python 库。
 
   支持用 XPATH 来查找元素（可以考虑代替 bs4）。
