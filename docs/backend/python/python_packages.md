@@ -14,7 +14,13 @@
 
 - **PyInstaller**: 用于将 Python 脚本打包成可执行文件的工具。
 
-- **cv2**: OpenCV 的 Python 绑定。
+- **OpenCV**: 用于计算机视觉的 Python 库，可以用来处理视频和图像。
+
+  安装 OpenCV 时，可以使用命令：`pip install opencv-python`。
+
+- **matplotlib**: 用于绘制图表和图形的 Python 库。
+
+- **moviepy**: 用于处理视频的 Python 库，提供了视频剪辑、合并、转换等功能。
 
 - **pywin32**: Python 的 Windows 扩展。
 
