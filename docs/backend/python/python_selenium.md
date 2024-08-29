@@ -180,11 +180,25 @@ element = WebDriverWait(driver, 10).until(
 
 等待元素出现在 DOM 中。
 
+当可以匹配到多个数据时，返回第一个匹配的元素。
+
 这意味着只要元素已经被加载到了 DOM 中，不管它是否可见（例如，它可能被 CSS 隐藏了），该条件就会返回 True。
 
 ```python
 element = WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.ID, 'element_id'))
+)
+```
+
+**presence_of_all_elements_located**
+
+等待至少一个元素出现在 DOM 中。
+
+当可以匹配到多个数据时，返回所有匹配的元素，这是它和`presence_of_element_located`的区别。
+
+```python
+elements = WebDriverWait(driver, 10).until(
+    EC.presence_of_all_elements_located((By.CLASS_NAME, 'element_class'))
 )
 ```
 
@@ -209,16 +223,6 @@ element = WebDriverWait(driver, 10).until(
 ```python
 element = WebDriverWait(driver, 10).until(
     EC.element_to_be_clickable((By.ID, 'element_id'))
-)
-```
-
-**presence_of_all_elements_located**
-
-等待至少一个元素出现在 DOM 中。
-
-```python
-elements = WebDriverWait(driver, 10).until(
-    EC.presence_of_all_elements_located((By.CLASS_NAME, 'element_class'))
 )
 ```
 

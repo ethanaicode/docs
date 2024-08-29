@@ -259,6 +259,16 @@ magick identify input.jpg
 
 ### 综合案例
 
+#### 图片排版
+
+**拼接图片序列帧**
+
+```bash
+magick montage comp_*.png -tile 1x -geometry 800x+0+0 -background none ../vector_ae_v1_alpha_output.png
+```
+
+- 表示将所有以`comp_`开头的 png 图片拼接成一张图片（单列），图片宽度为 800，高度自适应，间距为 0，背景透明
+
 #### 生成图片
 
 **生成带标题的文章首图**
