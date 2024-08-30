@@ -134,6 +134,36 @@ magick 16px.png 32px.png 48px.png 128px.png -colors 256 favicon.ico
 
 - `-colors 256`: 指定颜色数量（可选参数，加上这个参数会使得图标文件更小，但可能会有颜色损失）
 
+**如果是 MacOS 系统，需要的是 icns 格式的图标**
+
+这个无法直接通过 ImageMagick 来生成，如果是 macOS 系统，可以通过`iconutil`命令来生成：
+
+```bash
+iconutil -c icns icon.iconset
+```
+
+- `-c icns`: 指定输出格式为 icns
+
+- `icon.iconset`: 指定输入文件夹（文件夹中包含多张图片，分别是不同尺寸的图标）
+
+可以通过下面命令快速生成一组符合要求的图标：
+
+```bash
+mkdir icon.iconset &&
+magick app_icon@512.png -resize 512x512 icon.iconset/icon_512x512.png &&
+magick app_icon@512.png -resize 256x256 icon.iconset/icon_256x256.png &&
+magick app_icon@512.png -resize 128x128 icon.iconset/icon_128x128.png &&
+magick app_icon@512.png -resize 64x64 icon.iconset/icon_64x64.png &&
+magick app_icon@512.png -resize 32x32 icon.iconset/icon_32x32.png &&
+magick app_icon@512.png -resize 16x16 icon.iconset/icon_16x16.png &&
+magick app_icon@512.png -resize 1024x1024 icon.iconset/icon_512x512@2x.png &&
+magick app_icon@512.png -resize 512x512 icon.iconset/icon_256x256@2x.png &&
+magick app_icon@512.png -resize 256x256 icon.iconset/icon_128x128@2x.png &&
+magick app_icon@512.png -resize 128x128 icon.iconset/icon_64x64@2x.png &&
+magick app_icon@512.png -resize 64x64 icon.iconset/icon_32x32@2x.png &&
+magick app_icon@512.png -resize 32x32 icon.iconset/icon_16x16@2x.png
+```
+
 #### 图片序列转动图
 
 首先需要准备好一系列的图片，确保名字在字典序下是有序的。
