@@ -48,6 +48,36 @@
 
 - **uuid**: Python 内置的 UUID 生成模块。
 
+- **datetime**: Python 内置的日期和时间模块。
+
+### datetime 日期和时间
+
+Python 内置了一个日期和时间模块 `datetime`，可以用于处理日期和时间。
+
+**主要类**
+
+- `datetime.date`：表示日期的类。
+
+- `datetime.time`：表示时间的类。
+
+- `datetime.datetime`：表示日期和时间的类。
+
+- `datetime.timedelta`：表示时间间隔的类。
+
+- `datetime.timezone`：表示时区的类。
+
+**使用方法**
+
+```python
+import datetime
+
+# 获取当前日期和时间
+now = datetime.datetime.now()
+# 转换为字符串
+now_str = now.strftime('%Y-%m-%d %H:%M:%S')
+print(now_str)
+```
+
 ### pdb 调试器
 
 Python 内置了一个调试器模块 `pdb`，可以用于在代码中设置断点、单步执行、查看变量等操作。

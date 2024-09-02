@@ -71,3 +71,7 @@
 - **lxml**: 用于解析 XML 和 HTML 的 Python 库。
 
   支持用 XPATH 来查找元素（可以考虑代替 bs4）。
+
+- **cryptography**: 用于加密和解密的 Python 库。
+
+  `cryptography` 是一个用于加密和解密的 Python 库，它提供了一组现代密码学工具，包括对称加密、非对称加密、数字签名、密钥交换等功能。
