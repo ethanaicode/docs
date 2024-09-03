@@ -113,6 +113,22 @@ QPushButton(text, parent)
 
 - `clicked`：当按钮被点击时触发。
 
+### QButtonGroup 按钮组
+
+`QButtonGroup` 是 PyQt5 中用于管理按钮组的类。按钮组可以用于管理一组单选按钮或复选框，使它们成为互斥或相关的关系。
+
+可以用这个实现 Tab 切换的效果。
+
+### QLabel 标签
+
+`QLabel` 是 PyQt5 中用于显示文本或图像的类。标签是用户界面中常用的显示元素，用于显示静态文本或图像，也可以用来显示 HTML 内容。
+
+`QLabel` 的构造函数如下：
+
+```python
+QLabel(text, parent)
+```
+
 ## 线程和信号
 
 ### QThread 线程
