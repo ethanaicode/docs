@@ -2,6 +2,20 @@
 
 > 不同的 python 版本，运行的 python 命令可能不同，这里以 python 为例。
 
+## 开发经验及注意事项
+
+### 编码格式
+
+- 在使用 with open()打开文件时，可以指定文件的编码格式，如：`with open('file.txt', 'r', encoding='utf-8') as f:`。
+
+  如果是在 windows 下运行，通常需要指定编码格式，否则可能会出现错误。
+
+  需要注意的是，如果模式为 `wb` 或者 `rb`，则不能指定编码格式，因为这两种模式是二进制模式。
+
+- `json.dumps` 默认会把中文转换为 unicode 编码，可以通过 `ensure_ascii=False` 参数来保留中文。
+
+  如：`json.dumps(data, ensure_ascii=False)`。
+
 ## 进阶知识
 
 ### Python 的数据类型
