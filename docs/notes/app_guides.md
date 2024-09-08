@@ -86,6 +86,58 @@
 
 - [Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)
 
+## Office - Excel
+
+### 常用公式（函数）
+
+- **IF** = 条件判断，如果满足条件则返回一个值，否则返回另一个值
+
+  `IF(条件, 值1, 值2)`
+
+  - `条件` 逻辑表达式，支持 `=, >, <, >=, <=, <>, AND, OR` 等
+
+- **MID** = 返回文本中指定位置的字符
+
+  `MID(文本, 起始位置, 返回字符数)`，例如：`MID("Hello", 2, 3)` 返回 `ell`
+
+- **MOD** = 返回两数相除的余数
+
+  `MOD(被除数, 除数)`，例如：`MOD(5, 2)` 返回 `1`
+
+- **CONCAT** = 连接多个文本字符串
+
+  `CONCAT(文本1, 文本2, ...)`，例如：`CONCAT(("Hello", " ", "World")` 返回 `Hello World`
+
+- **CONCATENATE** = 连接多个文本字符串
+
+  `CONCATENATE(文本1, 文本2, ...)`，例如：`CONCATENATE("Hello", " ", "World")` 返回 `Hello World`
+
+  `CONCATENATE` 与 `CONCAT` 功能一样，只是 `CONCATENATE` 支持所有版本，而 `CONCAT` 只支持 2016 以上版本
+
+- **TEXTJOIN** = 连接多个文本字符串，并可以指定分隔符
+
+  `TEXTJOIN(分隔符, 忽略空值, 文本1, 文本2, ...)`，例如：`TEXTJOIN(" ", TRUE, "Hello", "World")` 返回 `Hello World`
+
+### 常见案例
+
+#### 根据身份证号判断性别
+
+```bash
+=IF(MOD(MID(A1, 17, 1), 2) = 0, "女", "男")
+```
+
+#### 根据身份证号获取生日
+
+```bash
+=DATE(MID(A1, 7, 4), MID(A1, 11, 2), MID(A1, 13, 2))
+```
+
+或者，组合成日期格式
+
+```bash
+=CONCAT(MID(A1, 7, 4), "-", MID(A1, 11, 2), "-", MID(A1, 13, 2))
+```
+
 ## Wireshark
 
 一款网络协议分析工具，可以用来分析网络数据包。
@@ -126,7 +178,7 @@ Wireshark 提供了强大的过滤器功能，可以帮助我们快速定位到�
 
 - **ip** = 过滤出 IP 协议的数据包
 
-### HTTP 数据包
+### 查看数据
 
 **查看请求头/响应头**
 

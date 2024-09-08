@@ -119,8 +119,12 @@ git config --global user.email "youremail"
 
 ### 常用配置
 
+> 通过设置代理，可以加速或者解决无法下载或者提交的问题。
+
 - `user.name` 用户名
 - `user.email` 邮箱
+- `http.proxy` 设置 HTTP 代理 (值为 http://proxy.com:port)
+- `https.proxy` 设置 HTTPS 代理 (值为 http://proxy.com:port)
 - `core.ignorecase` 区分文件名大小写（如果 false 区分大小写）
 - `core.filemode` 是否检查文件权限（如果 false 忽略文件权限的变化）
 - `core.editor` 编辑器
@@ -129,8 +133,6 @@ git config --global user.email "youremail"
 - `core.precomposeunicode` 是否使用 Unicode
 - `core.logallrefupdates` 是否记录所有引用更新
 - `http.sslVerify` 是否验证 SSL 证书
-- `http.proxy` 代理（值为 http://proxy.com:8080）
-- `https.proxy` 代理（值为 http://proxy.com:8080）
 
 ## 案例及技巧
 

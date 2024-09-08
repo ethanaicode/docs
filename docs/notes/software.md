@@ -76,6 +76,7 @@
 
 | 类别                | 推荐                                                         | 系统    | 费用 | 备注                                                        |
 | ------------------- | ------------------------------------------------------------ | ------- | ---- | ----------------------------------------------------------- |
+| 代码编辑器          | [Visual Studio Code](https://code.visualstudio.com/Download#) | Win/Mac |      |                                                             |
 | Python 环境搭建     | [Python](https://www.python.org/)                            | Win/Mac |      |                                                             |
 | Python 开发工具     | [pycharm](https://www.jetbrains.com/)                        | Win/Mac |      | [[激活]](https://mp.weixin.qq.com/s/aZ4SmMy1IF223-oml8rGJw) |
 | 本地 WEB 开发环境   | [wamp](https://www.wampserver.com/en/)                       | Mac     |      | [本站介绍](https://www.shejibiji.com/archives/8523)         |
@@ -83,7 +84,6 @@
 | 数据库 GUI 工具     | [Navicat](https://navicat.com.cn/)                           | Win/Mac | 很贵 | [本站介绍](https://www.shejibiji.com/archives/8381)         |
 | 数据库 GUI 工具     | [dbeaver](https://dbeaver.io/)                               | Win/Mac |      | 免费                                                        |
 | 二进制代码反汇编器  | IDA_Pro                                                      | Win     |      |                                                             |
-| 源代码编辑器        | [Visual Studio Code](https://visualstudio.microsoft.com/zh-hans/) | Win/Mac |      |                                                             |
 | JavaScript 环境搭建 | [nodejs](https://nodejs.org/zh-cn/)                          | Win/Mac |      |                                                             |
 | PHP 包管理工具      | [Composer](https://github.com/composer/composer)             | Win/Mac |      |                                                             |
 | 分布式版本控制系统  | GIT                                                          | Win/Mac |      |                                                             |
