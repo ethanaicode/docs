@@ -143,7 +143,19 @@ QPushButton(text, parent)
 
 `QButtonGroup` 是 PyQt5 中用于管理按钮组的类。按钮组可以用于管理一组单选按钮或复选框，使它们成为互斥或相关的关系。
 
-可以用这个实现 Tab 切换的效果。
+**按钮组的方法**
+
+- `addButton(button, id)`：将按钮添加到按钮组，并指定按钮的 ID。
+
+- `buttonClicked.connect(slot)`：连接按钮组的按钮点击事件到槽函数。
+
+- `checkedId()`：获取当前选中按钮的 ID，如果没有选中按钮则返回 -1。
+
+- `checkedButton()`：获取当前选中的按钮。
+
+**使用场景**
+
+- 可以用这个实现 Tab 切换的效果。
 
 ### QLabel 标签
 
