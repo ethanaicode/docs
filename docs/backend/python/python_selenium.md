@@ -6,13 +6,9 @@
 
 ### Elements 元素
 
-#### 选择器
+#### Locators 定位器
 
-使用`driver.find_element`方法选择元素。
-
-```python
-element = driver.find_element(By.ID, 'element_id')
-```
+定位器是用于定位元素的方法，主要有以下几种：
 
 一共支持以下几种传统选择器：
 
@@ -33,6 +29,18 @@ element = driver.find_element(By.ID, 'element_id')
 - `By.XPATH` 通过 XPath 选择（这是一种强大的选择器，有点类似于正则表达式）
 
   这里要注意的是，如果想要从元素内部查找，xpath 语法是`.//`。
+
+#### Finders 查找元素
+
+查找元素需要配合之前的定位器，主要有以下几种方法：
+
+- `find_element(by, value)` 查找单个元素（如果有多个匹配，返回第一个）
+
+- `find_elements(by, value)` 查找多个元素
+
+  这是一个列表，如果没有匹配的元素，返回一个空列表。
+
+  由于它没找到元素时不会抛出异常，所以可以用来判断元素是否存在，非常方便。
 
 #### Interaction 网页元素交互
 
