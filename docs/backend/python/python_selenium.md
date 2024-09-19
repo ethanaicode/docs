@@ -236,6 +236,65 @@ element = WebDriverWait(driver, 10).until(
 )
 ```
 
-### 实践经验和补充
+## webdriver-manager
+
+`webdriver-manager` 是一个用于管理 WebDriver 驱动的工具，可以自动下载和更新 WebDriver 驱动。
+
+**安装：**
+
+```bash
+pip install webdriver-manager
+```
+
+**使用：**
+
+```python
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+
+driver = webdriver.Chrome(ChromeDriverManager().install())
+```
+
+- `ChromeDriverManager().install()` 会自动下载 ChromeDriver，并返回 ChromeDriver 的路径。
+
+### Configuration 配置
+
+`webdriver-manager` 支持一些配置，可以通过传入参数进行配置。
+
+**参数：**
+
+- `url` 驱动下载地址，默认为 ChromeDriver 下载地址，可以自定义国内镜像地址。
+
+  例：`driver_path = ChromeDriverManager(url='https://registry.npmmirror.com/binary.html?path=chrome-for-testing/').install()`
+
+- `driver_version` 驱动版本，默认为最新版本。
+
+  例：`driver_path = ChromeDriverManager(driver_version='2.46').install()`
+
+- `cache_valid_range` 缓存有效时间，默认为 1 天。
+
+  例：`driver_path = ChromeDriverManager(cache_valid_range=2).install()`（缓存有效时间为 2 天）
+
+**WDM_LOCAL**
+
+默认情况下，所有驱动程序都将下载到用户的主目录下的`.wdm`文件夹中，可以通过设置`WDM_LOCAL`环境变量来更改下载位置到项目根目录下的`.wdm`文件夹。
+
+```python
+import os
+
+os.environ['WDM_LOCAL'] = '1'
+```
+
+**WDM_SSL_VERIFY**
+
+默认情况下，`webdriver-manager` 会验证 SSL 证书，可以通过设置`WDM_SSL_VERIFY`环境变量来关闭 SSL 验证。
+
+```python
+import os
+
+os.environ['WDM_SSL_VERIFY'] = '0'
+```
+
+## 实践经验和补充
 
 - `ChromeDriver` 并不一定会支持所有的中文字符，如果`send_keys`方法无法输入中文，可以尝试使用`execute_script`方法执行 JavaScript 代码，或者在输入前对内容进行筛选。
