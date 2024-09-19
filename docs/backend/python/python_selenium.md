@@ -2,6 +2,8 @@
 
 > 官方文档：[https://www.selenium.dev/documentation/en/](https://www.selenium.dev/documentation/en/)
 
+> ChromeDriver 下载地址：[https://googlechromelabs.github.io/chrome-for-testing/files](https://googlechromelabs.github.io/chrome-for-testing/files)
+
 ## WebDriver 驱动
 
 ### Elements 元素

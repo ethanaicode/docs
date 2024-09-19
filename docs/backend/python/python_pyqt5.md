@@ -2,7 +2,7 @@
 
 PyQt5 是一个用于创建桌面应用程序的 Python 模块。它是 Qt 库的 Python 绑定，用于创建图形用户界面。
 
-## 组件
+## QtCore 组件
 
 ### Qt Weidget
 
@@ -167,6 +167,31 @@ QPushButton(text, parent)
 QLabel(text, parent)
 ```
 
+### QUrl URL
+
+`QUrl` 是 PyQt5 中用于处理 URL 的类。它提供了一些方法，用于解析、构建和操作 URL。
+
+基本用法：
+
+```python
+url = QUrl('https://www.example.com')
+print(url.scheme())  # 获取协议
+print(url.host())    # 获取主机名
+print(url.path())    # 获取路径
+```
+
+## QtGui 组件
+
+### QDesktopServices 桌面服务
+
+`QDesktopServices` 是 PyQt5 中用于访问桌面服务的类。它提供了一些方法，用于打开文件、打开网页、发送邮件等操作。
+
+**常用方法**
+
+- `openUrl(url)`：打开指定的 URL。`url` 必须是 `QUrl` 类型。
+
+  `openUrl(QUrl('https://www.example.com'))` 打开指定的网页。
+
 ## 线程和信号
 
 ### QThread 线程
@@ -232,6 +257,20 @@ sender.signal.connect(receiver.slot)
 - `receiver`：接收信号的对象。
 
 - `slot`：槽函数的名称。
+
+**注意事项**
+
+- 发射信号和接收信号的对象必须是 `QObject` 的子类，通常是控件或窗口。
+
+- 信号定义只能定义在类的内部，不能在函数内部。槽函数可以定义在类的内部或外部。
+
+- 信号和槽的参数必须匹配，否则会导致连接失败。
+
+**使用技巧**
+
+- 通常我们在主界面的子组件中定义信号，然后在主界面中连接这些信号到槽函数，这样可以实现子组件和主界面之间的通信。
+
+  这在实现自定义控件时非常有用，可以将控件的内部逻辑和外部逻辑分离，提高代码的可维护性和复用性。
 
 ## 知识实践总结
 

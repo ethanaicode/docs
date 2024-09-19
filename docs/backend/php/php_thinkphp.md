@@ -2,9 +2,43 @@
 
 > 官方文档: [ThinkPHP 官方手册 v6](https://doc.thinkphp.cn/v6_1/default.html)
 >
-> 本笔记来自之前刚开始学习 TP6 时做的笔记，以前整理了，之后应该不会更新的，
+> 本笔记来自之前刚开始学习 TP6 时做的笔记，以前整理的，之后应该不会更新了，
 >
 > 推荐了解下 PHP 的框架原理，再配合官方手册，使用起来才丝滑。
+
+## TP3 使用经验总结
+
+本来以为不会再更新，奈何公司有 TP3 的项目，偶尔遇到问题看官方问题容易一头雾水，所以在这里记录下看文档时遇到的问题吧。
+
+### 命名空间和自动加载
+
+TP3 中自动加载是通过`ThinkPHP/Library/Think/Think.class.php`文件中的`autoload`方法实现的。
+
+**如何注册新的命名空间**
+
+在`自动加载`文档中，允许注册新的命名空间，但文档讲的不是很明白，这里补充下细节：
+
+- 需要在`Common/Conf/config.php`中的`AUTOLOAD_NAMESPACE`中添加新的命名空间；
+
+  ```php
+  'AUTOLOAD_NAMESPACE' => array(
+      'One'    => THINK_PATH.'One',
+  ),
+  ```
+
+- 然后在`ThinkPHP`下新建一个`One`文件夹，里面放入类文件，比如`IpLocation.class.php`,这个类文件的命名空间就是`One`；
+
+- 之后就可以在项目中使用了：
+
+  ```php
+  $ip = new \One\IpLocation();
+  ```
+
+- 要注意的是`IpLocation`这个类的命名空间是`One`，所以在类文件中要加上命名空间：
+
+  ```php
+  namespace One;
+  ```
 
 ## 安装 TP6 并开启调试
 

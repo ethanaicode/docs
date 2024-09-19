@@ -72,6 +72,8 @@ Python 内置了一个操作系统接口模块 `os`，可以用于处理文件�
 
   - `os.path.exists()`: 判断文件或目录是否存在。
 
+  - `os.path.sep`: 获取当前操作系统的路径分隔符。
+
 - `os.startfile()`: 打开文件。
 
 - `os.listdir()`: 列出目录下的文件。
@@ -87,6 +89,8 @@ Python 内置了一个系统相关模块 `sys`，可以用于获取命令行参�
 - `sys.executable`: 获取 Python 解释器的路径。
 
 - `sys.platform`: 获取当前操作系统的名称。
+
+  `darwin` = macOS，`win32` = Windows，`linux` = Linux。
 
 ### shutil 文件操作
 

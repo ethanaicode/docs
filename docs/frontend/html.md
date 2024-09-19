@@ -273,6 +273,39 @@ element.scrollTop = 100;
 
 > 参考：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Element)
 
+## 内置对象 (Built-in Objects)
+
+### 静态对象 (Static objects)
+
+#### Object.defineProperty()
+
+定义对象的一个属性，或修改现有属性的特性。
+
+```js
+Object.defineProperty(obj, prop, descriptor);
+```
+
+可以用它来修改对象的属性，比如修改`navigator`对象的`webdriver`属性：
+
+```js
+Object.defineProperty(navigator, "webdriver", {
+  get: () => false,
+});
+```
+
+- `webDriver` 是一个布尔值，指示浏览器是否正在运行 `webDriver` 测试。
+
+- 通过修改这个属性，可以防止网站检测到你是通过 WebDriver 运行的，有一定的反爬虫效果。
+
+还可以修改其他属性，比如修改`navigator`对象的`userAgent`属性：
+
+```js
+Object.defineProperty(navigator, "userAgent", {
+  get: () =>
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
+});
+```
+
 ## Dom 操作 (Document Object Model)
 
 ### 实例方法 (Instance methods)
@@ -286,3 +319,13 @@ document.querySelector(".auxo-table-body");
 ```
 
 > 参考：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Document)
+
+## Web APIs
+
+为网页提供了许多功能，比如操作浏览器历史、操作浏览器的 Cookie、操作浏览器的本地存储等。
+
+### navigator
+
+`navigator` 对象包含有关浏览器的信息。
+
+在控制台中输入 `navigator` 可以查看浏览器的相关信息。
