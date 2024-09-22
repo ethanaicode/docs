@@ -718,6 +718,38 @@ drwxr-xr-x 2 user group 4096 May  1 09:59 directory
    - 表示文件或目录最后一次修改的日期和时间。
 7. 最后一列: 文件或目录的名称
 
+### 芯片或 CPU 的架构信息
+
+一般通过 `uname -m` 命令可以查看 CPU 的架构信息。
+
+- `x86_64`: 64 位的 Intel 或 AMD x86 处理器。
+
+- `i386`、`i486`、`i586`、`i686`: 32 位的 Intel x86 处理器。
+
+- `armv7l`、`armv8l`: ARM 处理器，数字和字母表示具体的版本和类型。
+
+- `aarch64`: ARM 64 位处理器。
+
+- `ppc64le`: IBM PowerPC 处理器。
+
+假设你运行了 uname -a 命令，得到了以下输出：
+
+```bash
+Linux example.com 5.4.0-65-generic #73-Ubuntu SMP Mon Jan 18 17:25:17 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+```
+
+- `5.4.0-65-generic` 表示内核版本。
+
+- `#73-Ubuntu SMP Mon Jan 18 17:25:17 UTC 2021` 表示内核编译信息。
+
+- 第一个 `x86_64` 表示硬件平台。
+
+- 第二个 `x86_64` 表示操作系统。
+
+- 第三个 `x86_64` 表示内核。
+
+- `GNU/Linux` 表示具体的操作系统分支。
+
 ### 编译安装的常用操作及知识
 
 **一般步骤**
@@ -1479,3 +1511,37 @@ To get information on Squid profile/app, run:
 - `hostnamectl set-hostname newname --pretty`: 修改主机名的美观名称
 
 - `hostnamectl set-hostname newname --transient`: 修改临时主机名
+
+#### 查看系统的芯片和其他硬件信息
+
+- `lscpu`: 查看 CPU 信息
+
+  显示有关 CPU 架构的信息，包括其类型、核心数、架构等。
+
+- `lshw`: 查看硬件信息
+
+  显示有关系统硬件的详细信息，包括 CPU、内存、磁盘、网络适配器等。
+
+- `lsblk`: 查看块设备信息
+
+- `lspci`: 查看 PCI 设备信息
+
+- `uname -a`: 查看系统内核信息(包括内核版本和处理器类型)
+
+- `cat /proc/cpuinfo`: 查看 CPU 信息
+
+- `sudo dmidecode`: 查看硬件信息
+
+  用于从系统的 BIOS 中提取硬件信息。
+
+  你可以使用具体的选项来查看特定的硬件信息:
+
+  - `sudo dmidecode -t processor`: 查看处理器信息
+
+  - `sudo dmidecode -t memory`: 查看内存信息
+
+  - `sudo dmidecode -t bios`: 查看 BIOS 信息
+
+  你可以直接查看 /proc/cpuinfo 文件来获取。
+
+- `free -h`: 查看内存使用情况
