@@ -326,9 +326,22 @@ echo htmlentities($str);
 
 #### preg_match() - 正则匹配
 
-> int preg_match ( string $pattern , string $subject [, array &$matches [, int $flags = 0 [, int $offset = 0 ]]] )
+> preg_match ( string `$pattern`, string `$subject`, array &$matches, int `$flags`= 0, int`$offset` = 0 ): int
 
 - preg_match 函数用于执行一个正则表达式匹配。
+
+#### preg_replace() - 正则替换
+
+> preg_replace(string|array `$pattern`, string|array `$replacement`, string|array `$subject`, int `$limit` = -1, int &$count = null): string|array|null
+
+执行一个正则表达式的搜索和替换
+
+```PHP
+// 替换字符串中的空格
+$str = preg_replace('/\s+/', '', $str);
+```
+
+- 实现：使用正则表达式进行字符串替换
 
 #### iconv() - 字符串转码
 

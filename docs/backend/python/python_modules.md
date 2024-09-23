@@ -52,6 +52,8 @@
 
 - **shutil** = Python 内置的文件操作模块。
 
+- **queue** = Python 内置的队列模块。
+
 ### os 操作系统接口
 
 Python 内置了一个操作系统接口模块 `os`，可以用于处理文件和目录、执行系统命令等操作。
@@ -144,6 +146,35 @@ now = datetime.datetime.now()
 # 转换为字符串
 now_str = now.strftime('%Y-%m-%d %H:%M:%S')
 print(now_str)
+```
+
+### queue 队列
+
+Python 内置了一个队列模块 `queue`，可以用于实现线程安全的队列。
+
+**主要类**
+
+- `queue.Queue`: 普通队列，先进先出。
+
+- `queue.LifoQueue`: 栈，后进先出。
+
+- `queue.PriorityQueue`: 优先级队列，按优先级顺序出队。
+
+**使用方法**
+
+```python
+import queue
+
+# 创建一个队列
+q = queue.PriorityQueue()
+
+# 向队列中添加元素
+q.put((1, 'A'))
+
+# 从队列中取出元素
+_, item = q.get()
+
+print(item)
 ```
 
 ### pdb 调试器
