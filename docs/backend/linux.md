@@ -1545,3 +1545,53 @@ To get information on Squid profile/app, run:
   你可以直接查看 /proc/cpuinfo 文件来获取。
 
 - `free -h`: 查看内存使用情况
+
+#### SSH 密钥生成及应用
+
+**SSH 密钥认证**是一种更安全的登录方式，它通过公钥和私钥的方式来进行认证，避免了传统的用户名和密码登录方式的弊端。
+
+**生成 SSH 密钥**
+
+```bash
+ssh-keygen -t rsa -b 4096 -C "comment"
+```
+
+- `-t rsa`：指定密钥类型为 RSA。
+
+- `-b 4096`：指定密钥长度为 4096 位。
+
+- `-C "comment"`：添加注释。
+
+**将公钥复制到远程服务器**
+
+```bash
+ssh-copy-id username@remote_host
+```
+
+**SSH 配置文件**
+
+SSH 配置文件通常位于用户家目录下的 `.ssh` 目录中，文件名为 `config`。
+
+```bash
+Host remote_host
+    HostName remote_host
+    User username
+    Port 22
+    IdentityFile ~/.ssh/id_rsa
+```
+
+- `Host`：指定主机别名。
+
+- `HostName`：指定主机地址。
+
+- `User`：指定登录用户名。
+
+- `Port`：指定 SSH 端口。
+
+- `IdentityFile`：指定私钥文件。
+
+**SSH 登录**
+
+```bash
+ssh username@remote_host
+```

@@ -134,6 +134,37 @@ git config --global user.email "youremail"
 - `core.logallrefupdates` 是否记录所有引用更新
 - `http.sslVerify` 是否验证 SSL 证书
 
+### 本地配置
+
+每个项目下都有一个 `.git/config` 文件，这个文件是本地的配置文件，它会覆盖全局的配置。
+
+通常我们会在这个文件中配置一些项目特有的配置，比如远程仓库地址等。
+
+- `url` 远程仓库地址
+
+  你也可以把用户名和密码写在地址后面，这样就不用每次都输入用户名和密码了。
+
+  ```bash
+  [remote "origin"]
+    url = https://<username>:<password>@<repository-url>
+  ```
+
+- `branch` 分支
+
+  你可以设置默认的分支，这样每次 push 或者 pull 的时候就不用指定分支了。
+
+  ```bash
+  [branch "master"]
+    remote = origin
+    merge = refs/heads/master
+  ```
+
+**gitee 要注意的点**
+
+- gitee 的仓库地址不能使用 token 名，只能使用用户名，加上 token 密钥。
+
+- 用户名必须要全部小写，否则会报无效的用户名。
+
 ## 案例及技巧
 
 ### 撤销本次修改

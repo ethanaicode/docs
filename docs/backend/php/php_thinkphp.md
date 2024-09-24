@@ -10,6 +10,14 @@
 
 本来以为不会再更新，奈何公司有 TP3 的项目，偶尔遇到问题看官方问题容易一头雾水，所以在这里记录下看文档时遇到的问题吧。
 
+### 知识点汇总
+
+**模块化设计**
+
+- tp3 允许自动生成模块目录，只需要在入口文件中，加上一句`define('BIND_MODULE','NewModuleName');`即可；
+
+  如果存在空的 `NewModuleName` 目录，tp3 会报错，所以先确保目录不存在
+
 ### 命名空间和自动加载
 
 TP3 中自动加载是通过`ThinkPHP/Library/Think/Think.class.php`文件中的`autoload`方法实现的。
