@@ -171,6 +171,42 @@ QPushButton(text, parent)
 QLabel(text, parent)
 ```
 
+### QLineEdit 文本框
+
+> QLineEdit(text, parent)
+
+`QLineEdit` 是 PyQt5 中用于输入文本的类。文本框是用户界面中常用的输入元素，用于接收用户输入的文本。
+
+**文本框的方法**
+
+- `setText(text)`：设置文本框的文本。
+
+- `text()`：获取文本框的文本。
+
+- `setPlaceholderText(text)`：设置文本框的占位符文本。
+
+- `setEchoMode(mode)`：设置文本框的回显模式。
+
+- `textChanged.connect(slot)`：连接文本框的文本变化事件到槽函数。
+
+### QComboBox 下拉框
+
+> QComboBox(parent)
+
+`QComboBox` 是 PyQt5 中用于创建下拉框的类。下拉框是用户界面中常用的选择元素，用于从一组选项中选择一个值。
+
+**常用的方法**
+
+- `addItem(text)`：添加一个选项。
+
+- `addItems(items)`：添加多个选项。`items` 是一个字符串列表。
+
+- `setCurrentIndex(index)`：设置当前选中的索引。默认为 0。
+
+- `currentText()`：获取当前选中的文本。
+
+- `currentIndexChanged.connect(slot)`：连接下拉框的选中事件到槽函数。
+
 ### QUrl URL
 
 `QUrl` 是 PyQt5 中用于处理 URL 的类。它提供了一些方法，用于解析、构建和操作 URL。
