@@ -189,6 +189,24 @@
 =CONCAT(MID(A1, 7, 4), "-", MID(A1, 11, 2), "-", MID(A1, 13, 2))
 ```
 
+## Typora
+
+### Math and Academic 数学公式
+
+相关文档：[Math](https://support.typora.io/Math/)
+
+Typora 支持数学公式的输入，我们可以使用 LaTeX 语法来输入数学公式。
+
+渲染过程是由 [MathJax](https://www.mathjax.org/) 来处理的。
+
+所有支持的 TeX 命令可以在 [MathJax 官方文档](http://docs.mathjax.org/en/latest/input/tex/macros/index.html)中找到。
+
+### Sequence Diagrams 序列图
+
+相关文档：[Diagrams](https://support.typora.io/Draw-Diagrams-With-Markdown/)
+
+注意事项：导出PDF等文件格式时并不会包含渲染好的序列图，推荐还是用图片。
+
 ## Wireshark
 
 一款网络协议分析工具，可以用来分析网络数据包。
@@ -248,6 +266,12 @@ Wireshark 提供了强大的过滤器功能，可以帮助我们快速定位到�
 - **右键点击数据包** --> **Follow** --> **HTTP Stream**，就可以查看到请求头和响应头了。
 
 - 或者选择数据包，分别展开 `Hypertext Transfer Protocol` --> `Request` 或 `Response`，就可以查看到请求数据包和响应数据包的相关信息。
+
+## Adobe Illustrator
+
+### 快捷键 Hotkeys
+
+- **Ctrl + Shift + Alt + U** = 修改单位
 
 ## Adobe Premiere
 

@@ -8,29 +8,9 @@
 
 - **urllib** = Python 内置的 HTTP 请求库。
 
-  `urllib.request` 用于发送网络请求和处理响应。
-
-  `urllib.error` 用于处理 `urllib.request` 中出现的错误。
-
-  `urllib.parse` 用于解析和构建 URL。
-
-  `urllib.robotparser` 用于解析 `robots.txt` 文件。
-
 - **os** = Python 内置的操作系统接口模块。
 
-  `os.path` 用于处理文件路径。
-
-  `os.environ` 用于获取和设置环境变量。
-
-  `os.system` 用于执行系统命令。
-
 - **sys** = Python 内置的系统相关模块。
-
-  `sys.argv` 用于获取命令行参数。
-
-  `sys.path` 用于设置 Python 模块的搜索路径。
-
-  `sys.stdin`、`sys.stdout` 和 `sys.stderr` 用于标准输入、输出和错误流。
 
 - **re** = Python 内置的正则表达式模块。
 
@@ -41,6 +21,16 @@
   `re.findall` 用于在字符串中找到所有匹配模式。
 
   `re.sub` 用于替换字符串中的匹配项。
+
+- **json** = Python 内置的 JSON 编码和解码模块。
+
+  `json.dumps` 用于将 Python 对象编码为 JSON 字符串。
+
+  `json.loads` 用于将 JSON 字符串解码为 Python 对象。
+
+- **subprocess** = Python 内置的子进程模块。
+
+- **threading** = Python 内置的多线程模块。
 
 - **pdb** = Python 内置的调试器模块。
 
@@ -53,6 +43,8 @@
 - **shutil** = Python 内置的文件操作模块。
 
 - **queue** = Python 内置的队列模块。
+
+- **http** = Python 内置的 HTTP 服务器模块。
 
 ### os 操作系统接口
 
@@ -90,6 +82,18 @@ Python 内置了一个系统相关模块 `sys`，可以用于获取命令行参�
 
 **主要方法**
 
+- `sys.argv`: 获取命令行参数。
+
+- `sys.path`: 获取模块搜索路径。
+
+- `sys.version`: 获取 Python 版本。
+
+- `sys.stdin`: 标准输入。
+
+- `sys.stdout`: 标准输出。
+
+- `sys.stderr`: 标准错误。
+
 - `sys.executable`: 获取 Python 解释器的路径。
 
 - `sys.platform`: 获取当前操作系统的名称。
@@ -119,6 +123,37 @@ Python 内置了一个子进程模块 `subprocess`，可以用于创建和管理
 - `subprocess.Popen()`: 创建一个子进程。
 
 - `subprocess.call()`: 运行一个命令并等待其完成。
+
+### threading 多线程
+
+Python 内置了一个多线程模块 `threading`，可以用于创建和管理线程。
+
+**主要类**
+
+- `threading.Thread`: 线程类，用于创建线程。
+
+- `threading.Lock`: 锁类，用于线程同步。
+
+- `threading.Event`: 事件类，用于线程通信。
+
+**使用方法**
+
+```python
+import threading
+import time
+
+def worker():
+    print(f'{threading.current_thread().name} is working')
+    time.sleep(1)
+    print(f'{threading.current_thread().name} is done')
+
+for _ in range(5):
+    # 创建线程
+    t = threading.Thread(target=worker)
+    # 给每个线程起一个名字
+    t.name = 'Thread-' + str(_)
+    t.start()
+```
 
 ### datetime 日期和时间
 
@@ -289,4 +324,22 @@ import uuid
 # 生成一个随机的 UUID
 uuid_obj = uuid.uuid4()
 print(uuid_obj)
+```
+
+### http 服务模块
+
+Python 内置了一个 HTTP 服务模块 `http`，可以用于创建简单的 HTTP 服务器。
+
+**主要类**
+
+- `http.server.HTTPServer`: HTTP 服务器类。
+
+- `http.server.BaseHTTPRequestHandler`: HTTP 请求处理类。
+
+**命令行使用方法**
+
+你可以通过命令行启动一个简单的 HTTP 服务器：
+
+```bash
+python -m http.server <port>
 ```

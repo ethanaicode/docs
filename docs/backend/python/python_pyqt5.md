@@ -40,6 +40,38 @@ PyQt5 是一个用于创建桌面应用程序的 Python 模块。它是 Qt 库�
 
 在 PyQt5 中，窗口的属性可以通过 `setWindowFlags()` 方法来设置。窗口属性可以控制窗口的样式、行为和外观。
 
+### QMessageBox 消息框
+
+> QMessageBox(icon, title, text, buttons, parent)
+
+`QMessageBox` 是 PyQt5 中用于显示消息框的类。消息框是一种常用的用户界面元素，用于显示提示、警告、错误等信息。
+
+**常用的参数**
+
+- `icon`：消息框的图标，可以是 `QMessageBox.Information`、`QMessageBox.Warning`、`QMessageBox.Critical` 等。
+
+- `title`：消息框的标题。
+
+**常用的方法**
+
+- `setIcon(icon)`：设置消息框的图标。
+
+- `setWindowTitle(title)`：设置消息框的标题。
+
+- `setText(text)`：设置消息框的文本。
+
+- `setStandardButtons(buttons)`：设置消息框的按钮。
+
+  - `buttons` 可以是 `QMessageBox.Ok`、`QMessageBox.Cancel`、`QMessageBox.Yes`、`QMessageBox.No` 等。
+
+  - `standardButton(button)`：获取按钮的标准按钮。
+
+- `addButton(text, role)`：添加一个自定义按钮。
+
+  - `role` 可以是 `QMessageBox.AcceptRole`、`QMessageBox.RejectRole`、`QMessageBox.YesRole`、`QMessageBox.NoRole`等。
+
+  - `buttonRole(button)`：获取按钮的角色。(如果使用`standardButton`获取的是`QMessageBox.StandardButton`，无法获取到正确的角色)
+
 ### PyQt5 基本组件
 
 PyQt5 提供了一些基本的组件，用于创建用户界面。以下是一些常用的组件：
@@ -119,13 +151,9 @@ PyQt5 提供了几种布局管理器，如 `QHBoxLayout`、`QVBoxLayout`、`QGri
 
 ### QPushButton 按钮
 
+> QPushButton(text, parent)
+
 `QPushButton` 是 PyQt5 中用于创建按钮的类。按钮是用户界面中常用的交互元素，用于触发操作或执行特定的功能。
-
-`QPushButton` 的构造函数如下：
-
-```python
-QPushButton(text, parent)
-```
 
 **按钮的方法**
 
@@ -163,13 +191,9 @@ QPushButton(text, parent)
 
 ### QLabel 标签
 
+> QLabel(text, parent)
+
 `QLabel` 是 PyQt5 中用于显示文本或图像的类。标签是用户界面中常用的显示元素，用于显示静态文本或图像，也可以用来显示 HTML 内容。
-
-`QLabel` 的构造函数如下：
-
-```python
-QLabel(text, parent)
-```
 
 ### QLineEdit 文本框
 
