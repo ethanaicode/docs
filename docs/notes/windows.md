@@ -43,10 +43,22 @@ Windows 快捷键是提高效率的好帮手，这里记录一些常用的快捷
 ### PowerShell
 
 > PowerShell 命令是可以使用 python 的 subprocess 模块调用的，可以用于批量处理任务。
+>
+> PowerShell 提供的命令很多都有简写，比如 `Get-Process` 可以简写为 `gps`。
 
 - **Get-Command**: 查看命令
 
   例如：`Get-Command -Name Get-Process`
+
+- **Get-ChildItem**: 查看文件（简写`gci`）
+
+  - `Get-ChildItem -Path C:\` 查看 C 盘文件
+
+  - `Get-ChildItem Env:` 查看环境变量
+
+- **Set-Location**: 切换目录
+
+- **$env:Path**: 查看环境变量
 
 ### 进程管理
 

@@ -119,6 +119,26 @@ sudo ln -s ~/bin/lookupwin.sh /usr/local/bin/lookupwin
 chmod +x lookupwin.sh
 ```
 
+## 命令行工具
+
+### smbutil
+
+`smbutil` 是 macOS 系统中的一个命令行工具，用于与 SMB（Server Message Block）共享进行交互。它可以用于管理网络共享、查看共享的状态以及获取有关 SMB 连接的信息。
+
+**常用命令**：
+
+- `smbutil lookup servername`：查找设备的 IP 地址
+
+- `smbutil view //server/share`：查看共享的文件和目录
+
+- `smbutil status //server/share`：查看共享的状态
+
+- `smbutil statshares -a`：查看所有共享的状态
+
+- `smbutil mount //username:password@server/share /Volumes/share`：挂载共享
+
+- `smbutil unmount /Volumes/share`：卸载共享
+
 ## Brew 管理工具
 
 ### Basics
