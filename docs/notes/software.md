@@ -101,6 +101,8 @@
 | 微软官方系统安装       | [Win11 官方](https://www.microsoft.com/zh-cn/software-download/windows11/) | Win  |      | 创建 Windows 11 安装下载打开即可 |
 | 系统重装维护           | [微 PE 工具箱](https://www.wepe.com.cn/)                     | Win  |      |                                  |
 | ——                     | [FirPE 维护系统](https://firpe.cn/page-247)                  | Win  |      |                                  |
+| U盘启动工具            | [Rufus](https://rufus.ie/zh/)                                | Win  |      | 开源                             |
+| ——                     | [Ventoy](https://www.ventoy.net)                             | Win  |      |                                  |
 | 系统镜像 MSDN 下载     | [I Tell You](https://msdn.itellyou.cn/)                      | Win  |      |                                  |
 | ——                     | [I Tell You 新版](https://next.itellyou.cn/)                 | Win  |      |                                  |
 
