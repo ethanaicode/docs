@@ -46,6 +46,8 @@
 
 - **http** = Python 内置的 HTTP 服务器模块。
 
+- **logging** = Python 内置的日志模块。
+
 ### os 操作系统接口
 
 Python 内置了一个操作系统接口模块 `os`，可以用于处理文件和目录、执行系统命令等操作。
@@ -342,4 +344,73 @@ Python 内置了一个 HTTP 服务模块 `http`，可以用于创建简单的 HT
 
 ```bash
 python -m http.server <port>
+```
+
+### logging 日志模块
+
+Python 内置了一个日志模块 `logging`，可以用于记录日志。
+
+**主要方法**
+
+- `logging.basicConfig()`: 配置日志记录器。
+
+- `logging.getLogger()`: 获取日志记录器。
+
+- `logging.Formatter([fmt])`: 日志格式化器。
+
+**主要处理器**
+
+- `logging.NullHandler`: 空处理器。
+
+  可以用来定义一个空的处理器，防止日志记录器没有处理器时报错。
+
+  然后允许用户来设置处理器，以便在需要时可以将日志记录到文件、控制台等。
+
+- `logging.StreamHandler`: 输出到控制台。
+
+- `logging.FileHandler`: 输出到文件。
+
+- `logging.handlers.RotatingFileHandler`: 输出到滚动文件。
+
+- `logging.handlers.TimedRotatingFileHandler`: 输出到定时滚动文件。
+
+**主要级别**
+
+- `logging.DEBUG`: 调试级别。
+
+- `logging.INFO`: 信息级别。
+
+- `logging.WARNING`: 警告级别。
+
+- `logging.ERROR`: 错误级别。
+
+- `logging.CRITICAL`: 严重错误级别。
+
+**使用方法**
+
+```python
+import logging
+
+# 配置日志记录器
+logger = logging.getLogger(__name__)
+
+# 设置日志级别
+logger.setLevel(logging.DEBUG)
+
+# 创建一个控制台处理器
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+
+# 创建一个日志格式化器
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+
+# 添加处理器到记录器
+logger.addHandler(ch)
+
+# 记录日志
+logger.debug('This is a debug message')
+
+# 关闭处理器
+ch.close()
 ```
