@@ -12,6 +12,8 @@
 
 - **sys** = Python 内置的系统相关模块。
 
+- **platform** = Python 内置的平台信息模块。
+
 - **re** = Python 内置的正则表达式模块。
 
   `re.match` 用于从字符串的起始位置匹配模式。
@@ -101,6 +103,44 @@ Python 内置了一个系统相关模块 `sys`，可以用于获取命令行参�
 - `sys.platform`: 获取当前操作系统的名称。
 
   `darwin` = macOS，`win32` = Windows，`linux` = Linux。
+
+### platform 平台信息
+
+Python 内置了一个平台信息模块 `platform`，可以用于获取系统和硬件信息。
+
+**主要方法**
+
+- `platform.system()`: 获取当前操作系统的名称。
+
+  `Windows`, `Darwin`, `Linux`, `Java` 等。
+
+- `platform.release()`: 获取当前操作系统的发行版本。
+
+  在 Windows 上返回 Windows 版本号，如 `10`.
+
+  在 macOS 上返回 macOS 版本号，如 `20.3.0`.
+
+- `platform.version()`: 获取当前操作系统的版本。
+
+  在 Windows 上返回 Windows 版本号，如 `10.0.19041`.
+
+  在 macOS 上返回 macOS 版本号，如 `Darwin Kernel Version 20.3.0`.
+
+- `platform.machine()`: 获取当前硬件架构。
+
+  `AMD64`, `x86_64`, `arm64` 等。
+
+- `platform.processor()`: 获取当前处理器信息。
+
+  `Intel64 Family 6 Model 142 Stepping 10, GenuineIntel`.
+
+- `platform.mac_ver()`: 获取 macOS 版本信息。
+
+  返回一个元组，包含 macOS 版本号和版本名称。如 `('11.2.3', ('', '', ''))`.
+
+- `platform.win32_ver()`: 获取 Windows 版本信息。
+
+  返回一个元组，包含 Windows 版本号、版本名称和服务包信息。如 `('10', '10.0.19041', 'SP0')`.
 
 ### shutil 文件操作
 

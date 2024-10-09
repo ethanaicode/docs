@@ -1362,6 +1362,18 @@ echo | openssl s_client -connect localhost:443 -servername your_domain.com 2>/de
 echo | openssl s_client -connect localhost:443 -servername your_domain.com 2>/dev/null | openssl x509 -noout -dates
 ```
 
+**返回信息**
+
+- `notBefore` 表示证书的生效日期
+
+- `notAfter` 表示证书的过期日期
+
+- `subject` 表示证书的主题
+
+  `CN` 表示证书的主要域名，如果是通配符证书，会显示 `*.domain.com`
+
+- `subjectAltName` 表示证书的子域名信息
+
 #### 查看 TCP 连接数
 
 1）统计 80 端口连接数
