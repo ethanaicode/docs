@@ -36,9 +36,27 @@ PyQt5 是一个用于创建桌面应用程序的 Python 模块。它是 Qt 库�
 
 - `isEnable()`：判断窗口（元素）是否可用。（如果可用，返回 True，否则返回 False）
 
-### 窗口属性
+#### Application 应用程序
 
-在 PyQt5 中，窗口的属性可以通过 `setWindowFlags()` 方法来设置。窗口属性可以控制窗口的样式、行为和外观。
+在 PyQt5 中，`QApplication` 是一个用于管理应用程序的类。它是一个全局对象，用于处理应用程序的初始化、事件循环、退出等操作。
+
+**常用的方法**
+
+- `exec_()`：启动应用程序的事件循环。
+
+- `quit()`：退出应用程序。
+
+- `processEvents()`：处理事件队列中的所有事件。
+
+- `setQuitOnLastWindowClosed()`：设置是否在最后一个窗口关闭时退出应用程序。
+
+- `font()`：获取应用程序的默认字体。
+
+  `font().pointSize()` 获取默认字体大小。(如果返回的是 -1，说明字体大小以像素为单位，那么可以使用 `font().pixelSize()` 获取字体大小)
+
+  `font().family()` 获取默认字体名称。
+
+  `font().setPointSize(12)` 设置默认字体大小。
 
 ### QMessageBox 消息框
 
@@ -256,6 +274,21 @@ print(url.path())    # 获取路径
 
   `openUrl(QUrl('https://www.example.com'))` 打开指定的网页。
 
+### QFont 字体
+
+`QFont` 是 PyQt5 中用于设置字体的类。它提供了一些方法，用于设置字体的名称、大小、粗细、斜体等属性。
+
+**基础用法**
+
+```python
+font = QFont('Arial', 12)
+label.setFont(font)
+```
+
+**常用的方法**
+
+- `setFamily(family)`：设置字体的名称。
+
 ## 线程和信号
 
 ### QThread 线程
@@ -335,6 +368,56 @@ sender.signal.connect(receiver.slot)
 - 通常我们在主界面的子组件中定义信号，然后在主界面中连接这些信号到槽函数，这样可以实现子组件和主界面之间的通信。
 
   这在实现自定义控件时非常有用，可以将控件的内部逻辑和外部逻辑分离，提高代码的可维护性和复用性。
+
+## Qt::WidgetAttribute 控件属性
+
+在 PyQt5 中，控件的属性可以通过 `setAttribute()` 方法来设置。控件属性可以控制控件的样式、行为和外观。
+
+### 常用的控件属性
+
+- `Qt.AA_EnableHighDpiScaling`：启用高 DPI 缩放。
+
+- `Qt.AA_DisableHighDpiScaling`：禁用高 DPI 缩放。
+
+- `Qt.AA_DisableWindowContextHelpButton`：禁用窗口标题栏的帮助按钮。
+
+- `Qt.AA_UseHighDpiPixmaps`：使用高 DPI 图标。
+
+- `Qt.WA_TranslucentBackground`：窗口背景透明。
+
+## Qt::WindowFlags 窗口属性
+
+在 PyQt5 中，窗口的属性可以通过 `setWindowFlags()` 方法来设置。窗口属性可以控制窗口的样式、行为和外观。
+
+### 常用的窗口标志
+
+- **`Qt.Widget`**：表示一个普通的窗口小部件（默认标志）。
+- **`Qt.Window`**：表示一个独立的窗口，带有标题栏和窗口边框。
+- **`Qt.Dialog`**：表示一个对话框窗口，通常用于模态对话框。
+- **`Qt.Sheet`**：表示一个特定于 Mac 的窗口样式（用于工作表）。
+- **`Qt.Drawer`**：表示一个特定于 Mac 的窗口样式（用于抽屉）。
+- **`Qt.Popup`**：表示一个弹出式窗口，通常用于上下文菜单或选择框。
+- **`Qt.Tool`**：表示一个工具窗口，不作为应用程序的主窗口。
+- **`Qt.ToolTip`**：表示一个工具提示窗口。
+- **`Qt.SplashScreen`**：表示一个启动画面窗口。
+
+### 标题栏相关的标志
+
+- **`Qt.MSWindowsFixedSizeDialogHint`**：提示对话框的大小是固定的，不能调整。
+- **`Qt.FramelessWindowHint`**：没有标题栏和边框的窗口。
+- **`Qt.WindowTitleHint`**：窗口有标题栏。
+- **`Qt.WindowSystemMenuHint`**：窗口有系统菜单（右键菜单）。
+- **`Qt.WindowMinimizeButtonHint`**：窗口有最小化按钮。
+- **`Qt.WindowMaximizeButtonHint`**：窗口有最大化按钮。
+- **`Qt.WindowCloseButtonHint`**：窗口有关闭按钮。
+- **`Qt.WindowContextHelpButtonHint`**：在窗口标题栏中显示问号（帮助按钮），适用于对话框。
+- **`Qt.WindowStaysOnTopHint`**：窗口总是保持在其他窗口的前面。
+- **`Qt.WindowStaysOnBottomHint`**：窗口总是保持在其他窗口的后面。
+
+### 模态对话框的标志
+
+- **`Qt.WindowModal`**：窗口是模态的，阻塞与其父窗口的交互。
+- **`Qt.ApplicationModal`**：窗口是应用程序模态的，阻塞与同一应用程序中所有窗口的交互。
 
 ## 知识实践总结
 
@@ -504,6 +587,18 @@ create_window()
 
 - **退出机制**：你可以通过调用 `QCoreApplication.quit()` 或关闭所有 GUI 窗口来停止事件循环，使 `app.exec_()` 返回。返回值通常是一个状态码，指示程序是如何结束的。
 - **异常处理**：在事件循环中，所有未捕获的异常都会被忽略，不会导致程序崩溃。这意味着如果事件处理函数中出现异常，它应该在函数内部被捕获和处理，否则可能会导致不稳定的行为或潜在的内存泄漏。
+
+### 像素大小和点大小
+
+在 PyQt5 中，控件的大小可以使用像素（pixel）或点（point）来指定。像素是屏幕上的一个点，而点是一个逻辑单位，通常与屏幕的分辨率和 DPI 有关。
+
+- **像素大小**：通常是指屏幕上的一个点，它是一个固定的单位，不会随着屏幕分辨率的变化而变化。
+
+- **点大小**：是一个逻辑单位，通常与屏幕的 DPI（每英寸像素数）有关。在 PyQt5 中，点的大小通常是以像素为单位的，但可以根据 DPI 缩放。
+
+在标准分辨率下（一般是 96 DPI），12 点字大约等于 16 像素高。在高 DPI 屏幕上，12 点字可能会更大，因为每英寸的像素数更多。
+
+在 `qss` 样式表中，可以使用 `pt` 单位来指定点大小，如 `font-size: 12pt;`，这样可以根据 DPI 缩放字体大小。
 
 ## Qt Designer
 
