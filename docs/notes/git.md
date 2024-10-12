@@ -167,6 +167,97 @@ git config --global user.email "youremail"
 
 ## 案例及技巧
 
+### 开发实践
+
+**开发分支**
+
+可以通过创建开发分支来进行特性开发，然后合并到主分支。
+
+```bash
+git checkout -b feature-branch
+```
+
+开发完成后，可以合并到主分支。
+
+```bash
+git checkout master
+git merge feature-branch
+```
+
+合并后，可以删除开发分支。
+
+```bash
+git branch -d feature-branch
+```
+
+**使用标签**
+
+Git 标签（tag）是用于标记特定提交的版本快照，非常适合发布版本时使用。
+
+创建标签： 在发布一个新的版本时，可以使用 git tag 创建一个标签：
+
+```bash
+git tag -a v1.0 -m "Version 1.0"
+```
+
+查看标签： 使用 git tag 命令可以查看所有标签。
+
+```bash
+git tag
+```
+
+推送到远程： 如果想要把标签推送到远程仓库，可以使用 git push 命令。
+
+```bash
+git push origin v1.0
+```
+
+如果想推送所有标签，可以使用 `--tags` 参数。
+
+```bash
+git push origin --tags
+```
+
+删除标签： 如果需要删除标签，可以使用 git tag -d 命令。
+
+```bash
+git tag -d v1.0
+```
+
+**管理多个版本**
+
+当需要维护多个版本的应用时，你可以创建不同的分支来分别管理生产版本和开发版本。例如，你可以使用以下的分支结构：
+
+- `master` 分支：用于发布生产版本。
+
+- `develop` 分支：用于开发新特性。
+
+- `release` 分支：用于发布新版本。
+
+- `hotfix` 分支：用于修复生产版本的 bug。
+
+- `feature` 分支：用于开发新特性。
+
+**合并策略**
+
+如果直接合并分支，Git 会创建一个新的合并提交，这样会使提交历史变得混乱。
+
+为了保持提交历史的整洁，可以使用 `rebase` 命令来变基。
+
+```bash
+git checkout feature-branch
+git rebase master
+```
+
+_要注意的是， `git rebase master` 实际上是在 `feature-branch` 分支上进行的操作。这个命令的意思是将 `master` 分支的最新提交变基到 `feature-branch` 分支上，目的是使 `feature-branch` 的历史记录保持与 `master` 一致，并将 `feature-branch` 的提交应用到 `master` 的最新提交之后。_
+
+因此，如果你希望让主分支和开发分支保持一致，你还需要切换到主分支，然后合并开发分支。
+
+```bash
+git checkout master
+git merge feature-branch
+```
+
 ### 撤销本次修改
 
 最简单的方法就是使用`git restore .`命令，这个命令会撤销所有的修改。这个需要 git 版本在 2.23+。
@@ -183,22 +274,6 @@ git checkout -- .
 
 - `.` 表示当前目录，如果只想撤销某个文件的修改，可以指定文件名。
 - 如果没有参数`--`，后面直接跟具体的文件名，也表示撤销单个文件。
-
-### 提交空文件夹到远程仓库
-
-git 默认会忽略空文件夹，如果我们希望提交一些空的文件夹，以达到某种特定的目的，可以用两种方法来实现这个效果：
-
-1. 为空文件夹添加 `.gitkeep` 文件(推荐)
-
-这个文件它本身是没有意义的，更像是团队使用者之间的一种约定，仅仅是为了标记这个空的文件夹是需要添加到仓库的。
-
-```bash
-find ./ -type d -empty -exec touch {}/.gitkeep \;
-```
-
-2. 为空文件夹添加 `.gitignore` 文件
-
-添加这个文件也可以实现这个效果，但不是最佳的，因此推荐用第一种（因为它本身是有意义的）。
 
 ### 强制覆盖本地代码（与 git 远程仓库保持一致）
 
@@ -236,6 +311,22 @@ git commit -m "Fix folder name case"
 # 之后提交就能解决问题
 git push origin BRANCH_NAME
 ```
+
+### 提交空文件夹到远程仓库
+
+git 默认会忽略空文件夹，如果我们希望提交一些空的文件夹，以达到某种特定的目的，可以用两种方法来实现这个效果：
+
+1. 为空文件夹添加 `.gitkeep` 文件(推荐)
+
+这个文件它本身是没有意义的，更像是团队使用者之间的一种约定，仅仅是为了标记这个空的文件夹是需要添加到仓库的。
+
+```bash
+find ./ -type d -empty -exec touch {}/.gitkeep \;
+```
+
+2. 为空文件夹添加 `.gitignore` 文件
+
+添加这个文件也可以实现这个效果，但不是最佳的，因此推荐用第一种（因为它本身是有意义的）。
 
 ## 工具推荐
 
