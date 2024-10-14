@@ -1,6 +1,6 @@
 # Python 文档导航
 
-### Python 知识
+## Python 知识
 
 - [Python Basic](./python_basic)
 
@@ -8,7 +8,7 @@
 
 - [Python Modules](./python_modules)
 
-### Python 库
+## Python 库
 
 - [packages_index](./python_packages)
 

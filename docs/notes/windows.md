@@ -40,6 +40,54 @@ Windows 快捷键是提高效率的好帮手，这里记录一些常用的快捷
 
   例如：`shutdown /s /t 0` 立即关机
 
+### CMD BAT 脚本
+
+#### BAT 脚本基础语法
+
+bat 脚本是一种批处理文件，可以用于批量处理任务。可以通过建立一个 bat 文件，然后在 cmd 中运行这个文件来执行一系列命令。
+
+**bat 脚本基础语法**：
+
+- **@echo off**: 关闭命令回显
+
+- **echo**: 输出信息
+
+- **pause**: 暂停
+
+  通常放在脚本的最后，以便查看执行结果。（此时会有一个提示，按任意键继续）
+
+- **exit**: 退出脚本
+
+- **::**: 注释
+
+- **if**: 条件判断
+
+  例如：`if exist file.txt echo 文件存在`
+
+- **goto**: 跳转
+
+  例如：`goto :label` 跳转到 `:label` 标签处
+
+  - **:label**: 标签
+
+- **rmdir**: 删除目录
+
+  例如：`rmdir /s /q dir` 删除目录
+
+  - `/s` 删除目录及其子目录
+
+  - `/q` 安静模式
+
+- **del**: 删除文件
+
+  例如：`del /q file.txt` 删除文件
+
+  - `/q` 安静模式
+
+- **copy**: 复制文件
+
+  例如：`copy file1.txt file2.txt` 复制文件
+
 ### PowerShell
 
 > PowerShell 命令是可以使用 python 的 subprocess 模块调用的，可以用于批量处理任务。
