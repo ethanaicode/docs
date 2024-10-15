@@ -8,6 +8,27 @@
 
 在 Windows 上开发 C++ 程序，可以使用 Visual Studio，这个 IDE 集成了 C++ 编译器，可以方便地进行 C++ 开发。
 
+**下载并安装 Visual Studio**
+
+1. 前往 [Visual Studio 官网](https://visualstudio.microsoft.com/) 下载 Visual Studio
+
+2. 运行安装程序，会让选择安装的组件，选择 `Desktop development with C++` 组件，这个组件包含了 C++ 编译器和 C++ 开发工具。
+
+3. 安装完成后，打开 Visual Studio，新建一个 C++ 项目，选择 `Console App`，然后输入项目名称，点击创建。
+
+4. 在项目中，新建一个 C++ 文件，输入以下代码：
+
+```cpp
+#include <iostream>
+
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+    return 0;
+}
+```
+
+5. 点击菜单栏的 `生成` -> `生成解决方案`，即可编译运行。
+
 ### macOS 上开发 C++
 
 macOS 上可以使用 Xcode 进行 C++ 开发，Xcode 也集成了 C++ 编译器。
