@@ -112,6 +112,35 @@ pyinstaller -F -w -i icon.ico -n appname myscript.py
 - `-i icon.ico`：指定应用程序的图标
 - `-n appname`：指定生成的可执行文件的名称
 
+### macOS 下的打包
+
+在 macOS 上，PyInstaller 会生成一个 `.app` 文件，这是一个应用程序包（Bundle）。
+
+macOS 下软件的相关信息通常存储在 Info.plist 文件中，PyInstaller 会自动生成这个文件。
+
+如果你需要定义更详细的信息，只能通过编辑 `myscript.spec` 文件来实现。
+
+```bash
+app = BUNDLE(exe,
+         name='myscript.app',
+         icon=None,
+         bundle_identifier=None,
+         version='0.0.1',
+         info_plist={
+            'NSPrincipalClass': 'NSApplication',
+            'NSAppleScriptEnabled': False,
+            'CFBundleDocumentTypes': [
+                {
+                    'CFBundleTypeName': 'My File Format',
+                    'CFBundleTypeIconFile': 'MyFileIcon.icns',
+                    'LSItemContentTypes': ['com.example.myformat'],
+                    'LSHandlerRank': 'Owner'
+                    }
+                ]
+            },
+         )
+```
+
 ### Mac OS 和 Windows 的应用图标格式
 
 - Windows：`.ico` 格式

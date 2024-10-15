@@ -51,6 +51,7 @@ export default defineConfig({
             items: [
               { text: "PHP", link: "/backend/php/" },
               { text: "Python", link: "/backend/python/" },
+              { text: "C++", link: "/backend/c++/" },
               { text: "Java", link: "/backend/java" },
             ],
           },
@@ -64,7 +65,7 @@ export default defineConfig({
           { text: "Mac", link: "/notes/mac" },
           { text: "Windows", link: "/notes/windows" },
           { text: "Tips", link: "/notes/tips" },
-          { text: "计算机科学", link: "/notes/computer_science" },
+          { text: "系统与硬件", link: "/notes/sys_hardware" },
           { text: "命令行工具", link: "/notes/cli_tools" },
           { text: "软件推荐", link: "/notes/software" },
           { text: "软件使用指南", link: "/notes/app_guides" },
@@ -111,6 +112,7 @@ export default defineConfig({
                 items: [
                   { text: "PHP", link: "/backend/php/" },
                   { text: "Python", link: "/backend/python/" },
+                  { text: "C++", link: "/backend/c++/" },
                   { text: "Java", link: "/backend/java" },
                 ],
               },
@@ -126,7 +128,7 @@ export default defineConfig({
               { text: "Mac", link: "/notes/mac" },
               { text: "Windows", link: "/notes/windows" },
               { text: "Tips", link: "/notes/tips" },
-              { text: "Computer Science", link: "/notes/computer_science" },
+              { text: "Sys-Hardware", link: "/notes/sys_hardware" },
               { text: "CliTools", link: "/notes/cli_tools" },
               { text: "App Recommend", link: "/notes/software" },
               { text: "App Guides", link: "/notes/app_guides" },

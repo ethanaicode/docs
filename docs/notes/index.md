@@ -10,7 +10,7 @@
 
 - [Tips](./tips)
 
-- [计算机科学](./computer_science)
+- [计算机系统与硬件](./sys_hardware)
 
 - [Command-Line Tools](./cli_tools)
 

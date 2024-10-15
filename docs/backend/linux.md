@@ -1010,6 +1010,24 @@ tar -xzvf archive.tar.gz -C /path/to/extract
 
 要注意参数`-z`表示使用 gzip 压缩，如果是其它格式的压缩文件，可以使用`-j`（bzip2）或者`-J`（xz）。
 
+**macOS 上可以使用 zip 命令**
+
+```bash
+zip -r archive.zip /path/to/directory
+```
+
+- `-r` 递归压缩
+
+  如果是单文件，可以不用加`-r`参数。如：`zip archive.zip file1 file2 file3`
+
+- 解压缩可以用`unzip`命令
+
+  ```bash
+   unzip archive.zip -d /path/to/extract
+  ```
+
+  - `-d` 参数指定解压缩目录
+
 #### 查找文件
 
 **查找文件/文件夹并进行排序**

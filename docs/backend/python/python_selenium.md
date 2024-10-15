@@ -133,6 +133,7 @@ action.move_to_element(element).perform()
 **常用方法**：
 
 - `move_to_element(element)` 移动鼠标到某个元素上
+- `move_by_offset(x, y)` 鼠标移动到相对当前位置的坐标
 - `pause(seconds)` 暂停
 - `click()` 单击鼠标左键
 - `double_click()` 双击鼠标左键
@@ -155,6 +156,33 @@ action.perform()
 
 ```python
 action.reset_actions()
+```
+
+#### 键盘
+
+**键盘操作**：
+
+可以通过`send_keys`方法模拟键盘输入。
+
+```python
+element.send_keys('text')
+```
+
+**键盘事件**：
+
+可以通过`send_keys`方法模拟键盘事件。
+
+```python
+from selenium.webdriver.common.keys import Keys
+
+element.send_keys(Keys.ENTER)
+```
+
+还可以组合键盘事件，比如`Ctrl+A`全选：
+
+```python
+element.send_keys(Keys.CONTROL + 'a')
+element.send_keys(Keys.BACKSPACE)
 ```
 
 ### Waits 等待
@@ -236,6 +264,116 @@ element = WebDriverWait(driver, 10).until(
 )
 ```
 
+## Exceptions 异常
+
+异常都可以通过`from selenium.common.exceptions import *`导入。
+
+### WebDriverException
+
+`WebDriverException` 是 Selenium 的基本异常类，它是所有 Selenium 异常的基类。
+
+### TimeoutException
+
+当设置的等待时间超时时，会抛出`TimeoutException`异常。
+
+不管是隐式等待还是显式等待，只要等待时间超过了设置的时间，就会抛出这个异常。
+
+```python
+from selenium.common.exceptions import TimeoutException
+
+try:
+    element = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID, 'element_id'))
+    )
+except TimeoutException:
+    print('等待超时')
+```
+
+### NoSuchElementException
+
+当查找元素时没有找到元素，会抛出`NoSuchElementException`异常。
+
+```python
+from selenium.common.exceptions import NoSuchElementException
+
+try:
+    element = driver.find_element(By.ID, 'element_id')
+except NoSuchElementException:
+    print('元素未找到')
+```
+
+### ElementClickInterceptedException
+
+这个错误发生在当尝试点击元素，元素被其他元素遮挡时。
+
+在 Selenium 点击元素前，会先检查元素是否可见，是否被遮挡，能否被点击。
+
+如果元素被遮挡，会抛出`ElementClickInterceptedException`异常。
+
+```python
+from selenium.common.exceptions import ElementClickInterceptedException
+
+try:
+    element.click()
+except ElementClickInterceptedException:
+    print('元素被遮挡')
+```
+
+**如何解决**：
+
+用显式等待等待元素可被点击。
+
+```python
+element = WebDriverWait(driver, 10).until(
+    EC.element_to_be_clickable((By.ID, 'element_id'))
+)
+```
+
+### ElementNotInteractableException
+
+当元素不可交互时，会抛出`ElementNotInteractableException`异常。
+
+这通常发生在元素被隐藏或者被禁用时。
+
+```python
+from selenium.common.exceptions import ElementNotInteractableException
+
+try:
+    element.click()
+except ElementNotInteractableException:
+    print('元素不可交互')
+```
+
+### StaleElementReferenceException
+
+当元素已经不再附加到 DOM 上时，会抛出`StaleElementReferenceException`异常。
+
+这通常发生在元素被删除或者页面被刷新后。
+
+```python
+from selenium.common.exceptions import StaleElementReferenceException
+
+try:
+    element.click()
+except StaleElementReferenceException:
+    print('元素已经不再附加到 DOM 上')
+```
+
+### InvalidSessionIdException
+
+当会话 ID 无效时，会抛出`InvalidSessionIdException`异常。
+
+这通常发生在你试图关闭或者切换到一个无效的会话时。
+
+```python
+from selenium.common.exceptions import InvalidSessionIdException
+
+try:
+    driver.close()
+except InvalidSessionIdException:
+    print('会话 ID 无效')
+```
+
 ## webdriver-manager
 
 `webdriver-manager` 是一个用于管理 WebDriver 驱动的工具，可以自动下载和更新 WebDriver 驱动。
@@ -298,3 +436,5 @@ os.environ['WDM_SSL_VERIFY'] = '0'
 ## 实践经验和补充
 
 - `ChromeDriver` 并不一定会支持所有的中文字符，如果`send_keys`方法无法输入中文，可以尝试使用`execute_script`方法执行 JavaScript 代码，或者在输入前对内容进行筛选。
+
+- 如果不希望报错，可以使用`find_elements`方法，如果没有匹配的元素，它会返回一个空列表。
