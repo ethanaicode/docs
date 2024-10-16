@@ -886,33 +886,55 @@ Linux example.com 5.4.0-65-generic #73-Ubuntu SMP Mon Jan 18 17:25:17 UTC 2021 x
 
 ### 文件相关
 
-#### 查找大文件和日志
+我们可以结合多个命令来完成一些复杂的操作，比如查找大文件、合并文件、创建多个文件等。
 
-第一种方式是使用`du`命令查找大文件，`du`命令用于查看文件和目录的磁盘使用情况。
+#### 查找大文件并按照体积排序
+
+**方法一、使用 du 命令**
+
+`du`命令用于查看文件和目录的磁盘使用情况。
+
+假设我们想查找指定目录下最大的 10 个文件和目录，可以使用以下命令：
 
 ```bash
 du -ah /path/to/directory | sort -rh | head -n 10
 ```
 
-这条命令用于查找指定目录下最大的 10 个文件和目录。`du -ah /path/to/directory` 用于查看指定目录下所有文件和目录的大小，`sort -rh` 用于按照文件大小逆序排序，`head -n 10` 用于显示前 10 行。
+- `du -ah /path/to/directory` 用于查看指定目录下所有文件和目录的大小
 
-第二种方式是使用`find`命令查找大文件，`find`命令用于查找文件和目录。
+- `sort -rh` 用于按照文件大小逆序排序
+
+- `head -n 10` 用于显示前 10 行。
+
+**方法二、使用 find 命令**
+
+`find`命令用于查找文件和目录。
+
+假设我们想查找指定目录下大于 100MB 的文件，可以使用以下命令：
 
 ```bash
 find /path/to/directory -type f -size +100M -print0 | xargs -0 ls -lh | awk '{ print $9 ": " $5 }'
 ```
 
-这条命令用于查找指定目录下大于 100MB 的文件。`find /path/to/directory -type f -size +100M -print0` 用于查找大于 100MB 的文件，`xargs -0 ls -lh` 用于显示文件的详细信息，`awk '{ print $9 ": " $5 }'` 用于显示文件名和大小。
+- `find /path/to/directory -type f -size +100M -print0` 用于查找大于 100MB 的文件
 
-或者：
+- `xargs -0 ls -lh` 用于显示文件的详细信息
+
+- `awk '{ print $9 ": " $5 }'` 用于显示文件名和大小。
+
+如果要求不高，我们可以使用以下命令：
 
 ```bash
-find /path/to/directory -type f -size +20M -print0 | xargs -0 du -h | sort -nr
+find /path/to/directory -type f -size +100M -print0 | xargs -0 du -h | sort -nr
 ```
 
-这条命令用于查找指定目录下大于 20MB 的文件。`find /path/to/directory -type f -size +20M -print0` 用于查找大于 20MB 的文件，`xargs -0 du -h` 用于显示文件的大小，`sort -nr` 用于按照文件大小逆序排序。
+- `xargs -0 du -h` 用于显示文件的大小
 
-还可以使用`ncdu`命令查找大文件，`ncdu` 是一个交互式的磁盘使用情况分析工具，需要安装。
+- `sort -nr` 用于按照文件大小逆序排序。
+
+**方法三、使用 ncdu 命令**
+
+`ncdu` 是一个交互式的磁盘使用情况分析工具，需要安装。
 
 ```bash
 ncdu /path/to/directory

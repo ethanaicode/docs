@@ -88,7 +88,7 @@ npm 使用语义化版本号（Semantic Versioning）规范来管理包的版本
     "nodemon": "^2.0.7"
   },
   "author": "Your Name",
-  "license": "ISC
+  "license": "ISC"
 }
 ```
 

@@ -10,10 +10,12 @@
 
 - [Vim](./vim)
 
-## Languages
+## Programming
 
 - [PHP](./php/)
 
 - [Python](./python/)
+
+- [C++](./cpp/)
 
 - [Java](./java)

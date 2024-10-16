@@ -18,4 +18,6 @@
 
 - [App Guides](./app_guides)
 
+- [语言学习](./language/)
+
 - [Emoji](./emoji)
