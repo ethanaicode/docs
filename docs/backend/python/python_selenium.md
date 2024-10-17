@@ -44,6 +44,14 @@
 
   由于它没找到元素时不会抛出异常，所以可以用来判断元素是否存在，非常方便。
 
+- `shadow_host.shadow.root` 查找 Shadow DOM 元素（该方法要求 Selenium 4.0+）
+
+  通过`shadow_host.shadow.root`可以获取 Shadow DOM 的根节点，然后再通过`find_element`方法查找元素。
+
+  `shadow_host` 是 Shadow DOM 的宿主元素，需要先通过`find_element`方法找到宿主元素
+
+  _实测找到根节点后，不能直接使用 By.XPATH 查找宿主元素，会报错误的 locator ，不知道是不是存在 BUG，可以使用 By.CSS_SELECTOR_
+
 #### Interaction 网页元素交互
 
 目前主要有 3 个交互方法：

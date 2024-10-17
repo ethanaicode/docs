@@ -2,24 +2,6 @@
 
 # HTML
 
-### HTML APIs
-
-#### [Web Storage](https://www.w3schools.com/html/html5_webstorage.asp)
-
-通过 Web Storage，网页可以在本地存储数据（类似于 Cookie，但是更安全，更快）。
-
-##### The localStorage Object
-
-对象存储可以一直使用，直到用户清除浏览器缓存。
-
-```js
-// 设置
-localStorage.setItem("lastname", "Smith");
-
-// 获取
-document.getElementById("result").innerHTML = localStorage.getItem("lastname");
-```
-
 # CSS
 
 文字内容元素存在默认宽度`min-content`，宽度由内容中最长单词来决定（避免单词被拆开）。
@@ -308,7 +290,56 @@ Object.defineProperty(navigator, "userAgent", {
 
 ## Dom 操作 (Document Object Model)
 
-### 实例方法 (Instance methods)
+> 参考：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Document)
+
+### Shadow DOM
+
+> 参考：[MDN 文档](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM)
+
+Shadow DOM 是一种 JavaScript API，用来将 DOM 树的一部分封装起来，使其成为独立的“子树”。这个子树与外部的 DOM 隔离，外部的样式和 JavaScript 无法直接访问或影响它，反之亦然。这种封装提供了一种方式来创建自定义元素，使得其内部结构和行为不受外部环境的干扰。
+
+在使用 Vue.js、React 等现代框架时，常需要进行动态内容的渲染。通过 Shadow DOM，可以将动态渲染的内容封装起来，避免与页面其他部分的冲突。
+
+另外，在样式隔离、Web 组件封装、定制化 UI 等方面，Shadow DOM 也有着广泛的应用。
+
+_视频号的管理后台 --> 达人广场界面的内容，都是通过 Shadow Dom 来实现的_
+
+**Shadow DOM 的基础操作**
+
+- `element.shadowRoot`: 获取元素的 Shadow DOM 根节点。
+
+  ```js
+  let customElement = document.querySelector("custom-element");
+  let shadowRoot = customElement.shadowRoot;
+  ```
+
+- `element.attachShadow()`: 创建一个 Shadow DOM 根节点。
+
+  里面有一个参数，可以是一个对象，用来设置 Shadow DOM 的模式：
+
+  - `{ mode: "open" }` 表示可以通过 `element.shadowRoot` 访问 Shadow DOM。
+
+  - `{ mode: "closed" }` 表示不可以通过 `element.shadowRoot` 访问 Shadow DOM。
+
+## Web APIs
+
+> 完整的列表可以参考：[MDN 文档](https://developer.mozilla.org/en-US/docs/Web/API)
+
+### [Web Storage](https://www.w3schools.com/html/html5_webstorage.asp)
+
+通过 Web Storage，网页可以在本地存储数据（类似于 Cookie，但是更安全，更快）。
+
+### Node
+
+`Node` 对象表示文档中的节点。
+
+#### getElementById
+
+返回对拥有指定 ID 的第一个对象的引用。
+
+```js
+document.getElementById("myId");
+```
 
 #### querySelector
 
@@ -318,14 +349,34 @@ Object.defineProperty(navigator, "userAgent", {
 document.querySelector(".auxo-table-body");
 ```
 
-> 参考：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Document)
+可以组合起来使用，比如我想要获取某个元素下的某个子元素：
 
-## Web APIs
+```js
+document.querySelector("div.flex.flex-col div.flex.flex-row span");
+```
 
-为网页提供了许多功能，比如操作浏览器历史、操作浏览器的 Cookie、操作浏览器的本地存储等。
+#### querySelectorAll
 
-### navigator
+返回文档中匹配指定 CSS 选择器的所有元素。
 
-`navigator` 对象包含有关浏览器的信息。
+```js
+document.querySelectorAll("tbody tr");
+```
 
-在控制台中输入 `navigator` 可以查看浏览器的相关信息。
+### Navigator
+
+`Navigator` 对象包含有关浏览器的信息。
+
+在控制台中输入 `Navigator` 可以查看浏览器的相关信息。
+
+#### The localStorage Object
+
+对象存储可以一直使用，直到用户清除浏览器缓存。
+
+```js
+// 设置
+localStorage.setItem("lastname", "Smith");
+
+// 获取
+document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+```
