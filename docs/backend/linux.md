@@ -117,6 +117,8 @@
 
   **tail filename**: 查看文件尾部内容
 
+  - `-n` 指定行数（如：`tail -n 10 filename`，查看文件尾部 10 行）
+
 - **wc filename**: 统计文件的行数、字数、字符数
 
   `-l` 只显示行数
@@ -421,6 +423,10 @@ crontab 是用来让使用者在固定时间或固定间隔执行程序之用，
 - `||`：逻辑或
 
   只有当第一个命令执行失败后，才会执行第二个命令。
+
+- `>`：重定向
+
+  将命令的输出重定向到文件。(可以实现输出到文件的操作)
 
 - `\`：转义字符
 
@@ -939,6 +945,17 @@ find /path/to/directory -type f -size +100M -print0 | xargs -0 du -h | sort -nr
 ```bash
 ncdu /path/to/directory
 ```
+
+#### 保留日志最后 N 行，减小日志文件大小
+
+有时日志文件会变得非常大，可以使用`tail`命令保留日志文件的最后 N 行，来实现减小日志文件大小的目的。
+
+```bash
+tail -n 1000 logfile > logfile.new
+mv logfile.new logfile
+```
+
+_有时候空间并不会立刻释放出来，所以考虑重启服务或者服务器来立即释放空间。_
 
 #### 使用 cat 合并追加文件
 
