@@ -1,6 +1,6 @@
 # 小技巧 Tips
 
-> 这里主要记录适合单独开一个文件的小技巧。
+> 这里主要记录不适合或者还不足以单独开一个文档的知识
 
 ## 开发实践
 
@@ -157,6 +157,55 @@ Xpath 是一种在 XML 文档中定位节点的语言，也可以用于 HTML 文
    //div[@class='content' and ./span[text()='添加商品']]
    ```
 
+## Markdown
+
+### 特殊自定义信息块
+
+类似于一种警告提醒弹窗，这一个特性并不是所有的 markdown 编辑器都会支持，支持的语法可能也不同
+
+**Typora** 使用了类似 Github 风格的语法，支持以下这些：
+
+_实测 VitePress 也都是支持的_
+
+> [!NOTE]
+> Highlights information that users should take into account, even when skimming.
+
+> [!TIP]
+> Optional information to help a user be more successful.
+
+> [!IMPORTANT]
+> Crucial information necessary for users to succeed.
+
+> [!WARNING]
+> Critical content demanding immediate user attention due to potential risks.
+
+> [!CAUTION]
+> Negative potential consequences of an action.
+
+**VitePress** 的语法是：
+
+_效果需要在 VitePress 网站上查看_
+
+::: info
+This is an info box.
+:::
+
+::: tip
+This is a tip.
+:::
+
+::: warning
+This is a warning.
+:::
+
+::: danger
+This is a dangerous warning.
+:::
+
+::: details
+This is a details block.
+:::
+
 ## TeX/LaTeX
 
 TeX/LaTeX 是一种排版系统，广泛用于科学、数学和技术文档的书写。TeX 是基础排版系统，而 LaTeX 是基于 TeX 的一个宏包，提供了更高级的功能，使得文档的排版更简便。它们特别擅长处理复杂的数学公式和参考文献。
@@ -209,10 +258,30 @@ $$
 
 万用表有两个探针，一个红色，一个黑色。在测量电路时，红色探针连接正极，黑色探针连接负极。
 
+直流电一般使用 $V$ 档，交流电一般使用 $V$~ 档。
+
+如果测量时显示的 0L，表示电路断路，或者超过了测量范围。
+
 **检测电路通路**
 
-档位通常使用表示`Ω`或者类似 WIFI 的符号。
+档位通常使用表示 $Ω$ 或者类似 WIFI 的符号。
 
 这个时候把两个探针连在一起，就可以听到蜂鸣声，表示两个探针是通路的。
 
 之后就可以用这个方法来检测电路是否通路。
+
+如果是负数，表示两个探针反了，可以利用这个方法来判断电路的正负极。
+
+**测量电压**
+
+在测量电压时，需要选择合适的档位，一般选择最接近待测电压的档位。
+
+电池的电压一般在 1.5V 左右，如果低于 1.4V，可能就需要更换电池了。
+
+家用电压一般在 220V 左右。
+
+**测量电流**
+
+在测量电流时，需要将电流表插入电路中（可能需要破坏），一般选择最大电流档位，然后逐渐减小档位，直到显示合适的电流。
+
+知道电流后，可以根据 $P=V×I$ 来计算功率。

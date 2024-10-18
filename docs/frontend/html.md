@@ -361,7 +361,33 @@ _视频号的管理后台 --> 达人广场界面的内容，都是通过 Shadow 
 
 `Node` 对象表示文档中的节点。
 
-#### getElementById
+#### 节点属性
+
+- `nodeName`: 返回节点的名称。
+
+- `textContent`: 设置或返回节点的文本内容。
+
+- `innerText`: 设置或返回节点及其后代的文本内容。
+
+- `innerHTML`: 设置或返回节点的 HTML 内容。
+
+#### evaluate()
+
+> evaluate(xpathExpression, contextNode, namespaceResolver, resultType, result)
+
+evaluate() 方法计算 XPath 表达式，并返回结果。
+
+```js
+document.evaluate(
+  "//div",
+  document,
+  null,
+  XPathResult.FIRST_ORDERED_NODE_TYPE,
+  null
+).singleNodeValue;
+```
+
+#### getElementById()
 
 返回对拥有指定 ID 的第一个对象的引用。
 
@@ -369,7 +395,7 @@ _视频号的管理后台 --> 达人广场界面的内容，都是通过 Shadow 
 document.getElementById("myId");
 ```
 
-#### querySelector
+#### querySelector()
 
 返回文档中匹配指定 CSS 选择器的一个元素。
 
@@ -383,7 +409,7 @@ document.querySelector(".auxo-table-body");
 document.querySelector("div.flex.flex-col div.flex.flex-row span");
 ```
 
-#### querySelectorAll
+#### querySelectorAll()
 
 返回文档中匹配指定 CSS 选择器的所有元素。
 

@@ -42,6 +42,8 @@
 
 - **logging** = Python 内置的日志模块。
 
+- **importlib** = Python 内置的模块导入模块。
+
 ### os 操作系统接口
 
 Python 内置了一个操作系统接口模块 `os`，可以用于处理文件和目录、执行系统命令等操作。
@@ -477,4 +479,32 @@ logger.debug('This is a debug message')
 
 # 关闭处理器
 ch.close()
+```
+
+### importlib 模块导入
+
+Python 内置了一个模块导入模块 `importlib`，可以用于动态导入模块。
+
+**主要方法**
+
+- `importlib.import_module()`: 动态导入模块。
+
+  可以用来实现插件系统、动态加载模块、延迟加载等功能。
+
+- `importlib.reload()`: 重新加载模块。
+
+  它的主要作用是在程序运行时重新加载某个模块，以便在修改代码后不需要重新启动整个程序，就可以看到新代码的效果。
+
+  它只能重新加载已导入的模块，且不会重置模块的状态，只是重新执行模块的代码。
+
+**使用方法**
+
+```python
+
+import importlib
+
+module_name = 'math'  # 可以根据用户输入或配置动态指定
+module = importlib.import_module(module_name)
+
+print(module.sqrt(16))
 ```
