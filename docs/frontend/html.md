@@ -235,25 +235,53 @@ console.log(map1);
 // Expected output: Array [2, 8, 18, 32]
 ```
 
+## Window
+
+> 参考：[MDN 文档](https://developer.mozilla.org/en-US/docs/Web/API/Window)
+
+### 滚动相关 (Scroll)
+
+- `window.scrollX`: 获取窗口的水平滚动位置。
+
+- `window.scrollY`: 获取窗口的垂直滚动位置。
+
+- `window.scrollTo()`: 滚动到指定的坐标。
+
+  ```js
+  window.scrollTo(0, 100);
+  ```
+
+- `window.scrollBy()`: 滚动指定的距离, 相对于当前的滚动位置。
+
+  ```js
+  window.scrollBy(0, 100);
+  ```
+
+**平滑滚动**
+
+如果想要在页面滚动时更加平滑，可以使用 `scroll-behavior` 属性：
+
+```css
+html {
+  scroll-behavior: smooth;
+}
+```
+
 ## 元素 (Element)
+
+> 参考：[MDN 文档](https://developer.mozilla.org/en-US/docs/Web/API/Element)
 
 ### 滚动相关 (Scroll)
 
 - `element.scrollTop`：获取或设置一个元素的内容垂直滚动的像素数。
+
+  滚动到指定位置: `element.scrollTop = 100;`
 
 - `element.scrollHeight`：获取元素的内容高度，包括溢出的内容。
 
 - `element.scrollLeft`：获取或设置一个元素的内容水平滚动的像素数。
 
 - `element.scrollIntoView()`：使元素滚动到可见区域。
-
-还可以使用 `scrollTop` 属性来指定滚动的位置：
-
-```js
-element.scrollTop = 100;
-```
-
-> 参考：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Element)
 
 ## 内置对象 (Built-in Objects)
 
