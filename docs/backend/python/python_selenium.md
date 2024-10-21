@@ -441,6 +441,42 @@ import os
 os.environ['WDM_SSL_VERIFY'] = '0'
 ```
 
+### 源码解读分析
+
+**目录结构**
+
+- 在 webdriver_manager 根目录下放着的是各个浏览器的驱动管理器，比如 chrome.py、firefox.py 等。
+
+  这些驱动管理器都继承自 `core/manager.py` 中的 `DriverManager`类。
+
+  驱动管理器用于暴露一些方法，比如 `install` 方法用于下载驱动，`get_os_type` 用于获取操作系统类型等。
+
+- 在 core 目录下，存放着核心类，包括 download_manager.py、file_manager.py 等。
+
+  - `download_manager.py` 下载管理器抽象类
+
+  - `http.py` HTTP 下载客户端，默认的下载管理器实现，如果出现网络问题，可以自定义下载管理器。
+
+- 在 drivers 目录下，存放着各个浏览器的驱动管理实现，比如 chrome.py、firefox.py 等。
+
+  它们都是继承自 `core/driver.py` 中的 `Driver` 类。
+
+  驱动管理类为具体的驱动提供了一些方法，比如 `get_latest_release_version` 方法用于获取最新版本，`get_url_for_version_and_platform` 方法用于获取下载地址等。
+
+**ChromeDriver 类**
+
+文件位于：`drivers/chrome.py`，在这个文件中，可以了解 `ChromeDriver` 是如何被实现下载的。
+
+- `get_driver_download_url` 方法用于获取 ChromeDriver 的下载地址。
+
+  阅读源码发现，如果 Chrome 浏览器版本大于 115，会使用 `self.get_url_for_version_and_platform` 方法获取下载地址。
+
+  这个时候及时传进来 url 参数，也不会生效，而是直接使用了默认的下载地址。: \(
+
+  _猜测因为 115 版本前后的 url 地址是不同的，无法用同一个参数来控制，所以旧的 url 参数在这里就不生效了_
+
+- 可以重写一个 ChromeDriverManager 类，然后重写 get_driver_download_url 方法，来实现自定义下载地址。
+
 ## 实践经验和补充
 
 - `ChromeDriver` 并不一定会支持所有的中文字符，如果`send_keys`方法无法输入中文，可以尝试使用`execute_script`方法执行 JavaScript 代码，或者在输入前对内容进行筛选。
