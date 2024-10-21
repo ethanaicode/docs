@@ -5,19 +5,19 @@
 
 ## 电脑装机必备
 
-| 类别      | 推荐                                                                | 系统    | 费用 | 备注                                                        |
-| --------- | ------------------------------------------------------------------- | ------- | ---- | ----------------------------------------------------------- |
-| 浏览器    | [chrome](https://www.google.cn/chrome/?standalone=1&platform=win64) | Win/Mac |      |                                                             |
-| 视频播放  | [potplay](https://potplayer.daum.net/)                              | Win     |      |                                                             |
-| 图片查看  | [Honeyview · 蜂蜜浏览器](http://cn.bandisoft.com/honeyview/)        | Win     |      |                                                             |
-| 截图工具  | [Snipaste](https://www.snipaste.com/#)                              | Win/Mac |      | [-版本库-](https://bitbucket.org/liule/snipaste/downloads/) |
-| 压缩解压  | [bandizip](https://www.bandisoft.com/)                              | Win     |      | 6.25+ 收费                                                  |
-| 卸载工具  | [Geek Uninstaller](https://geekuninstaller.com/)                    | Win     |      |                                                             |
-| 卸载工具  | [AppCleaner](https://freemacsoft.net/appcleaner/)                   | Mac     |      |                                                             |
-| 文本编辑  | [Notepad++](https://notepad-plus-plus.org/downloads/)               | Win     |      |                                                             |
-| MD 编辑器 | [typora](https://www.shejibiji.com/archives/8450)                   | Win/Mac |      | 新版本开始收费                                              |
-| 快捷搜索  | [Listary](https://www.listary.com/)                                 | Win     |      | 双击 ctrl 搜索右键，方便的右键菜单                          |
-| ——        | [everything](https://www.voidtools.com/zh-cn/downloads/)            | Win     |      | 纯粹的快速搜索                                              |
+| 类别       | 推荐                                                         | 系统    | 费用 | 备注                                                        |
+| ---------- | ------------------------------------------------------------ | ------- | ---- | ----------------------------------------------------------- |
+| 浏览器     | [chrome](https://www.google.cn/chrome/?standalone=1&platform=win64) | Win/Mac |      |                                                             |
+| 视频播放   | [potplay](https://potplayer.daum.net/)                       | Win     |      |                                                             |
+| 图片查看   | [Honeyview · 蜂蜜浏览器](http://cn.bandisoft.com/honeyview/) | Win     |      |                                                             |
+| 截图工具   | [Snipaste](https://www.snipaste.com/#)                       | Win/Mac |      | [-版本库-](https://bitbucket.org/liule/snipaste/downloads/) |
+| 压缩解压   | [bandizip](https://www.bandisoft.com/)                       | Win     |      | 6.25+ 收费                                                  |
+| 卸载工具   | [Geek Uninstaller](https://geekuninstaller.com/)             | Win     |      |                                                             |
+| 卸载工具   | [AppCleaner](https://freemacsoft.net/appcleaner/)            | Mac     |      |                                                             |
+| 文本编辑   | [Notepad++](https://notepad-plus-plus.org/downloads/)        | Win     |      |                                                             |
+| MD 编辑器  | [typora](https://www.shejibiji.com/archives/8450)            | Win/Mac |      | 新版本开始收费                                              |
+| 快捷搜索   | [Listary](https://www.listary.com/)                          | Win     |      | 双击 ctrl 搜索右键，方便的右键菜单                          |
+| — 快捷搜索 | [everything](https://www.voidtools.com/zh-cn/downloads/)     | Win     |      | 纯粹的快速搜索                                              |
 
 ## 平面设计软件
 
@@ -97,14 +97,15 @@
 | 系统清理优化           | [CCleaner](https://www.ccleaner.com/zh-cn)                   | Win  |      | 226/年/台                        |
 | 硬盘分区及数据恢复软件 | [DiskGenius](https://www.diskgenius.cn/)                     | Win  |      |                                  |
 | 硬盘检测工具           | HD Tune Pro                                                  | Win  |      |                                  |
+| — 硬盘检测工具         | [Victoria](https://hdd.by/victoria/)                         | Win  | free |                                  |
 | 多窗口工具             | [Q-Dir](https://www.softwareok.com/?seite=Freeware/Q-Dir)    | Win  |      |                                  |
 | 微软官方系统安装       | [Win11 官方](https://www.microsoft.com/zh-cn/software-download/windows11/) | Win  |      | 创建 Windows 11 安装下载打开即可 |
 | 系统重装维护           | [微 PE 工具箱](https://www.wepe.com.cn/)                     | Win  |      |                                  |
-| ——                     | [FirPE 维护系统](https://firpe.cn/page-247)                  | Win  |      |                                  |
+| — 系统重装维护         | [FirPE 维护系统](https://firpe.cn/page-247)                  | Win  |      |                                  |
 | U盘启动工具            | [Rufus](https://rufus.ie/zh/)                                | Win  |      | 开源                             |
-| ——                     | [Ventoy](https://www.ventoy.net)                             | Win  |      |                                  |
+| — U盘启动工具          | [Ventoy](https://www.ventoy.net)                             | Win  |      |                                  |
 | 系统镜像 MSDN 下载     | [I Tell You](https://msdn.itellyou.cn/)                      | Win  |      |                                  |
-| ——                     | [I Tell You 新版](https://next.itellyou.cn/)                 | Win  |      |                                  |
+| — 系统镜像 MSDN 下载   | [I Tell You 新版](https://next.itellyou.cn/)                 | Win  |      |                                  |
 
 ## 游戏娱乐工具
 
