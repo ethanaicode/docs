@@ -263,6 +263,53 @@ b = B()
 b.hello()
 ```
 
+### Python 的错误处理
+
+#### 异常处理
+
+Python 的错误处理机制是通过 `try...except...else...finally` 语句来实现的。
+
+- `try`：尝试执行代码块，如果出现异常，则跳转到 `except` 语句块
+
+- `except`：捕获异常，并处理异常
+
+- `else`：如果没有异常，则执行 `else` 语句块
+
+- `finally`：无论是否有异常，都会执行 `finally` 语句块
+
+```python
+try:
+    # 尝试执行代码块
+    print(1 / 0)
+except ZeroDivisionError:
+    # 捕获异常
+    print('ZeroDivisionError')
+else:
+    # 没有异常
+    print('No exception')
+finally:
+    # 无论是否有异常
+    print('Finally')
+```
+
+#### 自定义异常
+
+Python 的异常是通过继承 `Exception` 类来实现的，你可以通过继承 `Exception` 类来定义自己的异常。
+
+```python
+class MyError(Exception):
+    def __init__(self, message):
+        self.message = message
+
+    def __str__(self):
+        return self.message
+
+try:
+    raise MyError('My error')
+except MyError as e:
+    print(e)
+```
+
 ### Python 的模块和包
 
 **from ... import ...**

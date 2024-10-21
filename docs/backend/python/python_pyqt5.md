@@ -249,11 +249,48 @@ PyQt5 提供了几种布局管理器，如 `QHBoxLayout`、`QVBoxLayout`、`QGri
 
 - `currentIndexChanged.connect(slot)`：连接下拉框的选中事件到槽函数。
 
+### QTimer
+
+`QTimer` 是 PyQt5 中用于定时器的类。它可以用于定时执行任务、延时执行任务、定时刷新界面等。
+
+**常用的方法**
+
+- `start(interval)`：启动定时器，设置定时器的时间间隔（毫秒）。
+
+- `stop()`：停止定时器。
+
+- `timeout.connect(slot)`：连接定时器的超时事件到槽函数。
+
+- `setSingleShot(True)`：设置定时器为单次触发模式。(也就是超时只会触发一次，否则会一直触发)
+
+- `disconnect()`：断开定时器的连接。
+
+  如果之前已经连接了槽函数，可以通过 `disconnect()` 方法断开连接，
+
+  特别是连接了 lambda 表达式的时候，一定要记得断开连接，否则可能会导致多个定时器同时触发。
+
+- `isActive()`：判断定时器是否处于活动状态。
+
+**基础用法**
+
+```python
+from PyQt5.QtCore import QTimer
+
+timer = QTimer()
+timer.timeout.connect(on_timeout)
+timer.start(1000)  # 每隔 1 秒触发一次
+
+def on_timeout():
+    print('Timeout')
+
+app.exec_()
+```
+
 ### QUrl URL
 
 `QUrl` 是 PyQt5 中用于处理 URL 的类。它提供了一些方法，用于解析、构建和操作 URL。
 
-基本用法：
+**基础用法**
 
 ```python
 url = QUrl('https://www.example.com')
