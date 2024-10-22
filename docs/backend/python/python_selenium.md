@@ -1,8 +1,10 @@
 # Selenium
 
 > 官方文档：[https://www.selenium.dev/documentation/en/](https://www.selenium.dev/documentation/en/)
-
-> ChromeDriver 下载地址：[https://googlechromelabs.github.io/chrome-for-testing/files](https://googlechromelabs.github.io/chrome-for-testing/files)
+>
+> ChromeDriver 下载地址：[chrome-for-testing/files](https://googlechromelabs.github.io/chrome-for-testing/files)
+>
+> ChromeDriver 最新版本及下载 json：[Known Good Version](https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json)
 
 ## WebDriver 驱动
 
