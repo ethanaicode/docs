@@ -29,6 +29,8 @@ divs = soup.find('div', class_='content-block data-overview-dashboard')
 
 - **select** 使用 CSS 选择器来查找元素。
 
+- **select_one** 使用 CSS 选择器来查找第一个符合条件的元素。
+
 - **get** 获取元素的属性。
 
 ### CSS 选择器

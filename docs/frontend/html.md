@@ -11,6 +11,7 @@
 ### CSS 属性
 
 - `letter-spacing` 字母间距
+
 - `word-spacing` 单词间距
 
 ### CSS 选择器
@@ -22,17 +23,42 @@
 **组合器**
 
 - `A B` 选择前一个元素的后代节点（A 的子元素 B，不一定是直接子元素）
+
 - `A > B` 选择前一个元素的直接子代节点（A 的子元素 B）
+
 - `A + B` 选择前一个元素的相邻兄弟节点（A 和 B 共享同一个父元素，且 B 紧跟在 A 后面，只选择第一个）
+
 - `A ~ B` 选择前一个元素之后的所有兄弟节点（A 和 B 共享同一个父元素，且 B 在 A 之后）
 
 **伪类**
 
 - `:hover` 鼠标悬停
+
 - `:active` 激活状态
+
 - `:focus` 获得焦点
+
 - `:first-child` 第一个子元素
+
   父节点下的第一个子元素，且第一个元素类型为指定类型，如果不是指定类型，不会生效）
+
+- `:last-child` 最后一个子元素
+
+- `:nth-child(n)` 第 n 个子元素
+
+- `:nth-child(odd)` 奇数子元素
+
+- `:nth-child(even)` 偶数子元素
+
+- `:nth-last-child(n)` 倒数第 n 个子元素
+
+- `:first-of-type` 第一个指定类型的子元素
+
+  父节点下的第一个指定类型的子元素，它不一定是第一个子元素，只要是第一个指定类型的子元素即可。
+
+- `:last-of-type` 最后一个指定类型的子元素
+
+- `:nth-of-type(n)` 第 n 个指定类型的子元素
 
   ```html
   <div>
@@ -44,26 +70,28 @@
     <h2>此文本未被选中：它不是一个 `p`。</h2>
     <p>此文本未被选中。</p>
   </div>
+  <!-- 选中第一个 `p` 元素 -->
   <style>
     p:first-child {
       color: red;
     }
   </style>
+  <!-- 选中第二个 `div` 元素 -->
+  <style>
+    div:nth-of-type(2) {
+      color: red;
+    }
+  </style>
   ```
-
-- `:last-child` 最后一个子元素
-- `:nth-child(n)` 第 n 个子元素
-- `:nth-child(odd)` 奇数子元素
-- `:nth-child(even)` 偶数子元素
-- `:nth-last-child(n)` 倒数第 n 个子元素
-- `:first-of-type` 第一个指定类型的子元素
-  父节点下的第一个指定类型的子元素，它不一定是第一个子元素，只要是第一个指定类型的子元素即可。
 
 **伪元素**
 
 - `::before` 在元素内容之前插入内容
+
 - `::after` 在元素内容之后插入内容
+
 - `::first-line` 选择元素的第一行
+
 - `::first-letter` 选择元素的第一个字母
 
 **优先级**
@@ -85,8 +113,11 @@
 定义主轴的方向，可以取 4 个值：
 
 - `row`
+
 - `row-reverse`
+
 - `column`
+
 - `column-reverse`
 
 ##### flex-warp
@@ -94,7 +125,9 @@
 用来实现多行 Flex 容器。
 
 - `nowrap`: 默认值，不会换行
+
 - `warp`: 允许换行
+
 - `wrap-reverse`: 不常用，了解即可
 
 #### Flex 元素上的属性
@@ -144,11 +177,17 @@
 使元素在主轴方向上对齐。
 
 - `stretch`
+
 - `flex-start`
+
 - `flex-end`
+
 - `center`
+
 - `space-between`: 把元素排列好之后的剩余空间拿出来，平均分配到元素之间，所以元素之间间隔相等
+
 - `space-around`: 使每个元素的左右空间相等（头尾会共用一个空间距离）
+
 - `space-evenly`: 使每个元素的左右空间相等（包括头尾也是一致的）
 
 ##### align-items
@@ -156,9 +195,13 @@
 可以使元素在交叉轴方向对齐。
 
 - `stretch`: 默认值，拉伸到最高元素的高度
+
 - `flex-start`: 使 flex 元素按 flex 容器的顶部对齐
+
 - `flex-end`: 使 flex 元素按 flex 容器的底部对齐
+
 - `center`: 使 flex 元素按 flex 容器的中心对齐
+
 - `baseline`: 和 start 类似，但是会以文字的基线对齐（这意味着文字大小不同时，会和 start 有明显不同）
 
 ##### align-content
@@ -166,11 +209,17 @@
 适用于允许换行后，如何在交叉轴上分布内容。
 
 - `normal`: 默认值
+
 - `flex-start`: 交叉轴的开始对齐
+
 - `flex-end`: 交叉轴的结束对齐
+
 - `center`
+
 - `space-between`
+
 - `space-around`
+
 - `space-evenly`
 
 ##### [order](https://developer.mozilla.org/zh-CN/docs/Web/CSS/order)
@@ -362,6 +411,20 @@ _视频号的管理后台 --> 达人广场界面的内容，都是通过 Shadow 
 `Node` 对象表示文档中的节点。
 
 #### 节点属性
+
+对于任何获取的元素，你可以通过点操作符`.`来访问它的属性。
+
+比如想要获取 img 元素的 src 属性，可以这样：
+
+```js
+document.querySelector("img").src;
+```
+
+**常用的节点属性有：**
+
+- `childNodes`: 返回节点的子节点集合，作为 NodeList 对象。
+
+- `firstChild`: 返回节点的第一个子节点。
 
 - `nodeName`: 返回节点的名称。
 

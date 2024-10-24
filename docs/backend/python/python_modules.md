@@ -44,6 +44,54 @@
 
 - **importlib** = Python 内置的模块导入模块。
 
+### urllib HTTP 请求处理
+
+Python 内置了一个 HTTP 请求处理模块 `urllib`，可以用于发送 HTTP 请求、处理响应等操作。
+
+**主要类**
+
+- `urllib.request.Request`: HTTP 请求类。
+
+- `urllib.request.urlopen()`: 发送 HTTP 请求。
+
+- `urllib.parse.urlencode()`: 编码 URL 参数。
+
+- `urllib.parse.urlparse()`: 解析 URL。
+
+- `urlib.parse.parse_qs()`: 解析 URL 参数。
+
+- `urllib.parse.quote()`: 编码 URL。
+
+- `urllib.parse.unquote()`: 解码 URL。
+
+**使用方法**
+
+```python
+import urllib.request
+
+# 发送一个 GET 请求
+response = urllib.request.urlopen('https://www.example.com')
+print(response.read())
+```
+
+**参考案例**
+
+- 解析 URL 及参数
+
+  ```python
+  from urllib.parse import urlparse, parse_qs
+
+  url = 'https://www.example.com/?name=John&age=30'
+  # 解析 URL
+  parsed_url = urlparse(url)
+  print(parsed_url)
+  # 获取参数值
+  # 返回的是一个字典，包含参数名和参数值，参数值是一个列表
+  query_params = parse_qs(parsed_url.query)
+  name = query_params.get('name', [''])[0]
+  print(name)
+  ```
+
 ### os 操作系统接口
 
 Python 内置了一个操作系统接口模块 `os`，可以用于处理文件和目录、执行系统命令等操作。
