@@ -112,6 +112,18 @@ element.is_selected()
 
 ### Interactions 浏览器交互
 
+#### Cookies
+
+- `get_cookies()` 获取所有的 cookies
+
+- `get_cookie(name)` 获取指定名称的 cookie
+
+- `add_cookie(cookie_dict)` 添加 cookie
+
+- `delete_cookie(name)` 删除指定名称的 cookie
+
+- `delete_all_cookies()` 删除所有的 cookies
+
 #### Windows 窗口
 
 **执行脚本代码**：
