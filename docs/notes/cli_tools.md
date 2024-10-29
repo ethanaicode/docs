@@ -150,18 +150,18 @@ iconutil -c icns icon.iconset
 
 ```bash
 mkdir icon.iconset &&
-magick app_icon@512.png -resize 512x512 icon.iconset/icon_512x512.png &&
-magick app_icon@512.png -resize 256x256 icon.iconset/icon_256x256.png &&
-magick app_icon@512.png -resize 128x128 icon.iconset/icon_128x128.png &&
-magick app_icon@512.png -resize 64x64 icon.iconset/icon_64x64.png &&
-magick app_icon@512.png -resize 32x32 icon.iconset/icon_32x32.png &&
-magick app_icon@512.png -resize 16x16 icon.iconset/icon_16x16.png &&
-magick app_icon@512.png -resize 1024x1024 icon.iconset/icon_512x512@2x.png &&
-magick app_icon@512.png -resize 512x512 icon.iconset/icon_256x256@2x.png &&
-magick app_icon@512.png -resize 256x256 icon.iconset/icon_128x128@2x.png &&
-magick app_icon@512.png -resize 128x128 icon.iconset/icon_64x64@2x.png &&
-magick app_icon@512.png -resize 64x64 icon.iconset/icon_32x32@2x.png &&
-magick app_icon@512.png -resize 32x32 icon.iconset/icon_16x16@2x.png
+magick input.png -resize 512x512 icon.iconset/icon_512x512.png &&
+magick input.png -resize 256x256 icon.iconset/icon_256x256.png &&
+magick input.png -resize 128x128 icon.iconset/icon_128x128.png &&
+magick input.png -resize 64x64 icon.iconset/icon_64x64.png &&
+magick input.png -resize 32x32 icon.iconset/icon_32x32.png &&
+magick input.png -resize 16x16 icon.iconset/icon_16x16.png &&
+magick input.png -resize 1024x1024 icon.iconset/icon_512x512@2x.png &&
+magick input.png -resize 512x512 icon.iconset/icon_256x256@2x.png &&
+magick input.png -resize 256x256 icon.iconset/icon_128x128@2x.png &&
+magick input.png -resize 128x128 icon.iconset/icon_64x64@2x.png &&
+magick input.png -resize 64x64 icon.iconset/icon_32x32@2x.png &&
+magick input.png -resize 32x32 icon.iconset/icon_16x16@2x.png
 ```
 
 #### 图片序列转动图

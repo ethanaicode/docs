@@ -2,6 +2,10 @@
 
 > 官方文档：[https://www.selenium.dev/documentation/en/](https://www.selenium.dev/documentation/en/)
 >
+> chromium 下载地址：[https://chromium.woolyss.com/](https://chromium.woolyss.com/)
+>
+> Chromium 官方下载：[https://www.chromium.org/](https://www.chromium.org/getting-involved/download-chromium/)
+>
 > ChromeDriver 下载地址：[chrome-for-testing/files](https://googlechromelabs.github.io/chrome-for-testing/files)
 >
 > ChromeDriver 最新版本及下载 json：[Known Good Version](https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json)
