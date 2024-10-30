@@ -6,9 +6,11 @@
 >
 > Chromium 官方下载：[https://www.chromium.org/](https://www.chromium.org/getting-involved/download-chromium/)
 >
-> ChromeDriver 下载地址：[chrome-for-testing/files](https://googlechromelabs.github.io/chrome-for-testing/files)
+> ChromeDriver 全版本 列表：[chrome-for-testing/files](https://googlechromelabs.github.io/chrome-for-testing/files)
 >
-> ChromeDriver 最新版本及下载 json：[Known Good Version](https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json)
+> ChromeDriver 全版本 json：[Known Good Version](https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json)
+>
+> 上面两个下载地址不仅仅有 ChromeDriver 的下载，也有 Chrome 浏览器的。
 
 ## WebDriver 驱动
 
@@ -437,26 +439,35 @@ driver = webdriver.Chrome(ChromeDriverManager().install())
 
 - `cache_valid_range` 缓存有效时间，默认为 1 天。
 
-  例：`driver_path = ChromeDriverManager(cache_valid_range=2).install()`（缓存有效时间为 2 天）
+  ```python
+  from webdriver_manager.chrome import ChromeDriverManager
+  from webdriver_manager.core.driver_cache import DriverCacheManager
 
-**WDM_LOCAL**
+  ChromeDriverManager("2.26", cache_manager=DriverCacheManager(valid_range=1)).install()
+  ```
 
-默认情况下，所有驱动程序都将下载到用户的主目录下的`.wdm`文件夹中，可以通过设置`WDM_LOCAL`环境变量来更改下载位置到项目根目录下的`.wdm`文件夹。
+- `WDM_LOCAL` 下载位置，默认为用户主目录下的`.wdm`文件夹。
+
+  如果需要修改可以：`os.environ['WDM_LOCAL'] = '1'`
+
+- `WDM_SSL_VERIFY` 是否验证 SSL 证书，默认为 True。
+
+  如果需要修改可以：`os.environ['WDM_SSL_VERIFY'] = '0'`
+
+### 更多自定义设置
+
+**自定义日志记录器**：
 
 ```python
-import os
+import logging
+from webdriver_manager.core.logger import set_logger
 
-os.environ['WDM_LOCAL'] = '1'
-```
+logger = logging.getLogger("custom_logger")
+logger.setLevel(logging.DEBUG)
+logger.addHandler(logging.StreamHandler())
+logger.addHandler(logging.FileHandler("custom.log"))
 
-**WDM_SSL_VERIFY**
-
-默认情况下，`webdriver-manager` 会验证 SSL 证书，可以通过设置`WDM_SSL_VERIFY`环境变量来关闭 SSL 验证。
-
-```python
-import os
-
-os.environ['WDM_SSL_VERIFY'] = '0'
+set_logger(logger)
 ```
 
 ### 源码解读分析

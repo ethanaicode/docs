@@ -143,47 +143,43 @@ chmod +x lookupwin.sh
 
 ### Basics
 
-Brew 的应用一般会安装到`/usr/local/Cellar`目录下，软件的链接会放在`/usr/local/bin`目录下。
+Brew 的应用一般会安装到`/usr/local/Cellar`目录下，
+
+软件的链接会放在`/usr/local/opt`目录下，你可以在这里看到软件的版本信息，
+
+如果是命令行工具，会额外在`/usr/local/bin`目录下创建一个软链接，
 
 Brew 的应用配置一般可以在`/usr/local/etc`目录下找到。
 
 **Brew 的基本命令**：
 
-- brew list
-
-  将会显示所有已安装的 Homebrew 软件包
+- **brew list** = 将会显示所有已安装的 Homebrew 软件包
 
   此外，`brew list --cask` 将提供使用 [Homebrew Cask](https://github.com/Homebrew/homebrew-cask) 安装的项目。
 
-- brew leaves
+- **brew leaves** = 列出所有顶级包，不包括依赖项的包。
 
-  列出所有顶级包，不包括依赖项的包。
+- **brew search TEXT** = 搜索软件，支持`/`的正则匹配
 
-- brew search TEXT
+- **brew info PKG_NAME** = 查看 package name 的详细信息
 
-  搜索软件，支持`/`的正则匹配
+- **brew install PKG_NAME** = 安装软件
 
-- brew info PACKAGE_NAME
-
-  查看 package name 的详细信息
-
-- brew install PACKAGE_NAME
-
-- brew upgrade PACKAGE_NAME
+- **brew upgrade PKG_NAME** = 更新软件
 
   如果不输入具体的 fomula，将更新全部
 
-- brew uninstall
+- **brew uninstall PKG_NAME** = 卸载软件
 
-- brew cleanup
+- **brew cleanup** = 清理旧版本
 
   删除安装过程中的缓存，会清理掉 Cask 套件
 
 ### Services
 
-- brew services list
+- **brew services list** = 列出所有服务
 
-- brew services star/stop/restart serviceName
+- **brew services star/stop/restart serviceName** = 启动/停止/重启服务
 
 ### Cask
 
@@ -191,17 +187,17 @@ Cask 是 Homebrew 的扩展，原本的 Homebrew 是管理命令行的，而 Cas
 
 管理 Cask 和管理普通软件的命令是一样的，只是在命令后面加上`--cask`参数。
 
-- brew install --cask PACKAGE_NAME
+- **brew install --cask PKG_NAME** = 安装软件
 
-- brew uninstall --cask PACKAGE_NAME
+- **brew uninstall --cask PKG_NAME** = 卸载软件
 
-- brew upgrade --cask PACKAGE_NAME
+- **brew upgrade --cask PKG_NAME** = 更新软件
 
-- brew list --cask
+- **brew list --cask** = 列出所有已安装的 Homebrew Cask 软件包
 
-- brew search --cask TEXT
+- **brew search --cask TEXT** = 搜索软件
 
-- brew info --cask PACKAGE_NAME
+- **brew info --cask PKG_NAME** = 查看 package name 的详细信息
 
 ### 管理镜像源配置
 
@@ -251,9 +247,9 @@ brew update
 
 ### 常用目录及文件
 
-**MAMP Apache Conf:** /Applications/MAMP/conf/apache/httpd.conf
+- **MAMP Apache Conf** = /Applications/MAMP/conf/apache/httpd.conf
 
-**MAMP PHP Conf:** /Applications/MAMP/bin/php/php8.2.0/conf
+- **MAMP PHP Conf** = /Applications/MAMP/bin/php/php8.2.0/conf
 
 ### 使用技巧
 
@@ -263,12 +259,12 @@ MAMP 的服务及应用都放在目录`/Applications/MAMP/bin`下，
 
 **目前查看目录并测试，知道可用的服务包括：**
 
-- **mamp**：MAMP 管理工具
+- **mamp** = MAMP 管理工具
 
-- **adminer**：数据库管理工具
+- **adminer** = 数据库管理工具
 
-- **phpLiteAdmin**：SQLite 管理工具
+- **phpLiteAdmin** = SQLite 管理工具
 
-- **phpPgAdmin**：PostgreSQL 管理工具
+- **phpPgAdmin** = PostgreSQL 管理工具
 
-- **phpMyAdmin**：MySQL 管理工具
+- **phpMyAdmin** = MySQL 管理工具
