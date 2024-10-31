@@ -2,6 +2,10 @@
 
 > 2024-10-14 20:24 开坑
 
+> 因为本人有其它语言的开发基础，所以不会写得很详细
+>
+> 这里只会记录我觉得有必要的知识点。
+
 ## 环境搭建
 
 ### Windows 上开发 C++
@@ -137,6 +141,188 @@ int main() {
 }
 ```
 
+### C++ 程序的执行
+
+C++ 程序的执行过程主要包括以下几个步骤：
+
+1. **预处理**：预处理器会处理以 `#` 开头的预处理指令，如 `#include`、`#define`、`#ifdef` 等。
+
+2. **编译**：编译器会将预处理后的源文件编译成目标文件，目标文件是机器代码。
+
+3. **链接**：链接器会将目标文件和库文件链接成可执行文件，可执行文件是二进制文件。
+
+4. **运行**：操作系统会加载可执行文件到内存中，然后执行程序。
+
+**手动编译执行**
+
+现在的 IDE 都是集成了这些步骤，但是我们也可以手动执行这些步骤，
+
+例如我们有两个文件 `main.cpp` 和 `math_utils.cpp`，其中 `math_utils.cpp` 定义了一个方法，`main.cpp` 调用了这个方法，
+
+那么就需要链接这两个文件，然后编译执行，步骤如下：
+
+```bash
+# 编译
+# 可以指定输出文件名（如果不指定，默认是同名的 .o 文件）
+g++ -c math_utils.cpp -o math_utils.o
+g++ -c main.cpp -o main.o
+# 链接
+g++ math_utils.o main.o -o main
+# 运行
+./main
+```
+
+可以进一步简化：
+
+```bash
+g++ math_utils.cpp main.cpp -o main
+./main
+```
+
+简化后的命令会自动编译、链接，然后生成可执行文件。
+
+编译后的中间结果是直接传给链接器的，并在链接完成后自动删除临时的中间文件，所以也不会产生多余的文件。
+
+如果保留中间文件，就可以实现增量编译，只编译修改过的文件，这样可以提高编译速度。
+
+## CMake
+
+CMake 是一个跨平台的构建工具，可以用简单的语句来描述所有平台的编译过程。它通常用于 C++ 项目，帮助开发者定义构建配置，如源文件、库和依赖项。
+
+### 安装 CMake
+
+在 macOS 上，可以使用 Homebrew 安装 CMake：
+
+```bash
+brew install cmake
+```
+
+### 使用 CMake
+
+**创建项目**
+
+在项目根目录下创建一个 `CMakeLists.txt` 文件，这是 CMake 的配置文件，用于描述项目的构建过程。
+
+例如，下面是一个简单的 `CMakeLists.txt` 文件：
+
+```cmake
+cmake_minimum_required(VERSION 3.15)
+project(MyProject)
+
+set(CMAKE_CXX_STANDARD 14)
+
+# 添加源文件
+add_executable(MyProject main.cpp)
+```
+
+- `cmake_minimum_required(VERSION 3.15)`：指定 CMake 的最低版本。
+
+- `project(MyProject)`：指定项目名称。
+
+- `set(CMAKE_CXX_STANDARD 14)`：指定 C++ 标准。
+
+- `add_executable(MyProject main.cpp)`：添加源文件，生成可执行文件。
+
+  如果有多个源文件，可以这样添加：
+
+  ```cmake
+    add_executable(MyProject main.cpp foo.cpp bar.cpp)
+  ```
+
+**构建项目**
+
+然后在项目根目录下创建一个 `build` 目录，用于存放编译生成的文件。
+
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
+
+- `cmake ..`：在 `build` 目录下生成 Makefile 构建文件。
+
+  `..` 表示上一级目录，这是让 CMake 在上一级目录中查找 `CMakeLists.txt` 文件，从而配置项目。
+
+- `cmake --build .`：使用 Makefile 文件构建项目。
+
+**运行项目**
+
+构建完成后，在 `build` 目录下会生成可执行文件，可以直接运行：
+
+```bash
+./MyProject
+```
+
+### 在 VSCode 中使用
+
+在 VSCode 中，可以使用 CMake 插件，方便地进行 C++ 开发。
+
+**安装插件**
+
+在 VSCode 中，搜索安装 CMake 和 CMake Tools 插件。
+
+**配置 CMake**
+
+在项目根目录下创建一个 `.vscode` 目录，然后在 `.vscode` 目录下创建一个 `settings.json` 文件，用于配置 CMake。
+
+```json
+{
+  "cmake.configureOnOpen": true,
+  "cmake.generator": "Unix Makefiles"
+}
+```
+
+- `cmake.configureOnOpen`：打开项目时自动配置 CMake。
+
+- `cmake.generator`：指定生成器，如 `Unix Makefiles`、`Ninja` 等。
+
+> 参考：[Configure CMake Tools settings](https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/cmake-settings.md)
+
+**构建项目**
+
+1. **生成构建文件**：在 VSCode 中按 `Cmd + Shift + P`，输入 `CMake: Configure`。
+
+2. **构建项目**：在 VSCode 中按 `Cmd + Shift + P`，输入 `CMake: Build`。
+
+3. **运行项目**：在 `build` 目录下找到生成的可执行文件，然后运行。
+
+### CMakeLists.txt
+
+CMakeLists.txt 文件是 CMake 的配置文件，用于描述项目的构建过程。
+
+### CMake 知识点
+
+**CMake 是如何查找编译器的？**
+
+CMake 会按照以下顺序查找编译器：
+
+1. 如果用户在命令行中指定了编译器，CMake 会使用用户指定的编译器。
+
+2. 如果用户没有指定编译器，CMake 会按照以下顺序查找编译器：
+
+   - 如果用户在环境变量中设置了 `CC` 和 `CXX`，CMake 会使用环境变量中指定的编译器。
+
+   - 如果用户没有设置环境变量，CMake 会使用默认的编译器。
+
+3. 如果用户在 CMakeLists.txt 文件中指定了编译器，CMake 会使用 CMakeLists.txt 文件中指定的编译器。
+
+CMake 找到一个合适的编译器后，会将其路径保存在 `CMakeCache.txt` 文件中的 `CMAKE_CXX_COMPILER` 变量中。
+
+**CMake 指定编译器**
+
+在 CMakeLists.txt 文件中，可以通过 `set` 命令指定编译器：
+
+```cmake
+set(CMAKE_CXX_COMPILER /path/to/your/g++)
+```
+
+或者在构建时通过 `-DCMAKE_CXX_COMPILER` 参数指定编译器：
+
+```bash
+cmake -DCMAKE_CXX_COMPILER=/path/to/your/g++ ..
+```
+
 ## 面向对象
 
 ### 头文件 & 源文件
@@ -192,3 +378,40 @@ int main() {
 在编译时，编译器会将所有包含的头文件内容插入到源文件中，类似“复制粘贴”操作，然后对合并后的代码进行编译。这意味着头文件不会独立编译，而是直接成为包含它的源文件的一部分。
 
 在上面的例子中，在编译时，编译器会将 `math_utils.h` 的内容插入到 `main.cpp` 中，使得 `main.cpp` 可以调用 `add` 函数。
+
+## 相关知识及考点
+
+### 编译相关
+
+**什么是预编译？**
+
+- 预编译是编译过程的第一个阶段，主要处理以 `#` 开头的预处理指令，如 `#include`、`#define`、`#ifdef` 等。
+
+- 预编译的主要作用是将源文件中的预处理指令替换为实际的代码（替换代码文本），生成一个新的无预处理指令的中间文件。
+
+这些预处理器指令通常用来：
+
+- 文件包含：`#include` 指令用于包含头文件。
+
+- 宏定义：`#define` 指令用于定义宏。
+
+- 条件编译：`#ifdef`、`#ifndef`、`#if`、`#else`、`#elif`、`#endif` 等指令用于条件编译。
+
+例如，可以使用一些编译器预定义的宏来判断编译器类型，并输出不同的信息：
+
+```cpp
+#include <iostream>
+
+int main() {
+    #if defined(__clang__)
+        std::cout << "Compiler: Clang" << std::endl;
+    #elif defined(__GNUC__) || defined(__GNUG__)
+        std::cout << "Compiler: GCC" << std::endl;
+    #elif defined(_MSC_VER)
+        std::cout << "Compiler: MSVC" << std::endl;
+    #else
+        std::cout << "Unknown compiler" << std::endl;
+    #endif
+    return 0;
+}
+```

@@ -46,6 +46,12 @@
             print(self.b)
   ```
 
+### 瀚海拾贝
+
+- `range(start, stop, step)`：生成一个从 `start` 到 `stop` 的序列，步长为 `step`，但是不包括 `stop`。
+
+  比如：`range(5, -1, -1) = [5, 4, 3, 2, 1]`，用在倒序检索时很方便。
+
 ## 进阶知识
 
 ### Python 的数据类型
