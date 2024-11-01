@@ -110,23 +110,23 @@ pyinstaller --add-data 'src:dst' --onefile --windowed myscript.py
 
 - `--osx-bundle-identifier=com.mycompany.myproduct`：指定应用程序包标识符（macOS）
 
-### Windows 下的打包
+## Windows 自定义包信息
 
-#### 图标格式
+### 图标格式
 
 Windows 下的应用图标格式是 `.ico`。
 
-#### 定义应用信息
+### 定义应用信息
 
 `version.txt` 版本文件主要用于为 Windows 可执行文件添加元数据，这是 Windows 操作系统特有的功能。
 
-### macOS 下的打包
+## macOS 自定义包信息
 
-#### 图标格式
+### 图标格式
 
 macOS 下的应用图标格式是 `.icns`。
 
-#### 定义应用信息
+### 定义应用信息
 
 在 macOS 上，PyInstaller 会生成一个 `.app` 文件，这是一个应用程序包（Bundle）。
 
@@ -157,7 +157,9 @@ app = BUNDLE(exe,
 )
 ```
 
-#### 创建 dmg 文件
+## MacOS 安装包 dmg
+
+### 创建 dmg 文件
 
 将`.app`文件打包成`.dmg`文件，可以提供更专业的安装体验、保护文件完整性、减少文件体积、支持签名和公证，同时还可以自定义界面，增强用户的安装体验。
 
@@ -179,7 +181,7 @@ hdiutil create -volname "MyApp" -srcfolder dist/MyApp.app -ov -format UDZO MyApp
 
 - `MyApp.dmg`：指定生成的 dmg 文件的名称。
 
-#### 自定义 dmg 界面
+### 自定义 dmg 界面
 
 如果你希望自定义 dmg 文件的界面，比如实现让用户看到一个漂亮的背景图片、拖拽图标到应用程序文件夹等功能，可以使用以下方法实现。
 
@@ -189,9 +191,7 @@ hdiutil create -volname "MyApp" -srcfolder dist/MyApp.app -ov -format UDZO MyApp
 
 - 使用第三方工具，比如 `create-dmg` 或者 `DMG Canvas`。
 
-**使用 `Create DMG`**
-
-`Create DMG` 是一个用于创建 macOS 安装器的工具，它可以让你通过简单的配置文件来创建一个漂亮的 dmg 文件。
+**使用第三方工具**
 
 目前在 github 上有两个项目，一个是 npm 包，一个是 shell 脚本，可以根据自己的需求选择使用。
 
@@ -203,7 +203,51 @@ hdiutil create -volname "MyApp" -srcfolder dist/MyApp.app -ov -format UDZO MyApp
 
   这个项目是基于 shell 脚本的，可以通过命令行来配置 dmg 文件的各种属性，比如背景图片、图标位置、窗口大小等。
 
-**sindresorhus/create-dmg**
+#### 手动创建 dmg 界面
+
+1. **创建并打开 `.dmg` 文件**
+
+   首先创建 `.dmg` 文件，格式可以为 `UDRW`（可写磁盘映像），这样可以先进行编辑。完成编辑后再将其转换为压缩格式（`UDZO`）供分发。
+
+   ```bash
+   hdiutil create -volname "YourAppName" -srcfolder path/to/your_app.app -ov -format UDRW temp.dmg
+   ```
+
+2. **装载 `.dmg` 文件**
+
+   ```bash
+   hdiutil attach temp.dmg
+   ```
+
+   这样会将 `.dmg` 装载到系统中，并打开一个 Finder 窗口，可以在此窗口中进行界面编辑。
+
+3. **调整 Finder 窗口布局**
+
+   将 `.app` 文件图标拖到左侧。
+
+   将 “Applications” 文件夹快捷方式拖到右侧（按 `Command+Shift+G`，在跳转窗口中输入 `/Applications`，然后拖到 `.dmg` 窗口中）。
+
+   调整图标位置和大小，并设置窗口的背景颜色或背景图片（右键窗口空白区域 -> 显示简介 -> 背景）。
+
+4. **设置窗口默认显示选项**
+
+   选中 `.dmg` 窗口后，按 `Command+J` 打开显示选项，设置窗口大小、背景图片、图标大小等内容。
+
+5. **移除并转换为压缩格式**
+
+   完成界面设置后，卸载  `.dmg`：
+
+   ```bash
+   hdiutil detach /Volumes/YourAppName
+   ```
+
+   将 `.dmg`  文件转换为只读压缩格式供分发：
+
+   ```bash
+   hdiutil convert temp.dmg -format UDZO -o YourAppName.dmg
+   ```
+
+#### sindresorhus/create-dmg
 
 npm 包 `create-dmg` 使用非常简单，使用 npm 安装后，只需要执行一个命令即可：
 
@@ -223,7 +267,7 @@ create-dmg dist/MyApp.app output/ --overwrite ---dmg-title="MyApp"
 
 - 生成的文件名中的版本号来自于应用程序的 `CFBundleShortVersionString`。
 
-**create-dmg/create-dmg**
+#### create-dmg/create-dmg
 
 这个项目是基于 shell 脚本的，支持丰富的配置选项，可以通过命令行来配置 dmg 文件的各种属性。
 
@@ -246,9 +290,9 @@ create-dmg \
   "source_folder/"
 ```
 
-#### 实践技巧及注意事项
+## 实践技巧及注意事项
 
-**单执行文件还是单目录**
+### 单执行文件还是单目录
 
 如果使用了`--onefile`模式，运行时需要被解压到临时目录。程序会先打开，执行解压操作，然后程序会被关闭，解压完成后才会自动打开，所以总是先关闭一次再打开。
 

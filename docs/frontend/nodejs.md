@@ -1,5 +1,21 @@
 # Node.js
 
+## Node.js
+
+### 基础知识
+
+Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境，可以让 JavaScript 运行在服务端。
+
+### 内置模块
+
+Node.js 提供了一些内置模块，可以直接使用，无需安装。
+
+- **fs**: 文件系统模块，用于操作文件
+
+- **http**: HTTP 模块，用于创建 Web 服务器
+
+- **path**: 路径模块，用于处理文件路径
+
 ## npm 包管理器
 
 ### npm 常用命令
@@ -32,6 +48,12 @@
 
   `-g` 全局安装的包
 
+- **npm root -g**: 查看全局包的安装路径
+
+  Linux/macOS: `/usr/local/lib/node_modules`
+
+  Windows: `C:\Users\<username>\AppData\Roaming\npm\node_modules`
+
 - **npm audit**: 审计项目依赖
 
   `--json` 以 JSON 格式输出
@@ -44,7 +66,7 @@
 
   `--force` 强制修复
 
-### npm 的配置
+### npm 的配置命令
 
 - **npm config set \<key\> \<value\>**: 设置配置
 
@@ -58,15 +80,11 @@
 
 - **npm config ls -l**: 列出所有配置（包括默认配置）
 
-### 语意化版本号
+### 依赖管理
 
-npm 使用语义化版本号（Semantic Versioning）规范来管理包的版本号。版本号格式为 `x.y.z`，其中 `x` 为主版本号，`y` 为次版本号，`z` 为修订号。
+npm 会将依赖包安装到 `node_modules` 目录下，可以通过 `package.json` 文件来管理依赖。
 
-- **^1.2.3**: 允许更新到 1.x.x 的最新版本
-
-- **~1.2.3**: 允许更新到 1.2.x 的最新版本
-
-## package.json
+#### package.json
 
 这个文件是 Node.js 项目的配置文件，用于描述项目的信息和依赖。
 
@@ -95,3 +113,17 @@ npm 使用语义化版本号（Semantic Versioning）规范来管理包的版本
 - `scripts`: 用于定义脚本命令，可以通过 `npm run <script>` 运行
 
 - `dependencies` 和 `devDependencies`: 用于定义项目的依赖
+
+#### 语意化版本号
+
+npm 使用语义化版本号（Semantic Versioning）规范来管理包的版本号。版本号格式为 `x.y.z`，其中 `x` 为主版本号，`y` 为次版本号，`z` 为修订号。
+
+- **^1.2.3**: 允许更新到 1.x.x 的最新版本
+
+- **~1.2.3**: 允许更新到 1.2.x 的最新版本
+
+### 常见问题
+
+- **npm ERR! code EACCES**: 权限不足
+
+  解决方法：使用管理员权限运行命令

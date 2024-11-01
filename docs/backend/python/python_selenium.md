@@ -10,7 +10,7 @@
 >
 > ChromeDriver 全版本 json：[Known Good Version](https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json)
 >
-> 上面两个下载地址不仅仅有 ChromeDriver 的下载，也有 Chrome 浏览器的。
+> 上面两个地址都包含 ChromeDriver 和 Chrome，下载时需要注意区分。
 
 ## WebDriver 驱动
 
@@ -82,7 +82,7 @@
 
 #### 获取元素信息及属性
 
-**获取元素文本**：
+**获取元素文本**
 
 可以通过`text`属性获取元素的文本内容。
 
@@ -90,7 +90,7 @@
 element.text
 ```
 
-**获取元素属性**：
+**获取元素属性**
 
 可以通过`get_attribute`方法获取元素的属性。
 
@@ -108,12 +108,25 @@ element.get_attribute('attribute_name')
 
 - `src` 获取图片的地址
 
-**是否被选中**：
+**是否被选中**
 
 对于 checkbox 和 radio 元素，可以通过`is_selected`属性判断是否被选中。
 
 ```python
 element.is_selected()
+```
+
+**是否显示**
+
+可以通过`is_displayed`属性判断元素是否显示。
+
+比如当我同时获得多个弹窗元素，我只想对显示的弹窗进行操作，就可以使用这个属性。
+
+```python
+popups = driver.find_elements(By.CLASS_NAME, 'popup')
+for popup in popups:
+  if popup.is_displayed():
+    popup.click()
 ```
 
 ### Interactions 浏览器交互
@@ -215,7 +228,7 @@ element.send_keys(Keys.BACKSPACE)
 
 ### Waits 等待
 
-#### 隐式等待
+#### 隐式等待 implicitly_wait
 
 隐式等待是设置一个**全局**的等待时间，当查找元素时如果没有立即找到，就等待一段时间再查找。
 
@@ -225,7 +238,7 @@ element.send_keys(Keys.BACKSPACE)
 driver.implicitly_wait(10)
 ```
 
-#### 显式等待
+#### 显式等待 WebDriverWait
 
 显式等待是设置一个等待条件，当条件满足时继续执行，否则等待一段时间再查找。
 
@@ -238,9 +251,15 @@ element = WebDriverWait(driver, 10).until(
 )
 ```
 
-### Support Features 支持特性
+#### 设置等待的注意事项
 
-#### Expected Conditions 预期条件
+- **不要混合使用显式等待和隐式等待这可能会导致意外的等待时间。**
+
+  实测如果设置了隐式等待 5 秒，再设置显式等待 1 秒，那么实际上显式等待会变成 6 秒。
+
+  可以通过`driver.implicitly_wait(0)`取消隐式等待来避免这种情况。
+
+#### Expected Conditions 等待条件
 
 **presence_of_element_located**
 

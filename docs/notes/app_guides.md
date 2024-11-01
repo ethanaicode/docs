@@ -88,6 +88,54 @@
 
 5. 激活后，你可以设置不同的插件，主题等，它会对应用这个配置的文件夹或者工作区都会生效
 
+### 命令面板
+
+在 VSCode 中，我们可以使用命令面板来快速执行命令，可以直接使用快捷键 `Command + Shift + P` 来打开命令面板，之后就可以输入不同的命令来执行。
+
+#### 常用命令
+
+- **`Tasks: Run Task`** = 运行任务
+
+- **`CMake: Configure`** = 配置 CMake
+
+- **`CMake: Build`** = 构建项目
+
+#### Tasks
+
+在 VSCode 中，我们可以使用 `Tasks` 来运行任务，比如编译代码，运行测试等。
+
+我们可以在 `.vscode` 文件夹下创建一个 `tasks.json` 文件，然后在里面配置任务。
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "g++",
+      "args": ["-g", "main.cpp", "-o", "main"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
+```
+
+- `label`: 任务的名称，在选择运行任务后，会显示这个名称
+
+- `type`: 任务的类型，可以是 `shell` 或者 `process`，这里使用 `shell`
+
+- `command`: 要执行的命令，这里是 `g++`
+
+- `args`: 命令的参数，其实就是每一个空格分隔的参数
+
+- `group`: 任务的分组，这里是 `build`，并且设置为默认任务
+
+配置好之后就可以通过 `Tasks: Run Task` 来选择并运行任务了。
+
 ### Extensions
 
 - [Github Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
