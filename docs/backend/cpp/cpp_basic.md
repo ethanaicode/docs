@@ -10,6 +10,8 @@
 
 ### Windows 上开发 C++
 
+#### 使用 Visual Studio
+
 在 Windows 上开发 C++ 程序，可以使用 Visual Studio，这个 IDE 集成了 C++ 编译器，可以方便地进行 C++ 开发。
 
 **下载并安装 Visual Studio**
@@ -33,13 +35,33 @@ int main() {
 
 5. 点击菜单栏的 `生成` -> `生成解决方案`，即可编译运行。
 
+#### 使用 VSCode 开发
+
+在 Windows 上，可以使用 VSCode 进行 C++ 开发，VSCode 是一个轻量级的代码编辑器，支持 C++ 开发。
+
+VSCode 官方也提供了文档，可以参考：[C++ 开发](https://code.visualstudio.com/docs/languages/cpp)，
+
+推荐使用 MinGW 编译器，参考：[MinGW 安装](https://code.visualstudio.com/docs/cpp/config-mingw)。
+
+**安装 MinGW 编译器**
+
+在 Windows 上，可以使用 MinGW 编译器，它是 GCC 的 Windows 版本，可以方便地进行 C++ 开发。
+
+你可以从 MSYS2 安装 MinGW，参考：[MSYS2 安装](https://www.msys2.org/)。
+
+**安装 C/C++ 扩展**
+
+在 VSCode 中，搜索安装 C/C++ 扩展，这个扩展提供了 C++ 开发所需的功能，如代码补全、语法高亮、调试等。
+
 ### macOS 上开发 C++
 
-macOS 上可以使用 Xcode 进行 C++ 开发，Xcode 也集成了 C++ 编译器。
+在 macOS 上开发 C++ 程序，可以使用 Xcode，这个 IDE 集成了 C++ 编译器，可以方便地进行 C++ 开发。
 
 如果习惯了 VSCode，可以安装 C/C++ 扩展，然后配置好编译器，也可以进行 C++ 开发。
 
-**设置编译器**
+#### 开发基础
+
+**安装编译器**
 
 在 macOS 上，很多时候已经预安装了 `clang` 编译器，可以直接使用。检查是否安装了 `clang`：
 
@@ -55,9 +77,19 @@ g++ --version
 
 如果已经安装，则会显示编译器的版本信息。
 
-**安装 VSCode 插件**
+**编译器的选择**
 
-在 VSCode 中，可以安装 C/C++ 扩展，这个插件提供了 C++ 的代码高亮、智能提示、代码格式化、调试等功能。
+在 VSCode 中，可以使用 `g++` 编译器，也可以使用 `clang` 编译器。
+
+- `clang/clang++` 编译器：macOS 预装的编译器，它是 Xcode 的默认编译器，支持 C++11、C++14、C++17 等标准。
+
+- `g++/gcc` 编译器：GNU 编译器，具有更好的跨平台性，支持 C++11、C++14、C++17 等标准。
+
+如果是学习 C++，可以使用 `g++` 编译器，因为它的错误提示更友好，更容易理解。
+
+#### 使用 VSCode 开发
+
+部分步骤可以参考 Windows 上的开发，比如插件的安装、配置编译器等。
 
 **开始第一个项目**
 
@@ -75,16 +107,6 @@ int main() {
 然后按 `Cmd + Shift + B`，选择 `C/C++: g++ build active file`，即可编译运行。
 
 或者点击右上角的 `Run` 按钮，也可以编译运行。
-
-**编译器的选择**
-
-在 VSCode 中，可以使用 `g++` 编译器，也可以使用 `clang` 编译器。
-
-- `clang/clang++` 编译器：macOS 预装的编译器，它是 Xcode 的默认编译器，支持 C++11、C++14、C++17 等标准。
-
-- `g++/gcc` 编译器：GNU 编译器，具有更好的跨平台性，支持 C++11、C++14、C++17 等标准。
-
-如果是学习 C++，可以使用 `g++` 编译器，因为它的错误提示更友好，更容易理解。
 
 ## 基础知识
 
@@ -184,6 +206,24 @@ g++ math_utils.cpp main.cpp -o main
 编译后的中间结果是直接传给链接器的，并在链接完成后自动删除临时的中间文件，所以也不会产生多余的文件。
 
 如果保留中间文件，就可以实现增量编译，只编译修改过的文件，这样可以提高编译速度。
+
+### C++ 名词解释
+
+- `GCC`：GNU Compiler Collection，GNU 编译器套件。
+
+- `Clang`：一个 C、C++、Objective-C 和 Objective-C++ 编程语言的编译器前端。
+
+- `LLVM`：Low Level Virtual Machine，一个编译器基础设施，包括编译器前端、优化器和后端。
+
+- `STL`：Standard Template Library，标准模板库。
+
+- `GUN`：GNU's Not Unix，GNU 是一个自由操作系统，类 Unix 系统。
+
+- `MSVC`：Microsoft Visual C++ 编译器。
+
+- `MSYS2`：一个软件包管理器和命令行工具集合，用于 Windows 上的软件开发，提供了类 Unix 环境。
+
+- `MinGW`：Minimalist GNU for Windows，一个在 Windows 上使用 GCC 的开发环境。
 
 ## CMake
 
