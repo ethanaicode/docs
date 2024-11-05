@@ -105,6 +105,70 @@
 
 - **env**: 显示环境变量
 
+### 命令行符号
+
+- **>**: 重定向输出
+
+  `command > filename` 将命令的输出重定向到文件
+
+  `command >> filename` 将命令的输出追加到文件
+
+- **<**: 重定向输入
+
+  `command < filename` 将文件内容作为命令的输入
+
+- **|**: 管道符号
+
+  `command1 | command2` 将 command1 的输出作为 command2 的输入
+
+- **&**: 后台运行
+
+  `command &` 将命令放到后台运行
+
+- **&&**: 逻辑与
+
+  `command1 && command2` 只有当 command1 执行成功后，才会执行 command2
+
+- **||**: 逻辑或
+
+  `command1 || command2` 只有当 command1 执行失败后，才会执行 command2
+
+- **$**: 变量
+
+  `$variable` 表示变量的值
+
+- **\***: 通配符
+
+  `*` 表示任意字符，`?` 表示一个字符，`[]` 表示范围
+
+- **\\**: 转义字符
+
+  `\` 可以转义特殊字符
+
+- **^**: 行首
+
+  `^` 表示行首，`^filename` 表示以 filename 开头的行
+
+- **$**: 行尾
+
+  `$` 表示行尾，`filename$` 表示以 filename 结尾的行
+
+- **[ ]**: 字符范围
+
+  `[a-z]` 表示 a 到 z 的任意字符，`[0-9]` 表示 0 到 9 的任意字符
+
+- **{ }**: 命令组合
+
+  `{command1; command2}` 表示将 command1 和 command2 作为一个命令执行
+
+- **( )**: 子 shell
+
+  `(command1; command2)` 表示将 command1 和 command2 作为一个子 shell 执行
+
+- **$()**: 命令替换
+
+  `$(command)` 表示将 command 的输出作为命令执行
+
 ### 文件相关
 
 - **cat filename**: 查看文件内容
@@ -140,6 +204,26 @@
   `-r` 递归查找
 
   `-E` 扩展正则表达式
+
+- **awk**: 文本处理工具
+
+  `awk '{print $1}' filename` 打印文件的第一列
+
+  `awk -F ':' '{print $1}' filename` 指定分隔符
+
+  `awk '{print $1, $2}' filename` 打印多列
+
+  `awk '{print $1 > "file1"}' filename` 输出到文件
+
+  `awk '{print $1, $2 > "file1"}' filename` 输出多列到文件
+
+  `awk '{print $1, $2 >> "file1"}' filename` 追加到文件
+
+  `awk '{print $1, $2 | "command"}' filename` 输出到命令
+
+  `awk '{print $1, $2 | "sort"}' filename` 输出到排序命令
+
+  文件名也可以放在开头，通过 `|` 管道符号传递给 awk 命令。
 
 - **du**: 查看文件大小
 
@@ -181,15 +265,23 @@
 
 - **sort**: 排序文件内容
 
-  sort [选项] [文件名]
+  `-n` 按数字排序
+
+  `-k` 指定列排序
 
   `-r` 逆序
 
   `-h` 人性化排序
 
-  `-n` 按数字排序
+  常用组合：`sort -nrk2 filename` 按第二列数字逆序排序
 
-  `-k` 指定列排序
+- **uniq**: 去重
+
+  `-c` 显示重复次数
+
+  `-d` 只显示重复行
+
+  `-u` 只显示不重复行
 
 ### 用户相关
 
@@ -373,6 +465,10 @@ crontab 是用来让使用者在固定时间或固定间隔执行程序之用，
   `-r` 向归档文件中添加文件
 
   `-t` 显示归档文件中的内容
+
+- `zcat`: 查看压缩文件内容（可以不解压直接查看，支持 gzip 压缩）
+
+- `gunzip -c`: 查看压缩文件内容（可以不解压直接查看，支持 gzip 压缩）
 
 - **zip**: 压缩文件
 
@@ -888,13 +984,91 @@ Linux example.com 5.4.0-65-generic #73-Ubuntu SMP Mon Jan 18 17:25:17 UTC 2021 x
 
 可以通过 `make uninstall` 来卸载已经安装的软件，但是并不是所有的软件都支持这个命令。
 
-## 使用案例
-
-### 文件相关
+## 文件相关
 
 我们可以结合多个命令来完成一些复杂的操作，比如查找大文件、合并文件、创建多个文件等。
 
-#### 查找大文件并按照体积排序
+### 使用 awk 处理文本数据
+
+`awk` 是一个强大的文本处理工具，可以用于格式化文本、提取数据、计算数据等。
+
+每列的数据称为一个字段，`awk` 默认以空格作为字段分隔符，可以使用`-F`参数指定其他分隔符。
+
+**基本语法**
+
+```bash
+awk [options] 'pattern { action }' filename
+```
+
+- `pattern`：可选，用于指定要匹配的模式。
+
+- `action`：动作，用于处理匹配的文本行。
+
+**模式**
+
+`pattern` 是一个模式，用于匹配文本行。`pattern` 可以是一个正则表达式、一个条件表达式、一个范围表达式等。
+
+```bash
+awk '/pattern/ { action }' filename
+```
+
+**操作块**
+
+`{ action }` 是一个操作块，用于处理匹配的文本行。操作块可以包含多个命令，多个命令之间使用分号分隔。
+
+```bash
+awk '{ print $1, $2 }' filename
+```
+
+**连接多个操作块**
+
+可以使用分号将多个操作块连接在一起。
+
+```bash
+awk '{ print $1; print $2 }' filename
+```
+
+`END` 操作块用于在处理完所有文本行后执行。
+
+```bash
+awk '{ sum += $1 } END { print sum }' filename
+```
+
+**内置函数**
+
+`awk` 提供了一些内置函数，用于处理文本数据。
+
+- `length(string)`：返回字符串的长度。
+
+**内置变量**
+
+`awk` 提供了一些内置变量，用于处理文本数据。
+
+- `$0`：整个文本行。
+
+- `$1`、`$2`、`$3`：第一个、第二个、第三个字段。
+
+- `NF`：字段数量。
+
+- `NR`：行号。
+
+- `FS`：字段分隔符，默认为空格。
+
+- `OFS`：输出字段分隔符，默认为空格。
+
+**示例**
+
+- 打印文件的第一列
+
+  ```bash
+  awk '{ print $1 }' filename
+  ```
+
+- 处理 nginx 的日志文件
+
+  具体代码可以在 `网络` --> `获取服务器流量消耗信息` 中查看。
+
+### 查找大文件并按照体积排序
 
 **方法一、使用 du 命令**
 
@@ -946,7 +1120,7 @@ find /path/to/directory -type f -size +100M -print0 | xargs -0 du -h | sort -nr
 ncdu /path/to/directory
 ```
 
-#### 保留日志最后 N 行，减小日志文件大小
+### 保留日志最后 N 行，减小日志文件大小
 
 有时日志文件会变得非常大，可以使用`tail`命令保留日志文件的最后 N 行，来实现减小日志文件大小的目的。
 
@@ -957,7 +1131,7 @@ mv logfile.new logfile
 
 _有时候空间并不会立刻释放出来，所以考虑重启服务或者服务器来立即释放空间。_
 
-#### 使用 cat 合并追加文件
+### 使用 cat 合并追加文件
 
 cat file1 file2 > target_file: 将多个文件合并到目标文件中。
 
@@ -971,7 +1145,7 @@ cat file1 file2 >> target_file: 将几个文件附加到目标文件中。
 cat file1 file2 >> target_file
 ```
 
-#### 快速创建多个文件或者目录
+### 快速创建多个文件或者目录
 
 可以使用`{1,2,3}`这种方式来创建多个文件或者目录
 
@@ -985,7 +1159,7 @@ mkdir newDir{1,2,3}
 mkdir -p newDir/{subDir1,subDir2}
 ```
 
-#### 快速统计目录内文件个数
+### 快速统计目录内文件个数
 
 可以先列出目录下的所有文件和子目录，并且通过`grep`命令筛选出文件行（以`-`开头），最后使用`wc -l`命令统计行数。
 
@@ -993,7 +1167,7 @@ mkdir -p newDir/{subDir1,subDir2}
 ls -l | grep "^-" | wc -l
 ```
 
-#### less 查看文件支持更多操作
+### less 查看文件支持更多操作
 
 1. **搜索**:
    - 按下 `/` 键后输入要搜索的内容，然后按 Enter 键。`less` 将高亮显示匹配的内容，并使用 `n` 和 `N` 键分别向前和向后跳转到下一个或上一个匹配项。
@@ -1013,7 +1187,7 @@ ls -l | grep "^-" | wc -l
 7. **退出**:
    - 按下 `q` 键退出 `less`。
 
-#### 使用 grep 查找文本
+### 使用 grep 查找文本
 
 查找文本在某个文件中
 
@@ -1029,7 +1203,7 @@ grep -a "text" filename
 grep -a "sc[0-9]*" filename
 ```
 
-#### 解压缩文件
+### 解压缩文件 (tar, zip)
 
 一般可以用`tar`命令解压缩文件，例如:
 
@@ -1067,11 +1241,11 @@ zip -r archive.zip /path/to/directory
 
   - `-d` 参数指定解压缩目录
 
-#### 查找文件
+### 查找文件
 
 **查找文件/文件夹并进行排序**
 
-可以结合`find`和`sort`实现
+可以结合 `find` 和 `sort` 实现
 
 - 通过文件名查找文件并按照名称排序
 
@@ -1115,7 +1289,7 @@ find . -type f | shuf -n 1
 
 - `shuf` 命令用于随机排序输入行，`-n 1` 用于显示一个随机行。
 
-#### 远程复制文件到本地
+### 远程复制文件到本地
 
 **可以使用`scp` (secure copy) 来实现。**
 
@@ -1157,9 +1331,9 @@ rsync -avz username@remote_host:/path/to/remote/file /path/to/local/destination
 
 默认情况下，`rsync`是没有进度条的，如果想要显示进度条，可以添加`--progress`参数，或者使用`--info=progress2`参数。
 
-### 应用管理
+## 应用管理
 
-#### yum 管理工具的使用
+### yum 管理工具的使用
 
 查看所有软件列表: yum repolist all | grep mysql
 
@@ -1173,7 +1347,7 @@ rsync -avz username@remote_host:/path/to/remote/file /path/to/local/destination
 
 重新生成缓存: `yum makecache`（更换源后需要执行）
 
-#### apt 管理工具的使用
+### apt 管理工具的使用
 
 在 Debian 系统中，`apt` 是一个用于管理软件包的高级工具，它提供了一组用于搜索、安装、更新和删除软件包的命令。
 
@@ -1201,13 +1375,13 @@ rsync -avz username@remote_host:/path/to/remote/file /path/to/local/destination
 
 - **apt autoclean**: 清理过期的软件包文件。
 
-### 服务管理
+## 服务管理
 
-#### 使用 ln 命令为服务创建快捷方式
+### 使用 ln 命令为服务创建快捷方式
 
 例如: `ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/nginx`，则可以通过`nginx`命令启动 Nginx 服务
 
-#### 使用 systemctl 命令管理服务
+### 使用 systemctl 命令管理服务
 
 systemd 是一个 init 系统和系统管理守护进程，用于启动、停止和管理系统中的各种服务和进程。
 
@@ -1291,7 +1465,7 @@ systemd 是一个 init 系统和系统管理守护进程，用于启动、停止
 
 - Memcached: memcached
 
-#### 使用 Cron 定时任务
+### 使用 Cron 定时任务
 
 Cron 是一个用于在固定时间、日期或者间隔时间执行命令或者脚本的工具。
 Cron 任务可以用于定期备份文件、清理日志、定时运行脚本等。
@@ -1360,7 +1534,7 @@ Cron 任务的配置文件通常位于 `/etc/crontab` 或者 `/var/spool/cron` �
 @daily /path/to/script.sh
 ```
 
-#### 使用 logrotate 管理日志文件
+### 使用 logrotate 管理日志文件
 
 `logrotate` 是一个在 Linux 操作系统中用来管理日志文件的工具。`logrotate` 可以定期对日志文件进行压缩、删除、邮件通知等操作。
 
@@ -1396,9 +1570,88 @@ Cron 任务的配置文件通常位于 `/etc/crontab` 或者 `/var/spool/cron` �
 - `sharedscripts`：在日志文件轮换前后执行脚本。
 - `postrotate` 到 `endscript`：在日志文件轮换后执行 `/usr/lib/rsyslog/rsyslog-rotate` 脚本。
 
-### 网络相关
+## 网络相关
 
-#### 获取本机的网络信息
+### 获取服务器流量消耗信息
+
+如果是网络服务器的话，通常都会用到 Nginx 或者 Apache 来提供服务，可以通过查看 Nginx 或者 Apache 的访问日志来获取服务器流量消耗信息。
+
+这里以 Nginx 为例，Nginx 的访问日志文件通常位于 `/var/log/nginx/access.log`。
+
+**查看今日流量总量**
+
+```bash
+awk '{sum += $10} END {
+    if (sum >= 1073741824)
+        printf "Total Traffic: %.2f GB\n", sum/1073741824;
+    else if (sum >= 1048576)
+        printf "Total Traffic: %.2f MB\n", sum/1048576;
+    else if (sum >= 1024)
+        printf "Total Traffic: %.2f KB\n", sum/1024;
+    else
+        printf "Total Traffic: %.2f B\n", sum;
+}' /var/log/nginx/access.log
+```
+
+**统计今日流量消耗前 20 的 IP 地址**
+
+```bash
+
+awk '{print $1, $10}' /var/log/nginx/access.log | \
+awk '{a[$1]+=$2} END {for (i in a) print i, a[i]}' | \
+sort -nrk2 | head -20 | \
+awk '{
+    if ($2 >= 1073741824)
+        printf "%s %.2f GB\n", $1, $2/1073741824;
+    else if ($2 >= 1048576)
+        printf "%s %.2f MB\n", $1, $2/1048576;
+    else if ($2 >= 1024)
+        printf "%s %.2f KB\n", $1, $2/1024;
+    else
+        printf "%s %.2f B\n", $1, $2;
+}'
+```
+
+**查看今日流量消耗前 20 的 URL**
+
+```bash
+awk '{print $7, $10}' /var/log/nginx/access.log | \
+awk '{a[$1]+=$2} END {for (i in a) print i, a[i]}' | \
+sort -nrk2 | head -20 | \
+awk '{
+    if ($2 >= 1073741824)
+        printf "%s %.2f GB\n", $1, $2/1073741824;
+    else if ($2 >= 1048576)
+        printf "%s %.2f MB\n", $1, $2/1048576;
+    else if ($2 >= 1024)
+        printf "%s %.2f KB\n", $1, $2/1024;
+    else
+        printf "%s %.2f B\n", $1, $2;
+}'
+```
+
+**分析已压缩的日志文件**
+
+如果日志文件是经过压缩的，可以使用`zcat`命令来查看日志文件内容。
+
+比如我想查看 `access.log-20241029.gz` 中的 IP 为 `120.39.192.164` 的访问记录，可以使用以下命令：
+
+```bash
+zcat access.log-20241029.gz | \
+grep "120.39.192.164" | awk '{print $7}' | sort | uniq -c | sort -nr | head -n 50
+```
+
+**流量监控工具**
+
+- `iftop`：实时监控网络流量
+
+  `iftop -i eth0` 可以监控指定网卡的流量
+
+  `iftop -i eth0 -f "host 192.168.1.1"` 可以监控指定主机的流量
+
+  `h` 显示帮助
+
+### 获取本机的网络信息
 
 **获取本机的 IP 地址**
 
@@ -1406,7 +1659,7 @@ Cron 任务的配置文件通常位于 `/etc/crontab` 或者 `/var/spool/cron` �
 ip addr show
 ```
 
-#### 使用 cURL 或者 wget 下载文件
+### 使用 cURL 或者 wget 下载文件
 
 cURL 是一个用于传输数据的命令行工具，支持多种协议，如 HTTP、HTTPS、FTP 等。
 
@@ -1461,7 +1714,7 @@ wget -O filename https://example.com/file
 
 - `-r`：递归下载
 
-#### 测试服务器是否可以连接某网站
+### 测试服务器是否可以连接某网站
 
 可以通过自带的连接工具，比如使用`wget`来下载页面内容。
 
@@ -1479,7 +1732,7 @@ time curl -I http://yourpage.com
 
 - `-I` 参数表示只显示响应头信息
 
-#### 查看网站的 SSL 证书及部署情况
+### 查看网站的 SSL 证书及部署情况
 
 可以使用`openssl`来模拟请求，查看证书详细信息：
 
@@ -1513,7 +1766,7 @@ echo | openssl s_client -connect localhost:443 -servername your_domain.com 2>/de
 
 - `subjectAltName` 表示证书的子域名信息
 
-#### 查看 TCP 连接数
+### 查看 TCP 连接数
 
 1）统计 80 端口连接数
 
@@ -1580,9 +1833,9 @@ netstat -natp
 netstat -nr
 ```
 
-### 进程管理
+## 进程管理
 
-#### 使用 PS 查找进程
+### 使用 PS 查找进程
 
 - `ps aux`: 查看所有进程
 
@@ -1592,7 +1845,7 @@ netstat -nr
 
   还可以使用`lsof -i :port`来查看指定端口的进程情况（可能需要安装 lsof）。
 
-#### 使用 kill 关闭进程
+### 使用 kill 关闭进程
 
 - `kill -9 PID`: 关闭指定 PID 的进程
 
@@ -1602,9 +1855,9 @@ netstat -nr
 
   kill 后面可以跟多个进程 ID，用空格隔开
 
-### 防火墙
+## 防火墙
 
-#### 使用 ufw 管理防火墙
+### 使用 ufw 管理防火墙
 
 > 如果没有就先安装在 ufw
 
@@ -1645,9 +1898,9 @@ To allows subnet 192.168.1.0/24 to Sabma services, enter:
 To get information on Squid profile/app, run:
 `ufw app info Squid`
 
-### 主机相关
+## 主机相关
 
-#### 查看及修改主机信息
+### 查看及修改主机信息
 
 > 主机的名称是服务器的标识，可以通过主机名来访问服务器，配置文件在 /etc/hostname
 
@@ -1663,7 +1916,7 @@ To get information on Squid profile/app, run:
 
 - `hostnamectl set-hostname newname --transient`: 修改临时主机名
 
-#### 查看系统的芯片和其他硬件信息
+### 查看系统的芯片和其他硬件信息
 
 - `lscpu`: 查看 CPU 信息
 
@@ -1697,7 +1950,7 @@ To get information on Squid profile/app, run:
 
 - `free -h`: 查看内存使用情况
 
-#### SSH 密钥生成及应用
+### SSH 密钥生成及应用
 
 **SSH 密钥认证**是一种更安全的登录方式，它通过公钥和私钥的方式来进行认证，避免了传统的用户名和密码登录方式的弊端。
 
