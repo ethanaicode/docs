@@ -92,20 +92,21 @@
 
 ## 系统管理优化
 
-| 类别                   | 推荐                                                         | 系统 | 费用 | 备注                             |
-| ---------------------- | ------------------------------------------------------------ | ---- | ---- | -------------------------------- |
-| 系统清理优化           | [CCleaner](https://www.ccleaner.com/zh-cn)                   | Win  |      | 226/年/台                        |
-| 硬盘分区及数据恢复软件 | [DiskGenius](https://www.diskgenius.cn/)                     | Win  |      |                                  |
-| 硬盘检测工具           | HD Tune Pro                                                  | Win  |      |                                  |
-| — 硬盘检测工具         | [Victoria](https://hdd.by/victoria/)                         | Win  | free |                                  |
-| 多窗口工具             | [Q-Dir](https://www.softwareok.com/?seite=Freeware/Q-Dir)    | Win  |      |                                  |
-| 微软官方系统安装       | [Win11 官方](https://www.microsoft.com/zh-cn/software-download/windows11/) | Win  |      | 创建 Windows 11 安装下载打开即可 |
-| 系统重装维护           | [微 PE 工具箱](https://www.wepe.com.cn/)                     | Win  |      |                                  |
-| — 系统重装维护         | [FirPE 维护系统](https://firpe.cn/page-247)                  | Win  |      |                                  |
-| U盘启动工具            | [Rufus](https://rufus.ie/zh/)                                | Win  |      | 开源                             |
-| — U盘启动工具          | [Ventoy](https://www.ventoy.net)                             | Win  |      |                                  |
-| 系统镜像 MSDN 下载     | [I Tell You](https://msdn.itellyou.cn/)                      | Win  |      |                                  |
-| — 系统镜像 MSDN 下载   | [I Tell You 新版](https://next.itellyou.cn/)                 | Win  |      |                                  |
+| 类别                   | 推荐                                                         | 系统    | 费用 | 备注                             |
+| ---------------------- | ------------------------------------------------------------ | ------- | ---- | -------------------------------- |
+| 系统清理优化           | [CCleaner](https://www.ccleaner.com/zh-cn)                   | Win     |      | 226/年/台                        |
+| 硬盘分区及数据恢复软件 | [DiskGenius](https://www.diskgenius.cn/)                     | Win     |      |                                  |
+| 硬盘检测工具           | HD Tune Pro                                                  | Win     |      |                                  |
+| — 硬盘检测工具         | [Victoria](https://hdd.by/victoria/)                         | Win     | free |                                  |
+| 多窗口工具             | [Q-Dir](https://www.softwareok.com/?seite=Freeware/Q-Dir)    | Win     |      |                                  |
+| 微软官方系统安装       | [Win11 官方](https://www.microsoft.com/zh-cn/software-download/windows11/) | Win     |      | 创建 Windows 11 安装下载打开即可 |
+| 系统重装维护           | [微 PE 工具箱](https://www.wepe.com.cn/)                     | Win     |      |                                  |
+| — 系统重装维护         | [FirPE 维护系统](https://firpe.cn/page-247)                  | Win     |      |                                  |
+| U盘启动工具            | [Rufus](https://rufus.ie/zh/)                                | Win     |      | 开源                             |
+| — U盘启动工具          | [Ventoy](https://www.ventoy.net)                             | Win     |      |                                  |
+| 系统镜像 MSDN 下载     | [I Tell You](https://msdn.itellyou.cn/)                      | Win     |      |                                  |
+| — 系统镜像 MSDN 下载   | [I Tell You 新版](https://next.itellyou.cn/)                 | Win     |      |                                  |
+| 虚拟机                 | [VirtualBox](https://www.virtualbox.org/)                    | Win/Mac |      |                                  |
 
 ## 游戏娱乐工具
 
