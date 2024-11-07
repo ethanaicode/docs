@@ -172,7 +172,34 @@ b = B()
 
 简单理解就是，`super()` 函数可以直接调用父类的方法，而不用指定父类的名字。
 
-### Python 的装饰器
+### 反射与装饰器
+
+Python 中的反射和装饰器是两个高级特性，它们可以帮助你更好地理解 Python 的面向对象编程和函数式编程。
+
+#### 反射基础知识
+
+Python 的反射是指通过字符串的形式来操作对象的属性和方法。
+
+#### 常见的反射操作
+
+- `dir(object)`：获取对象的所有属性和方法。
+
+- `type(object)`：获取对象的类型。
+- `isinstance(object, classinfo)`：判断对象是否是指定类的实例。
+
+- `obj.__class__`：获取对象的类。
+
+  `obj.__class__.__name__`：获取对象的类名。
+
+- `callable(object)`：判断对象是否可调用。
+
+- `obj.__dict__`：获取对象的属性字典。
+
+- `getattr(object, name[, default])`：获取对象的属性或方法，如果属性或方法不存在，则返回默认值。
+
+- `hasattr(object, name)`：判断对象是否有指定的属性或方法。
+
+- `setattr(object, name, value)`：设置对象的属性或方法。
 
 #### 装饰器基础
 
