@@ -8,9 +8,7 @@
 
 ## 环境搭建
 
-### Windows 上开发 C++
-
-#### 使用 Visual Studio
+### 使用 Visual Studio
 
 在 Windows 上开发 C++ 程序，可以使用 Visual Studio，这个 IDE 集成了 C++ 编译器，可以方便地进行 C++ 开发。
 
@@ -35,65 +33,34 @@ int main() {
 
 5. 点击菜单栏的 `生成` -> `生成解决方案`，即可编译运行。
 
-#### 使用 VSCode 开发
+### 使用 VSCode 开发
 
-在 Windows 上，可以使用 VSCode 进行 C++ 开发，VSCode 是一个轻量级的代码编辑器，支持 C++ 开发。
+Visual Studio Code (VSCode) 是一个轻量级但功能强大的代码编辑器，它支持多种编程语言，包括 C++。无论是在 Windows 还是 macOS 上，VSCode 都可以提供高效的开发体验。
 
-VSCode 官方也提供了文档，可以参考：[C++ 开发](https://code.visualstudio.com/docs/languages/cpp)，
+#### 开始之前
 
-推荐使用 MinGW 编译器，参考：[MinGW 安装](https://code.visualstudio.com/docs/cpp/config-mingw)。
+**安装 VSCode**
 
-**安装 MinGW 编译器**
-
-在 Windows 上，可以使用 MinGW 编译器，它是 GCC 的 Windows 版本，可以方便地进行 C++ 开发。
-
-你可以从 MSYS2 安装 MinGW，参考：[MSYS2 安装](https://www.msys2.org/)。
+首先确保已经安装了 VSCode，可以从 [官方网站](https://code.visualstudio.com/) 下载最新版本并安装。
 
 **安装 C/C++ 扩展**
 
-在 VSCode 中，搜索安装 C/C++ 扩展，这个扩展提供了 C++ 开发所需的功能，如代码补全、语法高亮、调试等。
+在 VSCode 中安装官方的 C/C++ 扩展，它提供了代码补全、语法高亮、智能感知和调试功能。
 
-### macOS 上开发 C++
+#### Windows 上的 C++ 开发
 
-在 macOS 上开发 C++ 程序，可以使用 Xcode，这个 IDE 集成了 C++ 编译器，可以方便地进行 C++ 开发。
+**安装 MinGW 编译器**
 
-如果习惯了 VSCode，可以安装 C/C++ 扩展，然后配置好编译器，也可以进行 C++ 开发。
+在 Windows 上，推荐使用 MinGW 编译器，这是 GCC 的 Windows 版本。您可以通过 MSYS2 来安装 MinGW。具体安装步骤可参考 [MinGW 安装指南](https://code.visualstudio.com/docs/cpp/config-mingw) 和 [MSYS2 官网](https://www.msys2.org/)。
 
-#### 开发基础
+**配置 VSCode**
 
-**安装编译器**
+1. 打开 VSCode，按 `Ctrl + Shift + P` 输入 `Edit Configurations`，选择 `C/C++: Edit Configurations (UI)`。
+2. 在弹出的窗口中配置编译器路径，例如 `C:\msys64\ucrt64\bin\g++.exe`。
 
-在 macOS 上，很多时候已经预安装了 `clang` 编译器，可以直接使用。检查是否安装了 `clang`：
+**编写和编译第一个程序**
 
-```bash
-clang --version
-```
-
-或者使用 `g++` 编译器：
-
-```bash
-g++ --version
-```
-
-如果已经安装，则会显示编译器的版本信息。
-
-**编译器的选择**
-
-在 VSCode 中，可以使用 `g++` 编译器，也可以使用 `clang` 编译器。
-
-- `clang/clang++` 编译器：macOS 预装的编译器，它是 Xcode 的默认编译器，支持 C++11、C++14、C++17 等标准。
-
-- `g++/gcc` 编译器：GNU 编译器，具有更好的跨平台性，支持 C++11、C++14、C++17 等标准。
-
-如果是学习 C++，可以使用 `g++` 编译器，因为它的错误提示更友好，更容易理解。
-
-#### 使用 VSCode 开发
-
-部分步骤可以参考 Windows 上的开发，比如插件的安装、配置编译器等。
-
-**开始第一个项目**
-
-在 VSCode 中，新建一个 C++ 文件，如 `main.cpp`，然后输入以下代码：
+创建一个名为 `main.cpp` 的新文件，并输入以下代码：
 
 ```cpp
 #include <iostream>
@@ -104,9 +71,68 @@ int main() {
 }
 ```
 
-然后按 `Cmd + Shift + B`，选择 `C/C++: g++ build active file`，即可编译运行。
+按 `Ctrl + Shift + B` 并选择 `C/C++: g++ build active file` 来编译并运行您的程序。
 
-或者点击右上角的 `Run` 按钮，也可以编译运行。
+**配置任务运行器**
+
+为了简化编译过程，可以在项目的根目录下的 `.vscode` 文件夹中创建一个 `tasks.json` 文件：
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "cppbuild",
+      "label": "C/C++: g++.exe build active file",
+      "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
+      "args": [
+        "-fdiagnostics-color=always",
+        "-g",
+        "${fileDirname}\\*.cpp",
+        "-o",
+        "${fileDirname}\\${fileBasenameNoExtension}.exe"
+      ],
+      "options": {
+        "cwd": "C:\\msys64\\ucrt64\\bin"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "Generated task by Debugger."
+    }
+  ]
+}
+```
+
+- `command`：指定编译器路径。
+
+- `args`：指定编译参数，`${fileDirname}` 表示当前文件所在目录，`${fileBasenameNoExtension}` 表示当前文件名（不包含扩展名）。
+
+- `options.cwd`：指定工作目录。
+
+- `problemMatcher`：指定问题匹配器，用于识别编译错误。
+
+- `group`：指定任务组。
+
+- `detail`：任务的详细信息。
+
+#### macOS 上的 C++ 开发
+
+在 macOS 上，您可以使用预装的 `clang` 编译器或者安装 `g++`。可以通过在终端运行 `clang --version` 或 `g++ --version` 来检查编译器是否已安装。
+
+**使用 VSCode 进行编译和调试**
+
+在 macOS 上，配置编译器路径和编译选项与 Windows 类似，只是路径可能不同。VSCode 文档提供了详细的 macOS 设置指南。
+
+**Xcode 集成开发环境**
+
+如果习惯使用 IDE，可以考虑使用 Xcode，它为 C++ 提供了完整的开发环境。
+
+#### 其他资源
+
+- [C++ 开发官方文档](https://code.visualstudio.com/docs/languages/cpp)
 
 ## 基础知识
 
