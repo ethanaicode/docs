@@ -2,4 +2,4 @@
 
 ## C++ 知识
 
-- [C++ 基础](./cpp_basic.md)
+- [C++ Basic](./cpp_basic.md)
