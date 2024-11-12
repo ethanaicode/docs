@@ -2,9 +2,109 @@
 
 PyQt5 是一个用于创建桌面应用程序的 Python 模块。它是 Qt 库的 Python 绑定，用于创建图形用户界面。
 
-## QtCore 组件
+## QtWidgets 组件
 
-### Qt Weidget
+### PyQt5 基本组件
+
+PyQt5 提供了一些基本的组件，用于创建用户界面。以下是一些常用的组件：
+
+- **QLabel**：用于显示文本或图像。
+
+- **QPushButton**：用于创建按钮。
+
+- **QLineEdit**：用于输入文本。
+
+- **QCheckBox**：用于创建复选框。
+
+- **QRadioButton**：用于创建单选按钮。
+
+- **QComboBox**：用于创建下拉框。
+
+- **QSlider**：用于创建滑块。
+
+- **QProgressBar**：用于显示进度条。
+
+- **QTextEdit**：用于显示和编辑文本。
+
+- **QListWidget**：用于显示列表。
+
+- **QTableWidget**：用于显示表格。
+
+- **QMenuBar**：用于创建菜单栏。
+
+- **QToolBar**：用于创建工具栏。
+
+### QMainWindow
+
+`QMainWindow` 是 PyQt5 中用于创建主窗口的类。主窗口是应用程序的主要窗口，通常包含菜单栏、工具栏、状态栏等元素。
+
+**常用的方法**
+
+- `setCentralWidget(widget)`：设置中心窗口。
+
+- `setMenuBar(menuBar)`：设置菜单栏。
+
+- `addToolBar(toolBar)`：添加工具栏。
+
+- `setStatusBar(statusBar)`：设置状态栏。
+
+- `setWindowTitle(title)`：设置窗口标题。
+
+- `setWindowIcon(icon)`：设置窗口图标。
+
+- `setWindowFlags(flags)`：设置窗口属性。
+
+- `setWindowState(state)`：设置窗口状态。
+
+- `raise_()`：将窗口置于顶层。
+
+- `activateWindow()`：激活窗口。
+
+- `show()`：显示窗口。
+
+- `close()`：关闭窗口。
+
+**windowState**
+
+设置窗口状态，可以是：
+
+- `Qt.WindowNoState`：无状态。
+
+- `Qt.WindowMinimized`：最小化。
+
+- `Qt.WindowMaximized`：最大化。
+
+- `Qt.WindowFullScreen`：全屏。
+
+- `Qt.WindowActive`：激活。
+
+通常用 `~` 运算符来清除窗口状态，如 `window.setWindowState(window.windowState() & ~Qt.WindowMaximized)` 可以清除最大化状态。
+
+下面是一个案例，即使你切换到别的应用，它也会在 10 秒钟后激活自己。
+
+```python
+import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow
+
+class MyWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle('PyQt5 示例')
+        self.setGeometry(100, 100, 400, 300)
+        self.activateWindow()
+
+    def activate_window(self):
+        self.setWindowState(self.windowState() & ~Qt.WindowMinimized | Qt.WindowActive)
+        self.raise_()
+
+app = QApplication(sys.argv)
+window = MyWindow()
+window.show()
+QTimer.singleShot(10000, window.activate_window)
+sys.exit(app.exec_())
+```
+
+### QWidget
 
 在 Qt 中，所有用户界面元素都是 QWidget 的子类。QWidget 是一个基本的用户界面类，它提供了一些基本的功能，如绘制、事件处理、布局等。
 
@@ -89,36 +189,6 @@ PyQt5 是一个用于创建桌面应用程序的 Python 模块。它是 Qt 库�
   - `role` 可以是 `QMessageBox.AcceptRole`、`QMessageBox.RejectRole`、`QMessageBox.YesRole`、`QMessageBox.NoRole`等。
 
   - `buttonRole(button)`：获取按钮的角色。(如果使用`standardButton`获取的是`QMessageBox.StandardButton`，无法获取到正确的角色)
-
-### PyQt5 基本组件
-
-PyQt5 提供了一些基本的组件，用于创建用户界面。以下是一些常用的组件：
-
-- **QLabel**：用于显示文本或图像。
-
-- **QPushButton**：用于创建按钮。
-
-- **QLineEdit**：用于输入文本。
-
-- **QCheckBox**：用于创建复选框。
-
-- **QRadioButton**：用于创建单选按钮。
-
-- **QComboBox**：用于创建下拉框。
-
-- **QSlider**：用于创建滑块。
-
-- **QProgressBar**：用于显示进度条。
-
-- **QTextEdit**：用于显示和编辑文本。
-
-- **QListWidget**：用于显示列表。
-
-- **QTableWidget**：用于显示表格。
-
-- **QMenuBar**：用于创建菜单栏。
-
-- **QToolBar**：用于创建工具栏。
 
 ### QSpacerItem 空白区域
 
@@ -249,6 +319,8 @@ PyQt5 提供了几种布局管理器，如 `QHBoxLayout`、`QVBoxLayout`、`QGri
 
 - `currentIndexChanged.connect(slot)`：连接下拉框的选中事件到槽函数。
 
+## QtCore 组件
+
 ### QTimer
 
 `QTimer` 是 PyQt5 中用于定时器的类。它可以用于定时执行任务、延时执行任务、定时刷新界面等。
@@ -297,6 +369,28 @@ url = QUrl('https://www.example.com')
 print(url.scheme())  # 获取协议
 print(url.host())    # 获取主机名
 print(url.path())    # 获取路径
+```
+
+### pyqtSignal 信号
+
+`pyqtSignal` 是 PyQt5 中用于自定义信号的类。它可以用于创建自定义信号，用于实现自定义控件、组件之间的通信。
+
+**基础用法**
+
+```python
+class MyWidget(QWidget):
+    # 定义一个自定义信号
+    my_signal = pyqtSignal(str)
+
+    def __init__(self):
+        super().__init__()
+        self.my_signal.connect(self.on_my_signal)
+
+    def on_my_signal(self, text):
+        print(f'My signal: {text}')
+
+widget = MyWidget()
+widget.my_signal.emit('Hello')
 ```
 
 ## QtGui 组件
