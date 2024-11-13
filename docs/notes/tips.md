@@ -206,6 +206,32 @@ This is a dangerous warning.
 This is a details block.
 :::
 
+## PlantUML
+
+> 官方网站：[PlantUML](https://plantuml.com/)
+>
+> 在线编辑器：[online server](https://www.plantuml.com/plantuml)
+
+PlantUML 是一种开源工具，可以通过简单的文本描述生成 UML 图。它支持多种类型的 UML 图，包括类图、时序图、用例图等。
+
+### VSCode 插件
+
+在 VSCode 中，可以安装 PlantUML 插件，支持实时预览和导出 UML 图。
+
+#### 支持的格式
+
+\*.wsd, \*.pu, \*.puml, \*.plantuml, \*.iuml
+
+#### 插件设置
+
+**导出设置**
+
+- `plantuml.diagramsRoot`: 指定 PlantUML 文件的根目录（相对于工作区）。
+
+- `plantuml.exportOutDir`: 导出文件的目录。
+
+- `plantuml.exportFormat`: 导出格式，支持 PNG、SVG、PDF 等。
+
 ## TeX/LaTeX
 
 TeX/LaTeX 是一种排版系统，广泛用于科学、数学和技术文档的书写。TeX 是基础排版系统，而 LaTeX 是基于 TeX 的一个宏包，提供了更高级的功能，使得文档的排版更简便。它们特别擅长处理复杂的数学公式和参考文献。

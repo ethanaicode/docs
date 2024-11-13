@@ -531,6 +531,12 @@ $new_time = date('Y-m-d H:i:s',strtotime("+$num hour",strtotime($old_time)));
 
 > fputcsv(file,fields,seperator,enclosure)
 
+#### [file_get_contents() - 把整个文件读入一个字符串](https://www.php.net/manual/zh/function.file-get-contents.php)
+
+> file*get_contents(\_filename,use_include_path,context,offset,maxlen*)
+
+- 实现：读取文件内容
+
 #### [file_put_contents() - 把一个字符串写入文件](https://www.php.net/manual/zh/function.file-put-contents.php)
 
 > int file_put_contents ( string $filename , mixed $data [, int $flags = 0 [, resource $context ]] )

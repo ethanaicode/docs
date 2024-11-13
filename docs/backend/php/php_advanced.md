@@ -4,18 +4,31 @@
 
 ### 实用技巧
 
-**...参数**
+- **...参数**
 
-> 用于函数参数，可以接受任意数量的参数，可以用来代替数组。
+  用于函数参数，可以接受任意数量的参数，可以用来代替数组。
 
-例如：
+  例如：
 
-```PHP
-function sum(...$nums)
-{
-    return array_sum($nums);
-}
-```
+  ```PHP
+  function sum(...$nums)
+  {
+      return array_sum($nums);
+  }
+  ```
+
+- **file_get_contents()**
+
+  用于读取文件内容，也可以用来读取远程文件，利用这个实现简单的接口请求。
+
+  例如：
+
+  ```PHP
+  $response = file_get_contents('https://api.github.com/shejibiji/data');
+  print_r(json_decode($response, true));
+  ```
+
+  **注意**: 如果服务器返回的状态码不是 200，`file_get_contents()` 会返回 `false`，而不会返回错误信息。
 
 ### PHP 的数据在内存中的存储位置
 

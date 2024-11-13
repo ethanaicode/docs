@@ -41,11 +41,11 @@ export default defineConfig({
       {
         text: "后端运维",
         items: [
+          { text: "Nginx", link: "/backend/nginx" },
+          { text: "Linux", link: "/backend/linux" },
+          { text: "Vim", link: "/backend/vim" },
           { text: "MySQL", link: "/backend/mysql" },
           { text: "Redis", link: "/backend/redis" },
-          { text: "Linux", link: "/backend/linux" },
-          { text: "Nginx", link: "/backend/nginx" },
-          { text: "Vim", link: "/backend/vim" },
           {
             text: "Programming",
             items: [
@@ -102,11 +102,11 @@ export default defineConfig({
             link: "/backend/",
             collapsed: true,
             items: [
+              { text: "Nginx", link: "/backend/nginx" },
+              { text: "Linux", link: "/backend/linux" },
+              { text: "Vim", link: "/backend/vim" },
               { text: "MySQL", link: "/backend/mysql" },
               { text: "Redis", link: "/backend/redis" },
-              { text: "Linux", link: "/backend/linux" },
-              { text: "Nginx", link: "/backend/nginx" },
-              { text: "Vim", link: "/backend/vim" },
               {
                 text: "Programming",
                 collapsed: true,

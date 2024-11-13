@@ -384,18 +384,20 @@ finally:
 
 Python 的异常是通过继承 `Exception` 类来实现的，你可以通过继承 `Exception` 类来定义自己的异常。
 
+下面是最简单的自定义异常（自定义了异常名称）：
+
 ```python
-class MyError(Exception):
-    def __init__(self, message):
+class InvaildDataException(Exception):
+    pass
+```
+
+下面是自定义异常的完整写法：
+
+```python
+class InvaildDataException(Exception):
+    def __init__(self, message='Invaild data'):
         self.message = message
-
-    def __str__(self):
-        return self.message
-
-try:
-    raise MyError('My error')
-except MyError as e:
-    print(e)
+        super().__init__(self.message)
 ```
 
 ### Python 的模块和包
