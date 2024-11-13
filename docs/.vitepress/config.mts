@@ -32,7 +32,8 @@ export default defineConfig({
       {
         text: "前端开发",
         items: [
-          { text: "Html", link: "/frontend/html" },
+          { text: "CSS", link: "/frontend/css" },
+          { text: "JavaScript", link: "/frontend/javascript" },
           { text: "NodeJs", link: "/frontend/nodejs" },
           { text: "Vue3", link: "/frontend/vue3" },
           { text: "TypeScript", link: "/frontend/typescript" },
@@ -91,7 +92,8 @@ export default defineConfig({
             link: "/frontend/",
             collapsed: true,
             items: [
-              { text: "Html", link: "/frontend/html" },
+              { text: "CSS", link: "/frontend/css" },
+              { text: "JavaScript", link: "/frontend/javascript" },
               { text: "NodeJs", link: "/frontend/nodejs" },
               { text: "Vue3", link: "/frontend/vue3" },
               { text: "TypeScript", link: "/frontend/typescript" },
