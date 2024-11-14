@@ -299,7 +299,7 @@ http {
 
 - `$status`: 响应的状态码
 
-- `$body_bytes_sent`: 发送给客户端的字节数（不包括 HTTP 头部）
+- `$body_bytes_sent`: 发送给客户端的字节 byte（不包括 HTTP 头部）
 
 - `$http_referer`: 请求的来源 URL（referer）
 
@@ -316,14 +316,23 @@ http {
 Nginx 提供了许多日志变量，可以根据需要选择并组合它们来创建自定义格式：
 
 - `$bytes_sent`：发送给客户端的总字节数
+
 - `$connection`：连接的唯一标识符
+
 - `$connection_requests`：连接处理的请求数
+
 - `$msec`：日志写入的时间戳（秒，精确到毫秒）
+
 - `$request_length`：请求的总字节数（包括请求行、头部和正文）
+
 - `$upstream_addr`：上游服务器的地址
+
 - `$upstream_response_time`：上游服务器的响应时间
+
 - `$request_uri`：请求的 URI，不带查询字符串
+
 - `$args`：请求的查询字符串
+
 - `$http_<header>`：请求头信息，例如 `$http_host`、`$http_user_agent` 等
 
 #### 日志级别说明（error_log）

@@ -375,6 +375,56 @@ git checkout -- .
 
 - 如果没有参数`--`，后面直接跟具体的文件名，表示撤销单个文件。
 
+### 避免本地修改被远程覆盖
+
+> 仅讨论文件已经被追踪的情况。
+
+如果你在本地修改了文件，但是远程仓库也有修改，这时候你直接 `pull` 会导致冲突。
+
+**保留本次修改**
+
+这时候你可以使用 `stash` 命令来暂存本地修改，然后再 `pull`。
+
+```bash
+git stash
+git pull
+git stash pop
+```
+
+**恢复本地版本**
+
+拉取远程后，如果你想保留本地修改，可以使用 `checkout` 命令。
+
+```bash
+git checkout --ours file.txt
+```
+
+- `ours` 表示保留本地版本
+
+**保留本地配置不受版本控制**
+
+> 正常情况下，不应该有这个操作，如果是配置文件，应该在本地配置文件中添加忽略，不要提交到远程仓库，如果希望远程仓库有参考，应该使用模板文件，比如 `config.file.example`。
+
+如果本地是一个配置文件，你希望一直保留，不受版本控制的影响，可以使用 `update-index` 命令。
+
+```bash
+git update-index --skip-worktree config.json
+# 恢复使用
+git update-index --no-skip-worktree config.json
+```
+
+这样就可以避免本地修改被覆盖。
+
+还可以使用 `assume-unchanged` 命令，这个命令和`skip-worktree`类似，但是它会在`git status`中显示。
+
+```bash
+git update-index --assume-unchanged config.json
+# 取消使用
+git update-index --no-assume-unchanged config.json
+```
+
+**注意**：仅推荐配置文件使用，因为如果远程仓库对该文件有更新，你的本地版本可能会与远程版本产生差异。
+
 ### 强制覆盖本地代码（与 git 远程仓库保持一致）
 
 可以使用下列命令实现：

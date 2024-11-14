@@ -37,7 +37,7 @@
     $gradeLevel=array_column($this->grade_info,'name','key');
 ```
 
-- 实现：返回输入数组中某个单一列的值
+作用：返回输入数组中某个单一列的值
 
 可以用来对公用的数组进行调用。
 
@@ -128,7 +128,7 @@ $uniqueData = array_intersect_key($result['data'], $uniqueRentaiunitIds);
 
 *separator*可选，规定数组元素之间放置的内容。默认是 ""（空字符串）。
 
-实现：把数组元素组合为一个字符串(或者把数组打散成字符串)
+作用：把数组元素组合为一个字符串(或者把数组打散成字符串)
 
 知识点链接：[PHP implode()函数](https://www.runoob.com/php/func-string-implode.html)
 
@@ -144,7 +144,8 @@ $uniqueData = array_intersect_key($result['data'], $uniqueRentaiunitIds);
 >
 > array*splice(\_array1,start,length,array2*)
 
-- 实现：array_slice() 函数返回数组中的选定部分
+作用：array_slice() 函数返回数组中的选定部分
+
 - array_splice() 函数从数组中移除选定的元素，并用新元素取代它
 
 利用这个可以取出或者移除自己想要的元素，头两个参数都是必需的，这两个默认都会重置数组索引。
@@ -212,7 +213,7 @@ $content = implode("\n", $tempContent[0]);
 > - 正数 - 在字符串的指定位置开始
 > - 负数 - 在从字符串结尾的指定位置开始
 
-- 实现：substr() 函数返回字符串的一部分
+作用：substr() 函数返回字符串的一部分
 
 #### sublen() - 统计字符串长度
 
@@ -226,7 +227,7 @@ $content = implode("\n", $tempContent[0]);
 $name = trim($name);  //去除名字两边的空格
 ```
 
-- 实现：移除字符串两侧的空白字符或其他预定义字符
+作用：移除字符串两侧的空白字符或其他预定义字符
 
 如果第二个参数不给的，默认移除所有空格、换行等。
 
@@ -302,7 +303,7 @@ public function handleFormat()
 
 > highlight*string(\_string,return*)
 
-- 实现：对字符串进行 PHP 语法高亮显示
+作用：对字符串进行 PHP 语法高亮显示
 
 highlight_string() 函数对字符串进行 PHP 语法高亮显示。字符串通过使用 HTML 标签进行高亮。
 
@@ -320,7 +321,7 @@ echo htmlentities($str);
 >>> <p>操作文档尚未完成编辑</p> //正常输出，并未转成html
 ```
 
-- 实现：把字符转换为 HTML 实体
+作用：把字符转换为 HTML 实体
 
 展示代码时，这个就比较好用，避免被 html 给输出了
 
@@ -341,7 +342,7 @@ echo htmlentities($str);
 $str = preg_replace('/\s+/', '', $str);
 ```
 
-- 实现：使用正则表达式进行字符串替换
+作用：使用正则表达式进行字符串替换
 
 #### iconv() - 字符串转码
 
@@ -358,13 +359,19 @@ $grandNameTextMore = iconv('UTF-8', 'windows-1252', $grandNameTextMore);
 
 > htmlspecialchars(_string,flags,character-set,double_encode_)
 
-- 实现：把一些预定义的字符转换为 HTML 实体（也可以通过这个方法避免被 html 输出）
+作用：把一些预定义的字符转换为 HTML 实体（也可以通过这个方法避免被 html 输出）
 
 ```php
 $str = "&para";
 echo htmlspecialchars($str);
 // 输出 &para 而不是符号 ¶
 ```
+
+#### html_entity_decode() - 转换 HTML 实体
+
+> html*entity_decode(\_string,flags,character-set*)
+
+作用：把 HTML 实体转换为字符，比如把 &lt; 转换为 <，可以实现输出 html 标签
 
 ### URL 相关
 
@@ -378,7 +385,7 @@ echo htmlspecialchars($str);
 $uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 ```
 
-- 实现：获取上传文件的后缀，或者请求 URL 的部分地址
+作用：获取上传文件的后缀，或者请求 URL 的部分地址
 
 知识点链接：[parse_url](https://www.php.net/manual/en/function.parse-url)
 
@@ -388,13 +395,13 @@ $uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 >
 > query_data：必需，规定要转换的数组
 
-- 实现：生成 URL-encode 之后的请求字符串
+作用：生成 URL-encode 之后的请求字符串
 
 **urlencode**
 
 > urlencode(_string_)
 
-- 实现：对 URL 字符串进行编码
+作用：对 URL 字符串进行编码
 
 ### 数字相关
 
@@ -422,7 +429,7 @@ $num_format = number_format($num,2);
 >>>195,863.33
 ```
 
-- 实现：数字格式化
+作用：数字格式化
 
 推荐就传入两个参数，第二个是要保留的小数点位置，如果不传，则默认取整数。
 
@@ -461,7 +468,7 @@ date( 'Y-m-d ',strtotime($v->create_time));
 $new_time = date('Y-m-d H:i:s',strtotime("+$num hour",strtotime($old_time)));
 ```
 
-实现：时间截断、截止日期
+作用：时间截断、截止日期
 
 #### 插件：Carbon
 
@@ -535,7 +542,7 @@ $new_time = date('Y-m-d H:i:s',strtotime("+$num hour",strtotime($old_time)));
 
 > file*get_contents(\_filename,use_include_path,context,offset,maxlen*)
 
-- 实现：读取文件内容
+作用：读取文件内容
 
 #### [file_put_contents() - 把一个字符串写入文件](https://www.php.net/manual/zh/function.file-put-contents.php)
 
@@ -592,7 +599,7 @@ $data['img'] = json_encode($img,JSON_UNESCAPED_UNICODE); //编码
 $img = json_decode($data['img'],true); //解码（加true为数组，否则为对象）
 ```
 
-- 实现：数组转成 json 格式，方便数据库储存
+作用：数组转成 json 格式，方便数据库储存
 
 知识点链接：[PHP JSON](https://www.runoob.com/php/php-json.html)
 

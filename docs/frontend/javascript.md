@@ -156,6 +156,77 @@ _视频号的管理后台 --> 达人广场界面的内容，都是通过 Shadow 
 
 > 完整的列表可以参考：[MDN 文档](https://developer.mozilla.org/en-US/docs/Web/API)
 
+### Window
+
+`Window` 接口代表一个包含 DOM 文档的窗口。document 属性指向窗口中载入的 `Document` 对象。
+
+#### setInterval()
+
+`setInterval()` 方法会按照指定的周期（以毫秒计）来调用函数或计算表达式。
+
+```js
+setInterval(() => {
+  console.log("Hello");
+}, 1000);
+```
+
+可以用这个实现轮询的方法，比如我需要等待某个元素加载完成后再进行操作：
+
+```js
+function waitForElement(selector, callback, interval = 100, timeout = 5000) {
+  const start = Date.now();
+  const timer = setInterval(() => {
+    const element = document.querySelector(selector);
+    if (element) {
+      clearInterval(timer);
+      callback(element);
+    } else if (Date.now() - start >= timeout) {
+      clearInterval(timer);
+      console.warn(`Element ${selector} not found within ${timeout} ms`);
+    }
+  }, interval);
+}
+
+waitForElement("#id_main_name", (NameSelectElement) => {
+  const Namelayui =
+    NameSelectElement.parentNode.querySelector(".layui-anim-upbit");
+  const TypeSelectElement = document.getElementById("id_main_type");
+
+  function ClickName(e) {
+    var s = $(e);
+    var selValue = e.target.getAttribute("lay-value");
+    TypeSelectElement.setAttribute("value", "");
+
+    for (let i = 0; i < NameSelectElement.length; i++) {
+      if (NameSelectElement.options[i].textContent == selValue) {
+        var sva = NameSelectElement.options[i].getAttribute("typevalue");
+        if (sva) {
+          TypeSelectElement.setAttribute("value", sva);
+        }
+      }
+    }
+  }
+
+  if (Namelayui) {
+    Namelayui.addEventListener("click", ClickName, true);
+  } else {
+    console.warn("Element with class 'layui-anim-upbit' not found.");
+  }
+});
+```
+
+通过这样设计，可以在元素加载完成后再进行操作，避免因为元素未加载完成而导致的错误。
+
+#### setTimeout()
+
+`setTimeout()` 方法用于在指定的**毫秒数后调用**函数或计算表达式。
+
+```js
+setTimeout(() => {
+  console.log("Hello");
+}, 1000);
+```
+
 ### [Web Storage](https://www.w3schools.com/html/html5_webstorage.asp)
 
 通过 Web Storage，网页可以在本地存储数据（类似于 Cookie，但是更安全，更快）。

@@ -139,6 +139,16 @@ chmod +x lookupwin.sh
 
 - `smbutil unmount /Volumes/share`：卸载共享
 
+### shasum
+
+`shasum` 是一个计算文件 SHA-1 校验和的命令行工具。如果不传递参数，`shasum` 将读取标准输入并计算 SHA-1 校验和。
+
+**常用命令**：
+
+- `shasum -a 256 filename`：计算文件的 SHA-256 校验和
+
+- `shasum -c filename.sha256`：校验文件的 SHA-256 校验和
+
 ## Brew 管理工具
 
 ### Basics
