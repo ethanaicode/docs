@@ -76,3 +76,19 @@
 
 > 按下 `Ctrl + v` 进入 Visual Block 模式
 > Visual Block 模式下，可以选中一个矩形区域，然后对这个区域进行操作
+
+## nano
+
+nano 是一个简单易用的文本编辑器，适合初学者使用。
+
+在这里简单介绍一下 nano 的基本使用方法：
+
+- `Ctrl + G` : 显示帮助
+
+- `Ctrl + X` : 退出
+
+- `Ctrl + O` : 保存
+
+- `Ctrl + W` : 搜索
+
+- `Ctrl + K` : 剪切

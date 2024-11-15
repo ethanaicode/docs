@@ -976,7 +976,7 @@ Linux example.com 5.4.0-65-generic #73-Ubuntu SMP Mon Jan 18 17:25:17 UTC 2021 x
 2. 解压源代码
 
    ```bash
-   tar -zxvf package.tar.gz
+   tar -xzvf package.tar.gz
    ```
 
 3. 进入源代码目录
@@ -1298,12 +1298,22 @@ grep -a "sc[0-9]*" filename
 tar -czvf archive.tar.gz file1 file2 file3
 # 压缩目录
 tar -czvf archive.tar.gz /path/to/directory
+# 压缩目录并排除某些文件（多个文件添加多个--exclude参数）
+tar -czvf archive.tar.gz --exclude='*.log' /path/to/directory
 ```
+
+- `--exclude` 参数需要在目标目录之前使用。
 
 **解压缩文件**
 
 ```bash
 tar -xzvf archive.tar.gz -C /path/to/extract
+```
+
+**查看压缩包内容**
+
+```bash
+tar -tvf archive.tar.gz
 ```
 
 要注意参数`-z`表示使用 gzip 压缩，如果是其它格式的压缩文件，可以使用`-j`（bzip2）或者`-J`（xz）。
@@ -1391,7 +1401,7 @@ scp -P 22 /path/to/local/file username@remote_host:/path/to/remote/destination
 
 还可以添加参数:
 
-- `-r` 递归复制
+- `-r` 递归复制，复制目录时需要带上
 
 - `-P` 指定端口
 
@@ -1875,9 +1885,9 @@ echo | openssl s_client -connect localhost:443 -servername your_domain.com 2>/de
 
 - `echo` 命令用于向管道发送空字符串，给 `openssl` 命令提供输入
 
-- `-connect` 参数表示连接的地址和端口，这里是本地 443 端口，如果是远程的话，需要替换为远程地址，可以为域名或者 IP 地址
+- `-connect` 要访问的目标地址和端口，如果是远程的话，需要替换为远程地址，可以为域名或者 IP 地址
 
-- `-servername` 参数表示指定域名，远程服务器可能会根据域名来返回不同的证书
+- `-servername` 告知服务器要访问的域名，如果访问的已经是远程域名，可以省略
 
 也可以继续把输出信息交给`openssl`来只显示证书有效期：
 
@@ -1990,7 +2000,9 @@ netstat -nr
 
 ### 使用 ufw 管理防火墙
 
-> 如果没有就先安装在 ufw
+ufw 是 Debian/Ubuntu 系统中的一个简单的防火墙管理工具，可以用来配置 iptables 防火墙规则。
+
+> 如果没有安装，可以使用`apt`来安装，命令为：`apt install ufw`
 
 **基础命令**
 
@@ -2130,3 +2142,27 @@ Host remote_host
 ```bash
 ssh username@remote_host
 ```
+
+## 推荐工具
+
+### 终端工具
+
+- `tmux`：终端复用工具
+
+  可以在一个终端窗口中打开多个终端会话，实现多窗口管理。
+
+### 网络工具
+
+- `nmap`：网络扫描工具
+
+  用于扫描网络上的主机和端口，查看网络设备的状态。
+
+### 进程管理工具
+
+- `supervisor`：进程守护管理器
+
+### 系统监控工具
+
+- `htop`：系统监控工具
+
+  用于查看系统的 CPU、内存、磁盘等资源使用情况。

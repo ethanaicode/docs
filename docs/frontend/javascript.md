@@ -170,6 +170,18 @@ setInterval(() => {
 }, 1000);
 ```
 
+`clearInterval` 方法用于停止 `setInterval()` 方法执行的函数代码。
+
+```js
+let interval = setInterval(() => {
+  console.log("Hello");
+}, 1000);
+
+clearInterval(interval);
+```
+
+**setInterval() 实现轮询**
+
 可以用这个实现轮询的方法，比如我需要等待某个元素加载完成后再进行操作：
 
 ```js

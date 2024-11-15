@@ -69,7 +69,9 @@ Master 进程和 Worker 进程之间通过进程间通信（IPC）来协调工�
 
 ### nginx.conf
 
-主要分为三大块，全局块，events 块，以及 http 块。
+Nginx 的基础配置文件是`nginx.conf`，一般在`/etc/nginx/nginx.conf`。
+
+Nginx 的配置主要分为三大块，全局块，events 块，以及 http 块。
 
 - **全局块**: 主要是一些配置文件的路径、用户、工作进程数等。
 
@@ -80,6 +82,24 @@ Master 进程和 Worker 进程之间通过进程间通信（IPC）来协调工�
 - **events**: 主要是服务器和客户端之间的网络连接的一些配置，比如指定每个 worker 进程可以同时接收多少个网络连接（worker_connections）。
 
 - **http**: 主要是 HTTP 协议相关的配置，比如设置 MIME 类型、日志格式、访问日志的路径等。这一块也是我们经常修改的地方
+
+### events 配置
+
+这一块主要用来定义与网络事件处理相关的设置
+
+```nginx
+events {
+    worker_connections 2048;
+    use epoll;
+    multi_accept on;
+}
+```
+
+- `worker_connections`: 每个 worker 进程可以同时接受的连接数，一般设置为 1024 或 2048。所以最大连接数 = worker_processes \* worker_connections。
+
+- `use`: 指定 Nginx 使用的事件模型，可以是 `select`、`poll`、`kqueue`、`epoll` 等。显式指定 `epoll` 可以确保使用高效模型。
+
+- `multi_accept`: 是否允许一个 worker 进程同时接受多个新连接，默认为 off，开启后可以提高高并发情况下的性能。
 
 ### http 配置
 
