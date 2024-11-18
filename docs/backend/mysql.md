@@ -36,6 +36,18 @@ ADD COLUMN updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CUR
 
 ## 基础操作
 
+### 进入数据库及退出
+
+```bash
+mysql -u root -p
+```
+
+退出：
+
+```sql
+exit;
+```
+
 ### ORDER BY 排序
 
 ```sql

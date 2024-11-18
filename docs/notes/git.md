@@ -96,6 +96,14 @@ Git 是一个分布式版本控制系统，它将文件的修改记录为不同�
 
   `-d [branch_name]` 删除分支
 
+- **git remote**: 管理远程仓库地址
+
+  `-v` 查看远程仓库地址
+
+  `add [name] [url]` 添加远程仓库
+
+  `remove [name]` 删除远程仓库
+
 ## 基础知识
 
 ### Git 三个区域
@@ -187,6 +195,7 @@ git config --global user.email "youremail"
 - `core.precomposeunicode` 是否使用 Unicode
 - `core.logallrefupdates` 是否记录所有引用更新
 - `http.sslVerify` 是否验证 SSL 证书
+- `remote.origin.url` 远程仓库地址
 
 ### 本地配置
 
@@ -479,6 +488,20 @@ find ./ -type d -empty -exec touch {}/.gitkeep \;
 2. 为空文件夹添加 `.gitignore` 文件
 
 添加这个文件也可以实现这个效果，但不是最佳的，因此推荐用第一种（因为它本身是有意义的）。
+
+## 常见问题
+
+### ahead of 'origin/master' by 1 commit
+
+原因是本地仓库中记录的 `origin/master` 可能没有更新到最新状态。
+
+同步操作如 `git pull` 后，Git 可能并没有自动更新本地的远程分支状态。
+
+你可以运行一下命令来更新远程分支引用：
+
+```bash
+git fetch origin
+```
 
 ## 工具推荐
 
