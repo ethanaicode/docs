@@ -48,6 +48,31 @@ TP3 中自动加载是通过`ThinkPHP/Library/Think/Think.class.php`文件中的
   namespace One;
   ```
 
+## TP6 使用经验总结
+
+### 日志处理
+
+可以在日志的配置中，单独添加一个 channel，来实现不同的日志记录。
+
+```php
+'channels' => [
+    'sql' => [
+        'driver' => 'file',
+        'path' => app()->getRuntimePath() . 'sql',
+        'size' => 1024 * 1024 * 100,
+        'level' => 'debug',
+    ],
+],
+```
+
+在日志的配置中，可能有些字段不太明白，可以参考下面的解释：
+
+- `apart_level`：独立记录的日志级别，在这个列表中的日志级别会单独记录，有独立的日志文件，不会记录到主日志文件中；
+
+  如果是 `true`，则表示所有级别都会单独记录。
+
+- `single`：默认是按天生成日志文件，如果设置为`true`，则表示都会记录到一个文件中，默认名为`single.log`，如果设置为字符串，则表示文件名。
+
 ## 安装 TP6 并开启调试
 
 ### 本地安装部署 ThinkPHP 6.x

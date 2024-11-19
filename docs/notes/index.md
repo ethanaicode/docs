@@ -10,6 +10,8 @@
 
 - [Tips](./tips)
 
+- [平台开发](./api_integration)
+
 - [计算机系统与硬件](./sys_hardware)
 
 - [Command-Line Tools](./cli_tools)
@@ -20,4 +22,4 @@
 
 - [语言学习](./language/)
 
-- [Emoji](./emoji)
+- [Emoji 表情](./emoji)

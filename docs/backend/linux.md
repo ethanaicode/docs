@@ -83,6 +83,8 @@
 
   `-I` 只显示响应头
 
+  `-X` 指定请求方法
+
   `-L` 跟踪重定向
 
   `-o` 将下载的内容保存到文件
@@ -1532,7 +1534,53 @@ systemd 是一个 init 系统和系统管理守护进程，用于启动、停止
 
 > 对应的服务目录: /usr/lib/systemd/system/\*.service
 
-以下是 `systemctl` 命令的一些常见用法和解释:
+**创建服务文件**
+
+通过创建一个新的 `.service` 文件来创建一个新的服务。
+
+之后就可以通过`systemctl`命令来管理这个服务了，设置开机启动等。
+
+下面是创建一个 PHP-FPM 服务的示例:
+
+```bash
+[Unit]
+Description=The PHP FastCGI Process Manager
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/www/server/php/74/sbin/php-fpm --nodaemonize --fpm-config /www/server/php/74/etc/php-fpm.conf
+ExecReload=/bin/kill -USR2 $MAINPID
+PrivateTmp=false
+PIDFile=/www/server/php/74/var/run/php-fpm.pid
+
+[Install]
+WantedBy=multi-user.target
+```
+
+- `[Unit]` 部分包含了服务的描述和启动顺序。
+
+- `[Service]` 部分包含了服务的类型、启动命令、重载命令、私有临时目录和 PID 文件。
+
+  - `Type=simple` 表示服务是一个简单的进程。
+
+  - `ExecStart` 是服务的启动命令。
+
+  - `ExecReload` 是服务的重载命令。
+
+  - `PrivateTmp=true` 表示服务使用私有的临时目录
+
+    **注意**: 意味着为该服务创建一个私有的临时目录，这个目录对服务进程是可见的，但对其他进程是隔离的
+
+    如果服务有用到临时文件，可以设置为`false`，这样可以避免权限问题。
+
+  - `PIDFile` 是服务的 PID 文件，确保 systemd 可以正确地跟踪服务的 PID。
+
+    在这里，确保路径与 PHP-FPM 配置文件中的 `pid` 配置项一致。
+
+- `[Install]` 部分包含了服务的启动级别。
+
+**systemctl 常用命令**
 
 1. **启动服务**: 启动一个特定的服务。
 
@@ -2034,7 +2082,9 @@ netstat -nr
 
 ### 使用 kill 关闭进程
 
-- `kill -9 PID`: 关闭指定 PID 的进程
+- `kill -QUIT PID`: 优雅关闭指定 PID 的进程（推荐，允许进程有序关闭）
+
+- `kill -9 PID`: 关闭指定 PID 的进程（强制关闭）
 
 - `killall -9 nginx`: 关闭所有 nginx 进程
 
