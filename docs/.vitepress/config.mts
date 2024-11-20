@@ -61,11 +61,11 @@ export default defineConfig({
       {
         text: "更多笔记",
         items: [
-          { text: "Docker", link: "/notes/docker" },
           { text: "Git", link: "/notes/git" },
           { text: "Mac", link: "/notes/mac" },
           { text: "Windows", link: "/notes/windows" },
           { text: "Tips", link: "/notes/tips" },
+          { text: "Docker", link: "/notes/docker" },
           { text: "平台开发", link: "/notes/api_integration" },
           { text: "系统与硬件", link: "/notes/sys_hardware" },
           { text: "命令行工具", link: "/notes/cli_tools" },
@@ -127,11 +127,11 @@ export default defineConfig({
             link: "/notes/",
             collapsed: true,
             items: [
-              { text: "Docker", link: "/notes/docker" },
               { text: "Git", link: "/notes/git" },
               { text: "Mac", link: "/notes/mac" },
               { text: "Windows", link: "/notes/windows" },
               { text: "Tips", link: "/notes/tips" },
+              { text: "Docker", link: "/notes/docker" },
               { text: "Api Integration", link: "/notes/api_integration" },
               { text: "Sys-Hardware", link: "/notes/sys_hardware" },
               { text: "CliTools", link: "/notes/cli_tools" },

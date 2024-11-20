@@ -7,9 +7,9 @@ pageClass: emoji-page-class
 
 # Emoji
 
-> copy from [getemoji](https://www.getemoji.com/) at 2024-06-20
+> 复制自: [getemoji](https://www.getemoji.com/)（2024-06-20 更新）
 
-Emojis are supported on iOS, Android, macOS, Windows, Linux and ChromeOS. Copy and paste emojis for Twitter, Facebook, Slack, Instagram, Snapchat, Slack, GitHub, Instagram, WhatsApp and more.
+Emojis 表情符号支持多个平台，可以在 微信、QQ、GitHub、WhatsApp 等平台上直接粘贴使用。
 
 ## Smileys
 
