@@ -1878,16 +1878,6 @@ grep "192.168.1.1" | awk '{print $7}' | sort | uniq -c | sort -nr | head -n 50
 
 这条命令会筛选指定 IP 地址的访问日志，并提取出所有路径，然后统计每个路径的**访问次数**并按照访问次数进行降序排列
 
-**流量监控工具**
-
-- `iftop`：实时监控网络流量
-
-  `iftop -i eth0` 可以监控指定网卡的流量
-
-  `iftop -i eth0 -f "host 192.168.1.1"` 可以监控指定主机的流量
-
-  `h` 显示帮助
-
 ### 获取本机的网络信息
 
 **获取本机的 IP 地址**
@@ -2241,8 +2231,56 @@ ssh username@remote_host
 
 ## 推荐工具
 
-### tmux
+### 网络监控
 
-### supervisor
+- `iftop`: 实时监控网络流量
 
-`supervisor` 是一款用 Python 编写的进程管理工具，它可以用来监控和控制进程的运行状态。
+  `iftop -i eth0` 可以监控指定网卡的流量
+
+  `iftop -i eth0 -f "host 192.168.1.1"` 可以监控指定主机的流量
+
+  `h` 显示帮助
+
+### 终端工具
+
+- `tmux`: 终端复用工具
+
+  `tmux new -s session_name` 创建一个新的会话
+
+  `tmux attach -t session_name` 连接到一个会话
+
+  `tmux ls` 列出所有会话
+
+  `tmux kill-session -t session_name` 关闭一个会话
+
+### 系统监控
+
+- `htop`: 实时监控系统资源
+
+  `F2` 进入设置
+
+  `F3` 搜索进程
+
+  `F4` 过滤进程
+
+  `F5` 刷新
+
+  `F6` 排序
+
+  `F9` 杀死进程
+
+### 进程服务管理
+
+- `supervisor`: 进程管理工具
+
+  `supervisorctl status` 查看所有进程状态
+
+  `supervisorctl start process_name` 启动一个进程
+
+  `supervisorctl stop process_name` 停止一个进程
+
+  `supervisorctl restart process_name` 重启一个进程
+
+  `supervisorctl reread` 重新读取配置文件
+
+  `supervisorctl update` 更新配置文件
