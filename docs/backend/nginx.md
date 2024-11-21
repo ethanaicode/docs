@@ -248,6 +248,67 @@ server {
 }
 ```
 
+#### 密码保护
+
+可以使用`auth_basic`指令来设置密码保护，比如下面的配置：
+
+```nginx
+server {
+    listen 80;
+    server_name www.example.com;
+    location / {
+        auth_basic "Restricted";
+        auth_basic_user_file /etc/nginx/.htpasswd;
+    }
+}
+```
+
+- `auth_basic`: 设置提示信息
+
+- `auth_basic_user_file`: 设置密码文件的路径（可以使用`htpasswd`命令生成）
+
+#### 流量限制
+
+可以使用`limit_conn`和`limit_rate`来限制连接数和速率。
+
+```nginx
+limit_conn perserver 50;
+limit_conn perip 3;
+limit_rate 2048k;
+```
+
+- `limit_conn perserver 50`: 并发限制，限制当前站点最大并发数
+
+- `limit_conn perip 3`: 单 IP 限制，限制单个 IP 访问最大并发数
+
+- `limit_rate 2048k`: 流量限制，限制每个请求的流量上限（单位是 KB）
+
+#### 防盗链
+
+可以使用`valid_referers`和`invalid_referer`来设置防盗链。
+
+```nginx
+location ~ .*\.(jpg|jpeg|gif|png|js|css)$
+{
+    expires      30d;
+    access_log /dev/null;
+    valid_referers none blocked gobiji.com *.shejibijil.com;
+    if ($invalid_referer){
+        return 404;
+    }
+}
+```
+
+- `expires 30d`: 设置缓存时间
+
+- `valid_referers none blocked shejibijil.com;`: 设置允许的 referer
+
+  `none blocked` none 表示没有 referer，blocked 表示 referer 为空，在一起表示允许空 referer 请求。
+
+  `shejibijil.com;` 表示允许的 referer
+
+- `if ($invalid_referer)`: 如果 referer 不在允许的列表中，则返回 404
+
 #### 反向代理
 
 默认是轮询的方式来代理的。
@@ -330,6 +391,12 @@ http {
 - `access_log`: 访问日志的路径和格式，可以全局配置，也可以在 server 或 location 中配置
 
 - `error_log`: 错误日志的路径和日志级别，支持的日志级别包括 `debug`、`info`、`notice`、`warn`、`error` 和 `crit`。
+
+如果不想写访问日志，可以把 access_log 的值设为 `/dev/null`。
+
+```nginx
+access_log /dev/null;
+```
 
 #### 常用的日志变量
 

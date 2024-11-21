@@ -44,6 +44,7 @@ export default defineConfig({
         items: [
           { text: "Nginx", link: "/backend/nginx" },
           { text: "Linux", link: "/backend/linux" },
+          { text: "Bash", link: "/backend/bash" },
           { text: "Vim", link: "/backend/vim" },
           { text: "MySQL", link: "/backend/mysql" },
           { text: "Redis", link: "/backend/redis" },
@@ -107,6 +108,7 @@ export default defineConfig({
             items: [
               { text: "Nginx", link: "/backend/nginx" },
               { text: "Linux", link: "/backend/linux" },
+              { text: "Bash", link: "/backend/bash" },
               { text: "Vim", link: "/backend/vim" },
               { text: "MySQL", link: "/backend/mysql" },
               { text: "Redis", link: "/backend/redis" },

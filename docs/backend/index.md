@@ -6,6 +6,8 @@
 
 - [Linux](./linux)
 
+- [Bash](./bash)
+
 - [Nginx](./nginx)
 
 - [Vim](./vim)
