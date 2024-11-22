@@ -23,3 +23,23 @@
   /* border: 1px solid #009efd; */
   font-size: 1.6em;
 }
+
+/*
+ * 自定义 h4 标题样式
+ */
+.vp-doc h4 {
+  margin: 24px 0 0;
+  letter-spacing: -0.02em;
+  line-height: 24px;
+  font-size: 18px;
+  color: var(--vp-c-text-2);
+}
+.vp-doc h4::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 108px;
+  background-color: var(--vp-c-gutter); /* 一个简单的底部装饰线 */
+}

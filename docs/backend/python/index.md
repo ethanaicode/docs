@@ -23,3 +23,5 @@
 - [BeautifulSoup](./python_beautifulsoup)
 
 - [PyInstaller](./python_pyinstaller)
+
+- [自动化工具](./python_automation)
