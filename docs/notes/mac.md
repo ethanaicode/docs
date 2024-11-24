@@ -58,7 +58,7 @@ Fn (Function)
 
 ### 切换输入法
 
-使用输入法菜单：**点按菜单栏中的输入法菜单，然后选取一种输入法**。
+使用输入法菜单: **点按菜单栏中的输入法菜单，然后选取一种输入法**。
 
 你还可以按下 **Control + 空格键** 选择上一个输入法，
 
@@ -68,9 +68,9 @@ Fn (Function)
 
 ### 强行退出程序
 
-可以使用命令：**Command⌘ + Option⌥ + Esc** 打开强制退出应用程序窗口。
+可以使用命令: **Command⌘ + Option⌥ + Esc** 打开强制退出应用程序窗口。
 
-或者使用活动监视器：**在“应用程序”文件夹中打开“实用工具”文件夹，然后双击“活动监视器”**。
+或者使用活动监视器: **在“应用程序”文件夹中打开“实用工具”文件夹，然后双击“活动监视器”**。
 
 ### 获取本机的 IP
 
@@ -80,23 +80,23 @@ ipconfig getifaddr en0
 
 ### 获取域名的解析 IP
 
-最简单的就是使用`nslookup`命令，可以获取到域名的解析 IP：
+最简单的就是使用`nslookup`命令，可以获取到域名的解析 IP:
 
 ```bash
 nslookup domain.com
 ```
 
-另外还可以用`dig`命令，来获取到更多的 DNS 信息：
+另外还可以用`dig`命令，来获取到更多的 DNS 信息:
 
 ```bash
 dig domain.com
 ```
 
-`dig`命令支持参数，可以查看更详细的信息：
+`dig`命令支持参数，可以查看更详细的信息:
 
-- `+short`：只显示 IP 地址
+- `+short`: 只显示 IP 地址
 
-- `+trace`：显示 DNS 解析的路径
+- `+trace`: 显示 DNS 解析的路径
 
 ### 创建自己的执行命令
 
@@ -113,41 +113,80 @@ macOS 通过系统完整性保护（SIP）来保护某些系统目录，如`/usr
 sudo ln -s ~/bin/lookupwin.sh /usr/local/bin/lookupwin
 ```
 
-一定要需要确保自己写的脚本有执行权限：
+一定要需要确保自己写的脚本有执行权限:
 
 ```bash
 chmod +x lookupwin.sh
 ```
 
+### 允许远程电脑访问本机（SSH）
+
+macOS 默认是不开启 SSH 服务的，需要手动开启。开启后可以直接使用 ssh 命令连接。
+
+可以在 `系统偏好设置` --> `共享` --> `远程登录` 中开启 SSH 服务。
+
+或者使用命令行开启:
+
+```bash
+# 开启 SSH 服务
+sudo systemsetup -setremotelogin on
+```
+
 ## 命令行工具
+
+### systemsetup
+
+`systemsetup` 是 macOS 系统中的一个命令行工具，用于配置系统的一些设置。
+
+这个命令要求管理员权限，所以在执行时需要使用 `sudo`。
+
+你可以通过 `systemsetup -help` 查看所有的参数。
+
+**常用命令**
+
+- `systemsetup -gettimezone`: 获取当前时区
+
+- `systemsetup -listtimezones`: 列出所有时区
+
+### networksetup
+
+`networksetup` 是 macOS 系统中的一个命令行工具，用于配置网络设置。
+
+### defaults
+
+`defaults` 是 macOS 系统中的一个命令行工具，用于管理用户的偏好设置。
+
+**常用命令**
+
+- `defaults read`: 读取用户的偏好设置
 
 ### smbutil
 
 `smbutil` 是 macOS 系统中的一个命令行工具，用于与 SMB（Server Message Block）共享进行交互。它可以用于管理网络共享、查看共享的状态以及获取有关 SMB 连接的信息。
 
-**常用命令**：
+**常用命令**
 
-- `smbutil lookup servername`：查找设备的 IP 地址
+- `smbutil lookup servername`: 查找设备的 IP 地址
 
-- `smbutil view //server/share`：查看共享的文件和目录
+- `smbutil view //server/share`: 查看共享的文件和目录
 
-- `smbutil status //server/share`：查看共享的状态
+- `smbutil status //server/share`: 查看共享的状态
 
-- `smbutil statshares -a`：查看所有共享的状态
+- `smbutil statshares -a`: 查看所有共享的状态
 
-- `smbutil mount //username:password@server/share /Volumes/share`：挂载共享
+- `smbutil mount //username:password@server/share /Volumes/share`: 挂载共享
 
-- `smbutil unmount /Volumes/share`：卸载共享
+- `smbutil unmount /Volumes/share`: 卸载共享
 
 ### shasum
 
 `shasum` 是一个计算文件 SHA-1 校验和的命令行工具。如果不传递参数，`shasum` 将读取标准输入并计算 SHA-1 校验和。
 
-**常用命令**：
+**常用命令**
 
-- `shasum -a 256 filename`：计算文件的 SHA-256 校验和
+- `shasum -a 256 filename`: 计算文件的 SHA-256 校验和
 
-- `shasum -c filename.sha256`：校验文件的 SHA-256 校验和
+- `shasum -c filename.sha256`: 校验文件的 SHA-256 校验和
 
 ## 新机器配置
 
@@ -187,7 +226,7 @@ Brew 的应用一般会安装到`/usr/local/Cellar`目录下，
 
 Brew 的应用配置一般可以在`/usr/local/etc`目录下找到。
 
-**Brew 的基本命令**：
+**Brew 的基本命令**
 
 - **brew list** = 将会显示所有已安装的 Homebrew 软件包
 
@@ -247,11 +286,11 @@ Cask 是 Homebrew 的扩展，原本的 Homebrew 是管理命令行的，而 Cas
 
 **切换镜像源**
 
-国内镜像地址：
+国内镜像地址:
 
-- 中科大：https://mirrors.ustc.edu.cn/homebrew-bottles
-- 阿里云：https://mirrors.aliyun.com/homebrew/homebrew-bottles
-- 清华：https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+- 中科大: https://mirrors.ustc.edu.cn/homebrew-bottles
+- 阿里云: https://mirrors.aliyun.com/homebrew/homebrew-bottles
+- 清华: https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 
 ```bash
 # 临时使用
@@ -293,7 +332,7 @@ MAMP 的服务及应用都放在目录`/Applications/MAMP/bin`下，
 
 可以通过 WEBROOT + 目录名 访问对应的服务，比如想要使用 phpMyAdmin，可以通过 http://localhost:8888/phpMyAdmin/ 访问。
 
-**目前查看目录并测试，知道可用的服务包括：**
+**目前查看目录并测试，知道可用的服务包括: **
 
 - **mamp** = MAMP 管理工具
 

@@ -2054,7 +2054,7 @@ To get information on Squid profile/app, run:
 
 **SSH 密钥认证**是一种更安全的登录方式，它通过公钥和私钥的方式来进行认证，避免了传统的用户名和密码登录方式的弊端。
 
-**生成 SSH 密钥**
+#### 生成 SSH 密钥
 
 ```bash
 ssh-keygen -t rsa -b 4096 -C "comment"
@@ -2072,19 +2072,39 @@ ssh-keygen -t rsa -b 4096 -C "comment"
 ssh-copy-id username@remote_host
 ```
 
-**SSH 配置文件**
+如果指定了端口或使用了非默认路径的私钥，可以添加参数：
+
+```bash
+ssh-copy-id -i ~/.ssh/id_rsa.pub -p 22 username@remote_host
+```
+
+**手动复制公钥到远程服务器**
+
+```bash
+cat ~/.ssh/id_rsa.pub | ssh username@remote_host "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+```
+
+复制到远程服务器后，可以通过以下命令测试是否成功，如果不需要输入密码即可登录，则表示成功。
+
+```bash
+ssh username@remote_host
+```
+
+#### SSH 配置文件
 
 SSH 配置文件通常位于用户家目录下的 `.ssh` 目录中，文件名为 `config`。
 
 ```bash
-Host remote_host
+Host myserver
     HostName remote_host
     User username
     Port 22
     IdentityFile ~/.ssh/id_rsa
 ```
 
-- `Host`: 指定主机别名。
+- `Host`: 指定主机别名，这意味着你可以使用别名来代替主机地址。
+
+  （之后就可以使用`ssh myserver`来登录）
 
 - `HostName`: 指定主机地址。
 
@@ -2094,7 +2114,13 @@ Host remote_host
 
 - `IdentityFile`: 指定私钥文件。
 
-**SSH 登录**
+还可以定义更多配置项：
+
+- `logLevel`: 指定日志级别。(QUIET, FATAL, ERROR, INFO, VERBOSE, DEBUG, DEBUG1, DEBUG2, and DEBUG3)
+
+- `Compression`: 指定压缩算法。
+
+#### SSH 登录
 
 ```bash
 ssh username@remote_host

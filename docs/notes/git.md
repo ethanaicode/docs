@@ -503,6 +503,48 @@ find ./ -type d -empty -exec touch {}/.gitkeep \;
 git fetch origin
 ```
 
+## Github
+
+### Access Token
+
+#### 生成 Access Token
+
+在使用 Github 的时候，可以使用 Access Token 来代替帐号密码，这样更加安全。
+
+你可以在 Github 的设置中生成一个 Access Token，然后使用这个 Token 来代替密码。
+
+```bash
+git clone https://<username>:<token>@<repository-url>
+```
+
+#### 权限设置
+
+在生成 Token 的时候，可以设置 Token 的权限，推荐 最小权限原则。
+
+**权限解释**
+
+- `Actions`: 管理 GitHub Actions 工作流及其运行。
+
+- `Administration`: 管理仓库的高级设置、协作者、团队权限。
+
+- `Attestations`: 创建和查看与仓库相关的声明（attestations）, 例如代码签名。
+
+- `Custom properties`: 创建和查看与仓库相关的自定义属性, 例如标记。
+
+- `Issues`: 查看、创建和更新问题。
+
+- `Metadata`: 仓库的基本信息，包括名称、描述、语言等。
+
+- `Contents`: 仓库的文件内容。（可写的话，则可以提交代码、创建分支等）
+
+下面是一些常用的权限组合：
+
+**只允许提交代码到仓库**
+
+- Metadata(mandatory): Read-only
+
+- Contents: Read and write
+
 ## 工具推荐
 
 ### gitkraken
