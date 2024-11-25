@@ -1,5 +1,39 @@
 # JavaScript
 
+## 常用对象的原型方法速查表
+
+### 字符串对象
+
+- `string.split(separator, limit)`: 将字符串拆分为数组。
+
+### 数组对象
+
+- `array.join(separator)`: 将数组转换为字符串。
+
+- `array.pop()`: 删除并返回数组的最后一个元素。
+
+- `array.push(item1, item2, ..., itemX)`: 向数组的末尾添加一个或多个元素，并返回新的长度。
+
+- `array.shift()`: 删除并返回数组的第一个元素。
+
+- `array.reverse()`: 反转数组中元素的顺序，直接修改原数组。
+
+- `array.forEach(function(currentValue, index, arr), thisValue)`: 用于调用数组的每个元素，并将元素传递给回调函数。
+
+- `array.map(function(currentValue, index, arr), thisValue)`: 用于调用数组的每个元素，并将元素传递给回调函数，返回新的数组。
+
+## 基础概念
+
+### 原型方法是什么？和原型链有什么关系？
+
+原型方法是附加在 JavaScript 对象的 `prototype` 上的函数，所有继承该 `prototype` 的对象实例都可以访问并使用这些方法。
+
+原型链是 JavaScript 实现对象继承的一种机制，通过一系列的 `prototype` 连接形成链条。每个对象都有一个内部的 `[[Prototype]]` 属性（通常通过 `__proto__` 访问），指向其构造函数的原型对象（`prototype`）。
+
+原型方法依赖于原型链, 通过原型链的方式实现了对象的继承，如果对象本身没有这个方法，会沿着原型链向上查找，直到找到为止。
+
+原型链是原型方法的实现基础，原型链保证了对象实例可以继承 `prototype` 上的属性和方法。
+
 ## JavaScript 基础
 
 ### 表达式和参考符

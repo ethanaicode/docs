@@ -400,6 +400,142 @@ class InvaildDataException(Exception):
         super().__init__(self.message)
 ```
 
+### Python 的日志处理
+
+Python 的日志处理是通过 `logging` 模块来实现的，`logging` 模块提供了一些函数和类，可以用来记录日志。
+
+#### 日志记录器
+
+Python 的日志记录器是通过 `logging.getLogger()` 函数来创建的，你可以通过 `logging.getLogger()` 函数来获取一个日志记录器，然后通过这个日志记录器来记录日志。
+
+日志记录器是通过名字进行组织和区分的，你可以通过名字来获取不同的日志记录器。
+
+```python
+import logging
+
+logger = logging.getLogger('my_logger')
+```
+
+#### 日志级别
+
+Python 的日志级别有以下几种：
+
+- `logging.CRITICAL`：严重错误级别。
+
+- `logging.ERROR`：错误级别。
+
+- `logging.WARNING`：警告级别。
+
+- `logging.INFO`：信息级别。
+
+- `logging.DEBUG`：调试级别。
+
+**注意**：日志级别是可以设置的，只有大于等于设置的级别的日志才会被记录。
+如果你没有设置日志级别，默认是 `WARNING`，这意味着只有 `WARNING`、`ERROR` 和 `CRITICAL` 级别的日志会被记录。
+
+#### 日志处理器
+
+Python 的日志处理器是通过 `logging` 模块中的处理器类来实现的，处理器类有以下几种：
+
+- `logging.NullHandler`：空处理器。
+
+- `logging.StreamHandler`：输出到控制台。
+
+- `logging.FileHandler`：输出到文件。
+
+- `logging.handlers.RotatingFileHandler`：输出到滚动文件。
+
+- `logging.handlers.TimedRotatingFileHandler`：输出到定时滚动文件。
+
+#### 日志格式化器
+
+Python 的日志格式化器是通过 `logging` 模块中的格式化器类来实现的，如：
+
+```python
+custom_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+```
+
+**格式化字符串有以下几种**：
+
+- `%(asctime)s`：日志记录的时间。
+
+- `%(name)s`：日志记录的名称。
+
+- `%(levelname)s`：日志记录的级别。
+
+- `%(message)s`：日志记录的消息。
+
+- `%(filename)s`：日志记录的文件名。
+
+- `%(lineno)d`：日志记录的行号。
+
+- `%(funcName)s`：日志记录的函数名。
+
+#### 日志记录器的使用
+
+获得日志记录器后，可以调用日志记录器的方法来记录日志，主要有：
+
+- `logger.debug()`：调试级别。
+
+- `logger.info()`：信息级别。
+
+- `logger.warning()`：警告级别。
+
+- `logger.error()`：错误级别。
+
+- `logger.critical()`：严重错误级别。
+
+- `logger.log()`：自定义级别。
+
+下面是一个简单的例子：
+
+```python
+import logging
+
+# 配置日志记录器
+logger = logging.getLogger(__name__)
+
+# 设置日志级别
+logger.setLevel(logging.DEBUG)
+
+# 创建一个控制台处理器
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+
+# 创建一个日志格式化器
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+
+# 添加处理器到记录器
+logger.addHandler(ch)
+
+# 记录日志
+logger.info('This is a info message')
+```
+
+**basicConfig() 函数**
+
+`logging.basicConfig()` 函数是一个快速配置日志记录器的函数，它可以设置日志记录器的级别、处理器和格式化器，适合简单的日志需求。
+
+下面是设置多个处理器的例子：
+
+```python
+import logging
+
+handler_console = logging.StreamHandler()
+handler_file = logging.FileHandler("app.log", mode="w")
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[handler_console, handler_file]
+)
+
+logging.info("This message will appear on both console and file.")
+```
+
+**注意**：`basicConfig()` 函数只能在第一次调用时生效，如果你在第二次调用时传入了参数，那么第二次调用会被忽略。
+
 ### Python 的模块和包
 
 **from ... import ...**

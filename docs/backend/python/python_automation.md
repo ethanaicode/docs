@@ -26,11 +26,9 @@
 
   支持控件级别的操作，可以用于模拟用户在 Windows 程序中的操作
 
-- **Quartz**: 一个用于 Mac OS X GUI 自动化测试的 Python 库
+- **pyobjc**: 一个用于 Mac OS X 程序开发的 Python 库
 
-  支持控件级别的操作，可以用于模拟用户在 Mac OS X 程序中的操作
-
-  安装方法：`pip install pyobjc`
+  可以用于编写 Mac OS X 程序的自动化脚本，如操作窗口、应用等
 
 - **selenium**: 一个用于 Web 自动化测试的 Python 库，支持多种浏览器
 
@@ -39,6 +37,8 @@
 ## pyautogui
 
 > 文档：[pyautogui](https://pyautogui.readthedocs.io/en/latest/)
+>
+> 安装方法：`pip install pyautogui`
 
 ### 基础操作
 
@@ -79,3 +79,31 @@
   `confidence` 参数表示查找的相似度，范围为 0~1，默认为 0.9（如果使用 confidence，要求安装 `opencv-python`）
 
   `grayscale` 参数表示是否使用灰度图像查找，默认为 False
+
+## PyObjC
+
+> 文档：[PyObjC](https://pypi.org/project/pyobjc/)
+>
+> 安装方法：`pip install pyobjc`
+
+`pyobjc` 是一个用于 Mac OS X 程序开发的 Python 库，它是一个 Python 桥接库，可以让 Python 调用 macOS 的 Objective-C API，如 `Quartz`、`AppKit` 等。
+
+### Quartz
+
+`Quartz` 是 Mac OS X 的图形框架，提供了一系列用于图形操作的 API。
+
+### AppKit
+
+`AppKit` 是 Mac OS X 的应用框架，提供了一系列用于应用开发的 API。
+
+#### NSScreen
+
+`NSScreen` 是 Mac OS X 的屏幕类，提供了一系列用于屏幕操作的 API。
+
+- `NSScreen.mainScreen()`: 获取主屏幕的信息
+
+  `NSScreen.mainScreen().backingScaleFactor()` 获取主屏幕的缩放比例（Retina 屏幕）
+
+  `NSScreen.mainScreen().frame()` 获取主屏幕的尺寸
+
+- `NSScreen.screens()`: 获取所有屏幕的信息
