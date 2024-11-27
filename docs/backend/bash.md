@@ -203,3 +203,14 @@ done
 ### 不显示错误消息
 
 执行命令时，如果不想显示错误消息，可以使用 `2>/dev/null`，它表示将错误消息重定向到 `/dev/null`。
+
+### 添加环境变量 PATH
+
+如果在非交互式 shell 中执行脚本，不会加载通常在交互式登录时读取的某些环境变量（如 `.bash_profile`、`.bash_login` 或 `.profile`）。
+
+可以在脚本中主动添加环境变量，如:
+
+```bash
+# 定义PATH
+export PATH="/usr/local/bin:/usr/bin:/bin"
+```

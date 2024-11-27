@@ -430,7 +430,7 @@ Python 的日志级别有以下几种：
 
 - `logging.DEBUG`：调试级别。
 
-**注意**：日志级别是可以设置的，只有大于等于设置的级别的日志才会被记录。
+**注意**: 日志级别是可以设置的，只有大于等于设置的级别的日志才会被记录。
 如果你没有设置日志级别，默认是 `WARNING`，这意味着只有 `WARNING`、`ERROR` 和 `CRITICAL` 级别的日志会被记录。
 
 #### 日志处理器
@@ -534,7 +534,7 @@ logging.basicConfig(
 logging.info("This message will appear on both console and file.")
 ```
 
-**注意**：`basicConfig()` 函数只能在第一次调用时生效，如果你在第二次调用时传入了参数，那么第二次调用会被忽略。
+**注意**: `basicConfig()` 函数只能在第一次调用时生效，如果你在第二次调用时传入了参数，那么第二次调用会被忽略。
 
 ### Python 的模块和包
 

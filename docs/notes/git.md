@@ -345,7 +345,7 @@ _要注意的是， `git rebase master` 实际上是在 `feature-branch` 分支�
 
 _`rebase` 的目的是将一个分支的提交重新应用到目标分支（通常是主分支）的末尾，这样可以避免出现分支和合并的痕迹，让分支历史保持线性。_
 
-**注意：**如果在执行 `rebase` 时出现冲突，你需要手动解决冲突并继续 `rebase`。解决冲突后，使用以下命令继续：
+**注意**: 如果在执行 `rebase` 时出现冲突，你需要手动解决冲突并继续 `rebase`。解决冲突后，使用以下命令继续：
 
 ```bash
 git rebase --continue
@@ -363,6 +363,54 @@ git merge --ff-only feature-branch
   如果主分支已经有新的提交，就不需要这个参数了。
 
 通过这种方法，Git 的提交历史不会显示分支的合并痕迹，历史看起来就像在一条线上演进。
+
+### Commit 规范
+
+**每次提交消息中应该包含以下内容：**
+
+- **type**: 提交的类型。
+
+- **scope**: 可选，提交的范围，比如 `button`、`header`、`footer` 等。
+
+- **subject**: 提交的简短描述，不超过 50 个字符。
+
+- **body**: 提交的详细描述，可以包含原因、解决方案等。
+
+- **footer**: 提交的备注，比如关联的 issue、关闭的 issue 等。
+
+**type 类型**
+
+- **feat**: 新功能（feature）
+
+- **fix**: 修复 bug
+
+- **docs**: 文档（documentation），比如 README、CHANGELOG 等
+
+- **style**: 格式（不影响代码运行的变动），比如空格、格式化等
+
+- **refactor**: 重构（不是新增功能，也不是修复 bug）
+
+- **perf**: 性能优化，体验优化
+
+- **test**: 测试用例
+
+- **chore**: 构建过程或辅助工具的变动
+
+- **revert**: 撤销
+
+**示例**
+
+```bash
+feat(button): add new button component
+
+Add a new button component to the project.
+
+- Add button component
+- Add button styles
+- Add button tests
+
+Closes #123
+```
 
 ## 案例及技巧
 
@@ -422,7 +470,7 @@ git update-index --skip-worktree config.json
 git update-index --no-skip-worktree config.json
 ```
 
-这样就可以避免本地修改被覆盖。
+这样就可以避免本地修改被覆盖。（实测如果远程仓库对该文件有修改，会导致无法 pull @2024-11-27）
 
 还可以使用 `assume-unchanged` 命令，这个命令和`skip-worktree`类似，但是它会在`git status`中显示。
 
@@ -432,7 +480,7 @@ git update-index --assume-unchanged config.json
 git update-index --no-assume-unchanged config.json
 ```
 
-**注意**：仅推荐配置文件使用，因为如果远程仓库对该文件有更新，你的本地版本可能会与远程版本产生差异。
+**注意**: 仅推荐配置文件使用，因为如果远程仓库对该文件有更新，你的本地版本可能会与远程版本产生差异。
 
 ### 强制覆盖本地代码（与 git 远程仓库保持一致）
 

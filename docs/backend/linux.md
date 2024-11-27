@@ -900,9 +900,21 @@ Linux example.com 5.4.0-65-generic #73-Ubuntu SMP Mon Jan 18 17:25:17 UTC 2021 x
 
 可以通过 `make uninstall` 来卸载已经安装的软件，但是并不是所有的软件都支持这个命令。
 
-## 文件相关
+## 文本处理
 
-我们可以结合多个命令来完成一些复杂的操作，比如查找大文件、合并文件、创建多个文件等。
+### 使用 cat 合并追加文件
+
+cat file1 file2 > target_file: 将多个文件合并到目标文件中。
+
+```bash
+cat file1 file2 > target_file
+```
+
+cat file1 file2 >> target_file: 将几个文件附加到目标文件中。
+
+```bash
+cat file1 file2 >> target_file
+```
 
 ### 使用 sed 批量替换文本内容
 
@@ -944,11 +956,15 @@ find /path/to/files -type f -name "*.conf" -exec sed -i.bak 's|/www/server/panel
 
 每列的数据称为一个字段，`awk` 默认以空格作为字段分隔符，可以使用`-F`参数指定其他分隔符。
 
-**最佳实践**
+#### 最佳实践
 
 - 为了减少 `awk` 需要处理的数据量，可以先使用 `grep` 命令来过滤数据。
 
-**基本语法**
+- 如果确保某列被当作数字处理，可以使用 `+0` 来强制转换为数字。
+
+  如: `awk '{print $1 + 0}' filename`
+
+#### 基本语法
 
 ```bash
 awk [options] 'pattern { action }' filename
@@ -958,7 +974,7 @@ awk [options] 'pattern { action }' filename
 
 - `action`: 动作，用于处理匹配的文本行。
 
-**模式**
+#### 模式
 
 `pattern` 是一个模式，用于匹配文本行。`pattern` 可以是一个正则表达式、一个条件表达式、一个范围表达式等。
 
@@ -978,7 +994,7 @@ awk '/pattern/ { action }' filename
 
 - `END`: 在处理完所有文本行后执行。
 
-**操作块**
+#### 操作块
 
 `{ action }` 是一个操作块，用于处理匹配的文本行。操作块可以包含多个命令，多个命令之间使用分号分隔。
 
@@ -998,7 +1014,7 @@ awk '{ print $1; print $2 }' filename
 awk '{ if ($1 > 10) print $1 }' filename
 ```
 
-**内置函数**
+#### 内置函数
 
 `awk` 提供了一些内置函数，用于处理文本数据。
 
@@ -1018,7 +1034,7 @@ awk '{ if ($1 > 10) print $1 }' filename
 
 - `tolower(string)`: 将字符串转换为小写。
 
-**内置变量**
+#### 内置变量
 
 `awk` 提供了一些内置变量，用于处理文本数据。
 
@@ -1045,6 +1061,46 @@ awk '{ if ($1 > 10) print $1 }' filename
 - 处理 nginx 的日志文件
 
   具体代码可以在 `网络` --> `获取服务器流量消耗信息` 中查看。
+
+### less 查看文件支持更多操作
+
+1. **搜索**:
+   - 按下 `/` 键后输入要搜索的内容，然后按 Enter 键。`less` 将高亮显示匹配的内容，并使用 `n` 和 `N` 键分别向前和向后跳转到下一个或上一个匹配项。
+2. **跳转**:
+   - 使用 `g` 命令跳转到文件的开头。
+   - 使用 `G` 命令跳转到文件的末尾。
+   - 使用 `1G` 命令跳转到文件的第一行。
+   - 使用 `n<Enter>` 命令跳转到文件的第 n 行。
+3. **标记位置**:
+   - 按下 `m` 键后输入一个字母（比如 `a`）以在当前位置标记。然后，可以使用 `'a` 命令回到该标记位置。
+4. **显示行号**:
+   - 按下 `-N`（大写 N）命令可以显示行号。
+5. **执行外部命令**:
+   - 按下 `!` 键后输入要执行的外部命令，然后按 Enter 键。例如，`!ls` 可以执行 `ls` 命令并显示结果。
+6. **切换布局**:
+   - 按下 `v` 键可以切换到编辑器模式，以便在 `vi` 或其他编辑器中编辑当前文件。
+7. **退出**:
+   - 按下 `q` 键退出 `less`。
+
+### 使用 grep 查找文本
+
+查找文本在某个文件中
+
+可以加`-a`参数，表示以文本方式查看二进制文件
+
+```bash
+grep -a "text" filename
+```
+
+其中字符串内容可以使用正则表达式
+
+```bash
+grep -a "sc[0-9]*" filename
+```
+
+## 文件和目录
+
+我们可以结合多个命令来完成一些复杂的操作，比如查找大文件、合并文件、创建多个文件等。
 
 ### 打印文件及目录的树形结构
 
@@ -1137,20 +1193,6 @@ mv logfile.new logfile
 
 _有时候空间并不会立刻释放出来，所以考虑重启服务或者服务器来立即释放空间。_
 
-### 使用 cat 合并追加文件
-
-cat file1 file2 > target_file: 将多个文件合并到目标文件中。
-
-```bash
-cat file1 file2 > target_file
-```
-
-cat file1 file2 >> target_file: 将几个文件附加到目标文件中。
-
-```bash
-cat file1 file2 >> target_file
-```
-
 ### 快速创建多个文件或者目录
 
 可以使用`{1,2,3}`这种方式来创建多个文件或者目录
@@ -1171,42 +1213,6 @@ mkdir -p newDir/{subDir1,subDir2}
 
 ```bash
 ls -l | grep "^-" | wc -l
-```
-
-### less 查看文件支持更多操作
-
-1. **搜索**:
-   - 按下 `/` 键后输入要搜索的内容，然后按 Enter 键。`less` 将高亮显示匹配的内容，并使用 `n` 和 `N` 键分别向前和向后跳转到下一个或上一个匹配项。
-2. **跳转**:
-   - 使用 `g` 命令跳转到文件的开头。
-   - 使用 `G` 命令跳转到文件的末尾。
-   - 使用 `1G` 命令跳转到文件的第一行。
-   - 使用 `n<Enter>` 命令跳转到文件的第 n 行。
-3. **标记位置**:
-   - 按下 `m` 键后输入一个字母（比如 `a`）以在当前位置标记。然后，可以使用 `'a` 命令回到该标记位置。
-4. **显示行号**:
-   - 按下 `-N`（大写 N）命令可以显示行号。
-5. **执行外部命令**:
-   - 按下 `!` 键后输入要执行的外部命令，然后按 Enter 键。例如，`!ls` 可以执行 `ls` 命令并显示结果。
-6. **切换布局**:
-   - 按下 `v` 键可以切换到编辑器模式，以便在 `vi` 或其他编辑器中编辑当前文件。
-7. **退出**:
-   - 按下 `q` 键退出 `less`。
-
-### 使用 grep 查找文本
-
-查找文本在某个文件中
-
-可以加`-a`参数，表示以文本方式查看二进制文件
-
-```bash
-grep -a "text" filename
-```
-
-其中字符串内容可以使用正则表达式
-
-```bash
-grep -a "sc[0-9]*" filename
 ```
 
 ### 解压缩文件 (tar, zip)
@@ -1269,7 +1275,7 @@ zip -r archive.zip /path/to/directory
 
   - `-d` 参数指定解压缩目录
 
-### 查找文件
+### 查找文件（find, locate）
 
 **查找文件/文件夹并进行排序**
 
@@ -1317,7 +1323,7 @@ find . -type f | shuf -n 1
 
 - `shuf` 命令用于随机排序输入行，`-n 1` 用于显示一个随机行。
 
-### 远程复制文件到本地
+### 远程复制文件到本地（scp）
 
 **可以使用`scp` (secure copy) 来实现。**
 
@@ -1407,7 +1413,7 @@ rsync -avz username@remote_host:/path/to/remote/file /path/to/local/destination
 
 ## 服务管理
 
-### 使用 systemctl 命令管理服务
+### systemctl 服务管理
 
 systemd 是一个 init 系统和系统管理守护进程，用于启动、停止和管理系统中的各种服务和进程。
 
@@ -1626,7 +1632,7 @@ crontab 的配置文件通常位于 `/etc/crontab` 或者 `/var/spool/cron` 目�
     @daily /path/to/script.sh
     ```
 
-### 使用 logrotate 管理日志文件
+### logrotate 日志文件管理
 
 `logrotate` 是一个在 Linux 操作系统中用来管理日志文件的工具。`logrotate` 可以定期对日志文件进行压缩、删除、邮件通知等操作。
 
@@ -1662,7 +1668,7 @@ crontab 的配置文件通常位于 `/etc/crontab` 或者 `/var/spool/cron` 目�
 - `sharedscripts`: 在日志文件轮换前后执行脚本。
 - `postrotate` 到 `endscript`: 在日志文件轮换后执行 `/usr/lib/rsyslog/rsyslog-rotate` 脚本。
 
-## 网络相关
+## 网络工具
 
 ### 获取服务器流量消耗信息
 
@@ -1737,11 +1743,17 @@ grep "192.168.1.1" | awk '{print $7}' | sort | uniq -c | sort -nr | head -n 50
 
 ### 获取本机的网络信息
 
-**获取本机的 IP 地址**
+#### 获取本机的 IP
+
+可以使用`ip`命令来获取本机的 IP 地址。
 
 ```bash
 ip addr show
 ```
+
+- `addr` 参数表示显示网络接口的 IP 地址
+
+- `show` 参数表示显示详细信息
 
 ### 使用 cURL 或者 wget 下载文件
 
@@ -1929,127 +1941,6 @@ netstat -natp
 netstat -nr
 ```
 
-## 进程管理
-
-### 使用 PS 查找进程
-
-- `ps aux`: 查看所有进程
-
-- `ps aux | grep nginx`: 查找 nginx 进程
-
-- `ps aux | grep php-fpm`: 查找 php-fpm 进程
-
-  还可以使用`lsof -i :port`来查看指定端口的进程情况（可能需要安装 lsof）。
-
-### 使用 kill 关闭进程
-
-- `kill -QUIT PID`: 优雅关闭指定 PID 的进程（推荐，允许进程有序关闭）
-
-- `kill -9 PID`: 关闭指定 PID 的进程（强制关闭）
-
-- `killall -9 nginx`: 关闭所有 nginx 进程
-
-  `-9` 表示强制关闭进程（不进行清理操作）
-
-  kill 后面可以跟多个进程 ID，用空格隔开
-
-## 防火墙
-
-### 使用 ufw 管理防火墙
-
-ufw 是 Debian/Ubuntu 系统中的一个简单的防火墙管理工具，可以用来配置 iptables 防火墙规则。
-
-> 如果没有安装，可以使用`apt`来安装，命令为: `apt install ufw`
-
-**基础命令**
-
-- ufw status verbose: 查看当前防火墙状态
-
-- ufw app list 查看服务列表
-
-- ufw status [numbered]: 列出防火墙规则（可以选择加上序号）
-
-- ufw delete {num}: 有序号后就可以指定删除某条规则
-
-**常用案例**
-
-允许 22 端口的 TCP 请求访问（不加“/tcp”为允许 tcp 和 udp）
-
-```bash
-ufw allow 22/tcp
-```
-
-拒绝指定端口访问
-
-```bash
-# []表示可选项
-ufw deny 25[/tcp comment 'Block access to smptd by default']
-```
-
-**更多案例**
-
-To allow IP address 192.168.1.10 access to port 22 for all protocols
-`sudo ufw allow from 192.168.1.10 to any port 22`
-Open port 74.86.26.69:443 (SSL 443 nginx/apache/lighttpd server) for all, enter:
-`sudo ufw allow from any to 74.86.26.69 port 443 proto tcp`
-To allows subnet 192.168.1.0/24 to Sabma services, enter:
-`ufw allow from 192.168.1.0/24 to any app Samba`
-
-To get information on Squid profile/app, run:
-`ufw app info Squid`
-
-## 主机相关
-
-### 查看及修改主机信息
-
-> 主机的名称是服务器的标识，可以通过主机名来访问服务器，配置文件在 /etc/hostname
-
-- `hostname`: 查看主机名
-
-- `hostname newname`: 修改主机名（临时）
-
-- `hostnamectl set-hostname newname`: 修改主机名
-
-- `hostnamectl set-hostname newname --static`: 修改静态主机名
-
-- `hostnamectl set-hostname newname --pretty`: 修改主机名的美观名称
-
-- `hostnamectl set-hostname newname --transient`: 修改临时主机名
-
-### 查看系统的芯片和其他硬件信息
-
-- `lscpu`: 查看 CPU 信息
-
-  显示有关 CPU 架构的信息，包括其类型、核心数、架构等。
-
-- `lshw`: 查看硬件信息
-
-  显示有关系统硬件的详细信息，包括 CPU、内存、磁盘、网络适配器等。
-
-- `lsblk`: 查看块设备信息
-
-- `lspci`: 查看 PCI 设备信息
-
-- `uname -a`: 查看系统内核信息(包括内核版本和处理器类型)
-
-- `cat /proc/cpuinfo`: 查看 CPU 信息
-
-- `sudo dmidecode`: 查看硬件信息
-
-  用于从系统的 BIOS 中提取硬件信息。
-
-  你可以使用具体的选项来查看特定的硬件信息:
-
-  - `sudo dmidecode -t processor`: 查看处理器信息
-
-  - `sudo dmidecode -t memory`: 查看内存信息
-
-  - `sudo dmidecode -t bios`: 查看 BIOS 信息
-
-  你可以直接查看 /proc/cpuinfo 文件来获取。
-
-- `free -h`: 查看内存使用情况
-
 ### SSH 密钥生成及应用
 
 **SSH 密钥认证**是一种更安全的登录方式，它通过公钥和私钥的方式来进行认证，避免了传统的用户名和密码登录方式的弊端。
@@ -2126,68 +2017,231 @@ Host myserver
 ssh username@remote_host
 ```
 
-## 推荐工具
+## 防火墙
+
+### 使用 ufw 管理防火墙
+
+ufw 是 Debian/Ubuntu 系统中的一个简单的防火墙管理工具，可以用来配置 iptables 防火墙规则。
+
+> 如果没有安装，可以使用`apt`来安装，命令为: `apt install ufw`
+
+**基础命令**
+
+- ufw status verbose: 查看当前防火墙状态
+
+- ufw app list 查看服务列表
+
+- ufw status [numbered]: 列出防火墙规则（可以选择加上序号）
+
+- ufw delete {num}: 有序号后就可以指定删除某条规则
+
+**常用案例**
+
+允许 22 端口的 TCP 请求访问（不加“/tcp”为允许 tcp 和 udp）
+
+```bash
+ufw allow 22/tcp
+```
+
+拒绝指定端口访问
+
+```bash
+# []表示可选项
+ufw deny 25[/tcp comment 'Block access to smptd by default']
+```
+
+**更多案例**
+
+To allow IP address 192.168.1.10 access to port 22 for all protocols
+`sudo ufw allow from 192.168.1.10 to any port 22`
+Open port 74.86.26.69:443 (SSL 443 nginx/apache/lighttpd server) for all, enter:
+`sudo ufw allow from any to 74.86.26.69 port 443 proto tcp`
+To allows subnet 192.168.1.0/24 to Sabma services, enter:
+`ufw allow from 192.168.1.0/24 to any app Samba`
+
+To get information on Squid profile/app, run:
+`ufw app info Squid`
+
+## 系统信息管理
+
+### 查看及修改主机信息
+
+> 主机的名称是服务器的标识，可以通过主机名来访问服务器，配置文件在 /etc/hostname
+
+- `hostname`: 查看主机名
+
+- `hostname newname`: 修改主机名（临时）
+
+- `hostnamectl set-hostname newname`: 修改主机名
+
+- `hostnamectl set-hostname newname --static`: 修改静态主机名
+
+- `hostnamectl set-hostname newname --pretty`: 修改主机名的美观名称
+
+- `hostnamectl set-hostname newname --transient`: 修改临时主机名
+
+### 查看系统的芯片和其他硬件信息
+
+- `lscpu`: 查看 CPU 信息
+
+  显示有关 CPU 架构的信息，包括其类型、核心数、架构等。
+
+- `lshw`: 查看硬件信息
+
+  显示有关系统硬件的详细信息，包括 CPU、内存、磁盘、网络适配器等。
+
+- `lsblk`: 查看块设备信息
+
+- `lspci`: 查看 PCI 设备信息
+
+- `uname -a`: 查看系统内核信息(包括内核版本和处理器类型)
+
+- `cat /proc/cpuinfo`: 查看 CPU 信息
+
+- `sudo dmidecode`: 查看硬件信息
+
+  用于从系统的 BIOS 中提取硬件信息。
+
+  你可以使用具体的选项来查看特定的硬件信息:
+
+  - `sudo dmidecode -t processor`: 查看处理器信息
+
+  - `sudo dmidecode -t memory`: 查看内存信息
+
+  - `sudo dmidecode -t bios`: 查看 BIOS 信息
+
+  你可以直接查看 /proc/cpuinfo 文件来获取。
+
+- `free -h`: 查看内存使用情况
+
+## 进程管理
+
+### 使用 PS 查找进程
+
+- `ps aux`: 查看所有进程
+
+- `ps aux | grep nginx`: 查找 nginx 进程
+
+- `ps aux | grep php-fpm`: 查找 php-fpm 进程
+
+  还可以使用`lsof -i :port`来查看指定端口的进程情况（可能需要安装 lsof）。
+
+### 使用 kill 关闭进程
+
+- `kill -QUIT PID`: 优雅关闭指定 PID 的进程（推荐，允许进程有序关闭）
+
+- `kill -9 PID`: 关闭指定 PID 的进程（强制关闭）
+
+- `killall -9 nginx`: 关闭所有 nginx 进程
+
+  `-9` 表示强制关闭进程（不进行清理操作）
+
+  kill 后面可以跟多个进程 ID，用空格隔开
+
+## 第三方工具
 
 ### 网络监控
 
-- `iftop`: 实时监控网络流量
+#### iftop
 
-  `iftop -i eth0` 可以监控指定网卡的流量
+`iftop` 是一个实时的网络流量监控工具，可以用来查看网络流量的来源和目的地。
 
-  `iftop -i eth0 -f "host 192.168.1.1"` 可以监控指定主机的流量
+**常用的命令:**
 
-  `h` 显示帮助
+- `iftop -i eth0` 可以监控指定网卡的流量
+
+- `iftop -i eth0 -f "host 192.168.1.1"` 可以监控指定主机的流量
+
+#### tcpdump
+
+`tcpdump` 是一个网络抓包工具，可以用来捕获网络数据包并进行分析。
+
+macOS 下可以直接使用 `tcpdump` 命令，Linux 下可以使用 `apt` 安装。
+
+**常用的命令:**
+
+- `tcpdump -i eth0`: 可以监控指定网卡的流量
+
+  - `-i` 参数表示指定网卡
+
+- `tcpdump -i eth0 -n`: 可以显示 IP 地址而不是域名
+
+- `tcpdump -i eth0 -c 10`: 可以捕获指定数量的数据包
+
+- `tcpdump -i eth0 -w output.pcap`: 可以将捕获的数据包保存到文件
+
+- `tcpdump -i eth0 -r input.pcap: 可以读取保存的数据包文件
+
+- `tcpdump -i lo0 -X 'tcp port 8080'`: 可以查看指定端口的数据包
+
+  - `lo0` 表示本地回环接口（它只在主机内部进行通信而不通过物理网络硬件）
+
+    这个标识在不同系统上可能不同，Linux 下一般是`lo`，macOS 下是`lo0`
+
+  - `-X` 参数表示以十六进制显示数据包内容（不加这个参数只显示头部信息）
+
+**本地模拟测试**
+
+我们首先可以用 python 来模拟一个简单的 HTTP 服务器:
+
+```python
+python -m http.server 8080
+```
+
+然后使用`tcpdump`来查看数据包:
+
+```bash
+tcpdump -i lo0 -X 'tcp port 8080'
+```
+
+最后用 `curl http://localhost:8080` 来访问这个服务器，就可以看到数据包的内容了。
 
 ### 终端工具
 
-- `tmux`: 终端复用工具
+#### tmux
 
-  `tmux new -s session_name` 创建一个新的会话
+`tmux` 是一个终端复用工具，可以在一个终端窗口中创建多个会话，每个会话可以包含多个窗格。
 
-  `tmux attach -t session_name` 连接到一个会话
+- `tmux new -s session_name`: 创建一个新的会话
 
-  `tmux ls` 列出所有会话
+- `tmux attach -t session_name`: 连接到一个会话
 
-  `tmux kill-session -t session_name` 关闭一个会话
+- `tmux ls`: 列出所有会话
+
+- `tmux kill-session -t session_name`: 关闭一个会话
 
 ### 系统监控
 
-- `htop`: 实时监控系统资源
+#### htop
 
-  `F2` 进入设置
-
-  `F3` 搜索进程
-
-  `F4` 过滤进程
-
-  `F5` 刷新
-
-  `F6` 排序
-
-  `F9` 杀死进程
+`htop` 是一个交互式的系统监控工具，可以用来查看系统资源的使用情况。
 
 ### 进程服务管理
 
-- `supervisor`: 进程管理工具
+`supervisor` 是一个进程管理工具，可以用来管理系统中的各种进程。
 
-  `supervisorctl status` 查看所有进程状态
+- `supervisord`: 启动 supervisor
 
-  `supervisorctl start process_name` 启动一个进程
+- `supervisorctl`: 进入 supervisor 控制台
 
-  `supervisorctl stop process_name` 停止一个进程
+- `supervisorctl status`: 查看所有进程状态
 
-  `supervisorctl restart process_name` 重启一个进程
+- `supervisorctl start process_name`: 启动一个进程
 
-  `supervisorctl reread` 重新读取配置文件
+- `supervisorctl stop process_name`: 停止一个进程
 
-  `supervisorctl update` 更新配置文件
+- `supervisorctl restart process_name`: 重启一个进程
+
+- `supervisorctl reread`: 重新读取配置文件
+
+- `supervisorctl update`: 更新配置文件
 
 ### 工具集
 
-- `htpasswd`: 创建和管理存储用户名和加密密码文件
+`htpasswd` 是一个用于创建和管理存储用户名和加密密码文件的工具。
 
-  `htpasswd -c /etc/nginx/.htpasswd username` 创建一个新文件并添加用户
+- `htpasswd -c /etc/nginx/.htpasswd username`: 创建一个新文件并添加用户
 
-  `htpasswd /etc/nginx/.htpasswd username` 添加一个新的用户
+- `htpasswd /etc/nginx/.htpasswd username`: 添加一个新的用户
 
-  `htpasswd -cs /etc/nginx/.htpasswd username` 创建一个新文件并添加用户（使用 SHA 加密）
+- `htpasswd -cs /etc/nginx/.htpasswd username`: 创建一个新文件并添加用户（使用 SHA 加密）

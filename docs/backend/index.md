@@ -1,16 +1,18 @@
 # 后端运维 文档导航
 
-- [MySQL](./mysql)
-
-- [Redis](./redis)
+- [Nginx](./nginx)
 
 - [Linux](./linux)
 
 - [Bash](./bash)
 
-- [Nginx](./nginx)
-
 - [Vim](./vim)
+
+- [MySQL](./mysql)
+
+- [Redis](./redis)
+
+- [Network](./network)
 
 ## Programming
 

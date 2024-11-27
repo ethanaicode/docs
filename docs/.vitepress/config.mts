@@ -48,6 +48,7 @@ export default defineConfig({
           { text: "Vim", link: "/backend/vim" },
           { text: "MySQL", link: "/backend/mysql" },
           { text: "Redis", link: "/backend/redis" },
+          { text: "Network", link: "/backend/network" },
           {
             text: "Programming",
             items: [
@@ -112,6 +113,7 @@ export default defineConfig({
               { text: "Vim", link: "/backend/vim" },
               { text: "MySQL", link: "/backend/mysql" },
               { text: "Redis", link: "/backend/redis" },
+              { text: "Network", link: "/backend/network" },
               {
                 text: "Programming",
                 collapsed: true,

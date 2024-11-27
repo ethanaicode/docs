@@ -58,9 +58,7 @@ pyinstaller --add-data 'src:dst' --onefile --windowed myscript.py
 
 - `dst` 是目标文件或目录。
 
-**注意：**
-
-在 Windows 系统中，`src` 和 `dst` 之间使用分号（;）分隔。
+**注意**: 在 Windows 系统中，`src` 和 `dst` 之间使用分号（;）分隔。
 
 ### PyInstaller 的选项
 
@@ -235,13 +233,13 @@ hdiutil create -volname "MyApp" -srcfolder dist/MyApp.app -ov -format UDZO MyApp
 
 5. **移除并转换为压缩格式**
 
-   完成界面设置后，卸载  `.dmg`：
+   完成界面设置后，卸载 `.dmg`：
 
    ```bash
    hdiutil detach /Volumes/YourAppName
    ```
 
-   将 `.dmg`  文件转换为只读压缩格式供分发：
+   将 `.dmg` 文件转换为只读压缩格式供分发：
 
    ```bash
    hdiutil convert temp.dmg -format UDZO -o YourAppName.dmg
@@ -261,7 +259,7 @@ create-dmg dist/MyApp.app output/ --overwrite ---dmg-title="MyApp"
 
 - `--dmg-title="MyApp"`：指定 dmg 文件的名称。
 
-需要注意的是，程序总是会尝试代码签名，如果没有的话最后会提示签名失败，但不影响 DMG 文件的生成。
+**注意**: 程序总是会尝试代码签名，如果没有的话最后会提示签名失败，但不影响 DMG 文件的生成。
 
 **下面是通过查看源码获取到一些信息：**
 
