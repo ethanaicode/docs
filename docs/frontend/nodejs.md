@@ -40,6 +40,12 @@ Node.js 提供了一些内置模块，可以直接使用，无需安装。
 
 - **npm update \<package\>**: 更新包
 
+  用于更新当前项目的依赖到符合 `package.json` 中的版本范围。
+
+- **npm upgrade \<package\>**: 更新指定的包到最新版
+
+  它会更新到最新的主版本号，即使 `package.json` 中指定了版本范围（它依然会跨版本更新）。
+
 - **npm list**: 查看当前项目安装的包
 
 - **npm run \<script\>**: 运行脚本

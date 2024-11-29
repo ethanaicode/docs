@@ -193,33 +193,37 @@ Brew 的应用配置一般可以在`/usr/local/etc`目录下找到。
 
 **Brew 的基本命令**
 
-- **brew list** = 将会显示所有已安装的 Homebrew 软件包
+- **brew list**: 将会显示所有已安装的 Homebrew 软件包
 
   此外，`brew list --cask` 将提供使用 [Homebrew Cask](https://github.com/Homebrew/homebrew-cask) 安装的项目。
 
-- **brew leaves** = 列出所有顶级包，不包括依赖项的包。
+- **brew leaves**: 列出所有顶级包，不包括依赖项的包。
 
-- **brew search TEXT** = 搜索软件，支持`/`的正则匹配
+- **brew search TEXT**: 搜索软件，支持`/`的正则匹配
 
-- **brew info PKG_NAME** = 查看 package name 的详细信息
+- **brew info PKG_NAME**: 查看 package name 的详细信息
 
-- **brew install PKG_NAME** = 安装软件
+- **brew install PKG_NAME**: 安装软件
 
-- **brew upgrade PKG_NAME** = 更新软件
+- **brew update**: 更新 Homebrew 库信息
+
+- **brew upgrade PKG_NAME**: 更新软件
 
   如果不输入具体的 fomula，将更新全部
 
-- **brew uninstall PKG_NAME** = 卸载软件
+  更新软件前应该先更新 Homebrew 库，以保证软件是最新的
 
-- **brew cleanup** = 清理旧版本
+- **brew uninstall PKG_NAME**: 卸载软件
+
+- **brew cleanup**: 清理旧版本
 
   删除安装过程中的缓存，会清理掉 Cask 套件
 
 ### Services
 
-- **brew services list** = 列出所有服务
+- **brew services list**: 列出所有服务
 
-- **brew services star/stop/restart serviceName** = 启动/停止/重启服务
+- **brew services star/stop/restart serviceName**: 启动/停止/重启服务
 
 ### Cask
 
@@ -227,17 +231,17 @@ Cask 是 Homebrew 的扩展，原本的 Homebrew 是管理命令行的，而 Cas
 
 管理 Cask 和管理普通软件的命令是一样的，只是在命令后面加上`--cask`参数。
 
-- **brew install --cask PKG_NAME** = 安装软件
+- **brew install --cask PKG_NAME**: 安装软件
 
-- **brew uninstall --cask PKG_NAME** = 卸载软件
+- **brew uninstall --cask PKG_NAME**: 卸载软件
 
-- **brew upgrade --cask PKG_NAME** = 更新软件
+- **brew upgrade --cask PKG_NAME**: 更新软件
 
-- **brew list --cask** = 列出所有已安装的 Homebrew Cask 软件包
+- **brew list --cask**: 列出所有已安装的 Homebrew Cask 软件包
 
-- **brew search --cask TEXT** = 搜索软件
+- **brew search --cask TEXT**: 搜索软件
 
-- **brew info --cask PKG_NAME** = 查看 package name 的详细信息
+- **brew info --cask PKG_NAME**: 查看 package name 的详细信息
 
 ### 管理镜像源配置
 
@@ -333,6 +337,14 @@ iTerm2 是一个替代 Terminal 的终端工具，功能更加强大。
 
 #### 设置
 
+> 参考文档: [iTerm2 官方文档](https://iterm2.com/3.0/documentation-preferences.html)
+
+**取消窗口变暗**
+
+默认设置中，当有多个 Pane 时，其他 Pane 会变暗，可以取消这个效果。
+
+- `Settings` --> `Appearance` --> `Dimming` --> `Dim inactive split panes`
+
 **打开系统状态栏**
 
 我们可以在 iTerm2 窗口中，增加一个系统状态栏，显示 CPU、内存、网络等信息。
@@ -357,9 +369,9 @@ MAMP 是一个集成环境，可以在 Mac 上快速搭建 Apache、MySQL、PHP 
 
 #### 常用目录及文件
 
-- **MAMP Apache Conf** = /Applications/MAMP/conf/apache/httpd.conf
+- **MAMP Apache Conf**: /Applications/MAMP/conf/apache/httpd.conf
 
-- **MAMP PHP Conf** = /Applications/MAMP/bin/php/php8.2.0/conf
+- **MAMP PHP Conf**: /Applications/MAMP/bin/php/php8.2.0/conf
 
 #### 使用技巧
 
@@ -369,15 +381,15 @@ MAMP 的服务及应用都放在目录`/Applications/MAMP/bin`下，
 
 **目前查看目录并测试，知道可用的服务包括: **
 
-- **mamp** = MAMP 管理工具
+- **mamp**: MAMP 管理工具
 
-- **adminer** = 数据库管理工具
+- **adminer**: 数据库管理工具
 
-- **phpLiteAdmin** = SQLite 管理工具
+- **phpLiteAdmin**: SQLite 管理工具
 
-- **phpPgAdmin** = PostgreSQL 管理工具
+- **phpPgAdmin**: PostgreSQL 管理工具
 
-- **phpMyAdmin** = MySQL 管理工具
+- **phpMyAdmin**: MySQL 管理工具
 
 ## 命令行工具
 

@@ -2,7 +2,7 @@
 
 > Linux 的知识是非常多的，一篇文章肯定是不够的。
 >
-> 这里只列出常用的命令，更多命令可以结合使用需求及公司场景进行学习和使用。
+> 这里包含常用的知识，更多内容可以结合使用需求及公司场景进行学习和使用。
 
 ## Linux 命令
 
@@ -486,7 +486,7 @@
 
 如 : `man cp`
 
-如果你不是很确定命令的具体名称，可以使用 _apropos [关键字]_ 来搜索相关的命令。
+如果你不是很确定命令的具体名称，可以使用 `apropos [关键字]` 来搜索相关的命令。
 也支持参数 `-k` 来寻找相关性高的命令。
 
 ### 文件目录
@@ -649,24 +649,17 @@ echo $PATH
 export PATH=$PATH:~/units174/bin
 ```
 
-如果要永久生效，在`.bashrc`后面添加:
-
-```bash
-PATH=$PATH:~/units174/bin
-```
-
 **which**
 
 which 命令可以显示命令的完整路径（前提是该文件位于该路径中）。
 
 ```bash
 which command
-which wget
 ```
 
 如果有多个同名的应用，可以加上参数`-a`来显示全部。
 
-（同名的应用，只有列表中的第一个会生效）
+（正常情况下，同名的只会显示第一个）
 
 ### Shell 的常用快捷方式
 
@@ -698,23 +691,25 @@ which wget
 >
 > 修改环境变量配置后，需要用 `source /PATH/TO/FILE_NAME` 来重新加载配置使其生效
 
-/root/.bash_profile
+- /root/.bash_profile
 
-/root/.bashrc
+- /root/.bashrc
 
-~/.bash_profile
+- ~/.bash_profile
 
-~/.bashrc
+- ~/.bashrc
 
-/etc/profile
+- /etc/profile
 
-/etc/bashrc
+- /etc/bashrc
 
-/etc/rc.local（/etc/rc.d/rc.local）: 开机启动文件，不推荐使用，可以通过服务实现
+- /etc/rc.local（/etc/rc.d/rc.local）: 开机启动文件
 
-/etc/profile.d/\*.sh: 系统启动后自动执行的脚本文件夹
+  已经不推荐使用，可以通过服务实现
 
-/etc/sysconfig/i18n
+- /etc/profile.d/\*.sh: 系统启动后自动执行的脚本文件夹
+
+- /etc/sysconfig/i18n
 
 **注意**: 如果是 zsh，那么配置文件为`~/.zshrc`。
 
@@ -1081,6 +1076,40 @@ awk '{ if ($1 > 10) print $1 }' filename
    - 按下 `v` 键可以切换到编辑器模式，以便在 `vi` 或其他编辑器中编辑当前文件。
 7. **退出**:
    - 按下 `q` 键退出 `less`。
+
+### tail/les/watch 实时查看文件变化
+
+`tail -f` 命令可以实时查看文件的变化。
+
+```bash
+tail -n 10 -f filename
+```
+
+`less +F` 命令也可以实时查看文件的变化。
+
+```bash
+less +F filename
+```
+
+- `+F`: 进入文件尾部并开始跟踪。
+
+- `Ctrl + C`: 退出跟踪模式。
+
+- `Shift + F`: 进入跟踪模式。
+
+`watch` 命令可以定期执行一个命令，并显示结果。
+
+```bash
+watch -n 1 'ls -l'
+```
+
+- `-n 1`: 每秒执行一次命令。
+
+可以使用`watch`结合`tail`命令来实时查看文件的变化。
+
+```bash
+watch -n 1 'tail -n 10 filename'
+```
 
 ### 使用 grep 查找文本
 
@@ -2079,6 +2108,8 @@ To get information on Squid profile/app, run:
 - `hostnamectl set-hostname newname --pretty`: 修改主机名的美观名称
 
 - `hostnamectl set-hostname newname --transient`: 修改临时主机名
+
+如果要查看系统信息，也可以安装一个`neofetch`工具，它可以显示系统信息。
 
 ### 查看系统的芯片和其他硬件信息
 

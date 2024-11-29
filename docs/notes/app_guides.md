@@ -708,3 +708,33 @@ _优点是可以保留皮肤的纹理，缺点是比较繁琐，效率非常慢_
 - **F** = 全屏
 
 - **M** = 静音
+
+## VirtualBox
+
+VirtualBox 是一款开源的虚拟机软件，可以用来安装不同的操作系统。
+
+官网：[VirtualBox](https://www.virtualbox.org/)
+
+### 使用技巧 Tips
+
+- 使用前需要确保电脑的虚拟化技术已经开启
+
+  验证方法：在任务管理器 --> 性能 --> CPU 中，可以看到虚拟化技术是否开启（右下角 **虚拟化** 是否启用）
+
+- 电脑启用虚拟化技术
+
+  进入 BIOS 设置，导航到 CPU 设置，虚拟化选项一般为 `SVM Mode`、`AMD-V`、`Secure Virtual Machine Mode` 等，开启即可。
+
+- 安装 windows 系统时报错: `读取<ProductKey>设置` 错误
+
+  这个问题是因为 VirtualBox 的虚拟光驱没有正确加载 Windows 安装镜像，可以尝试以下方法解决：
+
+  先关机，然后打开 设置 --> 存储 --> Floppy 驱动器 --> 移除磁盘，然后重新启动即可。
+
+- 在 VirtualBox 中，`Host` 键是指 `右 Ctrl` 键，可以用来执行一些快捷键
+
+### 增强功能光盘映像
+
+增强功能光盘映像（Guest Additions ISO） 是一个专门的镜像文件，包含 VirtualBox 提供的工具，用于在虚拟机内启用一些高级功能（如动态分辨率调整、共享剪贴板和文件夹共享等）。通常，它会与 VirtualBox 一起安装。
+
+该镜像文件通常位于 VirtualBox 安装目录的 `VBoxGuestAdditions.iso` 文件中，可以在虚拟机的设备菜单中加载。
