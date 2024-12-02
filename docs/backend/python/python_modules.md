@@ -2,47 +2,49 @@
 
 这里收集了一些常用的 Python 模块，以及它们的简单介绍和使用方法。
 
-- **site** = Python 内置的站点配置模块。
+- **site**: Python 内置的站点配置模块。
 
   可以使用 `python -m site` 命令来查看 Python 的站点配置信息，包括模块搜索路径、用户配置文件等。
 
-- **urllib** = Python 内置的 HTTP 请求库。
+- **urllib**: Python 内置的 HTTP 请求库。
 
-- **os** = Python 内置的操作系统接口模块。
+- **os**: Python 内置的操作系统接口模块。
 
-- **sys** = Python 内置的系统相关模块。
+- **sys**: Python 内置的系统相关模块。
 
-- **platform** = Python 内置的平台信息模块。
+- **platform**: Python 内置的平台信息模块。
 
-- **re** = Python 内置的正则表达式模块。
+- **re**: Python 内置的正则表达式模块。
 
-- **json** = Python 内置的 JSON 编码和解码模块。
+- **json**: Python 内置的 JSON 编码和解码模块。
 
   `json.dumps` 用于将 Python 对象编码为 JSON 字符串。
 
   `json.loads` 用于将 JSON 字符串解码为 Python 对象。
 
-- **subprocess** = Python 内置的子进程模块。
+- **subprocess**: Python 内置的子进程模块。
 
-- **threading** = Python 内置的多线程模块。
+- **threading**: Python 内置的多线程模块。
 
-- **pdb** = Python 内置的调试器模块。
+- **pdb**: Python 内置的调试器模块。
 
-- **gc** = Python 内置的垃圾回收模块。
+- **gc**: Python 内置的垃圾回收模块。
 
-- **uuid** = Python 内置的 UUID 生成模块。
+- **uuid**: Python 内置的 UUID 生成模块。
 
-- **datetime** = Python 内置的日期和时间模块。
+- **datetime**: Python 内置的日期和时间模块。
 
-- **shutil** = Python 内置的文件操作模块。
+- **shutil**: Python 内置的文件操作模块。
 
-- **queue** = Python 内置的队列模块。
+- **queue**: Python 内置的队列模块。
 
-- **http** = Python 内置的 HTTP 服务器模块。
+- **http**: Python 内置的 HTTP 服务器模块。
 
-- **logging** = Python 内置的日志模块。
+- **logging**: Python 内置的日志模块。
 
-- **importlib** = Python 内置的模块导入模块。
+- **importlib**: Python 内置的模块导入模块。
+
+- **getopt**: Python 内置的命令行参数解析模块。
 
 ### urllib HTTP 请求处理
 
@@ -61,6 +63,8 @@ Python 内置了一个 HTTP 请求处理模块 `urllib`，可以用于发送 HTT
 - `urlib.parse.parse_qs()`: 解析 URL 参数。
 
 - `urllib.parse.quote()`: 编码 URL。
+
+  遵从 RFC 3986 标准，将 URL 中的特殊字符转换为 `%xx` 格式。
 
 - `urllib.parse.unquote()`: 解码 URL。
 
@@ -133,6 +137,8 @@ Python 内置了一个系统相关模块 `sys`，可以用于获取命令行参�
 **主要方法**
 
 - `sys.argv`: 获取命令行参数。
+
+  `sys.argv[0]` 是脚本的名称，`sys.argv[1:]` 是命令行参数。
 
 - `sys.path`: 获取模块搜索路径。
 
@@ -526,4 +532,41 @@ module_name = 'math'  # 可以根据用户输入或配置动态指定
 module = importlib.import_module(module_name)
 
 print(module.sqrt(16))
+```
+
+### getopt 命令行参数解析
+
+Python 内置了一个命令行参数解析模块 `getopt`，可以用于解析命令行参数。
+
+**主要方法**
+
+- `getopt.getopt(argv, shortopts, longopts=[])`: 解析命令行参数。
+
+  返回一个元组，包含两个元素：`opts` 和 `args`。
+
+  `opts` 是一个列表，列表中的元素是一个元组，包含解析出的选项和参数。
+
+  `args` 是一个列表，包含解析出的参数。
+
+  - `argv`: 命令行参数列表。
+
+  - `shortopts`: 短选项字符串，如：`'hvo:'`。`:` 表示该选项需要一个参数。
+
+  - `longopts`: 长选项列表，如：`['help', 'version', 'output=']`。
+
+- `getopt.gnu_getopt(argv, shortopts, longopts=[])`: GNU 风格的命令行参数解析。
+
+  与 `getopt.getopt()` 类似，但支持更多的特性。
+
+**使用方法**
+
+```python
+import getopt
+
+opts, args = getopt.getopt(['-h', '-o', 'output.txt', 'input.txt'], 'ho:', ['help', 'output='])
+for opt, arg in opts:
+    if opt in ('-h', '--help'):
+        print('Help message')
+    elif opt in ('-o', '--output'):
+        print(f'Output file: {arg}')
 ```

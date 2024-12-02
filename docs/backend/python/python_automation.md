@@ -39,6 +39,10 @@
 > 文档：[pyautogui](https://pyautogui.readthedocs.io/en/latest/)
 >
 > 安装方法：`pip install pyautogui`
+>
+> 如果需要处理图像，需要安装 `Pillow` 模块：`pip install pillow`
+>
+> 如果需要使用 `locateOnScreen` 方法，需要安装 `opencv-python` 模块：`pip install opencv-python`
 
 ### 基础操作
 
@@ -79,6 +83,10 @@
   `confidence` 参数表示查找的相似度，范围为 0~1，默认为 0.9（如果使用 confidence，要求安装 `opencv-python`）
 
   `grayscale` 参数表示是否使用灰度图像查找，默认为 False
+
+- `pyautogui.screenshot('screenshot.png')`: 截屏并保存为图片(返回值为 `PIL.Image` 对象，可以再使用 `img.save('screenshot.png')` 保存为图片)
+
+  或者使用 `pyautogui.screenshot(region=(x, y, width, height))` 截取指定区域
 
 ## PyObjC
 
