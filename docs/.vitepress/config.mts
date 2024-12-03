@@ -55,7 +55,7 @@ export default defineConfig({
               { text: "PHP", link: "/backend/php/" },
               { text: "Python", link: "/backend/python/" },
               { text: "C++", link: "/backend/cpp/" },
-              { text: "Java", link: "/backend/java" },
+              { text: "Java", link: "/backend/java/" },
             ],
           },
         ],
@@ -121,7 +121,7 @@ export default defineConfig({
                   { text: "PHP", link: "/backend/php/" },
                   { text: "Python", link: "/backend/python/" },
                   { text: "C++", link: "/backend/cpp/" },
-                  { text: "Java", link: "/backend/java" },
+                  { text: "Java", link: "/backend/java/" },
                 ],
               },
             ],
@@ -151,7 +151,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/LargaRisen' }
+      { icon: 'github', link: 'https://github.com/ethanaicode' }
     ],
 
     search: {

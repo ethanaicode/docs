@@ -75,3 +75,7 @@
 - **cryptography**: 用于加密和解密的 Python 库。
 
   `cryptography` 是一个用于加密和解密的 Python 库，它提供了一组现代密码学工具，包括对称加密、非对称加密、数字签名、密钥交换等功能。
+
+- **paramiko**: 用于 SSH 和 SFTP 的 Python 库。
+
+  `paramiko` 是一个用于 SSH 和 SFTP 的 Python 库，它提供了一组用于远程登录和文件传输的工具，可以用于编写 SSH 客户端和服务器程序。
