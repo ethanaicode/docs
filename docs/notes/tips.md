@@ -513,6 +513,23 @@ $$
 
 - **拍摄设定 2 --> 自定义操作 --> 功能菜单设置** = 可以设置 Fn 按键的菜单选项
 
+## Wordpress
+
+### 使用技巧
+
+#### 如何获取 Wordpress 网站的主题信息
+
+在浏览器中按下 `F12` 键，打开开发者工具，切换到 `Elements` 选项卡，然后搜索 `wp-content/themes`，就可以找到当前网站使用的主题名称。
+
+如果想知道主题的头部信息和截图，可以在浏览器中输入以下地址：
+
+_修改 `example.com` 为你的网站域名，`theme-name` 为主题名称_
+
+```bash
+https://www.example.com/wp-content/themes/theme-name/style.css
+https://www.example.com/wp-content/themes/theme-name/screenshot.png
+```
+
 ## 海外转账
 
 ### 跨境汇款

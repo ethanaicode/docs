@@ -235,6 +235,16 @@ g++ math_utils.cpp main.cpp -o main
 
 如果保留中间文件，就可以实现增量编译，只编译修改过的文件，这样可以提高编译速度。
 
+### 头文件 & 源文件
+
+在 C++ 中，通常将类的声明放在头文件中，将类的实现放在源文件中。
+
+通过头文件和源文件的分离，修改了源文件后，只需要重新编译源文件，而不需要重新编译头文件，这样可以提高编译效率。
+
+头文件主要是包含了类的声明、函数的声明等，而不包含函数的实现。是用来给其它文件提供接口的。
+
+而源文件需要包含头文件，明确告知是哪个类的实现。
+
 ### C++ 名词解释
 
 - `GCC`：GNU Compiler Collection，GNU 编译器套件。
@@ -252,6 +262,38 @@ g++ math_utils.cpp main.cpp -o main
 - `MSYS2`：一个软件包管理器和命令行工具集合，用于 Windows 上的软件开发，提供了类 Unix 环境。
 
 - `MinGW`：Minimalist GNU for Windows，一个在 Windows 上使用 GCC 的开发环境。
+
+## Visual Studio
+
+Visual Studio 是一个集成开发环境（IDE），支持多种编程语言，包括 C++。它提供了代码编辑、调试、构建和发布等功能，可以帮助开发者提高开发效率。
+
+### 快捷键
+
+- **Ctrl + F5** = 运行程序
+
+- **F5** = 调试程序
+
+- **Ctrl + Shift + B** = 生成解决方案
+
+- **Ctrl + K, Ctrl + D** = 格式化代码
+
+### 项目属性
+
+点击菜单栏中的 `项目` -> `项目属性`，可以设置项目的属性，如编译器、链接器、调试器等。
+
+### Spy++
+
+Spy++ 是 Visual Studio 的一个工具，用于查看和调试 Windows 程序的消息、窗口和控件。
+
+你可以使用 Spy++ 来查看窗口的层次结构、消息的传递过程、窗口的属性等。
+
+**如何找到 Spy++**
+
+在 Visual Studio 中，可以通过以下方式找到 Spy++：
+
+- 打开 Visual Studio，在菜单栏中点击 `工具` -> 选择 `Spy++`
+
+- 在 Visual Studio 的安装目录下找到 `Spyxx.exe` 文件，如 `C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\spyxx.exe`
 
 ## CMake
 
