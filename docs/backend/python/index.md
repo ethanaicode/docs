@@ -4,6 +4,8 @@
 
 - [Python Basic](./python_basic)
 
+- [Python Types](./python_types)
+
 - [Python Advanced](./python_advanced)
 
 - [Python Modules](./python_modules)
