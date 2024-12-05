@@ -222,9 +222,9 @@ git config --global user.email "youremail"
     merge = refs/heads/master
   ```
 
-**gitee 要注意的点**
+**Gitee 要注意的点**
 
-- gitee 的仓库地址不能使用 token 名，只能使用用户名，加上 token 密钥。
+- Gitee 的仓库地址不能使用 token 名，只能使用用户名，加上 token 密钥。
 
 - 用户名必须要全部小写，否则会报无效的用户名。
 

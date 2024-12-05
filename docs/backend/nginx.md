@@ -591,3 +591,155 @@ server {
 - `arg_password`是请求参数`password`的值，`valid_password`是映射后的变量值。
 
   通过 `arg_xxx` 可以获取请求参数的值，这里的 `xxx` 是参数名。
+
+### 调优
+
+#### 调优目标
+
+Nginx 的调优主要是为了提高性能，减少资源占用，提高并发处理能力。
+
+调优的目标主要有：
+
+- 提高并发处理能力：提高 Nginx 的并发连接数，减少请求的响应时间。
+
+- 减少资源占用：减少 Nginx 的内存占用，提高服务器的性能。
+
+- 提高稳定性：提高 Nginx 的稳定性，减少服务的异常退出。
+
+#### 调优策略
+
+Nginx 的调优主要包括以下几个方面：
+
+- 调整 Nginx 的配置：优化 Nginx 的配置文件，提高 Nginx 的性能。
+
+- 调整系统内核参数：调整系统内核参数，提高系统的性能。
+
+- 使用高性能的网络模型：选择高性能的网络模型，提高 Nginx 的并发处理能力。
+
+- 使用高性能的存储设备：使用高性能的存储设备，提高 Nginx 的读写性能。
+
+- 使用高性能的硬件设备：使用高性能的硬件设备，提高 Nginx 的处理能力。
+
+#### 调整 Nginx 配置
+
+- 调整 worker_processes 和 worker_connections
+
+  `worker_processes` 是 Nginx 的工作进程数，一般设置为 CPU 核心数的 2 倍。
+
+  `worker_connections` 是每个 worker 进程可以同时接受的连接数，一般设置为 1024 或 2048。
+
+- 调整 keepalive_timeout
+
+  `keepalive_timeout` 是客户端连接的超时时间，一般设置为 60 秒。
+
+- 调整 sendfile
+
+  `sendfile` 是 Nginx 的文件传输模块，可以提高文件传输的性能。
+
+  `sendfile on` 表示开启 sendfile，`sendfile off` 表示关闭 sendfile。
+
+- 调整 tcp_nodelay 和 tcp_nopush
+
+  `tcp_nodelay` 表示开启 TCP_NODELAY，可以提高网络传输的实时性。
+
+  `tcp_nopush` 表示开启 TCP_NOPUSH，可以提高网络传输的效率。
+
+- 调整 gzip 压缩
+
+  `gzip on` 表示开启 gzip 压缩，可以减少网络传输的数据量。
+
+  `gzip_comp_level` 表示压缩级别，一般设置为 6。
+
+  `gzip_types` 表示压缩类型，一般设置为 text/html、text/css、text/javascript 等。
+
+- 调整日志级别
+
+  `error_log` 的级别可以设置为 `error`、`warn`、`info` 等。
+
+  `access_log` 的级别可以设置为 `main`、`combined` 等。
+
+- 调整缓存配置
+
+  可以使用`proxy_cache`、`fastcgi_cache`、`uwsgi_cache`等指令来配置缓存。
+
+  `proxy_cache_path` 表示缓存路径，`proxy_cache_key` 表示缓存键。
+
+- 调整连接超时
+
+  `client_body_timeout` 表示客户端请求体的超时时间。
+
+  `client_header_timeout` 表示客户端请求头的超时时间。
+
+  `keepalive_timeout` 表示客户端连接的超时时间。
+
+- 调整缓冲区大小
+
+  `client_body_buffer_size` 表示客户端请求体的缓冲区大小。
+
+  `client_header_buffer_size` 表示客户端请求头的缓冲区大小。
+
+  `large_client_header_buffers` 表示客户端请求头的缓冲区大小。
+
+- 调整 SSL 配置
+
+  `ssl_protocols` 表示 SSL 协议的版本，一般设置为 TLSv1.2。
+
+  `ssl_ciphers` 表示 SSL 加密算法，一般设置为 HIGH:!aNULL:!MD5。
+
+  `ssl_prefer_server_ciphers` 表示优先使用服务器端的加密算法。
+
+#### 调整系统内核参数
+
+- 调整文件描述符
+
+  `ulimit -n` 表示文件描述符的数量，可以通过修改`/etc/security/limits.conf`来调整。
+
+- 调整 TCP 参数
+
+  `net.ipv4.tcp_syncookies` 表示开启 SYN Cookies，可以防止 SYN 攻击。
+
+  `net.ipv4.tcp_tw_reuse` 表示开启 TIME-WAIT 重用，可以减少 TIME-WAIT 连接。
+
+  `net.ipv4.tcp_tw_recycle` 表示开启 TIME-WAIT 回收，可以减少 TIME-WAIT 连接。
+
+- 调整内存参数
+
+  `vm.overcommit_memory` 表示内存过量分配，可以减少内存分配失败。
+
+  `vm.swappiness` 表示内存交换分区，可以减少内存交换。
+
+  `vm.dirty_ratio` 表示脏页比例，可以减少脏页写入。
+
+- 调整网络参数
+
+  `net.core.somaxconn` 表示最大连接数，可以提高网络连接数。
+
+  `net.core.netdev_max_backlog` 表示网络接收队列，可以提高网络接收队列。
+
+  `net.ipv4.tcp_max_syn_backlog` 表示 SYN 队列，可以提高 SYN 队列。
+
+- 调整调度算法
+
+  `kernel.sched_migration_cost_ns` 表示迁移成本，可以减少 CPU 迁移。
+
+  `kernel.sched_autogroup_enabled` 表示自动分组，可以减少 CPU 调度。
+
+  `kernel.sched_min_granularity_ns` 表示最小粒度，可以减少 CPU 调度。
+
+#### 使用高性能的网络模型
+
+- 使用 epoll 模型
+
+  `use epoll` 表示使用 epoll 模型，可以提高网络处理能力。
+
+- 使用 kqueue 模型
+
+  `use kqueue` 表示使用 kqueue 模型，可以提高网络处理能力。
+
+- 使用 poll 模型
+
+  `use poll` 表示使用 poll 模型，可以提高网络处理能力。
+
+- 使用 select 模型
+
+  `use select` 表示使用 select 模型，可以提高网络处理能力。
