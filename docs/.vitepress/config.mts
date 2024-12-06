@@ -17,7 +17,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     siteTitle: '设计笔记', // 导航栏标题
     logo: '/logo.png',
-    outline: [2,4], // 侧边栏导航显示的文章标题层级
+    outline: [2,3], // 侧边栏导航显示的文章标题层级
     lastUpdated: {
       text: 'Updated at', // 文章最后更新时间的显示文本
       formatOptions: {

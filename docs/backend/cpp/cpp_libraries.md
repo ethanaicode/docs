@@ -56,6 +56,10 @@ Windows 专用库主要包括以下几个部分：
 
 - **Windows Networking**：`wininet.h`、`winhttp.h`、`iphlpapi.h` 等
 
+### windows.h
+
+`windows.h` 是 Windows API 的头文件，包含了 Windows 系统的所有函数和数据结构。
+
 ## 开源 Libraries
 
 除了 C++ 标准库和 Windows 专用库外，还有许多优秀的开源库，可以帮助开发者更高效地开发应用程序。

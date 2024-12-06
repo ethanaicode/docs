@@ -187,29 +187,29 @@ bat 脚本是一种批处理文件，可以用于批量处理任务。可以通�
 
 **bat 脚本基础语法**：
 
-- **@echo off**: 关闭命令回显
+- `@echo off`: 关闭命令回显
 
-- **echo**: 输出信息
+- `echo`: 输出信息
 
-- **pause**: 暂停
+- `pause`: 暂停
 
   通常放在脚本的最后，以便查看执行结果。（此时会有一个提示，按任意键继续）
 
-- **exit**: 退出脚本
+- `exit`: 退出脚本
 
-- **::**: 注释
+- `::`: 注释
 
-- **if**: 条件判断
+- `if`: 条件判断
 
   例如：`if exist file.txt echo 文件存在`
 
-- **goto**: 跳转
+- `goto`: 跳转
 
   例如：`goto :label` 跳转到 `:label` 标签处
 
-  - **:label**: 标签
+  - `:label`: 标签
 
-- **rmdir**: 删除目录
+- `rmdir`: 删除目录
 
   例如：`rmdir /s /q dir` 删除目录
 
@@ -217,13 +217,13 @@ bat 脚本是一种批处理文件，可以用于批量处理任务。可以通�
 
   - `/q` 安静模式
 
-- **del**: 删除文件
+- `del`: 删除文件
 
   例如：`del /q file.txt` 删除文件
 
   - `/q` 安静模式
 
-- **copy**: 复制文件
+- `copy`: 复制文件
 
   例如：`copy file1.txt file2.txt` 复制文件
 
@@ -235,36 +235,54 @@ bat 脚本是一种批处理文件，可以用于批量处理任务。可以通�
 
 #### 常用命令
 
-- **Get-Command**: 查看命令
+- `Get-Command`: 查看命令
 
   例如：`Get-Command -Name Get-Process`
 
-- **Get-ChildItem**: 查看文件（简写`gci`）
+- `Get-ChildItem`: 查看文件（简写`gci`）
 
   - `Get-ChildItem -Path C:\` 查看 C 盘文件
 
   - `Get-ChildItem Env:` 查看环境变量
 
-- **Get-Content your_log_file.log -Wait**: 实时查看文件内容
+- `Get-Content your_log_file.log -Wait`: 实时查看文件内容
 
   `-Wait` 参数可以实时查看文件内容
 
-- **Set-Location**: 切换目录
+- `Set-Location`: 切换目录
 
-- **$env:Path**: 查看环境变量
+- `$env:Path`: 查看环境变量
+
+#### 网络操作
+
+- `Test-Connection -ComputerName www.example.com`: 测试网络连接
+
+  `-count 4` 参数可以指定测试次数
+
+  `-quiet` 参数可以只显示结果
+
+- `Invoke-WebRequest -Uri "https://www.example.com"`: 下载网页
+
+- `Test-NetConnection -ComputerName www.example.com -Port 443`: 测试端口连接
+
+  更全面的测试工具，可测试指定的端口或服务。
+
+- `Resolve-DnsName -Name www.example.com`: 解析域名
+
+  `-Type` 参数可以指定解析类型，如 `A`、`AAAA`、`MX`、`NS` 等。
 
 ### 进程管理
 
-- **tasklist**: 查看进程列表
+- `tasklist`: 查看进程列表
 
-- **taskkill**: 结束进程
+- `taskkill`: 结束进程
 
   例如：`taskkill /f /im notepad.exe` 结束记事本进程
 
-- **Get-Process**: PowerShell 查看进程
+- `Get-Process`: PowerShell 查看进程
 
   例如：`Get-Process chrome` 查看 Chrome 进程
 
-- **Stop-Process**: PowerShell 结束进程
+- `Stop-Process`: PowerShell 结束进程
 
   例如：`Stop-Process -Name notepad` 结束记事本进程
