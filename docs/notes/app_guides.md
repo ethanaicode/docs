@@ -265,6 +265,8 @@
 
 ## Typora
 
+> 参考文档：[Typora Support](https://support.typora.io/Markdown-Reference/)
+
 ### Math and Academic 数学公式
 
 相关文档：[Math](https://support.typora.io/Math/)
@@ -280,6 +282,18 @@ Typora 支持数学公式的输入，我们可以使用 LaTeX 语法来输入数
 相关文档：[Diagrams](https://support.typora.io/Draw-Diagrams-With-Markdown/)
 
 注意事项：导出 PDF 等文件格式时并不会包含渲染好的序列图，推荐还是用图片。
+
+### Footnotes 脚注
+
+在 Typora 中，我们可以使用脚注[^details]来添加注释。
+
+- **`[^1]`**: 添加脚注
+
+- **`[^1]:example`**: 添加脚注内容
+
+官方中文文档讲的不清楚，实现实际上需要两步，添加脚注和脚注内容。
+
+[^details]: 必须单独添加脚注内容，否则脚注不会生效。
 
 ## Wireshark
 

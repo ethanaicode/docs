@@ -1,26 +1,14 @@
+---
+title: Nginx入门指南，轻松搭建高效Web服务器
+---
+
 # Nginx
+
+> 参考文档: [Nginx 官方文档](http://nginx.org/en/docs/)
 
 ## 基础
 
-### 介绍
-
 Nginx 是一个高性能的 HTTP 和反向代理服务器，也是一个 IMAP/POP3/SMTP 代理服务器。
-
-在 Nginx 中，Master 和 Worker 是两个关键的概念，它们在 Nginx 的架构中扮演着不同的角色。
-
-1. **Master 进程**：
-   - Master 进程是 Nginx 的主进程，负责管理 Worker 进程的启动、停止和重载配置等操作。
-   - 当你启动 Nginx 服务时，实际上是启动了 Master 进程，Master 进程会负责创建 Worker 进程并分配任务。
-   - Master 进程会监控 Worker 进程的状态，如果 Worker 进程异常退出，Master 进程会重新启动它。
-2. **Worker 进程**：
-   - Worker 进程是 Nginx 实际处理客户端请求的进程。
-   - 每个 Worker 进程都会独立地处理连接、接收请求、处理请求和发送响应等工作。
-   - 大多数情况下，Nginx 会启动多个 Worker 进程，这样可以同时处理多个请求，提高并发处理能力。
-   - Worker 进程是并发处理的核心，它们负责接收来自客户端的连接，处理请求并返回响应。
-
-Master 进程和 Worker 进程之间通过进程间通信（IPC）来协调工作，Master 进程的存在使得 Nginx 能够更好地管理 Worker 进程，并保证服务的稳定性和可靠性。
-
-## 控制
 
 ### 基础命令
 
@@ -29,6 +17,8 @@ Master 进程和 Worker 进程之间通过进程间通信（IPC）来协调工�
   通过`ps =ef | grep nginx`来查看 nginx 进程
 
   通过`lsof -i:80`来确认端口占用情况
+
+- `nginx -V`: 查看信息（可以看到安装配置等目录）
 
 - `nginx -s [SIGNAL]`: 控制
 
@@ -40,30 +30,10 @@ Master 进程和 Worker 进程之间通过进程间通信（IPC）来协调工�
 
   `reopen` 重新打开日志文件
 
-- `nginx -V`: 查看信息（可以看到安装配置等目录）
-
 - `nginx -t`: 检查配置信息（有错误会有提示）
 
-> [!CAUTION]
-> 修改配置后，一定要检查配置文件是否正确，然后再重载配置（重载配置不会提示错误）。
->
-> 重启 nginx 服务一定要谨慎，如果配置文件有错误，可能会导致服务无法启动，影响线上服务。
-
-### systemctl 控制
-
-- `systemctl start nginx`: 启动
-
-- `systemctl stop nginx`: 停止
-
-- `systemctl restart nginx`: 重启
-
-- `systemctl reload nginx`: 重载配置
-
-- `systemctl status nginx`: 查看状态
-
-- `systemctl enable nginx`: 开机启动
-
-- `systemctl disable nginx`: 禁止开机启动
+> [!TIP]提示:
+> 修改配置后，一定要先使用 `-t` 检查配置文件是否正确，然后再重载配置（重载配置不会提示错误）。
 
 ## 配置
 
@@ -513,13 +483,71 @@ server {
 }
 ```
 
+## 模块
+
+### http
+
+#### ngx_http_stub_status_module
+
+`ngx_http_stub_status_module` 模块提供了一个简单的状态页面，可以查看 Nginx 的运行状态。
+
+这不是一个默认安装的模块，需要在编译时添加`--with-http_stub_status_module`参数。
+
+```nginx
+server {
+    listen 80;
+    server_name localhost;
+    location /nginx_status {
+        stub_status on;
+        access_log off;
+        allow
+        deny all;
+    }
+}
+```
+
+这将会在`http://localhost/nginx_status`上显示 Nginx 的状态信息。
+
+```bash
+Active connections: 291
+server accepts handled requests
+ 16630948 16630948 31070465
+Reading: 6 Writing: 179 Waiting: 106
+```
+
+- `Active connections`: 当前活跃连接数
+
+- `server accepts handled requests`: 总共处理的连接数(下面的三个数字分别是总接收、总处理、总请求)
+
+- `Reading`: 读取请求的连接数
+
+- `Writing`: 响应请求的连接数
+
+- `Waiting`: 等待连接的连接数
+
 ## 进阶
 
 ### 知识点
 
 记录一些 Nginx 的进阶知识点。
 
-#### Nginx 的服务器块（server block）匹配规则
+#### Master 和 Worker
+
+在 Nginx 中，Master 和 Worker 是两个关键的概念，它们在 Nginx 的架构中扮演着不同的角色。
+
+1. **Master 进程**：
+   - Master 进程是 Nginx 的主进程，负责管理 Worker 进程的启动、停止和重载配置等操作。
+   - 当你启动 Nginx 服务时，实际上是启动了 Master 进程，Master 进程会负责创建 Worker 进程并分配任务。
+   - Master 进程会监控 Worker 进程的状态，如果 Worker 进程异常退出，Master 进程会重新启动它。
+2. **Worker 进程**：
+   - Worker 进程是 Nginx 实际处理客户端请求的进程。
+   - 每个 Worker 进程都会独立地处理连接、接收请求、处理请求和发送响应等工作。
+   - 大多数情况下，Nginx 会启动多个 Worker 进程，这样可以同时处理多个请求，提高并发处理能力。
+   - Worker 进程是并发处理的核心，它们负责接收来自客户端的连接，处理请求并返回响应。
+
+Master 进程和 Worker 进程之间通过进程间通信（IPC）来协调工作，Master 进程的存在使得 Nginx 能够更好地管理 Worker 进程，并保证服务的稳定性和可靠性。
+
+#### server block 匹配规则
 
 在定义了多个服务器块配置后，如果没找到匹配的`Host`，会默认使用哪一个配置呢？
 

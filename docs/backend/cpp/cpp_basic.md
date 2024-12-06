@@ -235,16 +235,6 @@ g++ math_utils.cpp main.cpp -o main
 
 如果保留中间文件，就可以实现增量编译，只编译修改过的文件，这样可以提高编译速度。
 
-### 头文件 & 源文件
-
-在 C++ 中，通常将类的声明放在头文件中，将类的实现放在源文件中。
-
-通过头文件和源文件的分离，修改了源文件后，只需要重新编译源文件，而不需要重新编译头文件，这样可以提高编译效率。
-
-头文件主要是包含了类的声明、函数的声明等，而不包含函数的实现。是用来给其它文件提供接口的。
-
-而源文件需要包含头文件，明确告知是哪个类的实现。
-
 ### C++ 名词解释
 
 - `GCC`：GNU Compiler Collection，GNU 编译器套件。
@@ -262,6 +252,227 @@ g++ math_utils.cpp main.cpp -o main
 - `MSYS2`：一个软件包管理器和命令行工具集合，用于 Windows 上的软件开发，提供了类 Unix 环境。
 
 - `MinGW`：Minimalist GNU for Windows，一个在 Windows 上使用 GCC 的开发环境。
+
+## 数据类型
+
+### 基本数据类型（Primitive Data Types）
+
+#### 整数类型
+
+| 数据类型    | 大小 (通常) | 取值范围                                                | 描述           |
+| ----------- | ----------- | ------------------------------------------------------- | -------------- |
+| `int`       | 4 字节      | -2,147,483,648 到 2,147,483,647                         | 标准的整型     |
+| `short`     | 2 字节      | -32,768 到 32,767                                       | 短整型         |
+| `long`      | 4 或 8 字节 | 根据平台不同                                            | 长整型         |
+| `long long` | 8 字节      | -9,223,372,036,854,775,808 到 9,223,372,036,854,775,807 | 长整型（扩展） |
+| `unsigned`  | 取决于类型  | 0 到正范围最大值                                        | 无符号类型     |
+
+#### 浮点数类型
+
+| 数据类型      | 大小    | 精度              | 描述           |
+| ------------- | ------- | ----------------- | -------------- |
+| `float`       | 4 字节  | ~6-7 位有效数字   | 单精度浮点数   |
+| `double`      | 8 字节  | ~15-16 位有效数字 | 双精度浮点数   |
+| `long double` | ≥8 字节 | 更高精度          | 扩展精度浮点数 |
+
+#### 字符类型
+
+| 数据类型  | 大小     | 描述                              |
+| --------- | -------- | --------------------------------- |
+| `char`    | 1 字节   | 单个字符（ASCII 或 Unicode 编码） |
+| `wchar_t` | 平台依赖 | 宽字符（通常用于 Unicode 编码）   |
+
+#### 布尔类型
+
+- `bool`: 仅包含两个值，`true` 或 `false`。
+
+### 枚举类型（Enumerated Types）
+
+- 使用 `enum` 定义，允许创建一组命名的整数常量。
+
+```c++
+enum Color { RED, GREEN, BLUE }; // RED = 0, GREEN = 1, BLUE = 2
+```
+
+### 派生数据类型（Derived Data Types）
+
+- 数组（Array）: 一组同类型元素。
+
+  ```c++
+  int arr[5] = {1, 2, 3, 4, 5};
+  ```
+
+- 指针（Pointer）: 存储地址。
+
+  ```c++
+  int x = 10;
+  int* ptr = &x;
+  ```
+
+- 引用（Reference）: 类似于指针，但必须在初始化时绑定到变量。
+
+  ```c++
+  int y = 20;
+  int& ref = y;
+  ```
+
+- 函数（Function）: 封装的可重复调用代码块。
+
+  ```c++
+  int add(int a, int b) { return a + b; }
+  ```
+
+### 类和对象类型（Class and Object Types）
+
+- 定义自定义类型，包含成员变量和函数。
+
+```c++
+class Person {
+public:
+    string name;
+    int age;
+    void greet() { cout << "Hello, " << name << "!" << endl; }
+};
+```
+
+### 空类型（Void Type）
+
+- 用于没有返回值的函数。
+
+```c++
+void display() { cout << "Hello, World!" << endl; }
+```
+
+### C++11 新增数据类型
+
+- `nullptr`: 用于表示空指针。
+
+  ```c++
+  int* ptr = nullptr;
+  ```
+
+- `auto`: 自动推导变量类型。
+
+  ```c++
+  auto x = 42; // x 是 int 类型
+  ```
+
+- `decltype`: 从表达式中推导类型。
+
+  ```c++
+  int x = 0;
+  decltype(x) y = 5; // y 的类型与 x 相同
+  ```
+
+### 类型修饰符（Type Modifiers）
+
+修饰数据类型以改变其大小或范围。
+
+- `signed` / `unsigned`: 控制是否允许负值。
+- `short` / `long`: 改变存储大小。
+
+```c++
+unsigned int u = 42; // 仅存储正数
+```
+
+### 类型转换（Type Casting）
+
+#### 隐式类型转换
+
+由编译器自动完成。
+
+```c++
+int x = 10;
+float y = x; // int 自动转换为 float
+```
+
+#### **显式类型转换**
+
+程序员手动指定转换。
+
+```c++
+int x = 10;
+float y = (float)x; // 显式转换为 float
+```
+
+### 常量（Constants）
+
+- `const`: 声明不可更改的变量。
+
+  ```c++
+  const int x = 42;
+  ```
+
+- `constexpr`（C++11）: 编译期常量。
+
+  ```c++
+  constexpr int y = 10;
+  ```
+
+### 类型推导
+
+- 自动推导变量类型可以减少代码冗余。
+
+  ```c++
+  auto a = 10;       // int
+  auto b = 3.14;     // double
+  ```
+
+## 面向对象
+
+### 头文件 & 源文件
+
+在 C++ 中，通常将类的声明放在头文件中，将类的实现放在源文件中。
+
+通过头文件和源文件的分离，可以避免重复包含头文件，提高编译效率。
+
+**头文件**
+
+头文件通常以 `.h` 或 `.hpp` 结尾，包含了类的声明、函数的声明等，而不包含函数的实现。
+
+```cpp
+// math_utils.h
+#ifndef MATH_UTILS_H
+#define MATH_UTILS_H
+
+int add(int a, int b);  // 函数声明
+
+#endif
+```
+
+**源文件**
+
+源文件通常以 `.cpp` 结尾，包含了类的实现、函数的实现等。
+
+```cpp
+// math_utils.cpp
+#include "math_utils.h"
+
+int add(int a, int b) {  // 函数定义
+    return a + b;
+}
+```
+
+**使用**
+
+在其他文件中，可以通过 `#include` 指令引入头文件，然后使用头文件中的函数。
+
+```cpp
+#include <iostream>
+#include "math_utils.h"
+
+int main() {
+    int sum = add(1, 2);
+    std::cout << "Sum: " << sum << std::endl;
+    return 0;
+}
+```
+
+**编译时的工作原理**
+
+在编译时，编译器会将所有包含的头文件内容插入到源文件中，类似“复制粘贴”操作，然后对合并后的代码进行编译。这意味着头文件不会独立编译，而是直接成为包含它的源文件的一部分。
+
+在上面的例子中，在编译时，编译器会将 `math_utils.h` 的内容插入到 `main.cpp` 中，使得 `main.cpp` 可以调用 `add` 函数。
 
 ## Visual Studio
 
@@ -436,62 +647,6 @@ set(CMAKE_CXX_COMPILER /path/to/your/g++)
 ```bash
 cmake -DCMAKE_CXX_COMPILER=/path/to/your/g++ ..
 ```
-
-## 面向对象
-
-### 头文件 & 源文件
-
-在 C++ 中，通常将类的声明放在头文件中，将类的实现放在源文件中。
-
-通过头文件和源文件的分离，可以避免重复包含头文件，提高编译效率。
-
-**头文件**
-
-头文件通常以 `.h` 或 `.hpp` 结尾，包含了类的声明、函数的声明等，而不包含函数的实现。
-
-```cpp
-// math_utils.h
-#ifndef MATH_UTILS_H
-#define MATH_UTILS_H
-
-int add(int a, int b);  // 函数声明
-
-#endif
-```
-
-**源文件**
-
-源文件通常以 `.cpp` 结尾，包含了类的实现、函数的实现等。
-
-```cpp
-// math_utils.cpp
-#include "math_utils.h"
-
-int add(int a, int b) {  // 函数定义
-    return a + b;
-}
-```
-
-**使用**
-
-在其他文件中，可以通过 `#include` 指令引入头文件，然后使用头文件中的函数。
-
-```cpp
-#include <iostream>
-#include "math_utils.h"
-
-int main() {
-    int sum = add(1, 2);
-    std::cout << "Sum: " << sum << std::endl;
-    return 0;
-}
-```
-
-**编译时的工作原理**
-
-在编译时，编译器会将所有包含的头文件内容插入到源文件中，类似“复制粘贴”操作，然后对合并后的代码进行编译。这意味着头文件不会独立编译，而是直接成为包含它的源文件的一部分。
-
-在上面的例子中，在编译时，编译器会将 `math_utils.h` 的内容插入到 `main.cpp` 中，使得 `main.cpp` 可以调用 `add` 函数。
 
 ## 相关知识及考点
 

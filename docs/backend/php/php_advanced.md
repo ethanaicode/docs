@@ -1,3 +1,7 @@
+---
+title: PHP进阶优化技巧，高效开发Web应用的最佳实践
+---
+
 # PHP 进阶知识
 
 ## 进阶知识
@@ -40,31 +44,7 @@ PHP 的数据在内存中的存储位置有两种：
 
 > 堆(heap)和栈(stack)的区别：堆经典的实现是完全二叉树，栈是一种先进后出的数据结构，所以堆是一种树形结构，栈是一种线性结构。想象一下画面就比较好记了。
 
-### 优化 PHP - FPM 配置
-
-> PHP-FPM 配置文件位置（通常情况下）：/etc/php/{version}/fpm/php-fpm.conf
-
-`pm.max_children` 允许创建的最大进程数，这个值越大，可以处理的并发请求数就越多。
-
-`pm.start_servers` 启动时创建的进程数。
-
-`pm.min_spare_servers` 最小空闲进程数（清理空闲进程后保留的最小进程数）。
-
-`pm.max_spare_servers` 最大空闲进程数（当空闲进程数超过这个值时，就会被清理）。
-
-`pm.max_children`的值一般可以根据内存来计算，一般会预留 20%内存给操作系统及其它服务，其余的可以根据每个 PHP 进程的平均内存消耗量（可以假设为 20MB），计算出合适的值。
-
-假设内存为 2G，则可以计算出值大概为 84（2048 \* 0.8 / 20）
-
-一般来说，可以将 `pm.min_spare_servers` 设置为 `pm.max_children` 的一定比例，比如 `pm.max_children` 的 10% - 20%。这样可以确保在任何时候都有足够的空闲进程可用来处理请求。
-
-修改后记得重启 PHP-FPM：
-
-```bash
-sudo systemctl restart php-fpm
-```
-
-### PHP 编译安装相关知识
+### PHP 编译安装
 
 > 官方版本下载：[PHP 官方下载](https://www.php.net/releases/)
 
@@ -913,6 +893,62 @@ $obj = new Strategy(function ($name) {
 });
 
 echo $obj('设计笔记');
+```
+
+## PHP-FPM
+
+### 优化 PHP-FPM 配置
+
+> PHP-FPM 配置文件位置（通常情况下）：/etc/php/{version}/fpm/php-fpm.conf
+
+在调整性能中，我们一般关注以下几个参数:
+
+- `pm`: 运行模式，有以下几种模式:
+
+  - `static` 静态模式，固定进程数，适用于内存较小的情况。
+
+  - `dynamic` 动态模式(默认)，根据配置文件中的参数来动态调整进程数，适用于内存较大的情况。
+
+  - `ondemand` 按需模式，只有在请求到来时才会创建进程，适用于内存较大的情况。
+
+- `pm.max_children`: 允许创建的最大进程数，这个值越大，可以处理的并发请求数就越多。
+
+- `pm.start_servers`: 启动时创建的进程数。
+
+- `pm.min_spare_servers`: 最小空闲进程数（清理空闲进程后保留的最小进程数）。
+
+- `pm.max_spare_servers`: 最大空闲进程数（当空闲进程数超过这个值时，就会被清理）。
+
+- `pm.max_requests`: 每个进程处理的最大请求数，处理完这个数量的请求后，进程会被重启。
+
+**下面是一些配置优化的建议**:
+
+- `pm.max_children` 的值一般可以根据内存来计算，一般会预留 20% 内存给操作系统及其它服务，其余的可以根据每个 PHP 进程的平均内存消耗量（可以假设为 20MB），计算出合适的值
+
+  假设内存为 2G，则可以计算出值大概为 84（2048 \* 0.8 / 20）
+
+  该值设置过大，会导致服务器不稳定
+
+- 一般来说，可以将 `pm.min_spare_servers` 设置为 `pm.max_children` 的一定比例，比如 `pm.max_children` 的 10% - 20%
+
+  这样可以确保在任何时候都有足够的空闲进程可用来处理请求
+
+- `pm.max_spare_servers` 一般设置为 `pm.max_children` 的一定比例，比如 `pm.max_children` 的 20% - 30%
+
+  这样可以确保在任何时候都有足够的空闲进程可用来处理请求
+
+- `pm.max_requests` 一般设置为 500 - 1000，这样可以确保 PHP 进程定期被重启，避免内存泄漏
+
+- `request_terminate_timeout` 设置为 0，避免 PHP-FPM 进程因为超时而被强制终止
+
+- `request_slowlog_timeout` 设置为 0，避免 PHP-FPM 进程因为超时而被记录到慢日志中
+
+- `rlimit_files` 设置为 65535，避免 PHP-FPM 进程因为打开文件数过多而被限制
+
+修改后记得重启 PHP-FPM:
+
+```bash
+sudo systemctl restart php-fpm
 ```
 
 ## PDO 连接

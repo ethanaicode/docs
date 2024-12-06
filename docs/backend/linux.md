@@ -1523,25 +1523,21 @@ rsync -avz username@remote_host:/path/to/remote/file /path/to/local/destination
 
 ## 用户和权限
 
-### 添加用户和用户组
-
 用户的配置文件一般在`/etc/passwd`中，用户组的配置文件一般在`/etc/group`中。
 
-sudo 命令可以用于临时提升用户权限，可以通过修改`/etc/sudoers`文件来增加用户的`sudo`权限。
+### 允许用户使用 sudo 命令
 
-#### 允许用户使用 sudo 命令
+允许用户使用 `sudo` 命令，可以将用户添加到 `sudo` 组中。
 
-允许用户使用`sudo`命令，可以将用户添加到`sudo`组中。
+不同的 linux 系统中，`sudo` 组可能不同，可以通过 `/etc/sudoers` 文件查看。
 
-不同的 linux 系统中，`sudo`组可能不同，可以通过`/etc/sudoers`文件查看。
-
-在 CentOS 或 RHEL，默认的管理组是`wheel`组，可以将用户添加到`wheel`组中。
+在 CentOS 或 RHEL，默认的管理组是 `wheel` 组，可以将用户添加到 `wheel` 组中。
 
 ```bash
 usermod -aG wheel username
 ```
 
-或者修改`/etc/sudoers`文件，添加如下内容，也可以实现相同的效果。
+或者修改 `/etc/sudoers` 文件，添加如下内容，也可以实现相同的效果。
 
 ```bash
 username ALL=(ALL) ALL

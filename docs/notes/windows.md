@@ -1,8 +1,12 @@
+---
+title: Windows全面教程，快捷操作到高级技巧汇总
+---
+
 # Windows 笔记
 
 ## Windows Shortcut
 
-Windows 快捷键是提高效率的好帮手，这里记录一些常用的快捷键。
+Windows 快捷键是提高效率的好帮手，这里记录一些常用的快捷键:
 
 - **Alt + Tab** = 切换窗口（可以实现快速在两个窗口间切换）
 
@@ -23,6 +27,72 @@ Windows 快捷键是提高效率的好帮手，这里记录一些常用的快捷
 - **Win + Tab** = 切换任务视图
 
 ## Windows 实用技巧
+
+### 特殊文件夹
+
+在 Windows 中，有一些文件夹可以通过`shell:`命令来访问，这些文件夹包括:
+
+- **shell:startup**: 开机启动文件夹(启动项)
+
+  **shell:common startup**: 所有用户的开机启动文件夹
+
+  放入此文件夹的程序会在系统启动时自动运行。
+
+- **shell:sendto**: "发送到" 菜单中的文件夹
+
+  可以在这里放入应用快捷方式，这样就可以右键发送到这个应用，和直接拖动文件到应用一样。
+
+- **shell:programs**: 开始菜单中的程序文件夹
+
+  **shell:common programs**: 所有用户的开始菜单中的程序文件夹
+
+- **shell:appsfolder**: 应用程序文件夹
+
+  这里存放了所有的应用程序快捷方式。
+
+- **shell:quick launch**: 快速启动栏
+
+  它的子目录 `User Pinned` --> `TaskBar` 是任务栏的快捷方式。
+
+- **shell:appdata**: 应用程序数据文件夹
+
+- **shell:recent**: 最近打开的文件
+
+- **shell:favorites**: 收藏夹
+
+- **shell:fonts**: 字体文件夹
+
+- **shell:start menu**: 开始菜单
+
+还有一些特殊文件夹可以通过环境变量来访问。
+
+- **%AppData%** = `C:\Users\用户名\AppData\Roaming`
+
+  用于存储应用程序的数据。
+
+- **%LocalAppData%** = `C:\Users\用户名\AppData\Local`
+
+  用于存储应用程序的本地数据。
+
+- **%UserProfile%** = `C:\Users\用户名`
+
+  用户文件夹。
+
+- **%ProgramFiles%** = `C:\Program Files`
+
+  程序文件夹。
+
+- **%SystemRoot%** = `C:\Windows`
+
+  Windows 系统文件夹。
+
+- **%Public%** = `C:\Users\Public`
+
+  公共文件夹。
+
+- **%Temp% / %Tmp%** = `C:\Users\用户名\AppData\Local\Temp`
+
+  临时文件夹。
 
 ## Windows 命令
 

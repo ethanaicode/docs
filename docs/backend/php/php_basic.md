@@ -1,4 +1,8 @@
-# PHP 基础知识
+---
+title: PHP基础知识大全，开发者必备的核心技能
+---
+
+# PHP 基础
 
 ## PHP 命令
 
@@ -10,11 +14,117 @@
 
 - `php -a`: 进入交互模式
 
-= `php -r "echo 'Hello World';"`: 执行一行代码
+- `php -r "echo 'Hello World';"`: 执行一行代码
 
 - `php -i`: 查看 php 配置
 
   `php -i | grep php.ini`: 查看 php.ini 文件路径
+
+## PHP 配置
+
+在早期的 linux 系统中，通常会自带 PHP，它们的配置文件通常在以下位置：
+
+- `/etc/php.ini`：全局配置文件
+
+- `/etc/php.d`：扩展配置文件
+
+- `/etc/php-fpm.d`：PHP-FPM 配置文件
+
+  `/etc/php-fpm.d/www.conf`：PHP-FPM 网站配置文件
+
+- `/etc/php-cli.ini`：CLI 配置文件
+
+如果是自己编译安装的 PHP，那么配置文件会在安装目录下的 `etc` 目录中。
+
+## 常见问题
+
+### PHP 单引号和双引号的区别与用法
+
+php 里的单引号把内容当成纯文本，不会经过服务器翻译。
+
+而双引号则与此相反。里面的内容会经过服务器处理(process)。
+
+> 说人话就是双引号支持变量，单引号会将文本原样输出
+
+### require 和 include
+
+他们大部分时候都是可以互换的。
+
+但是`include`遇到问题会发出警告脚本继续运行，`require`则生成致命错误并停止运行程序。
+
+### require_once 和 include_once
+
+使用方法跟 require、include 一样，差别在于在引入文件前，会先检查文件是否已经在其他地方被引入过了，
+
+若有，就不会再重复引入。
+
+## Composer 管理依赖
+
+composer 是 PHP 的一个依赖管理工具，可以用来安装第三方库。
+
+### 基础使用
+
+**创建项目**
+
+```shell
+composer create-project vendor/package=version dir
+# =version 可以省略，用于指定版本
+```
+
+支持的参数：
+
+- `--prefer-dist`：下载压缩包
+
+- `--stability`：指定稳定性
+
+- `--repository`：指定仓库
+
+- `--dev`：安装开发依赖
+
+- `--no-dev`：不安装开发依赖
+
+- `--no-scripts`：不执行脚本
+
+- `--no-install`：不安装依赖
+
+- `--no-progress`：不显示进度
+
+**常用命令**
+
+```shell
+# 项目初始化
+composer init
+# 更新依赖
+composer update
+# 查找依赖
+composer search vendor
+```
+
+**引入第三方库**
+
+```shell
+composer require vendor/package
+# 指定版本
+composer require vendor/package:version
+```
+
+**删除第三方库**
+
+```shell
+composer remove vendor/package
+```
+
+**查看已安装的第三方库**
+
+```shell
+composer show
+```
+
+**查看已安装的第三方库的版本**
+
+```shell
+composer show vendor/package
+```
 
 ## PHP 常用方法
 
@@ -626,93 +736,3 @@ _通俗理解就是把数据及结构转成字符串存到数据库，要用的�
 程序延迟执行指定的 `seconds` 的秒数。
 
 _只能传整数，如果要用微秒请用 usleep_
-
-## Composer 管理依赖
-
-composer 是 PHP 的一个依赖管理工具，可以用来安装第三方库。
-
-### 基础使用
-
-**创建项目**
-
-```shell
-composer create-project vendor/package=version dir
-# =version 可以省略，用于指定版本
-```
-
-支持的参数：
-
-- `--prefer-dist`：下载压缩包
-
-- `--stability`：指定稳定性
-
-- `--repository`：指定仓库
-
-- `--dev`：安装开发依赖
-
-- `--no-dev`：不安装开发依赖
-
-- `--no-scripts`：不执行脚本
-
-- `--no-install`：不安装依赖
-
-- `--no-progress`：不显示进度
-
-**常用命令**
-
-```shell
-# 项目初始化
-composer init
-# 更新依赖
-composer update
-# 查找依赖
-composer search vendor
-```
-
-**引入第三方库**
-
-```shell
-composer require vendor/package
-# 指定版本
-composer require vendor/package:version
-```
-
-**删除第三方库**
-
-```shell
-composer remove vendor/package
-```
-
-**查看已安装的第三方库**
-
-```shell
-composer show
-```
-
-**查看已安装的第三方库的版本**
-
-```shell
-composer show vendor/package
-```
-
-## 常见问题
-
-### PHP 单引号和双引号的区别与用法
-
-php 里的单引号把内容当成纯文本，不会经过服务器翻译。
-
-而双引号则与此相反。里面的内容会经过服务器处理(process)。
-
-> 说人话就是双引号支持变量，单引号会将文本原样输出
-
-### require 和 include
-
-他们大部分时候都是可以互换的。
-
-但是`include`遇到问题会发出警告脚本继续运行，`require`则生成致命错误并停止运行程序。
-
-### require_once 和 include_once
-
-使用方法跟 require、include 一样，差别在于在引入文件前，会先检查文件是否已经在其他地方被引入过了，
-
-若有，就不会再重复引入。
