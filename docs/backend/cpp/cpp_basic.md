@@ -451,6 +451,24 @@ int main() {
 }
 ```
 
+## 标准模板库（STL）
+
+STL 是 C++ 标准库的一部分，提供了一组通用的模板类和函数，用于实现常见的数据结构和算法。
+
+STL 主要包括以下几个组件：
+
+- **容器（Containers）**：用于存储数据的类，如 `vector`、`list`、`map`、`set` 等。
+
+- **容器适配器（Container Adapters）**：用于改变容器的接口，如 `stack`、`queue`、`priority_queue`。
+
+- **迭代器（Iterators）**：用于遍历容器中的元素。
+
+- **函数对象（Functors）**：重载了函数调用操作符 `()` 的类，可以像函数一样调用。也称为仿函数。
+
+- **算法（Algorithms）**：用于处理容器中的元素，如 `sort`、`find`、`count`、`accumulate` 等。
+
+### 容器
+
 ## C++11 新特性
 
 ### 新增数据类型
