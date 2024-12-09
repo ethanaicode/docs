@@ -62,6 +62,8 @@ array=(value1 value2 value3)
 
 - `${#array[index]}`: 获取数组中某个元素的长度
 
+- `array+=(value)`: 添加元素到数组
+
 ### 文件描述符
 
 Bash 支持文件描述符，可以用来重定向输入和输出。
@@ -200,7 +202,66 @@ do
 done
 ```
 
-## 案例参考
+## 文件操作
+
+### 输入输出重定向
+
+- `>`: 输出重定向
+
+- `>>`: 追加输出重定向
+
+- `<`: 输入重定向
+
+- `2>`: 错误重定向
+
+- `2>&1`: 将标准错误流重定向到标准输出
+
+  如: `command > output.log 2>&1`
+
+- `&>`: 合并标准输出和错误输出(语法糖)
+
+### read 读取数据
+
+`read` 命令用于从标准输入读取数据。
+
+```bash
+read variable
+```
+
+支持多个参数：
+
+- `-p`: 提示信息
+
+- `-r`: 不转义反斜杠
+
+- `-t`: 超时时间
+
+- `-n`: 读取字符数
+
+- `-s`: 隐藏输入
+
+在 read 前面，我们可以使用`IFS`来设置分隔符，如：
+
+```bash
+IFS=: read var1 var2 var3
+```
+
+下面是一个例子，它会从文件中读取每一行，并把值存储到数组中，然后打印数组：
+
+```bash
+# Define a empty array
+array=()
+
+# Read file line by line
+while IFS= read -r line; do
+    array+=("$line")
+done < file.txt
+
+# Print array
+echo "${domains[@]}"
+```
+
+## 使用技巧
 
 ### 不显示错误消息
 
