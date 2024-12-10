@@ -1527,6 +1527,10 @@ rsync -avz username@remote_host:/path/to/remote/file /path/to/local/destination
 
 ### 允许用户使用 sudo 命令
 
+> /etc/sudoers 文件比较敏感，不允许直接用编辑器修改，可以使用`visudo`命令来编辑，后面不需要加文件名。
+>
+> visudo 命令会检查文件的语法错误，如果有错误，会提示并不保存。
+
 允许用户使用 `sudo` 命令，可以将用户添加到 `sudo` 组中。
 
 不同的 linux 系统中，`sudo` 组可能不同，可以通过 `/etc/sudoers` 文件查看。
@@ -2062,39 +2066,29 @@ time curl -I http://yourpage.com
 
 - `-I` 参数表示只显示响应头信息
 
-### 查看网站的 SSL 证书及部署情况
+### 查询域名解析的 IP 地址
 
-可以使用`openssl`来模拟请求，查看证书详细信息:
+有多个命令都可以查询域名解析的 IP 地址:
 
-```bash
-echo | openssl s_client -connect localhost:443 -servername your_domain.com 2>/dev/null
-```
+- `nslookup example.com`: 查询 DNS 记录
 
-- `echo` 命令用于向管道发送空字符串，给 `openssl` 命令提供输入
+- `dig example.com`: 更强大的 DNS 查询工具，适合高级用户
 
-  默认情况下 `openssl s_client` 命令会等待用户输入，否则连接会挂起，通过 `echo` 命令可以避免这种情况
+  `-A` 参数可以只查看 A 记录
 
-- `-connect` 要访问的目标地址和端口，如果是远程的话，需要替换为远程地址，可以为域名或者 IP 地址
+- `host example.com`: 查询域名的 host 记录，包括 A 记录和 MX 记录
 
-- `-servername` 告知服务器要访问的域名，如果访问的已经是远程域名，可以省略
+- `ping example.com`: 虽然主要功能是测试连通性，但它会解析并显示域名对应的 IP 地址
 
-也可以继续把输出信息交给`openssl`来只显示证书有效期:
+如果系统中没有这些命令，可以选择安装:
 
-```bash
-echo | openssl s_client -connect localhost:443 -servername your_domain.com 2>/dev/null | openssl x509 -noout -dates
-```
+- `yum install bind-utils`: CentOS，安装后就可以使用 `nslookup` 和 `dig` 命令
 
-**返回信息**
+- `yum install inetutils`: CentOS，安装后就可以使用 `host` 命令
 
-- `notBefore` 表示证书的生效日期
+- `yum install iputils`: CentOS，安装后就可以使用 `ping` 命令
 
-- `notAfter` 表示证书的过期日期
-
-- `subject` 表示证书的主题
-
-  `CN` 表示证书的主要域名，如果是通配符证书，会显示 `*.domain.com`
-
-- `subjectAltName` 表示证书的子域名信息
+Debian 中一般是有的，这里就不详细罗列了。
 
 ### 禁止 PING 命令
 
@@ -2199,6 +2193,67 @@ Host myserver
 ```bash
 ssh username@remote_host
 ```
+
+### 查看网站 SSL 证书信息
+
+可以使用`openssl`来模拟请求，查看证书详细信息:
+
+```bash
+echo | openssl s_client -connect localhost:443 -servername your_domain.com 2>/dev/null
+```
+
+- `echo` 命令用于向管道发送空字符串，给 `openssl` 命令提供输入
+
+  默认情况下 `openssl s_client` 命令会等待用户输入，否则连接会挂起，通过 `echo` 命令可以避免这种情况
+
+- `-connect` 要访问的目标地址和端口，如果是远程的话，需要替换为远程地址，可以为域名或者 IP 地址
+
+- `-servername` 告知服务器要访问的域名，如果访问的已经是远程域名，可以省略
+
+也可以继续把输出信息交给`openssl`来只显示证书有效期:
+
+```bash
+echo | openssl s_client -connect localhost:443 -servername your_domain.com 2>/dev/null | openssl x509 -noout -dates
+```
+
+**返回信息**
+
+- `notBefore` 表示证书的生效日期
+
+- `notAfter` 表示证书的过期日期
+
+- `subject` 表示证书的主题
+
+  `CN` 表示证书的主要域名，如果是通配符证书，会显示 `*.domain.com`
+
+- `subjectAltName` 表示证书的子域名信息
+
+### openssl 创建自签名证书
+
+如果你想要在本地搭建一个 HTTPS 服务器，可以使用 openssl 来创建自签名证书。
+
+```bash
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout /path/to/dummy.key \
+    -out /path/to/dummy.crt \
+    -subj "/CN=localhost"
+```
+
+- `req`: 生成证书请求。
+
+- `-x509`: 生成自签名证书。
+
+- `-nodes`: 生成无密码证书。
+
+- `-days 365`: 证书有效期。
+
+- `-newkey rsa:2048`: 生成 2048 位的 RSA 密钥。
+
+- `-keyout`: 指定私钥文件。
+
+- `-out`: 指定证书文件。
+
+- `-subj`: 指定证书的主题，这里指定为 localhost。
 
 ## 防火墙
 

@@ -586,7 +586,7 @@ gc.get_referrers(a)
 
 `pip` 是 Python 的包管理工具，用于安装和管理 Python 包。
 
-常用命令包括:
+#### 常用命令
 
 - `pip install --upgrade pip`: 升级 pip
 
@@ -606,15 +606,43 @@ gc.get_referrers(a)
 
 - `pip install -e .`: 以可编辑的方式安装包（即在当前目录下安装包，可以直接修改包的源码）
 
-**pip 修改配置文件**
+#### 修改镜像源
 
-你可以使用 `pip config` 命令修改配置文件，例如:
+如果是临时修改镜像源，可以使用 `-i` 参数，例如:
+
+```bash
+pip install package_name -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+比较有名的国内镜像源有:
+
+- 清华大学: `https://pypi.tuna.tsinghua.edu.cn/simple`
+
+- 阿里云: `https://mirrors.aliyun.com/pypi/simple`
+
+- 豆瓣: `https://pypi.doubanio.com/simple`
+
+如果需要永久修改镜像源，可以修改 `pip` 的配置文件，具体方法可以参考下一章节的内容。
+
+#### 修改 pip 配置文件
+
+你可以使用 `pip config` 命令来修改配置文件，例如:
 
 ```bash
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 这里将全局的 `index-url` 设置为清华大学的镜像源。
+
+或者直接修改配置文件，配置文件的路径可以通过 `pip config list` 命令查看，通常位于以下位置:
+
+- Linux: `~/.config/pip/pip.conf`
+
+- macOS: `~/Library/Application Support/pip/pip.conf`
+
+  或者 `~/.config/pip/pip.conf`
+
+- Windows: `C:\Users\username\AppData\Roaming\pip\pip.ini`
 
 ### virtualenv
 
