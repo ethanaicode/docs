@@ -110,6 +110,8 @@
 
   如: `ln -s /path/to/file /path/to/link` 创建软链接
 
+  **注意**: 最后的参数是链接文件名，也就是快捷方式的位置及名称
+
 - **alias**: 设置别名
 
   `alias ll='ls -l'` 设置别名

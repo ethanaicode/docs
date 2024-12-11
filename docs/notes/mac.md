@@ -125,6 +125,10 @@
 ipconfig getifaddr en0
 ```
 
+- `en0` 是网卡的名称。
+
+- 如果没有结果，可以使用 `networksetup -listallhardwareports` 列出所有的网络服务和对应的网卡。
+
 ### 获取域名的解析 IP
 
 最简单的就是使用`nslookup`命令，可以获取到域名的解析 IP:
@@ -209,13 +213,15 @@ macOS 默认是不开启 VNC 服务的，需要手动开启。开启后可以使
 
 ### Basics
 
-Brew 的应用一般会安装到`/usr/local/Cellar`目录下，
+- Brew 的应用一般会安装到`/usr/local/Cellar`目录下，
 
-软件的链接会放在`/usr/local/opt`目录下，你可以在这里看到软件的版本信息，
+- 软件的链接会放在`/usr/local/opt`目录下，你可以在这里看到软件的版本信息，
 
-如果是命令行工具，会额外在`/usr/local/bin`目录下创建一个软链接，
+- 如果是命令行工具，会额外在`/usr/local/bin`目录下创建一个软链接，
 
-Brew 的应用配置一般可以在`/usr/local/etc`目录下找到。
+- Brew 的应用配置一般可以在`/usr/local/etc`目录下找到。
+
+- 在新的 macOS 系统中，Brew 会自动安装到`/opt/homebrew`目录下。
 
 **Brew 的基本命令**
 
