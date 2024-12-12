@@ -224,9 +224,13 @@ git config --global user.email "youremail"
 
 **Gitee 要注意的点**
 
-- Gitee 的仓库地址不能使用 token 名，只能使用用户名，加上 token 密钥。
+- Gitee 的远程仓库地址如果想放入账号密码，无法使用 token 名加 token 组合，只能使用用户名加 token
 
-- 用户名必须要全部小写，否则会报无效的用户名。
+  如: `https://<username>:<token>@<repository-url>`
+
+- 用户名必须要全部小写，否则会报无效的用户名
+
+- 配置了 ssh 后再拉取隐私仓库就无需输入用户名和密码
 
 ## 开发实践
 

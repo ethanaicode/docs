@@ -342,12 +342,6 @@
 
   可以使用 `exit` 退出
 
-- ~~**su**: 切换用户~~
-
-  ~~`-l` 切换到 root 用户~~
-
-  ~~`-s` 指定 shell~~
-
 - **useradd**: 添加用户
 
   `-g` 指定用户所属组
@@ -359,6 +353,8 @@
   `-s` 指定用户 shell
 
   `-e` 指定用户过期时间
+
+- **passwd**: 修改密码(不指定用户名则修改当前用户)
 
 - **userdel**: 删除用户
 
@@ -379,8 +375,6 @@
   `-e` 修改用户过期时间
 
   如: `usermod -l newname oldname` 修改用户名
-
-- **passwd**: 修改密码
 
 - **getent**: 获取用户信息
 
@@ -403,6 +397,10 @@
 - **groupdel**: 删除组
 
 - **users**: 查看当前登录系统的用户
+
+- **su**: 切换用户
+
+  `-l` 切换到 root 用户
 
 ### 系统运行状态
 
@@ -561,8 +559,6 @@
 - **/etc/sudoers**: sudo 配置文件，用于查看哪些用户可以使用 sudo 命令
 
 - **/etc/crontab[cron.d]**: 定时任务配置文件
-
-- **/etc/ssh/sshd_config**: SSH 配置文件
 
 #### 日志文件
 
@@ -2104,98 +2100,6 @@ echo "net.ipv4.icmp_echo_ignore_all = 1" >> /etc/sysctl.conf
 sysctl -p
 ```
 
-### SSH 配置管理
-
-#### 修改 SSH 端口
-
-默认情况下，SSH 服务使用 22 端口，为了提高安全性，可以修改 SSH 服务的端口。
-
-修改的配置文件通常位于 `/etc/ssh/sshd_config`。
-
-修改其中的端口配置项，修改后需要重启 SSH 服务:
-
-```bash
-systemctl restart sshd
-```
-
-_不同的系统 ssh 服务名称可能不同，可以使用`systemctl list-unit-files --type=service | grep ssh`来查看_
-
-### SSH 密钥生成及应用
-
-如果想要通过 SSH 连接到远程服务器，可以使用 SSH 密钥来进行身份验证，而不是使用密码。
-
-#### 生成 SSH 密钥
-
-```bash
-ssh-keygen -t rsa -b 4096 -C "comment"
-```
-
-- `-t rsa`: 指定密钥类型为 RSA。
-
-- `-b 4096`: 指定密钥长度为 4096 位。
-
-- `-C "comment"`: 添加注释。
-
-**将公钥复制到远程服务器**
-
-```bash
-ssh-copy-id username@remote_host
-```
-
-如果指定了端口或使用了非默认路径的私钥，可以添加参数：
-
-```bash
-ssh-copy-id -i ~/.ssh/id_rsa.pub -p 22 username@remote_host
-```
-
-**手动复制公钥到远程服务器**
-
-```bash
-cat ~/.ssh/id_rsa.pub | ssh username@remote_host "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
-```
-
-复制到远程服务器后，可以通过以下命令测试是否成功，如果不需要输入密码即可登录，则表示成功。
-
-```bash
-ssh username@remote_host
-```
-
-#### SSH 配置文件
-
-SSH 配置文件通常位于用户家目录下的 `.ssh` 目录中，文件名为 `config`。
-
-```bash
-Host myserver
-    HostName remote_host
-    User username
-    Port 22
-    IdentityFile ~/.ssh/id_rsa
-```
-
-- `Host`: 指定主机别名，这意味着你可以使用别名来代替主机地址。
-
-  （之后就可以使用`ssh myserver`来登录）
-
-- `HostName`: 指定主机地址。
-
-- `User`: 指定登录用户名。
-
-- `Port`: 指定 SSH 端口。
-
-- `IdentityFile`: 指定私钥文件。
-
-还可以定义更多配置项：
-
-- `logLevel`: 指定日志级别。(QUIET, FATAL, ERROR, INFO, VERBOSE, DEBUG, DEBUG1, DEBUG2, and DEBUG3)
-
-- `Compression`: 指定压缩算法。
-
-#### SSH 登录
-
-```bash
-ssh username@remote_host
-```
-
 ### 查看网站 SSL 证书信息
 
 可以使用`openssl`来模拟请求，查看证书详细信息:
@@ -2256,6 +2160,124 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 - `-out`: 指定证书文件。
 
 - `-subj`: 指定证书的主题，这里指定为 localhost。
+
+## SSH 连接
+
+### SSH 基础
+
+SSH 是一种加密的网络协议，用于在不安全的网络中安全地传输数据。
+
+SSH 客户端可以通过 SSH 协议连接到远程服务器，进行远程登录、文件传输等操作。
+
+#### SSH 相关目录
+
+- `~/.ssh`: SSH 配置文件和密钥文件的默认存储目录。
+
+- `~/.ssh/authorized_keys`: 存储远程服务器的公钥，用于 SSH 免密登录。
+
+- `~/.ssh/config`: SSH 客户端的配置文件，用于配置 SSH 客户端的参数。
+
+- `~/.ssh/know_hosts`: 存储已知的主机公钥，用于验证远程服务器的身份。
+
+- `/etc/ssh/sshd_config`: SSH 服务的配置文件，用于配置 SSH 服务的参数。
+
+- `/var/log/auth.log`: SSH 服务的日志文件。
+
+#### SSH 常用命令
+
+- `ssh username@remote_host`: 连接到远程服务器
+
+- `ssh -p port username@remote_host`: 指定端口连接到远程服务器
+
+### SSH 连接配置
+
+SSH 配置文件通常位于用户家目录下的 `.ssh` 目录中，文件名为 `config`。
+
+通过修改 SSH 配置文件，可以为不同的主机配置不同的参数，避免每次都输入参数。
+
+```bash
+Host myserver
+    HostName remote_host
+    User username
+    Port 22
+    IdentityFile ~/.ssh/id_rsa
+```
+
+- `Host`: 指定主机别名，这意味着你可以使用别名来代替主机地址。
+
+  （之后就可以使用`ssh myserver`来登录）
+
+- `HostName`: 指定主机地址。
+
+- `User`: 指定登录用户名。
+
+- `Port`: 指定 SSH 端口。
+
+- `IdentityFile`: 指定私钥文件。
+
+还可以定义更多配置项：
+
+- `logLevel`: 指定日志级别。(QUIET, FATAL, ERROR, INFO, VERBOSE, DEBUG, DEBUG1, DEBUG2, and DEBUG3)
+
+- `Compression`: 指定压缩算法。
+
+现在就可以直接使用 `ssh myserver` 来登录了，如果配置了私钥，就不需要输入密码。
+
+### SSH 密钥生成及应用
+
+如果想要通过 SSH 连接到远程服务器，可以使用 SSH 密钥来进行身份验证，而不是使用密码。
+
+**生成 SSH 密钥**
+
+```bash
+ssh-keygen -t rsa -b 4096 -C "comment"
+```
+
+- `-t rsa`: 指定密钥类型为 RSA。
+
+- `-b 4096`: 指定密钥长度为 4096 位。
+
+- `-C "comment"`: 添加注释。
+
+**将公钥复制到远程服务器**
+
+```bash
+ssh-copy-id username@remote_host
+```
+
+如果指定了端口或使用了非默认路径的私钥，可以添加参数：
+
+```bash
+ssh-copy-id -i ~/.ssh/id_rsa.pub -p 22 username@remote_host
+```
+
+**手动复制公钥到远程服务器**
+
+```bash
+cat ~/.ssh/id_rsa.pub | ssh username@remote_host "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+```
+
+复制到远程服务器后，可以通过以下命令测试是否成功，如果不需要输入密码即可登录，则表示成功。
+
+```bash
+ssh username@remote_host
+```
+
+### SSH 服务配置
+
+#### 修改 SSH 端口
+
+默认情况下，SSH 服务使用 22 端口，为了提高安全性，可以修改 SSH 服务的端口。
+
+修改的配置文件通常位于 `/etc/ssh/sshd_config`。
+
+修改其中的端口配置项，修改后需要重启 SSH 服务:
+
+```bash
+systemctl restart sshd
+```
+
+_不同的系统 ssh 服务名称可能不同，可以使用`systemctl list-unit-files --type=service | grep ssh`来查看_
 
 ## 防火墙
 
