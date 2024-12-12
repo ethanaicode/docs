@@ -43,3 +43,16 @@
   width: 108px;
   background-color: var(--vp-c-gutter); /* 一个简单的底部装饰线 */
 }
+
+/*
+ * 自定义<u>标签样式，模拟记号笔下划线
+ */
+u {
+  text-decoration: none; /* 移除默认下划线 */
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(255, 255, 0, 0.3) 50%
+  ); /* 下半部分淡黄色背景 */
+  color: inherit; /* 保持文字颜色 */
+}

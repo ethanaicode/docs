@@ -16,7 +16,7 @@ Vim 是一个非常强大的文本编辑器，它分为三种模式：Normal 模
 
 - `^`: 光标跳转到第一个非空字符
 
-- `w`: 跳转到下一个单词的开头
+- `w`: <u>跳转到下一个单词的开头</u>
 
 - `b`: 跳转到上一个单词的开头
 
@@ -26,25 +26,27 @@ Vim 是一个非常强大的文本编辑器，它分为三种模式：Normal 模
 
 - `:n`: 跳转到第 n 行
 
+  也可以使用 `nG` 跳转到第 n 行
+
 - `h` `j` `k` `l`: 左下上右(相当于方向键)
 
 **内容编辑**
 
 - `y`: 复制
 
-- `yy`: 复制当前行
+- `yy`: <u>复制当前行</u>
 
 - `x`: 剪切当前字符(也可以用于删除当前字符)
 
 - `X`: 剪切前一个字符
 
-- `p`: 粘贴
+- `p`: <u>粘贴</u>
 
 - `P`: 粘贴到当前行的前面
 
 - `d`: 删除
 
-- `dd`: 剪切当前行
+- `dd`: <u>剪切当前行</u>
 
 - `ddp`: 将当前行和下一行交换（其实就是删除当前行，然后粘贴到下一行）
 
@@ -62,7 +64,15 @@ Vim 是一个非常强大的文本编辑器，它分为三种模式：Normal 模
 
 - `R`: 替换当前字符及后续字符
 
-- `ci"`: 修改双引号内的内容
+- `c+命令`: 删除当前字符并进入 Insert 模式
+
+  `c` 代表 change，后面可以跟任意移动光标的命令，例如 `cw`、`c$`、`c0` 等，这样就可以实现快速删除并插入新字符的操作
+
+  `cw` 代表删除当前单词的后面字符并进入 Insert 模式
+
+  `caw` <u>代表删除当前单词并进入 Insert 模式(包括单词周围的空格)</u>
+
+  `ciw` 代表删除当前单词并进入 Insert 模式(仅删除单词)
 
 **查找及替换**
 
@@ -94,49 +104,15 @@ Vim 是一个非常强大的文本编辑器，它分为三种模式：Normal 模
 
 - `Ctrl + b`: 向上翻页(相当于 PageUp)
 
-**其他**
+**其他命令**
 
 - `:q`: 退出
 
-- `:set number`: 显示行号(set number 可以简写为 set nu)
+- `:q!`: 强制退出
 
-- `:set nonumber`: 隐藏行号(set nonumber 可以简写为 set nonu)
+- `:w`: 保存
 
-- `:set autoindent`: 自动缩进
-
-- `:set noautoindent`: 取消自动缩进
-
-- `:set expandtab`: 将 tab 转换为空格
-
-- `:set noexpandtab`: 将空格转换为 tab
-
-- `:set tabstop=4`: 设置 tab 键的宽度为 4 个空格
-
-- `:set shiftwidth=4`: 设置自动缩进的宽度为 4 个空格
-
-- `:set ignorecase`: 搜索时忽略大小写
-
-- `:set noignorecase`: 搜索时区分大小写
-
-- `:set hlsearch`: 高亮搜索结果
-
-- `:set nohlsearch`: 取消高亮搜索结果
-
-- `:set incsearch`: 实时搜索
-
-- `:set noincsearch`: 取消实时搜索
-
-- `:set list`: 显示不可见字符
-
-- `:set nolist`: 隐藏不可见字符
-
-- `:set wrap`: 自动换行
-
-- `:set nowrap`: 取消自动换行
-
-- `:set mouse=a`: 启用鼠标
-
-- `:set mouse=`: 禁用鼠标
+- `:wq`: 保存并退出
 
 ### Insert 模式
 
@@ -158,6 +134,94 @@ Visual 模式是用于选中文本的模式，选中文本后可以对选中的�
 
   Visual Block 模式下，可以选中一个矩形区域，然后对这个区域进行操作
 
+## Vim 配置文件
+
+Vim 的配置文件是 `~/.vimrc`，可以在这个文件中设置一些 Vim 的配置选项，来永久保存你的配置。
+
+### 常用配置选项
+
+- `set number`: <u>显示行号</u>(set number 可以简写为 set nu)
+
+- `set nonumber`: 隐藏行号(set nonumber 可以简写为 set nonu)
+
+- `set expandtab`: <u>将 tab 转换为空格</u>
+
+- `set tabstop=4`: 设置 tab 键的宽度为 4 个空格
+
+- `set noexpandtab`: 将空格转换为 tab
+
+- `set autoindent`: 自动缩进
+
+- `set shiftwidth=4`: 设置自动缩进的宽度为 4 个空格
+
+- `set noautoindent`: 取消自动缩进
+
+- `set ignorecase`: 搜索时忽略大小写
+
+- `set noignorecase`: 搜索时区分大小写
+
+- `set hlsearch`: 高亮搜索结果
+
+- `set nohlsearch`: 取消高亮搜索结果
+
+- `set incsearch`: 实时搜索
+
+- `set noincsearch`: 取消实时搜索
+
+- `set list`: 显示不可见字符
+
+- `set nolist`: 隐藏不可见字符
+
+- `set wrap`: 自动换行
+
+- `set nowrap`: 取消自动换行
+
+- `set mouse=a`: 启用鼠标
+
+- `set mouse=`: 禁用鼠标
+
+### 开启语法高亮
+
+在 Vim 中开启语法高亮，可以让代码更加清晰易读。
+
+```vim
+syntax on
+```
+
+Vim 的语法高亮依赖语言的语法文件。Vim 默认支持大部分编程语言的语法高亮，但是有些语言可能需要手动安装语法文件。
+
+语法文件通常存放在 `~/.vim/syntax/` 目录下，或者是 `/usrr/share/vim/vim*/syntax/` 目录下。
+
+可以通过添加 `set t_Co=256` 来确保开启 256 色彩。
+
+**注意**: 如果你的终端不支持 256 色彩，可以使用 `set t_Co=16` 来开启 16 色彩。
+
+**不起作用的解决方法**:
+
+- 如果你的 Vim 配置文件中设置了 `set background=dark`，但是语法高亮没有生效，可以尝试将 `set background=dark` 放在 `syntax on` 之前。
+
+- 确保你的终端支持 256 色彩，可以通过 `echo $TERM` 查看终端类型，如果是 `xterm-256color`，则支持 256 色彩。
+
+- 确保文件类型检测开启，可以通过 `filetype on` 和 `filetype plugin on` 来开启文件类型检测。
+
+## Vim 高级命令
+
+### 多文件操作
+
+- `:e filename`: 打开一个文件
+
+- `:ls`: 列出当前打开的文件
+
+- `:bnext`: 切换到下一个文件
+
+- `:bprev`: 切换到上一个文件
+
+- `:bfirst`: 切换到第一个文件
+
+- `:blast`: 切换到最后一个文件
+
+- `:bdelete`: 关闭当前文件
+
 ## nano 编辑器(类似于 Vim)
 
 nano 是一个简单易用的文本编辑器，适合初学者使用。
@@ -175,3 +239,7 @@ nano 是一个简单易用的文本编辑器，适合初学者使用。
 - `Ctrl + W`: 搜索
 
 - `Ctrl + K`: 剪切
+
+```
+
+```
