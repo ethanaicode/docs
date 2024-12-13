@@ -102,6 +102,43 @@ title: CSS 前端开发学习指南，最全的CSS样式和用法汇总
 
 - `伪类` > `类` > `标签`
 
+## 渐变
+
+### 线性渐变
+
+`linear gradient` 是一种沿着一条直线的渐变效果。
+
+```css
+/* 45度角的渐变，从蓝色到红色 */
+linear-gradient(45deg, blue, red);
+/* 从左上角到右下角的渐变，从蓝色到红色 */
+linear-gradient(to left top, blue, red)
+/* 基于 OKLab 的渐变 */
+linear-gradient(in oklab, blue, red)
+/* 基于 HSL 的渐变 */
+linear-gradient(in hsl, blue, red)
+/* 基于 HSL 的渐变，但是 hue 的范围更大 */
+linear-gradient(in hsl longer hue, blue, red)
+/* 从下到上的渐变，开始是蓝色，到 40% 的地方是绿色，最后是红色 */
+linear-gradient(0deg, blue, green 40%, red)
+/* 从左到右的渐变，开始是红色直到 10%，剩下的 90% 渐变到蓝色 */
+linear-gradient(.25turn, red, 10%, blue)
+/* 多位置渐变 */
+linear-gradient(45deg, red 0 50%, blue 50% 100%)
+```
+
+- `to` 关键字可以指定渐变的方向，可以是 `top`、`right`、`bottom`、`left`，也可以是 `top left`、`top right`、`bottom left`、`bottom right`。
+
+- `deg` 单位可以指定角度，也可以是 `turn`、`rad`、`grad`。
+
+- `in` 关键字可以指定颜色空间，可以是 `srgb`、`display-p3`、`rec2020`、`oklab`、`hsl`。
+
+- `longer hue` 关键字可以指定 hue 的范围更大。
+
+- `from` 关键字可以指定渐变的起始位置。如果没有指定，默认是 `top`。
+
+- `color start end` 可以指定渐变的颜色范围。
+
 ## CSS 布局
 
 ### Flex

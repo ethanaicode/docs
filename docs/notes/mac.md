@@ -28,24 +28,6 @@
 
 - **Shottr**: 截图工具（以前喜欢用 snipaste，现在用这个，可以完美替代）
 
-  - Hotkeys --> Area shot: `F1`
-
-  - Hotkeys --> AnyW shot: `F2`
-
-  - Hotkeys --> Scrol shot: `F3`
-
-  - Hotkeys --> Text Recon: `F4`
-
-  - Resize retina screenshot: `Checked`
-
-  - After shot: `Checked Show/Save`
-
-    截图后打开编辑器并自动保存到指定文件夹
-
-  - Action when hiding with Esc: `Copy Image`
-
-    编辑器中直接 Esc 退出后，会自动复制到剪贴板
-
 ## Mac shortcut
 
 ### 快捷操作

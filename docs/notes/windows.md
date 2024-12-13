@@ -187,7 +187,7 @@ Windows 快捷键是提高效率的好帮手，这里记录一些常用的快捷
 
 #### 基础语法
 
-bat 脚本是一种批处理文件，可以用于批量处理任务。可以通过建立一个 bat 文件，然后在 cmd 中运行这个文件来执行一系列命令。
+bat 脚本是一种批处理文件，可以用于批量处理任务。可以通过建立一个 `.bat` 文件，然后在 cmd 中运行这个文件来执行一系列命令。
 
 bat 脚本和 linux 的 shell 脚本类似，可以参考着一起学习 [《Bash 脚本教程》](../backend/bash)
 
@@ -356,3 +356,67 @@ pause
 - `Stop-Process`: PowerShell 结束进程
 
   例如：`Stop-Process -Name notepad` 结束记事本进程
+
+## PowerShell 脚本
+
+### 基础概念
+
+### 运算符
+
+#### 调用运算符
+
+- `&`: 调用命令
+
+  例如：`& "C:\Program Files\Notepad++\notepad++.exe"`
+
+  如果是动态调用，需要使用 `&` 运算符，否则可能不会被识别为命令。
+
+  ```bash
+  $scriptPath = "C:/scripts/my_script.ps1"
+  & $scriptPath
+  ```
+
+### 函数
+
+#### 定义函数
+
+```powershell
+function Get-Hello {
+    param (
+        [string]$name
+    )
+    Write-Host "Hello, $name!"
+}
+```
+
+#### 调用函数
+
+```powershell
+Get-Hello -name "World"
+```
+
+### 条件判断
+
+#### $LASTEXITCODE
+
+`$LASTEXITCODE` 变量保存了上一个命令的退出码。
+
+```powershell
+$command = "echo Hello"
+Invoke-Expression $command
+if ($LASTEXITCODE -eq 0) {
+    Write-Host "Command executed successfully."
+} else {
+    Write-Host "Command failed."
+}
+```
+
+### 输出与日志
+
+#### 输出命令
+
+- `Write-Host`: 输出信息
+
+  例如：`Write-Host "Hello, World!"`
+
+- `Write-Output`: 管道输出数据

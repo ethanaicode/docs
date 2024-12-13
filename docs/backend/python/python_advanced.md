@@ -2,7 +2,7 @@
 
 > 不同的 python 版本，运行的 python 命令可能不同，这里以 python 为例。
 
-## 开发经验及注意事项
+## 开发实践
 
 ### 编码格式
 
@@ -49,6 +49,12 @@
         def get_a(self):
             print(self.b)
   ```
+
+### 技巧与经验
+
+- 可以使用 `python -c` 来执行一行 Python 代码
+
+  `python -c 'import sys; print(sys.prefix)'` 可以查看 Python 的安装路径
 
 ## 进阶知识
 
@@ -580,9 +586,9 @@ a = A()
 gc.get_referrers(a)
 ```
 
-## pip 和 virtualenv
+## 开发工具
 
-### pip
+### pip 包管理工具
 
 `pip` 是 Python 的包管理工具，用于安装和管理 Python 包。
 
@@ -644,7 +650,7 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 - Windows: `C:\Users\username\AppData\Roaming\pip\pip.ini`
 
-### virtualenv
+### venv 虚拟环境
 
 `virtualenv` 是一个用于创建独立 Python 环境的工具。
 

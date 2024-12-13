@@ -52,7 +52,7 @@ u {
   background: linear-gradient(
     to bottom,
     transparent 50%,
-    rgba(255, 255, 0, 0.3) 50%
+    #ffff00 50%
   ); /* 下半部分淡黄色背景 */
   color: inherit; /* 保持文字颜色 */
 }

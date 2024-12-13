@@ -298,6 +298,40 @@ Typora 支持数学公式的输入，我们可以使用 LaTeX 语法来输入数
 [^footnote]: 这是脚注的内容
 ```
 
+## Shottr
+
+截图工具，简单好用
+
+### 推荐设置
+
+- Hotkeys --> Area shot: `F1`
+
+- Hotkeys --> AnyW shot: `F2`
+
+- Hotkeys --> Scrol shot: `F3`
+
+- Hotkeys --> Text Recon: `F4`
+
+- Resize retina screenshot: `Checked`
+
+- After shot: `Checked Show/Save`
+
+  截图后打开编辑器并自动保存到指定文件夹
+
+- Action when hiding with Esc: `Copy Image`
+
+  编辑器中直接 Esc 退出后，会自动复制到剪贴板
+
+### 使用技巧
+
+- 在编辑器中，鼠标移动到像素上是可以直接获取到色值信息的
+
+- 在编辑器中，选择工具选中区域后，可以直接看到对比度值，按 `opt + click` 可以在 WCAG 和 APCA 标准之间切换
+
+- 在编辑器中，点击右上角的尺寸可以直接调整截图的大小
+
+- 截取图片后，选择粘贴图片功能，可以把剪贴板中的图片覆盖到新截图中，进行对比或者生成 2 帧的动画
+
 ## Wireshark
 
 一款网络协议分析工具，可以用来分析网络数据包。
