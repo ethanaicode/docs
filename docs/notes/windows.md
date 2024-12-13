@@ -94,6 +94,18 @@ Windows 快捷键是提高效率的好帮手，这里记录一些常用的快捷
 
   临时文件夹。
 
+### 环境变量
+
+最常需要修改环境变量的场景就是修改 PATH 变量，可以加入新的路径，这样就可以在任意位置运行这个路径下的程序。
+
+可以通过以下方法来修改环境变量:
+
+- **系统环境变量**: 可以通过 `系统属性` --> `高级` --> `环境变量` 来修改系统环境变量。
+
+- **用户环境变量**: 可以通过 `用户属性` --> `环境变量` 来修改用户环境变量。
+
+**注意**: 添加的路径应该是一个目录，系统会自动寻找这个目录下的可执行文件，如果直接添加可执行文件路径，是无法生效的。
+
 ## Windows 命令
 
 ### 基础常用命令
@@ -287,9 +299,9 @@ pause
 
 #### 常用命令
 
-- `Get-Command`: 查看命令
+- `Get-Command`: <u>查看命令的路径</u>
 
-  例如：`Get-Command -Name Get-Process`
+  类似于 Linux 的 `which` 命令。
 
 - `Get-ChildItem`: 查看文件（简写`gci`）
 
@@ -305,7 +317,7 @@ pause
 
 - `$env:<EnvName>`: 查看环境变量
 
-  `$env:APPDATA` 查看 APPDATA 环境变量
+  `$env:Path -split ';'` 查看 Path 环境变量，以分号分隔
 
 #### 权限设置
 
@@ -356,6 +368,16 @@ pause
 - `Stop-Process`: PowerShell 结束进程
 
   例如：`Stop-Process -Name notepad` 结束记事本进程
+
+#### 实用技巧
+
+**更新环境变量**
+
+更新 Path 变量后，不想重启 PowerShell，但想里面的命令生效，可以使用以下命令，来立刻更新环境变量。
+
+```powershell
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
+```
 
 ## PowerShell 脚本
 
