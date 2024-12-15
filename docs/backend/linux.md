@@ -146,6 +146,10 @@
 
   `command1 || command2` 只有当 command1 执行失败后，才会执行 command2
 
+- **;**: 命令分隔符
+
+  `command1; command2` 依次执行 command1 和 command2
+
 - **$**: 变量
 
   `$variable` 表示变量的值
@@ -2212,6 +2216,24 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 - `-out`: 指定证书文件。
 
 - `-subj`: 指定证书的主题，这里指定为 localhost。
+
+### 使用 certbot 申请 Let's Encrypt 证书
+
+Certbot 是官方推荐的工具，用于与 Let's Encrypt 通信并申请证书。
+
+Let's Encrypt 提供了多种验证方法，以下是最常用的两种：
+
+- **HTTP-01 验证**: Certbot 会在服务器上创建一个临时文件，这个文件会放在网站根目录下的 `.well-known/acme-challenge/` 路径下。
+
+  Let's Encrypt 会通过 `HTTP` 请求验证该文件。
+
+- **DNS-01 验证**: 你需要在域名的 DNS 管理系统中添加特定的 TXT 记录，这种方式适合没有 HTTP 服务或自动化时。
+
+#### 常见错误
+
+**some challenges have failed.**
+
+这个错误通常是由于 Let's Encrypt 无法访问到验证文件，可能是访问路径不对，或者是权限问题。
 
 ## SSH 连接
 
