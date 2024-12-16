@@ -58,6 +58,12 @@
 
 - **mv**: 移动文件与目录，或修改文件与目录的名称
 
+  `-f` 强制覆盖（默认）
+
+  `-n` 不覆盖已有文件
+
+  `-i` 交互式操作，移动前会询问是否覆盖
+
 - **rm**: 删除文件
 
   `-r` 可以删除目录
@@ -1767,19 +1773,23 @@ crontab 是用来让使用者在固定时间或固定间隔执行程序之用，
 
 crontab 的配置文件通常位于 `/etc/crontab` 或者 `/var/spool/cron` 目录中。
 
-- **crontab [ -u user ]**: 定时任务管理
+各个服务的定时任务配置文件通常位于 `/etc/cron.d` 目录中。
 
-  `-e` 编辑定时任务
+_在 Centos 中，cron 服务的名称为 crond，可以使用 `systemctl status crond` 查看服务状态。_
+
+#### crontab 基础命令
+
+- `crontab`: 管理定时任务
+
+  `-e` 编辑定时任务(修改后会自动生效，无需重启服务)
 
   `-l` 列出定时任务
 
   `-r` 删除定时任务
 
-  `-u` 指定用户(可以列出指定用户的定时任务)
+  `-u user` 指定 `user` 的时程表，默认表示设定自己的时程表
 
-  `-u user` 是指设定指定 user 的时程表，这个前提是你必须要有其权限(比如说是 root)才能够指定他人的时程表。如果不使用 -u user 的话，就是表示设定自己的时程表。
-
-- **MIN HOUR DOM MON DOW [USER] CMD**: 分别表示分钟、小时、日期、月份、星期，`*`表示任意时间。
+- `MIN HOUR DOM MON DOW [USER] CMD`: 分别表示分钟、小时、日期、月份、星期，`*`表示任意时间。
 
   ```bash
   # ┌───────────── 分鐘   (0 - 59)
@@ -1791,7 +1801,7 @@ crontab 的配置文件通常位于 `/etc/crontab` 或者 `/var/spool/cron` 目�
   # * * * * * /path/to/command --your --parameter
   ```
 
-**特殊规则**
+#### 特殊规则
 
 通常以`@`开头，以下是特殊规则及说明:
 
@@ -1812,67 +1822,27 @@ crontab 的配置文件通常位于 `/etc/crontab` 或者 `/var/spool/cron` 目�
 @daily /home/user/script.sh --your --parameter
 ```
 
-**以下是一些常见的定时任务的配置示例:**
+#### 使用示例
 
-1. **每天凌晨 3 点执行备份脚本**:
+- `0 * * * * /path/to/script.sh`: 每小时执行脚本
 
-   ```bash
-   0 3 * * * /path/to/backup.sh
-   ```
+- `0 3 * * * /path/to/script.sh`: 每天凌晨 3 点执行脚本
 
-2. **每 3 小时执行一次脚本**:
+- `0 */3 * * * /path/to/script.sh`: 每隔 3 小时执行脚本
 
-   ```bash
-   0 */3 * * * /path/to/script.sh
-   ```
+- `*/30 * * * * /path/to/script.sh`: 每隔 30 分钟执行脚本
 
-3. **每周一凌晨 2 点执行清理日志脚本**:
+- `0 2 * * 1 /path/to/clean_logs.sh`: 每周一凌晨 2 点执行清理日志脚本
 
-   ```bash
-   0 2 * * 1 /path/to/clean_logs.sh
-   ```
+- `0 2 1 * * /path/to/script.sh`: 每月 1 号凌晨 2 点执行脚本
 
-4. **每隔 30 分钟执行一次脚本**:
+- `30 21 * * 1,3,5 /path/to/script.sh`: 每周一、三、五晚上 9 点 30 分执行脚本
 
-   ```bash
-   */30 * * * * /path/to/script.sh
-   ```
+- `0 9-18 * * * /path/to/script.sh`: 从早上 9 点到下午 6 点，凡遇到整点就执行
 
-5. **每小时执行一次脚本**:
+- `@reboot /path/to/script.sh`: 系统启动时执行脚本
 
-   ```bash
-   0 * * * * /path/to/script.sh
-   ```
-
-6. **每月 1 号凌晨 1 点执行脚本**:
-
-   ```bash
-   0 1 1 * * /path/to/script.sh
-   ```
-
-7. **每月 1 日、15 日、29 日晚上 9 點 30 分各执行一次**
-
-   ```bash
-   30 21 1,15,29 * * /path/to/script.sh
-   ```
-
-8. **从早上 9 点到下午 6 点，凡遇到整点就执行**
-
-   ```bash
-   0 9-18 * * * /path/to/script.sh
-   ```
-
-9. **使用@reboot 标记在系统启动时执行脚本**:
-
-   ```bash
-   @reboot /path/to/script.sh
-   ```
-
-10. **使用@daily 标记每天执行脚本**:
-
-    ```bash
-    @daily /path/to/script.sh
-    ```
+- `@daily /path/to/script.sh`: 每天执行脚本
 
 ### logrotate 日志文件管理
 
@@ -2219,6 +2189,8 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 
 ### 使用 certbot 申请 Let's Encrypt 证书
 
+> 官方文档: [Certbot documentation](https://eff-certbot.readthedocs.io/en/stable/)
+
 Certbot 是官方推荐的工具，用于与 Let's Encrypt 通信并申请证书。
 
 Let's Encrypt 提供了多种验证方法，以下是最常用的两种：
@@ -2229,7 +2201,85 @@ Let's Encrypt 提供了多种验证方法，以下是最常用的两种：
 
 - **DNS-01 验证**: 你需要在域名的 DNS 管理系统中添加特定的 TXT 记录，这种方式适合没有 HTTP 服务或自动化时。
 
+#### 命令行方式申请管理证书
+
+通过简单的一条命令就可以申请证书:
+
+```bash
+sudo certbot certonly --webroot -w /var/www/html -d example.com -d www.example.com
+```
+
+它会在 `/var/www/html` 目录下创建一个临时文件，然后 Let's Encrypt 会通过 HTTP 请求验证该文件。
+
+- `certonly`: 仅生成证书，不安装证书
+
+- `--webroot`: 指定 webroot 验证方式
+
+- `-w /var/www/html`: 指定 webroot 路径
+
+- `-d example.com -d www.example.com`: 指定申请证书的域名
+
+**自动化证书管理**
+
+如果希望通过脚本来自动化证书管理，可以使用 `--non-interactive` 参数，它会自动应答所有问题。
+
+```bash
+sudo certbot certonly \
+    --webroot -w /var/www/html \
+    -d example.com -d www.example.com \
+    -m 'you_name@email.com' \
+    -n \
+    --agree-tos \
+    --quiet
+```
+
+- `-n`: 非交互模式
+
+- `-m`: 指定邮箱地址
+
+- `--agree-tos`: 同意 Let's Encrypt 的服务条款
+
+- `--quiet`: 静默模式，不输出冗余信息
+
+**证书续期**
+
+Let's Encrypt 证书有效期为 90 天，可以使用 `certbot renew` 命令来续期证书，它会自动检查证书是否快过期，如果快过期就会自动续期。
+
+```bash
+sudo certbot renew
+```
+
+#### 管理证书命令
+
+- `certbot certificates`: 查看所有证书
+
+- `certbot renew`: 续期证书
+
+- `certbot revoke --cert-name example.com`: 撤销证书
+
+- `certbot delete --cert-name example.com`: 删除证书
+
+**注意**: 如果通过 `--config-dir` 指定了配置目录，在管理时需要加上 `--config-dir` 参数来指定配置目录，否则会默认使用 `/etc/letsencrypt` 目录。
+
+#### 管理账号命令
+
+- `certbot register`: 注册账号
+
+- `certbot unregister`: 注销账号
+
+- `certbot update_account`: 更新账号
+
+- `certbot delete_account`: 删除账号
+
+#### 可选参数
+
+列出部分参数，所有的请参考官方文档。
+
+- `--config-dir`: 指定配置目录，默认为 `/etc/letsencrypt`
+
 #### 常见错误
+
+Certbot 会记录详细的错误信息，检查日志可以帮助排查问题，错误日志通常位于 `/var/log/letsencrypt/letsencrypt.log`。
 
 **some challenges have failed.**
 

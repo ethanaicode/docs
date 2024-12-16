@@ -440,43 +440,65 @@ git pull repo.bundle <branch>
 
 **注意**: 这个时候是不需要指定<远程主机名>的，因为这个是本地的快照文件。
 
+### 修改最近的提交信息
+
+如果你提交了代码后，发现提交信息有误，可以使用 `commit --amend` 来修改最近的提交信息。
+
+```bash
+git commit --amend
+```
+
+这个命令会打开编辑器，你可以修改提交信息，然后保存退出。
+
 ### 撤销本次修改
 
-最简单的方法就是使用`git restore .`命令，这个命令会撤销所有的修改。这个需要 git 版本在 2.23+。
+- 最简单的方法就是使用`git restore .`命令，这个命令会撤销所有的修改。这个需要 git 版本在 2.23+。
 
-```bash
-git restore .
-```
+  ```bash
+  git restore .
+  ```
 
-如果是之前的版本，可以使用`git checkout -- .`命令。
+- 如果是之前的版本，可以使用`git checkout -- .`命令。
 
-```bash
-git checkout -- .
-```
+  ```bash
+  git checkout -- .
+  ```
 
-- `.` 表示当前目录，如果只想撤销某个文件的修改，可以指定文件名。
+  `.` 表示当前目录，如果只想撤销某个文件的修改，可以指定文件名。
 
-- 如果没有参数`--`，后面直接跟具体的文件名，表示撤销单个文件。
+  如果没有参数`--`，后面直接跟具体的文件名，表示撤销单个文件。
+
+- 新增的文件属于未追踪状态，是无法通过撤销修改来恢复的，需要使用`git clean`命令，它是专门用来清理工作区未跟踪文件的工具。
+
+  为了避免误删，可以使用`git clean -n`参数来预览将要删除的文件。
+
+  确认后，可以使用`git clean -f`来删除文件。或者使用`git clean -f -d`来删除文件和目录。
+
+  **注意**: 这个命令会删除未追踪的文件，无法恢复，需要谨慎使用。
 
 ### 回退到之前的操作
 
 拉取代码或者提交代码后，如果发现有问题，可以回退到之前的操作。
 
-每次拉取代码时，Git 会在后台记录之前的 `HEAD` 状态，你可以通过 `git reflog` 找到它，会显示最近的操作记录，例如：
+- 每次拉取代码时，Git 会在后台记录之前的 `HEAD` 状态，你可以通过 `git reflog` 找到它，会显示最近的操作记录，例如：
 
-```bash
-abc1234 (HEAD -> main) HEAD@{0}: pull origin main: Fast-forward
-def5678 HEAD@{1}: commit: Fixed bug
-ghi9012 HEAD@{2}: checkout: moving from feature-branch to main
-```
+  ```bash
+  abc1234 (HEAD -> main) HEAD@{0}: pull origin main: Fast-forward
+  def5678 HEAD@{1}: commit: Fixed bug
+  ghi9012 HEAD@{2}: checkout: moving from feature-branch to main
+  ```
 
-找到之前的记录，比如 HEAD@{1}，确定好想要回退到的位置，然后使用 `git reset` 回滚：
+- 找到之前的记录，比如 HEAD@{1}，确定好想要回退到的位置，然后使用 `git reset` 回滚：
 
-```bash
-git reset --hard HEAD@{1}
-```
+  ```bash
+  git reset --hard HEAD@{1}
+  ```
 
-这样就可以回退到之前的操作了，可以运行 `git log` 来查看提交历史。
+- 如果刚提交后悔了，想退回到上一次提交，可以使用 `git reset --hard HEAD~1` 命令。
+
+  **注意**: 使用 `--hard` 会丢失未保存的修改，并删除之后的提交，需要小心使用。如果要保留修改，可以使用 `--soft` 或者 `--mixed`，它们分别表示修改会回到暂存区或者工作区。
+
+- 回退到之前的操作后，可以运行 `git log` 来查看提交历史，确认是否回退成功。
 
 ### 覆盖本地代码（与远程仓库保持一致）
 
