@@ -10,12 +10,6 @@ title: CSS 前端开发学习指南，最全的CSS样式和用法汇总
 
 ## CSS 基础
 
-### CSS 属性
-
-- `letter-spacing` 字母间距
-
-- `word-spacing` 单词间距
-
 ### CSS 选择器
 
 **分组选择器**
@@ -102,9 +96,99 @@ title: CSS 前端开发学习指南，最全的CSS样式和用法汇总
 
 - `伪类` > `类` > `标签`
 
-## 渐变
+## 属性样式
 
-### 线性渐变
+### box-\* 盒模型
+
+#### box-shadow
+
+`box-shadow` 属性用于在元素的框上添加阴影效果。
+
+```css
+/* 水平偏移量 | 垂直偏移量 | 模糊半径 | 扩散半径 | 阴影颜色 | 内阴影 */
+box-shadow: 10px 10px 5px #888888;
+/* 内阴影 */
+box-shadow: inset 5px 5px 5px #888888;
+```
+
+### background-\* 背景
+
+#### background
+
+`background` 属性是一个简写属性，用于设置所有背景属性。
+
+简写的顺序如下:
+
+- `background-color`
+
+- `background-image`
+
+- `background-repeat`
+
+- `background-position`
+
+- `background-size`
+
+以下是一些案例：
+
+- `background: green url("img_tree.png") no-repeat center / cover;`: 图片不重复，居中显示，覆盖整个元素
+
+- `background: green url("img_tree.png") no-repeat center center;`: 图片不重复，居中显示
+
+- `background: green url("img_tree.png") no-repeat 10px 10px;`: 图片不重复，距离左上角 10px
+
+### transform-\* 动画
+
+#### transform
+
+`transform` 属性允许你旋转、缩放、倾斜或平移给定元素。
+
+主要有以下几种变换：
+
+- `rotate()`: 旋转
+
+- `scale()`: 缩放
+
+- `skew()`: 倾斜
+
+- `translate()`: 平移
+
+- `matrix()`: 矩阵变换
+
+另外，它们通常还支持单独的轴变换，如 `rotateX()`、`rotateY()`、`rotateZ()`，以及 3D 变换，如 `rotate3d()`、`scale3d()`、`translate3d()`。
+
+### transition-\* 过渡
+
+#### transition
+
+`transition` 属性是一个简写属性，用于设置四个过渡属性：
+
+- `transition-property`: 规定应用过渡效果的 CSS 属性的名称。
+
+- `transition-duration`: 定义过渡效果花费的时间。默认是 0。
+
+- `transition-timing-function`: 规定过渡效果的时间曲线。默认是 `ease`。
+
+- `transition-delay`: 规定过渡效果何时开始。默认是 0。
+
+```css
+/* 所有属性在 1 秒内完成 */
+transition: transform 1s, opacity 1s;
+/* 所有属性在 1 秒内完成，延迟 0.5 秒 */
+transition: all 1s 0.5s;
+```
+
+### 文字段落样式
+
+#### 常用属性
+
+- `letter-spacing` 字母间距
+
+- `word-spacing` 单词间距
+
+## 功能函数 Functions
+
+### linear-gradient
 
 `linear gradient` 是一种沿着一条直线的渐变效果。
 
@@ -138,65 +222,6 @@ linear-gradient(45deg, red 0 50%, blue 50% 100%)
 - `from` 关键字可以指定渐变的起始位置。如果没有指定，默认是 `top`。
 
 - `color start end` 可以指定渐变的颜色范围。
-
-## transform-\* 动画
-
-### transform
-
-`transform` 属性允许你旋转、缩放、倾斜或平移给定元素。
-
-```css
-/* 2D 转换 */
-transform: rotate(20deg);
-transform: scale(2, 4);
-transform: skew(30deg, 20deg);
-transform: translate(100px, 50px);
-transform: matrix(0.866, 0.5, -0.5, 0.866, 0, 0);
-/* 3D 转换 */
-transform: rotateX(150deg);
-transform: rotateY(150deg);
-transform: rotateZ(150deg);
-transform: rotate3d(1, 1, 1, 150deg);
-transform: scale3d(2, 4, 0.5);
-transform: scaleZ(0.5);
-transform: translate3d(100px, 50px, 25px);
-transform: translateZ(25px);
-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-```
-
-## box-\*
-
-### box-shadow
-
-`box-shadow` 属性用于在元素的框上添加阴影效果。
-
-```css
-/* 水平偏移量 | 垂直偏移量 | 模糊半径 | 扩散半径 | 阴影颜色 | 内阴影 */
-box-shadow: 10px 10px 5px #888888;
-/* 内阴影 */
-box-shadow: inset 5px 5px 5px #888888;
-```
-
-## transition-\*
-
-### transition
-
-`transition` 属性是一个简写属性，用于设置四个过渡属性：
-
-- `transition-property`: 规定应用过渡效果的 CSS 属性的名称。
-
-- `transition-duration`: 定义过渡效果花费的时间。默认是 0。
-
-- `transition-timing-function`: 规定过渡效果的时间曲线。默认是 `ease`。
-
-- `transition-delay`: 规定过渡效果何时开始。默认是 0。
-
-```css
-/* 所有属性在 1 秒内完成 */
-transition: transform 1s, opacity 1s;
-/* 所有属性在 1 秒内完成，延迟 0.5 秒 */
-transition: all 1s 0.5s;
-```
 
 ## CSS 布局
 
@@ -340,7 +365,7 @@ transition: all 1s 0.5s;
 }
 ```
 
-注意，规则集所指定的选择器定义了自定义属性的可见作用域。通常的最佳实践是定义在根伪类 :root 下，这样就可以在 HTML 文档的任何地方访问到它了。
+**注意**: 规则集所指定的选择器定义了自定义属性的可见作用域。通常的最佳实践是定义在根伪类 `:root` 下，这样就可以在 `HTML` 文档的任何地方访问到它了。
 
 之后，可以通过 `var()` 函数来引用这个变量：
 
