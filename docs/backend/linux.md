@@ -864,13 +864,13 @@ Apache 默认网站目录: /var/www/html/(可以通过配置文件 httpd.conf �
 
 在 Linux 中，文件和目录的权限也可以用字母表示，如 `rwxr-xr-x`、`rw-r--r--` 等。
 
-字母权限的表示意思如下:
+**字母权限的表示意思如下**
 
 - `r`: 读权限
 
 - `w`: 写权限
 
-- `x`: 执行权限
+- `x`: 执行权限(对文件来说表示可以执行，<u>对目录来说表示可以进入</u>)
 
 - `-`: 无权限
 
@@ -878,7 +878,7 @@ Apache 默认网站目录: /var/www/html/(可以通过配置文件 httpd.conf �
 
 如果不指定用户，表示所有用户，如: `chmod +x filename`，表示所有用户有执行权限。
 
-所有符号的含义如下:
+**所有符号的含义如下**
 
 - `+`: 添加权限
 
@@ -888,7 +888,7 @@ Apache 默认网站目录: /var/www/html/(可以通过配置文件 httpd.conf �
 
 - `,`: 分隔符
 
-所有用户的缩写如下:
+**所有用户的缩写如下**
 
 - `u`: 所有者
 
@@ -896,7 +896,7 @@ Apache 默认网站目录: /var/www/html/(可以通过配置文件 httpd.conf �
 
 - `o`: 其他用户
 
-- `a`: 所有用户
+- `a`: <u>所有用户</u>
 
 ### /etc/passwd 文件中的字段
 
@@ -1617,47 +1617,83 @@ username ALL=(ALL) NOPASSWD: ALL
 
 ## 应用管理
 
+在 Centos 或 RHEL 系统中，可以使用 `yum` 命令来管理软件包。
+
+在 Debian 系统中，可以使用 `apt` 命令来管理软件包。
+
 ### yum 管理工具的使用
 
-查看所有软件列表: yum repolist all | grep mysql
+#### 常用命令
 
-查看已安装的软件列表: yum list installed
+- `yum repolist all | grep <package_name>`: 查看所有软件列表
 
-卸载应用: `yum remove [package_name]`
+- `yum search <package_name>`: 搜索软件包
 
-深度卸载: `yum autoremove [package_name]`
+- `yum info <package_name>`: 查看软件包信息
 
-清除缓存: `yum clean all`
+- `yum install <package_name>`: 安装软件包
 
-重新生成缓存: `yum makecache`（更换源后需要执行）
+- `yum update <package_name>`: 更新软件包
+
+- `yum upgrade`: 更新所有软件包
+
+- `yum reinstall <package_name>`: 重新安装软件包
+
+- `yum list`: 列出所有可用的软件包
+
+  `yum list installed` 查看已安装的软件列表
+
+  `yum list updates` 查看可更新的软件列表
+
+- `yum remove <package_name>`: 卸载软件包
+
+- `yum autoremove <package_name>`: 深度卸载软件包
+
+- `yum clean all`: 清除缓存
+
+- `yum makecache`: 重新生成缓存
+
+#### 更新镜像源
+
+可以通过修改`/etc/yum.repos.d`目录下的`.repo`文件来更换镜像源。
+
+```bash
+# 备份原文件
+cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak
+# 下载新的镜像源
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+# 清除缓存
+yum clean all
+yum makecache
+```
 
 ### apt 管理工具的使用
 
-在 Debian 系统中，`apt` 是一个用于管理软件包的高级工具，它提供了一组用于搜索、安装、更新和删除软件包的命令。
+`apt` 是一个用于管理软件包的高级工具，它提供了一组用于搜索、安装、更新和删除软件包的命令。
 
-以下是一些常用的 `apt` 命令:
+#### 常用命令
 
-- **apt update**: 更新软件包列表，以获取最新的软件包信息。
+- `apt update`: 更新软件包列表，以获取最新的软件包信息。
 
-- **apt upgrade**: 升级所有已安装的软件包到最新版本。
+- `apt upgrade`: 升级所有已安装的软件包到最新版本。
 
-- **apt install PACKAGE_NAME**: 安装一个特定的软件包。
+- `apt install PACKAGE_NAME`: 安装一个特定的软件包。
 
-- **apt remove PACKAGE_NAME**: 卸载一个特定的软件包。
+- `apt remove PACKAGE_NAME`: 卸载一个特定的软件包。
 
-- **apt search KEYWORD**: 搜索软件包。
+- `apt search KEYWORD`: 搜索软件包。
 
-- **apt show PACKAGE_NAME**: 显示软件包的详细信息。
+- `apt show PACKAGE_NAME`: 显示软件包的详细信息。
 
-- **apt list --installed**: 列出所有已安装的软件包。
+- `apt list --installed`: 列出所有已安装的软件包。
 
-- **apt list --upgradable**: 列出所有可以升级的软件包。
+- `apt list --upgradable`: 列出所有可以升级的软件包。
 
-- **apt autoremove**: 删除不再需要的软件包。
+- `apt autoremove`: 删除不再需要的软件包。
 
-- **apt clean**: 清理下载的软件包文件。
+- `apt clean`: 清理下载的软件包文件。
 
-- **apt autoclean**: 清理过期的软件包文件。
+- `apt autoclean`: 清理过期的软件包文件。
 
 ## 服务管理
 

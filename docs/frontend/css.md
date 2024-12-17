@@ -139,6 +139,65 @@ linear-gradient(45deg, red 0 50%, blue 50% 100%)
 
 - `color start end` 可以指定渐变的颜色范围。
 
+## transform-\* 动画
+
+### transform
+
+`transform` 属性允许你旋转、缩放、倾斜或平移给定元素。
+
+```css
+/* 2D 转换 */
+transform: rotate(20deg);
+transform: scale(2, 4);
+transform: skew(30deg, 20deg);
+transform: translate(100px, 50px);
+transform: matrix(0.866, 0.5, -0.5, 0.866, 0, 0);
+/* 3D 转换 */
+transform: rotateX(150deg);
+transform: rotateY(150deg);
+transform: rotateZ(150deg);
+transform: rotate3d(1, 1, 1, 150deg);
+transform: scale3d(2, 4, 0.5);
+transform: scaleZ(0.5);
+transform: translate3d(100px, 50px, 25px);
+transform: translateZ(25px);
+transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+```
+
+## box-\*
+
+### box-shadow
+
+`box-shadow` 属性用于在元素的框上添加阴影效果。
+
+```css
+/* 水平偏移量 | 垂直偏移量 | 模糊半径 | 扩散半径 | 阴影颜色 | 内阴影 */
+box-shadow: 10px 10px 5px #888888;
+/* 内阴影 */
+box-shadow: inset 5px 5px 5px #888888;
+```
+
+## transition-\*
+
+### transition
+
+`transition` 属性是一个简写属性，用于设置四个过渡属性：
+
+- `transition-property`: 规定应用过渡效果的 CSS 属性的名称。
+
+- `transition-duration`: 定义过渡效果花费的时间。默认是 0。
+
+- `transition-timing-function`: 规定过渡效果的时间曲线。默认是 `ease`。
+
+- `transition-delay`: 规定过渡效果何时开始。默认是 0。
+
+```css
+/* 所有属性在 1 秒内完成 */
+transition: transform 1s, opacity 1s;
+/* 所有属性在 1 秒内完成，延迟 0.5 秒 */
+transition: all 1s 0.5s;
+```
+
 ## CSS 布局
 
 ### Flex

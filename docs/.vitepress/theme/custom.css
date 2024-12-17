@@ -44,6 +44,15 @@
   background-color: var(--vp-c-gutter); /* 一个简单的底部装饰线 */
 }
 
+em {
+  color: var(--docsearch-muted-color);
+  font-style: normal;
+}
+
+em > code {
+  color: var(--vp-code-lang-color) !important;
+}
+
 /*
  * 自定义<u>标签样式，模拟记号笔下划线
  */

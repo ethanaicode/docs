@@ -244,7 +244,7 @@ git checkout -b feature-branch
 
 开发完成后，可以合并到主分支。
 
-推荐使用 `rebase` 来变基，这样可以保持提交历史的整洁（详见下文 `合并策略` 部分）。
+_推荐使用 `rebase` 来变基，这样可以保持提交历史的整洁（详见下文 `合并策略` 部分）_
 
 ```bash
 git checkout master
