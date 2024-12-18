@@ -102,14 +102,25 @@ title: CSS 前端开发学习指南，最全的CSS样式和用法汇总
 
 #### box-shadow
 
-`box-shadow` 属性用于在元素的框上添加阴影效果。
+`box-shadow` 属性用于在元素的框上添加阴影效果，它可以接受多个阴影值:
 
-```css
-/* 水平偏移量 | 垂直偏移量 | 模糊半径 | 扩散半径 | 阴影颜色 | 内阴影 */
-box-shadow: 10px 10px 5px #888888;
-/* 内阴影 */
-box-shadow: inset 5px 5px 5px #888888;
-```
+- `h-shadow`: 必需。水平阴影的位置。允许负值。
+
+- `v-shadow`: 必需。垂直阴影的位置。允许负值。
+
+- `blur`: 可选。模糊距离。
+
+- `spread`: 可选。阴影的尺寸。
+
+- `color`: 可选。阴影的颜色。
+
+- `inset`: 可选。将外部阴影 (outset) 改为内部阴影。
+
+以下是一些案例：
+
+- `box-shadow: 10px 10px 5px green;`: 10px 水平阴影，10px 垂直阴影，5px 模糊距离，颜色为 green
+
+- `box-shadow: 10px 10px 5px 0px green;`: 10px 水平阴影，10px 垂直阴影，5px 模糊距离，0px 阴影尺寸，颜色为 green
 
 ### background-\* 背景
 
@@ -161,7 +172,7 @@ box-shadow: inset 5px 5px 5px #888888;
 
 #### transition
 
-`transition` 属性是一个简写属性，用于设置四个过渡属性：
+`transition` 属性是一个简写属性，用于设置四个过渡属性:
 
 - `transition-property`: 规定应用过渡效果的 CSS 属性的名称。
 
@@ -190,7 +201,7 @@ transition: all 1s 0.5s;
 
 ### linear-gradient
 
-`linear gradient` 是一种沿着一条直线的渐变效果。
+`linear-gradient` 是一种沿着一条直线的渐变效果。
 
 ```css
 /* 45度角的渐变，从蓝色到红色 */

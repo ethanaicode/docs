@@ -196,7 +196,7 @@ _严重怀疑这是正经的问题吗？_
 
 **files** 需要进行磁盘 IO 操作，限制会更多。
 
-### WebSocket
+### WebSocket 的特点
 
 > 可以配合 PHP 的 Swoole 使用。
 

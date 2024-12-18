@@ -350,7 +350,7 @@
 
   `sudo -s` 以当前用户启动 shell，但是权限是 root
 
-  可以使用 `exit` 退出
+- **exit**: 退出当前 shell(如果是最外层 shell，则退出登录)
 
 - **useradd**: 添加用户
 
