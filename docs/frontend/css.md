@@ -22,9 +22,39 @@ title: CSS 前端开发学习指南，最全的CSS样式和用法汇总
 
 - `A > B` 选择前一个元素的直接子代节点（A 的子元素 B）
 
+  如 `div > p` 选择 `div` 下的所有 `p` 元素
+
 - `A + B` 选择前一个元素的相邻兄弟节点（A 和 B 共享同一个父元素，且 B 紧跟在 A 后面，只选择第一个）
 
+  如 `div p + p{margin-top: 10px;}` 选择 `div` 下的所有 `p` 元素，除了第一个 `p` 元素，其余 `p` 元素的上边距为 10px
+
 - `A ~ B` 选择前一个元素之后的所有兄弟节点（A 和 B 共享同一个父元素，且 B 在 A 之后）
+
+  如 `div p.highlight ~ p {color: red;}` 选择 `div` 下的所有 `p` 元素，且 `p` 元素的类名为 `highlight` 之后的所有 `p` 元素，字体颜色为红色
+
+  `+` 和 `~` 容易弄混，可以记住 `+` 是相邻的，`~` 是所有的，如下面的案例很容易看出区别:
+
+  _这个案例中前三个段落选择效果是一样的，但是第四个段落 `+` 选择器则无法选择到_
+
+  ```html
+  <div>
+    <p>第一个段落</p>
+    <p>第二个段落</p>
+    <p>第三个段落</p>
+    <span>非段落元素</span>
+    <p>第四个段落</p>
+  </div>
+
+  <style>
+    div p + p {
+      color: red;
+    }
+
+    div p ~ p {
+      color: blue;
+    }
+  </style>
+  ```
 
 **伪类**
 
@@ -189,6 +219,38 @@ transition: transform 1s, opacity 1s;
 transition: all 1s 0.5s;
 ```
 
+#### transition-timing-function
+
+`transition-timing-function` 属性指定过渡效果的速度曲线。
+
+- `ease`: 默认值，慢速开始，然后变快，然后慢速结束
+
+  `ease-in` 由慢到快
+
+  `ease-out` 由快到慢
+
+  `ease-in-out` 由慢到快再到慢
+
+- `linear`: 匀速
+
+- `step-start`: 瞬间开始
+
+- `step-end`: 瞬间结束
+
+- `steps(6, end)`: 分 6 步完成，每一步结束时都会有一个瞬间的停顿
+
+  `steps(6, start)`: 分 6 步完成，每一步开始时都会有一个瞬间的停顿
+
+  `steps(6, jump-start)`: 分 6 步完成，每一步开始时都会有一个瞬间的停顿
+
+  `steps(6, jump-end)`: 分 6 步完成，每一步结束时都会有一个瞬间的停顿
+
+  `steps(6, jump-none)`: 分 6 步完成，没有停顿
+
+  `steps(6, jump-both)`: 分 6 步完成，每一步开始和结束时都会有一个瞬间的停顿
+
+- `cubic-bezier(.29, 1.01, 1, -0.68)`: 自定义速度曲线，四个值分别是 `x1, y1, x2, y2`，表示曲线的两个控制点
+
 ### 文字段落样式
 
 #### 常用属性
@@ -203,24 +265,25 @@ transition: all 1s 0.5s;
 
 `linear-gradient` 是一种沿着一条直线的渐变效果。
 
-```css
-/* 45度角的渐变，从蓝色到红色 */
-linear-gradient(45deg, blue, red);
-/* 从左上角到右下角的渐变，从蓝色到红色 */
-linear-gradient(to left top, blue, red)
-/* 基于 OKLab 的渐变 */
-linear-gradient(in oklab, blue, red)
-/* 基于 HSL 的渐变 */
-linear-gradient(in hsl, blue, red)
-/* 基于 HSL 的渐变，但是 hue 的范围更大 */
-linear-gradient(in hsl longer hue, blue, red)
-/* 从下到上的渐变，开始是蓝色，到 40% 的地方是绿色，最后是红色 */
-linear-gradient(0deg, blue, green 40%, red)
-/* 从左到右的渐变，开始是红色直到 10%，剩下的 90% 渐变到蓝色 */
-linear-gradient(.25turn, red, 10%, blue)
-/* 多位置渐变 */
-linear-gradient(45deg, red 0 50%, blue 50% 100%)
-```
+下面是一些案例：
+
+- `linear-gradient(45deg, blue, red);`: 45 度角的渐变，从蓝色到红色
+
+- `linear-gradient(to left top, blue, red);`: 从左上角到右下角的渐变，从蓝色到红色
+
+- `linear-gradient(in oklab, blue, red);`: 基于 OKLab 的渐变
+
+- `linear-gradient(in hsl, blue, red);`: 基于 HSL 的渐变
+
+- `linear-gradient(in hsl longer hue, blue, red);`: 基于 HSL 的渐变，但是 hue 的范围更大
+
+- `linear-gradient(0deg, blue, green 40%, red);`: 从下到上的渐变，开始是蓝色，到 40% 的地方是绿色，最后是红色
+
+- `linear-gradient(.25turn, red, 10%, blue);`: 从左到右的渐变，开始是红色直到 10%，剩下的 90% 渐变到蓝色
+
+- `linear-gradient(45deg, red 0 50%, blue 50% 100%);`: 多位置渐变
+
+下面是一些关键字：
 
 - `to` 关键字可以指定渐变的方向，可以是 `top`、`right`、`bottom`、`left`，也可以是 `top left`、`top right`、`bottom left`、`bottom right`。
 
@@ -233,6 +296,34 @@ linear-gradient(45deg, red 0 50%, blue 50% 100%)
 - `from` 关键字可以指定渐变的起始位置。如果没有指定，默认是 `top`。
 
 - `color start end` 可以指定渐变的颜色范围。
+
+### calc() 计算属性值
+
+`calc()` 函数用于动态计算长度值。这个可以结合自定义属性来使用。
+
+- `width: calc(var(--variable-width) + 20px);`: 宽度等于自定义属性的值加上 20px
+
+### var() 自定义属性
+
+通过 `--` 开头的属性名，可以定义自己的 CSS 变量。
+
+和其他属性一样，自定义属性也是写在规则集之内的，如下：
+
+```css
+:root {
+  --main-color: #ff0000;
+}
+```
+
+**注意**: 规则集所指定的选择器定义了自定义属性的可见作用域。通常的最佳实践是定义在根伪类 `:root` 下，这样就可以在 `HTML` 文档的任何地方访问到它了。
+
+之后，可以通过 `var()` 函数来引用这个变量：
+
+```css
+p {
+  color: var(--main-color);
+}
+```
 
 ## CSS 布局
 
@@ -363,27 +454,3 @@ linear-gradient(45deg, red 0 50%, blue 50% 100%)
 可以配合 flex 元素实现想要的元素顺序。
 
 > 参考：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox)
-
-## CSS 自定义属性
-
-通过 `--` 开头的属性名，可以定义自己的 CSS 变量。
-
-和其他属性一样，自定义属性也是写在规则集之内的，如下：
-
-```css
-:root {
-  --main-color: #ff0000;
-}
-```
-
-**注意**: 规则集所指定的选择器定义了自定义属性的可见作用域。通常的最佳实践是定义在根伪类 `:root` 下，这样就可以在 `HTML` 文档的任何地方访问到它了。
-
-之后，可以通过 `var()` 函数来引用这个变量：
-
-```css
-p {
-  color: var(--main-color);
-}
-```
-
-> 参考：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_custom_properties)
