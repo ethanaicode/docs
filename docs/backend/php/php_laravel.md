@@ -105,7 +105,7 @@ $user = DB::table('user')->when(true,function($query){
 
 例如，你可能经常需要获取所有「流行」的用户。
 
-要定义这样一个范围，只需要在对应的 Eloquent 模型方法前添加 `scope` 前缀。🌟
+要定义这样一个范围，只需要在对应的 Eloquent 模型方法前添加 `scope` 前缀。
 
 **作用域总是返回一个查询构造器实例。**
 

@@ -62,13 +62,13 @@ Git 是一个分布式版本控制系统，它将文件的修改记录为不同�
 
 - **git checkout**: 更换分支/创建分支/丢弃修改/切到特定的提交版本
 
-  `-b [branch_name]` 如果没有分支则创建
+  `-b <branch_name>` 如果没有分支则创建
 
   `-- [.]/[file_name]` 撤销未提交的改变（指定文件名）
 
   `[commit_hash_or_tag]` 输入 hash 或者 tag 可以切到具体版本
 
-- **git merge [branch_name]**: 合并 [branch_name] 分支到当前分支
+- **git merge <branch_name>**: 合并 `<branch_name>` 分支到当前分支
 
 - **git push**: 推送到远程分支
 
@@ -90,17 +90,21 @@ Git 是一个分布式版本控制系统，它将文件的修改记录为不同�
 
   `-a` 列出本地远程所有分支
 
-  `[branch_name]` 创建新的分支
+  `<branch_name>` 创建新的分支
 
-  `-d [branch_name]` 删除分支
+  `-d <branch_name>` 删除分支
 
 - **git remote**: 管理远程仓库地址
 
-  `-v` 查看远程仓库地址
+  `-v` <u>查看远程仓库名及地址</u> (远程仓库不总是 origin :smile:)
 
-  `add [name] [url]` 添加远程仓库
+  `show <remote_name>` 查看远程仓库详细信息
 
-  `remove [name]` 删除远程仓库
+  `add <name> <url>` 添加远程仓库
+
+  `rename <old_name> <new_name>` 重命名远程仓库
+
+  `remove <name>` 删除远程仓库
 
 ## 基础知识
 
@@ -287,7 +291,7 @@ Git 标签（tag）是一个指向某个特定提交的固定指针。
   git tag -d v1.0
   ```
 
-- **推送标签**: 使用 git push origin [tagname] 可以推送标签到远程仓库。
+- **推送标签**: 使用 `git push origin <tag name>` 可以推送标签到远程仓库。
 
   ```bash
   git push origin v1.0
@@ -300,7 +304,7 @@ Git 标签（tag）是一个指向某个特定提交的固定指针。
   git push origin --tags
   ```
 
-- **删除远程标签**: 使用 git push origin :refs/tags/[tagname] 可以删除远程标签。
+- **删除远程标签**: 使用 `git push origin :refs/tags/<tag name>` 可以删除远程标签。
 
   ```bash
   git push origin :refs/tags/v1.0

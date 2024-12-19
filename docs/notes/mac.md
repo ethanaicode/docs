@@ -47,9 +47,9 @@
 - Fn (Function)
   :::
 
-- **Command⌘ + Tab** = 在不同应用之间切换。 🌟
+- **Command⌘ + Tab** = <u>在不同应用之间切换</u>
 
-- **Command⌘ + ~** = 在同一个应用程序的窗口之间切换 🌟
+- **Command⌘ + ~** = <u>在同一个应用程序的窗口之间切换</u>
 
 - **Command⌘ + up or down(↑ or ↓） arrow key** = 移动到页面顶部/底部
 

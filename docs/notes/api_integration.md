@@ -21,3 +21,15 @@
 发布接口为 `https://api.weixin.qq.com/cgi-bin/freepublish/submit?access_token=ACCESS_TOKEN`
 
 要注意它们的区别，**发布图文**后，已发布的内容可被自定义菜单、自动回复、合集引用等使用，**群发消息**是直接发送给用户，也就是我们常理解的推送图文消息给用户。
+
+## 阿里云
+
+### CDN 服务
+
+#### 开启跨域资源共享
+
+在 CDN 控制台 --> 域名管理 --> 目标域名 --> 缓存配置 --> 节点 HTTP 相应头 --> 添加:
+
+- `Access-Control-Allow-Origin`: \* (或者指定域名)
+
+- `Access-Control-Allow-Methods`: GET, POST, PUT, DELETE, OPTIONS
