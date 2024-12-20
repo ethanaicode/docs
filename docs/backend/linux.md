@@ -266,7 +266,11 @@
 
   `-r` 递归查找
 
+  `-l` 只显示文件名
+
   `-E` 扩展正则表达式
+
+  可以参考 [《使用 grep 查找文本》](./linux#使用-grep-查找文本) 来了解更多用法
 
 - **du**: 查看文件大小
 
@@ -288,9 +292,7 @@
 
 - **find**: 查找文件
 
-  find [搜索范围] [搜索条件] [操作]
-
-  如: /etc -name "passwd" 查找 /etc 目录下的 passwd 文件
+  _find [搜索范围] [搜索条件] [操作]_
 
   `/` 表示搜索全部目录
 
@@ -300,7 +302,7 @@
 
   `-iname` 忽略大小写
 
-  `-type` 指定类型(f: 文件, d: 目录, l: 链接文件)
+  `-type` 指定类型( `f`: 文件, `d`: 目录, `l`: 链接文件)
 
   `-user` 指定所有者
 
@@ -1328,19 +1330,27 @@ watch -n 1 'tail -n 10 filename'
 
 ### 使用 grep 查找文本
 
-查找文本在某个文件中
+`grep` 命令用于查找文本。`grep` 可以查找文件中的文本，也可以查找命令的输出。
 
-可以加`-a`参数，表示以文本方式查看二进制文件
+下面是一些常用的 `grep` 命令示例:
 
-```bash
-grep -a "text" filename
-```
+- `grep -rl "example.com" /path/to/directory`: 查找目录下包含 `example.com` 的文件，并显示文件名
 
-其中字符串内容可以使用正则表达式
+- `grep -Er "example.com" /path/to/directory`: 递归查找目录下包含 `example.com` 的文件，并显示文件名和行号
 
-```bash
-grep -a "sc[0-9]*" filename
-```
+- `grep -H "example.com" filename`: 查找文件中包含 `example.com` 的行，并显示文件名(显示文件名和行内容)
+
+  `-H` 用于显示文件名，`--with-filename` 的简写，对单个文件时有效，多个文件时默认都会显示文件名
+
+- `grep -n "example.com" filename`: 查找文件中包含 `example.com` 的行，并显示行号
+
+- `grep -a "text" filename`: 以文本方式查看二进制文件
+
+- `grep -a "sc[0-9]*" filename`: 查找以 `sc` 开头的数字
+
+还可以结合 `find` 命令限定文件格式，例如:
+
+- `find /etc/nginx/vhost -type f -name "*.conf" -exec grep -H "example.com" {} +`: 查找 Nginx 配置文件中包含 `example.com` 的文件
 
 ## 文件和目录
 

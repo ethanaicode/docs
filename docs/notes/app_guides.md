@@ -348,55 +348,49 @@ Typora 支持数学公式的输入，我们可以使用 LaTeX 语法来输入数
 
 Wireshark 提供了强大的过滤器功能，可以帮助我们快速定位到我们需要的数据包。
 
-- **&&** = 逻辑与
+- `&&`: 逻辑与
 
-- **||** = 逻辑或
+- `||`: 逻辑或
 
-- **ip.addr == 192.168.1.1** = 过滤出 IP 地址为 `192.168.1.1` 的数据包
+- `ip.addr == 192.168.1.1`: 过滤出 IP 地址为 `192.168.1.1` 的数据包
 
-- **ip.src == 192.168.1.1** = 过滤出源 IP 地址为 `192.168.1.1` 的数据包
+- `ip.src == 192.168.1.1`: 过滤出源 IP 地址为 `192.168.1.1` 的数据包
 
-- **ip.dst == 192.168.1.1** = 过滤出目标 IP 地址为 `192.168.1.1` 的数据包
+- `ip.dst == 192.168.1.1`: 过滤出目标 IP 地址为 `192.168.1.1` 的数据包
 
-- **tcp.port == 80** = 过滤出 TCP 端口为 `80` 的数据包
+- `tcp.port == 80`: 过滤出 TCP 端口为 `80` 的数据包
 
-- **http** = 过滤出 HTTP 协议的数据包
+- `http`: 过滤出 HTTP 协议的数据包
 
-  - `http.request` = 过滤出 HTTP 请求数据包
+  - `http.request`: 过滤出 HTTP 请求数据包
 
-  - `http.response` = 过滤出 HTTP 响应数据包
+  - `http.response`: 过滤出 HTTP 响应数据包
 
-- **ftp** = 过滤出 FTP 协议的数据包
+- `tcp`: 过滤出 TCP 协议的数据包
 
-- **tcp** = 过滤出 TCP 协议的数据包
+- `udp`: 过滤出 UDP 协议的数据包
 
-- **udp** = 过滤出 UDP 协议的数据包
+- `ftp`: 过滤出 FTP 协议的数据包
 
-- **dns** = 过滤出 DNS 协议的数据包
+- `dns`: 过滤出 DNS 协议的数据包
 
-- **ip** = 过滤出 IP 协议的数据包
+- `ip`: 过滤出 IP 协议的数据包
 
 #### 参考案例
 
 **基础过滤**
 
-- `http && (ip.src == 192.168.0.1 || ip.dst ==192.168.0.1 )`
+- `tcp && ip.dst == 192.168.0.1`: 过滤出 TCP 协议的数据包，并且目标 IP 为 `192.168.0.1` 的数据包
 
-  过滤出 HTTP 协议的数据包，并且源 IP 或目标 IP 为 `192.168.0.1` 的数据包
+- `http && (ip.src == 192.168.0.1 || ip.dst == 192.168.0.1 )`: 过滤出 HTTP 协议的数据包，并且源 IP 或目标 IP 为 `192.168.0.1` 的数据包
 
 **根据域名过滤**
 
-- `dns.qry.name == "example.com"`
+- `dns.qry.name == "example.com"`: 过滤出 DNS 查询域名为 `example.com` 的数据包
 
-  过滤出 DNS 查询域名为 `example.com` 的数据包
+- `http.host == "example.com"`: 过滤出 HTTP 请求的 Host 为 `example.com` 的数据包（只有未加密的 HTTP 请求才能看到）
 
-- `http.host == "example.com"`
-
-  过滤出 HTTP 请求的 Host 为 `example.com` 的数据包（只有未加密的 HTTP 请求才能看到）
-
-- `tls.handshake.extensions_server_name == "example.com"`
-
-  过滤出 TLS 握手的域名为 `example.com` 的数据包
+- `tls.handshake.extensions_server_name == "example.com"`: 过滤出 TLS 握手的域名为 `example.com` 的数据包
 
   对于 HTTPS 流量，只有在 TLS 握手阶段才能获取 SNI。如果通信已加密，除非使用解密密钥，否则无法直接查看明文 `Host` 信息
 
