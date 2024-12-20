@@ -1,6 +1,10 @@
-# MySQL
+---
+title: MySQL 数据库学习指南，SQL 基础语法、常用函数、高级操作
+---
 
-> 本篇额外包含 sqlite 的使用，sqlite 是一个轻量级的数据库，和 mysql 的使用方法类似，所以也就放到一起了。
+# SQL
+
+以 MySQL 为例，介绍 SQL 基础语法、常用函数、高级操作等内容。
 
 ## 数据类型
 
@@ -282,7 +286,7 @@ GROUP BY t.id;
 
 ### 利用 CASE 进行自定义排序
 
-> CASE 语句类似于 if-else 结构，但需要注意的是，它按顺序评估每个条件，并返回第一个为真的条件的结果（如果没有条件为真，则返回默认值）。
+_`CASE` 语句类似于 `if-else` 结构，但需要注意的是，它按顺序评估每个条件，并返回第一个为真的条件的结果（如果没有条件为真，则返回默认值）。_
 
 ```sql
 -- 控制不同的排序（部分查询语句）
@@ -302,7 +306,7 @@ CASE
 END
 
 -- 计算结果（完整查询语句）
-SELECT COUNTRY ，
+SELECT COUNTRY,
 SUM(CASE WHEN GENDER ='1' THEN SALARY ELSE 0 END) AS COUNTG ，
 SUM(CASE WHEN GENDER ='2' THEN SALARY ELSE 0 END) AS COUNTB
 FROM EMPLOYEES
