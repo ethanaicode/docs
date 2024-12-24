@@ -676,6 +676,58 @@
 
 - **/root[~]/.bash_history**: 用户历史命令记录文件，记录用户执行过的命令
 
+### 系统启动需要加载的配置文件
+
+> 主要包括 bash 的配置文件，环境变量配置文件，以及脚本文件等。
+>
+> 修改环境变量配置后，需要用 `source /PATH/TO/FILE_NAME` 来重新加载配置使其生效
+
+- /root/.bash_profile
+
+- /root/.bashrc
+
+- /etc/profile
+
+- /etc/bashrc
+
+- /etc/rc.local (/etc/rc.d/rc.local): 开机启动文件
+
+  _已经不推荐使用，可以通过创建服务实现_
+
+- /etc/profile.d/\*.sh: 系统启动后自动执行的脚本文件夹
+
+- /etc/sysconfig/i18n
+
+**注意**: 如果是 `zsh`，那么配置文件为 `~/.zshrc`。
+
+- ~/.bash_profile
+
+- ~/.bashrc
+
+**.bash_profile 和 .bashrc 的区别**
+
+- `.bash_profile` 是登录 shell 执行的配置文件，只有在登录 shell 时才会执行。
+
+- `.bashrc` 是交互式 shell 执行的配置文件，每次打开新的终端时都会执行。
+
+### 常用的网络服务目录
+
+> 这里只列出系统默认的服务目录，实际情况可能会有所不同
+
+- PHP 配置: /etc/php.ini
+
+- PHP-FPM 配置目录: /etc/php-fpm.d/
+
+- MySQL 配置: /etc/my.cnf
+
+- Nginx 配置: /etc/nginx/
+
+- Apache 配置目录: /etc/apache2/
+
+  Apache 默认网站目录: /var/www/html/
+
+  可以通过配置文件 httpd.conf 中 DocumentRoot 来修改
+
 ### Shell 中的变量
 
 Shell 中的变量分为系统变量、环境变量和用户自定义变量。
@@ -811,54 +863,6 @@ which command
 - **Ctrl + L** = 清屏（常用）
 
 - **Ctrl + R** = 搜索历史命令
-
-### 系统启动需要加载的配置文件
-
-> 主要包括 bash 的配置文件，环境变量配置文件，以及脚本文件等。
->
-> 修改环境变量配置后，需要用 `source /PATH/TO/FILE_NAME` 来重新加载配置使其生效
-
-- /root/.bash_profile
-
-- /root/.bashrc
-
-- ~/.bash_profile
-
-- ~/.bashrc
-
-- /etc/profile
-
-- /etc/bashrc
-
-- /etc/rc.local（/etc/rc.d/rc.local）: 开机启动文件
-
-  已经不推荐使用，可以通过服务实现
-
-- /etc/profile.d/\*.sh: 系统启动后自动执行的脚本文件夹
-
-- /etc/sysconfig/i18n
-
-**注意**: 如果是 zsh，那么配置文件为`~/.zshrc`。
-
-**.bash_profile 和 .bashrc 的区别**
-
-- `.bash_profile` 是登录 shell 执行的配置文件，只有在登录 shell 时才会执行。
-
-- `.bashrc` 是交互式 shell 执行的配置文件，每次打开新的终端时都会执行。
-
-### 常用的网络服务目录
-
-PHP 配置: /etc/php.ini
-
-PHP-FPM 配置目录: /etc/php-fpm.d/
-
-MySQL 配置: /etc/my.cnf
-
-Nginx 配置: /etc/nginx/
-
-Apache 配置目录: /etc/apache2/
-
-Apache 默认网站目录: /var/www/html/(可以通过配置文件 httpd.conf 中 DocumentRoot 来修改)
 
 ### 权限相关的数字及字母
 
@@ -1675,7 +1679,9 @@ username ALL=(ALL) NOPASSWD: ALL
 
 - `yum update <package_name>`: 更新软件包
 
-- `yum upgrade`: 更新所有软件包
+- `yum upgrade`: 升级系统中的已安装软件包
+
+  可能会移除不需要的依赖项，可以使用`yum upgrade --skip-broken`来跳过。
 
 - `yum reinstall <package_name>`: 重新安装软件包
 
@@ -1701,11 +1707,16 @@ username ALL=(ALL) NOPASSWD: ALL
 # 备份原文件
 cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak
 # 下载新的镜像源
+# CentOS 6
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-6.repo
+# CentOS 7
 wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 # 清除缓存
 yum clean all
 yum makecache
 ```
+
+更改后可以使用 `yum repolist all` 命令查看是否生效。
 
 ### apt 管理工具的使用
 
@@ -2183,6 +2194,8 @@ sysctl -p
 
 ### 查看网站 SSL 证书信息
 
+#### openssl 查看
+
 可以使用`openssl`来模拟请求，查看证书详细信息:
 
 ```bash
@@ -2274,6 +2287,8 @@ sudo certbot certonly --webroot -w /var/www/html -d example.com -d www.example.c
 
 - `-d example.com -d www.example.com`: 指定申请证书的域名
 
+  <u>可以同时为多个域名申请证书，</u>只需要在 `-d` 参数后面添加域名即可，会生成一个包含所有域名的证书。
+
 **自动化证书管理**
 
 如果希望通过脚本来自动化证书管理，可以使用 `--non-interactive` 参数，它会自动应答所有问题。
@@ -2306,13 +2321,17 @@ sudo certbot renew
 
 #### 管理证书命令
 
-- `certbot certificates`: 查看所有证书
+- `certbot certificates`: <u>查看所有证书</u>，包括证书的域名、有效期等信息
+
+  _留意下方注意内容，如果使用了 `--config-dir` 参数，需要加上 `--config-dir` 参数来指定配置目录_
 
 - `certbot renew`: 续期证书
 
 - `certbot revoke --cert-name example.com`: 撤销证书
 
 - `certbot delete --cert-name example.com`: 删除证书
+
+  _也可以直接删除 `/path/to/live/example.com` 目录和 `/path/to/renewal/example.com.conf` 文件来实现_
 
 **注意**: 如果通过 `--config-dir` 指定了配置目录，在管理时需要加上 `--config-dir` 参数来指定配置目录，否则会默认使用 `/etc/letsencrypt` 目录。
 
@@ -2328,9 +2347,15 @@ sudo certbot renew
 
 #### 可选参数
 
-列出部分参数，所有的请参考官方文档。
+列出部分参数，更多参数请参考[官方文档](https://eff-certbot.readthedocs.io/en/latest/using.html#certbot-command-line-options)
 
-- `--config-dir`: 指定配置目录，默认为 `/etc/letsencrypt`
+- `--config-dir`: <u>指定配置目录，</u>默认为 `/etc/letsencrypt`
+
+- `--expand`: 允许扩展现有证书
+
+  和标准的申请参数类似，但是它会添加新的域名到现有证书中
+
+  如 `certbot certonly --expand -d example.com -d www.example.com` 可以将 `www.example.com` 添加到 `example.com` 的证书中
 
 #### 常见错误
 

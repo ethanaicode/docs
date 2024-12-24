@@ -1,12 +1,12 @@
-# PyQt5
+# PyQT5
 
-PyQt5 是一个用于创建桌面应用程序的 Python 模块。它是 Qt 库的 Python 绑定，用于创建图形用户界面。
+PyQT5 是一个用于创建桌面应用程序的 Python 模块。它是 Qt 库的 Python 绑定，用于创建图形用户界面。
 
 ## QtWidgets 组件
 
-### PyQt5 基本组件
+### PyQT5 基本组件
 
-PyQt5 提供了一些基本的组件，用于创建用户界面。以下是一些常用的组件：
+PyQT5 提供了一些基本的组件，用于创建用户界面。以下是一些常用的组件：
 
 - **QLabel**：用于显示文本或图像。
 
@@ -36,7 +36,7 @@ PyQt5 提供了一些基本的组件，用于创建用户界面。以下是一�
 
 ### QMainWindow
 
-`QMainWindow` 是 PyQt5 中用于创建主窗口的类。主窗口是应用程序的主要窗口，通常包含菜单栏、工具栏、状态栏等元素。
+`QMainWindow` 是 PyQT5 中用于创建主窗口的类。主窗口是应用程序的主要窗口，通常包含菜单栏、工具栏、状态栏等元素。
 
 **常用的方法**
 
@@ -84,12 +84,12 @@ PyQt5 提供了一些基本的组件，用于创建用户界面。以下是一�
 
 ```python
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQT5.QtWidgets import QApplication, QMainWindow
 
 class MyWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle('PyQt5 示例')
+        self.setWindowTitle('PyQT5 示例')
         self.setGeometry(100, 100, 400, 300)
         self.activateWindow()
 
@@ -138,7 +138,7 @@ sys.exit(app.exec_())
 
 #### Application 应用程序
 
-在 PyQt5 中，`QApplication` 是一个用于管理应用程序的类。它是一个全局对象，用于处理应用程序的初始化、事件循环、退出等操作。
+在 PyQT5 中，`QApplication` 是一个用于管理应用程序的类。它是一个全局对象，用于处理应用程序的初始化、事件循环、退出等操作。
 
 **常用的方法**
 
@@ -162,7 +162,7 @@ sys.exit(app.exec_())
 
 > QMessageBox(icon, title, text, buttons, parent)
 
-`QMessageBox` 是 PyQt5 中用于显示消息框的类。消息框是一种常用的用户界面元素，用于显示提示、警告、错误等信息。
+`QMessageBox` 是 PyQT5 中用于显示消息框的类。消息框是一种常用的用户界面元素，用于显示提示、警告、错误等信息。
 
 **常用的参数**
 
@@ -192,7 +192,7 @@ sys.exit(app.exec_())
 
 ### QSpacerItem 空白区域
 
-在 PyQt5 中，`QSpacerItem` 是一个用于创建空白区域的小部件。它可以用来推动其他小部件到布局的一端，或在小部件之间创建空间。
+在 PyQT5 中，`QSpacerItem` 是一个用于创建空白区域的小部件。它可以用来推动其他小部件到布局的一端，或在小部件之间创建空间。
 
 `QSpacerItem` 可以在水平布局和垂直布局中使用，通过设置伸展因子（stretch factor）来控制空白区域的大小。
 
@@ -233,15 +233,15 @@ layout.addItem(spacer)
 
 ### QLayout 布局管理器
 
-在 PyQt5 中，布局管理器用于自动管理窗口中的小部件的位置和大小。布局管理器可以确保小部件在不同的窗口大小和屏幕分辨率下具有一致的布局。
+在 PyQT5 中，布局管理器用于自动管理窗口中的小部件的位置和大小。布局管理器可以确保小部件在不同的窗口大小和屏幕分辨率下具有一致的布局。
 
-PyQt5 提供了几种布局管理器，如 `QHBoxLayout`、`QVBoxLayout`、`QGridLayout`、`QFormLayout` 等，用于实现不同的布局方式。
+PyQT5 提供了几种布局管理器，如 `QHBoxLayout`、`QVBoxLayout`、`QGridLayout`、`QFormLayout` 等，用于实现不同的布局方式。
 
 ### QPushButton 按钮
 
 > QPushButton(text, parent)
 
-`QPushButton` 是 PyQt5 中用于创建按钮的类。按钮是用户界面中常用的交互元素，用于触发操作或执行特定的功能。
+`QPushButton` 是 PyQT5 中用于创建按钮的类。按钮是用户界面中常用的交互元素，用于触发操作或执行特定的功能。
 
 **按钮的方法**
 
@@ -261,7 +261,7 @@ PyQt5 提供了几种布局管理器，如 `QHBoxLayout`、`QVBoxLayout`、`QGri
 
 ### QButtonGroup 按钮组
 
-`QButtonGroup` 是 PyQt5 中用于管理按钮组的类。按钮组可以用于管理一组单选按钮或复选框，使它们成为互斥或相关的关系。
+`QButtonGroup` 是 PyQT5 中用于管理按钮组的类。按钮组可以用于管理一组单选按钮或复选框，使它们成为互斥或相关的关系。
 
 **按钮组的方法**
 
@@ -281,13 +281,13 @@ PyQt5 提供了几种布局管理器，如 `QHBoxLayout`、`QVBoxLayout`、`QGri
 
 > QLabel(text, parent)
 
-`QLabel` 是 PyQt5 中用于显示文本或图像的类。标签是用户界面中常用的显示元素，用于显示静态文本或图像，也可以用来显示 HTML 内容。
+`QLabel` 是 PyQT5 中用于显示文本或图像的类。标签是用户界面中常用的显示元素，用于显示静态文本或图像，也可以用来显示 HTML 内容。
 
 ### QLineEdit 文本框
 
 > QLineEdit(text, parent)
 
-`QLineEdit` 是 PyQt5 中用于输入文本的类。文本框是用户界面中常用的输入元素，用于接收用户输入的文本。
+`QLineEdit` 是 PyQT5 中用于输入文本的类。文本框是用户界面中常用的输入元素，用于接收用户输入的文本。
 
 **文本框的方法**
 
@@ -305,7 +305,7 @@ PyQt5 提供了几种布局管理器，如 `QHBoxLayout`、`QVBoxLayout`、`QGri
 
 > QComboBox(parent)
 
-`QComboBox` 是 PyQt5 中用于创建下拉框的类。下拉框是用户界面中常用的选择元素，用于从一组选项中选择一个值。
+`QComboBox` 是 PyQT5 中用于创建下拉框的类。下拉框是用户界面中常用的选择元素，用于从一组选项中选择一个值。
 
 **常用的方法**
 
@@ -323,7 +323,7 @@ PyQt5 提供了几种布局管理器，如 `QHBoxLayout`、`QVBoxLayout`、`QGri
 
 ### QTimer
 
-`QTimer` 是 PyQt5 中用于定时器的类。它可以用于定时执行任务、延时执行任务、定时刷新界面等。
+`QTimer` 是 PyQT5 中用于定时器的类。它可以用于定时执行任务、延时执行任务、定时刷新界面等。
 
 **常用的方法**
 
@@ -346,7 +346,7 @@ PyQt5 提供了几种布局管理器，如 `QHBoxLayout`、`QVBoxLayout`、`QGri
 **基础用法**
 
 ```python
-from PyQt5.QtCore import QTimer
+from PyQT5.QtCore import QTimer
 
 timer = QTimer()
 timer.timeout.connect(on_timeout)
@@ -360,7 +360,7 @@ app.exec_()
 
 ### QUrl URL
 
-`QUrl` 是 PyQt5 中用于处理 URL 的类。它提供了一些方法，用于解析、构建和操作 URL。
+`QUrl` 是 PyQT5 中用于处理 URL 的类。它提供了一些方法，用于解析、构建和操作 URL。
 
 **基础用法**
 
@@ -373,7 +373,7 @@ print(url.path())    # 获取路径
 
 ### pyqtSignal 信号
 
-`pyqtSignal` 是 PyQt5 中用于自定义信号的类。它可以用于创建自定义信号，用于实现自定义控件、组件之间的通信。
+`pyqtSignal` 是 PyQT5 中用于自定义信号的类。它可以用于创建自定义信号，用于实现自定义控件、组件之间的通信。
 
 **基础用法**
 
@@ -397,7 +397,7 @@ widget.my_signal.emit('Hello')
 
 ### QDesktopServices 桌面服务
 
-`QDesktopServices` 是 PyQt5 中用于访问桌面服务的类。它提供了一些方法，用于打开文件、打开网页、发送邮件等操作。
+`QDesktopServices` 是 PyQT5 中用于访问桌面服务的类。它提供了一些方法，用于打开文件、打开网页、发送邮件等操作。
 
 **常用方法**
 
@@ -407,7 +407,7 @@ widget.my_signal.emit('Hello')
 
 ### QFont 字体
 
-`QFont` 是 PyQt5 中用于设置字体的类。它提供了一些方法，用于设置字体的名称、大小、粗细、斜体等属性。
+`QFont` 是 PyQT5 中用于设置字体的类。它提供了一些方法，用于设置字体的名称、大小、粗细、斜体等属性。
 
 **基础用法**
 
@@ -424,7 +424,7 @@ label.setFont(font)
 
 ### QThread 线程
 
-在 PyQt5 中，`QThread` 类用于创建线程，可以在后台执行耗时的任务，以避免阻塞主线程。
+在 PyQT5 中，`QThread` 类用于创建线程，可以在后台执行耗时的任务，以避免阻塞主线程。
 
 ### QRunnable 接口
 
@@ -460,7 +460,7 @@ for i in range(5):
 
 ### 信号和槽
 
-在 PyQt5 中，信号和槽是一种用于实现事件处理和通信的机制。信号是一种事件，当某个条件满足时发出，槽是一个函数，用于处理信号。
+在 PyQT5 中，信号和槽是一种用于实现事件处理和通信的机制。信号是一种事件，当某个条件满足时发出，槽是一个函数，用于处理信号。
 
 - **信号**：当某个事件发生时，会发出一个信号。信号可以带有参数，用于传递额外的信息。
 
@@ -472,7 +472,7 @@ for i in range(5):
 
 ### 信号和槽的使用
 
-在 PyQt5 中，可以通过 `QObject.connect()` 方法将信号和槽连接起来，当信号发出时，与之连接的槽函数会被调用。
+在 PyQT5 中，可以通过 `QObject.connect()` 方法将信号和槽连接起来，当信号发出时，与之连接的槽函数会被调用。
 
 ```python
 sender.signal.connect(receiver.slot)
@@ -502,7 +502,7 @@ sender.signal.connect(receiver.slot)
 
 ## Qt::WidgetAttribute 控件属性
 
-在 PyQt5 中，控件的属性可以通过 `setAttribute()` 方法来设置。控件属性可以控制控件的样式、行为和外观。
+在 PyQT5 中，控件的属性可以通过 `setAttribute()` 方法来设置。控件属性可以控制控件的样式、行为和外观。
 
 ### 常用的控件属性
 
@@ -518,7 +518,7 @@ sender.signal.connect(receiver.slot)
 
 ## Qt::WindowFlags 窗口属性
 
-在 PyQt5 中，窗口的属性可以通过 `setWindowFlags()` 方法来设置。窗口属性可以控制窗口的样式、行为和外观。
+在 PyQT5 中，窗口的属性可以通过 `setWindowFlags()` 方法来设置。窗口属性可以控制窗口的样式、行为和外观。
 
 ### 常用的窗口标志
 
@@ -554,11 +554,11 @@ sender.signal.connect(receiver.slot)
 
 ### 布局技巧
 
-在使用 PyQt5 进行页面布局时，掌握一些基本的布局技巧可以帮助你创建更加专业和易用的用户界面。以下是一些实用的布局技巧：
+在使用 PyQT5 进行页面布局时，掌握一些基本的布局技巧可以帮助你创建更加专业和易用的用户界面。以下是一些实用的布局技巧：
 
 #### 1. 使用布局管理器
 
-PyQt5 提供了几种布局管理器来自动管理窗口中的空间分配和小部件位置，这些包括：
+PyQT5 提供了几种布局管理器来自动管理窗口中的空间分配和小部件位置，这些包括：
 
 - **QHBoxLayout**：水平布局，按顺序从左到右排列小部件。
 - **QVBoxLayout**：垂直布局，按顺序从上到下排列小部件。
@@ -589,7 +589,7 @@ PyQt5 提供了几种布局管理器来自动管理窗口中的空间分配和�
 
 #### 7. 使用样式表（QStyleSheet）
 
-- PyQt5 支持 CSS 风格的样式表，可以用来精细控制小部件的外观，比如颜色、字体、边框等。
+- PyQT5 支持 CSS 风格的样式表，可以用来精细控制小部件的外观，比如颜色、字体、边框等。
 
 #### 8. 预览和调试布局
 
@@ -600,12 +600,12 @@ PyQt5 提供了几种布局管理器来自动管理窗口中的空间分配和�
 这里是一个使用 QVBoxLayout 和 QHBoxLayout 嵌套的简单示例：
 
 ```python
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QHBoxLayout
+from PyQT5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QHBoxLayout
 
 def create_window():
     app = QApplication([])
     window = QWidget()
-    window.setWindowTitle('PyQt5 布局示例')
+    window.setWindowTitle('PyQT5 布局示例')
 
     # 主布局
     main_layout = QVBoxLayout()
@@ -665,7 +665,7 @@ create_window()
 
 ### QFrame 和 QWidget
 
-在 PyQt5 中，选择使用 `QWidget` 或 `QFrame` 主要取决于你是否需要边框或背景。`QFrame` 是 `QWidget` 的子类，提供了额外的功能，如边框和背景样式。
+在 PyQT5 中，选择使用 `QWidget` 或 `QFrame` 主要取决于你是否需要边框或背景。`QFrame` 是 `QWidget` 的子类，提供了额外的功能，如边框和背景样式。
 
 所以当你仅仅需要一个容器来放置其他控件时，可以使用 `QWidget`；当你需要为控件设置边框或特殊背景样式时，可以使用 `QFrame`。
 
@@ -684,7 +684,7 @@ create_window()
 
 ### 元素的 hide() 和 setVisible()
 
-在 PyQt5 中，元素的 `hide()` 和 `setVisible()` 方法都可以用于隐藏元素，只是在使用场景上有所不同。
+在 PyQT5 中，元素的 `hide()` 和 `setVisible()` 方法都可以用于隐藏元素，只是在使用场景上有所不同。
 
 - `hide()` 方法是 `setVisible(False)` 的简写，用于隐藏控件。
 
@@ -702,16 +702,16 @@ create_window()
 
 ### app.exec\_()
 
-`app.exec_()` 是 PyQt5 应用程序的主事件循环。它会一直运行，直到应用程序被关闭。在这个事件循环中，PyQt5 会监听用户的输入、处理事件、更新界面等操作。
+`app.exec_()` 是 PyQT5 应用程序的主事件循环。它会一直运行，直到应用程序被关闭。在这个事件循环中，PyQT5 会监听用户的输入、处理事件、更新界面等操作。
 
 **事件循环**
 
-- **事件驱动编程**：PyQt5 是基于事件驱动的编程模式，这意味着程序的流程主要由用户事件（如鼠标点击、按键事件）或系统事件（如窗口调整、定时器触发）来控制。
+- **事件驱动编程**：PyQT5 是基于事件驱动的编程模式，这意味着程序的流程主要由用户事件（如鼠标点击、按键事件）或系统事件（如窗口调整、定时器触发）来控制。
 - **事件循环**：`app.exec_()` 启动了一个无限循环，等待并分派这些事件。在这个循环内，应用程序持续监视用户的操作和其他事件源，并相应地触发处理程序（event handlers）。
 
 **方法的角色和功能**
 
-- **开始处理事件**：调用 `app.exec_()` 后，PyQt5 应用程序开始响应用户输入和其他事件。如果没有这个调用，应用程序会立即启动并关闭，因为没有进入事件监听状态。
+- **开始处理事件**：调用 `app.exec_()` 后，PyQT5 应用程序开始响应用户输入和其他事件。如果没有这个调用，应用程序会立即启动并关闭，因为没有进入事件监听状态。
 - **阻塞调用**：`app.exec_()` 是一个阻塞调用，这意味着它会阻塞调用它的线程直到事件循环结束。事件循环通常在主窗口关闭时结束，此时 `app.exec_()` 返回。
 
 **控制流**
@@ -721,11 +721,11 @@ create_window()
 
 ### 像素大小和点大小
 
-在 PyQt5 中，控件的大小可以使用像素（pixel）或点（point）来指定。像素是屏幕上的一个点，而点是一个逻辑单位，通常与屏幕的分辨率和 DPI 有关。
+在 PyQT5 中，控件的大小可以使用像素（pixel）或点（point）来指定。像素是屏幕上的一个点，而点是一个逻辑单位，通常与屏幕的分辨率和 DPI 有关。
 
 - **像素大小**：通常是指屏幕上的一个点，它是一个固定的单位，不会随着屏幕分辨率的变化而变化。
 
-- **点大小**：是一个逻辑单位，通常与屏幕的 DPI（每英寸像素数）有关。在 PyQt5 中，点的大小通常是以像素为单位的，但可以根据 DPI 缩放。
+- **点大小**：是一个逻辑单位，通常与屏幕的 DPI（每英寸像素数）有关。在 PyQT5 中，点的大小通常是以像素为单位的，但可以根据 DPI 缩放。
 
 在标准分辨率下（一般是 96 DPI），12 点字大约等于 16 像素高。在高 DPI 屏幕上，12 点字可能会更大，因为每英寸的像素数更多。
 
@@ -733,7 +733,7 @@ create_window()
 
 ## Qt Designer
 
-Qt Designer 是一个用于创建 PyQt5 界面的可视化工具。它允许你通过拖放方式设计界面，然后将其导出为 Python 代码。
+Qt Designer 是一个用于创建 PyQT5 界面的可视化工具。它允许你通过拖放方式设计界面，然后将其导出为 Python 代码。
 
 ### 基础操作
 
@@ -751,7 +751,7 @@ Qt Designer 是一个用于创建 PyQt5 界面的可视化工具。它允许你�
 
 ### pyuic 工具
 
-Qt Designer 生成的 `.ui` 文件可以通过 `pyuic` 工具转换为 Python 代码。`pyuic` 是 PyQt5 提供的一个命令行工具，用于将 `.ui` 文件转换为 Python 代码。
+Qt Designer 生成的 `.ui` 文件可以通过 `pyuic` 工具转换为 Python 代码。`pyuic` 是 PyQT5 提供的一个命令行工具，用于将 `.ui` 文件转换为 Python 代码。
 
 ```bash
 pyuic5 -x input.ui -o output.py

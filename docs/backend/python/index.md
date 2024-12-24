@@ -20,7 +20,7 @@ title: Python 文档导航，Python 基础、进阶、库、自动化工具汇�
 
 - [Requests](./python_requests)
 
-- [PyQt5](./python_pyqt5)
+- [PyQT5](./python_pyqt5)
 
 - [Tkinter](./python_tkinter)
 
