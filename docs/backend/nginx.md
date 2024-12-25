@@ -37,9 +37,7 @@ Nginx 是一个高性能的 HTTP 和反向代理服务器，也是一个 IMAP/PO
 > [!TIP]提示:
 > 修改配置后，一定要先使用 `-t` 检查配置文件是否正确，然后再重载配置（重载配置不会提示错误）。
 
-## 配置
-
-### nginx.conf
+## Nginx 配置
 
 Nginx 的基础配置文件是`nginx.conf`，一般在`/etc/nginx/nginx.conf`。
 
@@ -75,115 +73,22 @@ events {
 
 ### http 配置
 
-#### 静态资源
+这一块主要用来定义 HTTP 协议相关的设置，比如 MIME 类型、日志格式、访问日志的路径等。
 
 ```nginx
 http {
+    include mime.types;
+    default_type application/octet-stream;
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    gzip on;
     server {
-        listen 80;
-        server_name localhost;
-        location / {
-            root /var/www/html;
-            index index.html;
-        }
+        ...
     }
 }
 ```
-
-- `listen`: 监听的端口
-
-- `server_name`: 域名
-
-- `location`: 匹配的路径
-
-- `root`: 静态资源的根目录
-
-- `index`: 默认的首页
-
-#### try_files 指令
-
-`try_files` 是一个 Nginx 指令，用于尝试按照指定的顺序查找文件。如果找不到前面的文件或资源，就尝试下一个。
-
-```nginx
-location / {
-    root /var/www/html;
-    index index.html;
-    try_files $uri $uri/ /index.html =404;
-}
-```
-
-- `$uri`: 请求的路径
-
-- `$uri/`: 请求的路径加上`/`
-
-- `/index.html`: 默认的首页
-
-- `=404`: 如果找不到则返回 404
-
-- 这里表示先去寻找对应的 $uri 文件，如果找不到则去找 $uri/ 目录，如果还找不到则返回 /index.html，如果还找不到则返回 404。
-
-#### include
-
-可以使用`include`来引入其他配置文件。
-
-```nginx
-http {
-    include /etc/nginx/mime.types;
-    include /etc/nginx/conf.d/*.conf;
-}
-```
-
-#### location 匹配规则
-
-- `/`: 通用匹配，任何请求都会匹配到。
-
-- `=`: 精确匹配，只有完全匹配时才会生效。
-
-- `^~`: 匹配 URL 前缀，如果匹配成功，则不再匹配其他规则。
-
-- `~`: 区分大小写的正则匹配。
-
-- `~*`: 不区分大小写的正则匹配。
-
-**案例**
-
-```nginx
-# 匹配 /app 开头的请求
-location = /app {
-    ...
-}
-
-# 静态资源直接处理
-location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
-    expires 30d;
-    add_header Cache-Control "public, no-transform";
-    try_files $uri =404;
-}
-
-# 启动 nginx_status
-location = /nginx_status {
-    stub_status on;
-    access_log off;
-    allow 127.0.0.1;    # 允许的 IP
-    deny all;           # 拒绝其他 IP
-}
-```
-
-#### rewrite 指令
-
-`rewrite` 指令用于重写 URL，可以将请求重定向到其他 URL，或者修改请求参数等。
-
-```nginx
-location / {
-    rewrite ^/user/(.*)$ /profile/$1 last;
-}
-```
-
-- `^/user/(.*)$`: 匹配的正则表达式
-
-- `/profile/$1`: 重定向的 URL
-
-- `last`: 重定向后是否继续匹配其他规则
 
 #### MIME 类型
 
@@ -208,37 +113,6 @@ http {
 
 它的作用是告诉 Nginx，当返回的文件是`html`、`htm`、`shtml`时，它的 MIME 类型是`text/html`。
 
-#### 重定向
-
-可以使用`return`指令来进行重定向，比如下面的配置：
-
-```nginx
-server {
-    listen 80;
-    server_name www.example.com;
-    return 301 https://$server_name$request_uri;
-}
-```
-
-#### 密码保护
-
-可以使用`auth_basic`指令来设置密码保护，比如下面的配置：
-
-```nginx
-server {
-    listen 80;
-    server_name www.example.com;
-    location / {
-        auth_basic "Restricted";
-        auth_basic_user_file /etc/nginx/.htpasswd;
-    }
-}
-```
-
-- `auth_basic`: 设置提示信息
-
-- `auth_basic_user_file`: 设置密码文件的路径（可以使用`htpasswd`命令生成）
-
 #### 流量限制
 
 可以使用`limit_conn`和`limit_rate`来限制连接数和速率。
@@ -254,77 +128,6 @@ limit_rate 2048k;
 - `limit_conn perip 3`: 单 IP 限制，限制单个 IP 访问最大并发数
 
 - `limit_rate 2048k`: 流量限制，限制每个请求的流量上限（单位是 KB）
-
-#### 防盗链
-
-可以使用`valid_referers`和`invalid_referer`来设置防盗链。
-
-```nginx
-location ~ .*\.(jpg|jpeg|gif|png|js|css)$
-{
-    expires      30d;
-    access_log /dev/null;
-    valid_referers none blocked gobiji.com *.shejibijil.com;
-    if ($invalid_referer){
-        return 404;
-    }
-}
-```
-
-- `expires 30d`: 设置缓存时间
-
-- `valid_referers none blocked shejibijil.com;`: 设置允许的 referer
-
-  `none blocked` none 表示没有 referer，blocked 表示 referer 为空，在一起表示允许空 referer 请求。
-
-  `shejibijil.com;` 表示允许的 referer
-
-- `if ($invalid_referer)`: 如果 referer 不在允许的列表中，则返回 404
-
-#### 反向代理
-
-默认是轮询的方式来代理的。
-
-下面是反向代理最简单的一个例子：
-
-```nginx
-# /app 页面将被轮询转发到三台服务器上
-upstream backend {
-    server 127.0.0.1:8000;
-    server 127.0.0.1:8001;
-    server 127.0.0.1:8002;
-}
-server {
-    ...
-    location /app {
-        proxy_pass http://backend;
-    }
-    ...
-}
-```
-
-#### 负载均衡
-
-可以在服务器后面设置`weight`来配置权重。
-
-```nginx
-# 8000端口的这台可以接收更多请求（另外两个的3倍）
-upstream backend {
-    server 127.0.0.1:8000 weight=3;
-    server 127.0.0.1:8001;
-    server 127.0.0.1:8002;
-}
-```
-
-可以设置`ip_hash`，让同一个客户端的请求被分配到同一台服务器上。
-
-```nginx
-upstream backend {
-    ip_hash;
-    server 127.0.0.1:8000 weight=3;
-    ...
-}
-```
 
 ### 日志配置
 
@@ -405,7 +208,7 @@ Nginx 提供了许多日志变量，可以根据需要选择并组合它们来�
 - error：记录错误信息
 - crit：记录严重错误
 
-##### 切割日志
+#### 切割日志
 
 Nginx 日志文件通常会随着时间的推移而增大，为了避免日志文件过大，我们可以定期切割日志。
 
@@ -455,7 +258,250 @@ Nginx 本身并不提供日志切割功能，但是可以通过 logrotate 工具
 
 具体有关日志的配置，可以参考[官方文档](http://nginx.org/en/docs/http/ngx_http_log_module.html)。
 
+### server 配置
+
+`server` 是 Nginx 配置的核心，每个`server`块定义了一个虚拟主机。
+
+```nginx
+server {
+    listen 80;
+    server_name localhost;
+    location / {
+        root /var/www/html;
+        index index.html;
+    }
+}
+```
+
+- `listen`: 监听的端口
+
+- `server_name`: 域名
+
+- `location`: 匹配的路径
+
+- `root`: 静态资源的根目录
+
+- `index`: 默认的首页
+
+#### include
+
+可以使用`include`来引入其他配置文件。
+
+```nginx
+http {
+    include /etc/nginx/mime.types;
+    include /etc/nginx/conf.d/*.conf;
+}
+```
+
+#### location 匹配规则
+
+- `/`: 通用匹配，任何请求都会匹配到。
+
+- `=`: 精确匹配，只有完全匹配时才会生效。
+
+- `^~`: 匹配 URL 前缀，如果匹配成功，则不再匹配其他规则。
+
+- `~`: 区分大小写的正则匹配。
+
+- `~*`: 不区分大小写的正则匹配。
+
+**案例**
+
+```nginx
+# 匹配 /app 开头的请求
+location = /app {
+    ...
+}
+
+# 静态资源直接处理
+location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
+    expires 30d;
+    add_header Cache-Control "public, no-transform";
+    try_files $uri =404;
+}
+
+# 启动 nginx_status
+location = /nginx_status {
+    stub_status on;
+    access_log off;
+    allow 127.0.0.1;    # 允许的 IP
+    deny all;           # 拒绝其他 IP
+}
+```
+
+#### try_files 指令
+
+`try_files` 是一个 Nginx 指令，用于尝试按照指定的顺序查找文件。如果找不到前面的文件或资源，就尝试下一个。
+
+```nginx
+location / {
+    root /var/www/html;
+    index index.html;
+    try_files $uri $uri/ /index.html =404;
+}
+```
+
+- `$uri`: 请求的路径
+
+- `$uri/`: 请求的路径加上`/`
+
+- `/index.html`: 默认的首页
+
+- `=404`: 如果找不到则返回 404
+
+- 这里表示先去寻找对应的 $uri 文件，如果找不到则去找 $uri/ 目录，如果还找不到则返回 /index.html，如果还找不到则返回 404。
+
+#### rewrite 指令
+
+`rewrite` 指令用于重写 URL，可以将请求重定向到其他 URL，或者修改请求参数等。
+
+```nginx
+location / {
+    rewrite ^/user/(.*)$ /profile/$1 last;
+}
+```
+
+- `^/user/(.*)$`: 匹配的正则表达式
+
+- `/profile/$1`: 重定向的 URL
+
+- `last`: 重定向后是否继续匹配其他规则
+
+#### return 重定向实现
+
+可以使用`return`指令来进行重定向，比如下面的配置：
+
+```nginx
+server {
+    listen 80;
+    server_name www.example.com;
+    return 301 https://$server_name$request_uri;
+}
+```
+
+#### 跨域配置
+
+可以在 `location` 中配置跨域，比如下面的配置：
+
+```nginx
+location / {
+    add_header Access-Control-Allow-Origin *;
+    add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+    add_header Access-Control-Allow-Headers 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+
+    if ($request_method = 'OPTIONS') {
+        add_header 'Access-Control-Max-Age' 86400;
+        add_header 'Content-Length' 0;
+        add_header 'Content-Type' 'text/plain; charset=utf-8';
+        return 204;
+    }
+
+    proxy_pass http://backend_server;
+}
+```
+
+- `add_header Access-Control-Allow-Origin *`: 允许所有域名访问
+
+- `add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS'`: 允许 GET、POST、OPTIONS 方法
+
+- `add_header Access-Control-Allow-Headers '...'`: 允许的请求头
+
+- `if ($request_method = 'OPTIONS')`: 如果是 OPTIONS 请求，返回 204
+
+### 反向代理和负载均衡
+
+#### 反向代理
+
+默认是轮询的方式来代理的。
+
+下面是反向代理最简单的一个例子：
+
+```nginx
+# /app 页面将被轮询转发到三台服务器上
+upstream backend {
+    server 127.0.0.1:8000;
+    server 127.0.0.1:8001;
+    server 127.0.0.1:8002;
+}
+server {
+    ...
+    location /app {
+        proxy_pass http://backend;
+    }
+    ...
+}
+```
+
+#### 负载均衡
+
+可以在服务器后面设置`weight`来配置权重。
+
+```nginx
+# 8000端口的这台可以接收更多请求（另外两个的3倍）
+upstream backend {
+    server 127.0.0.1:8000 weight=3;
+    server 127.0.0.1:8001;
+    server 127.0.0.1:8002;
+}
+```
+
+可以设置`ip_hash`，让同一个客户端的请求被分配到同一台服务器上。
+
+```nginx
+upstream backend {
+    ip_hash;
+    server 127.0.0.1:8000 weight=3;
+    ...
+}
+```
+
 ### 安全配置
+
+#### 密码保护
+
+可以使用`auth_basic`指令来设置密码保护，比如下面的配置：
+
+```nginx
+server {
+    listen 80;
+    server_name www.example.com;
+    location / {
+        auth_basic "Restricted";
+        auth_basic_user_file /etc/nginx/.htpasswd;
+    }
+}
+```
+
+- `auth_basic`: 设置提示信息
+
+- `auth_basic_user_file`: 设置密码文件的路径（可以使用`htpasswd`命令生成）
+
+#### 防盗链
+
+可以使用`valid_referers`和`invalid_referer`来设置防盗链。
+
+```nginx
+location ~ .*\.(jpg|jpeg|gif|png|js|css)$
+{
+    expires      30d;
+    access_log /dev/null;
+    valid_referers none blocked gobiji.com *.shejibijil.com;
+    if ($invalid_referer){
+        return 404;
+    }
+}
+```
+
+- `expires 30d`: 设置缓存时间
+
+- `valid_referers none blocked shejibijil.com;`: 设置允许的 referer
+
+  `none blocked` none 表示没有 referer，blocked 表示 referer 为空，在一起表示允许空 referer 请求。
+
+  `shejibijil.com;` 表示允许的 referer
+
+- `if ($invalid_referer)`: 如果 referer 不在允许的列表中，则返回 404
 
 #### SSL 配置
 
@@ -474,6 +520,14 @@ server {
     ...
 }
 ```
+
+- `ssl_certificate`: 证书文件的路径
+
+- `ssl_certificate_key`: 证书私钥的路径
+
+- `ssl_protocols`: SSL 协议的版本，它表示支持的 SSL 协议版本
+
+- `ssl_ciphers`: SSL 加密算法，它表示支持的 SSL 加密算法
 
 通常，我们还会配置重定向，来让 HTTP 的请求自动跳转到 HTTPS。
 
@@ -773,3 +827,7 @@ Nginx 的调优主要包括以下几个方面：
 - 使用 select 模型
 
   `use select` 表示使用 select 模型，可以提高网络处理能力。
+
+```
+
+```

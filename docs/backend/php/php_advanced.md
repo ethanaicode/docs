@@ -60,6 +60,8 @@ PHP 的编译安装，需要先下载 PHP 源码，然后解压，进入解压�
 
 **常用的配置推荐**
 
+下面配置仅供参考，具体配置可以参考我的项目：[PHP74 安装脚本](https://github.com/ethanaicode/debian12-webserver-setup/blob/main/script/install-php.sh)，并根据自己的需求进行修改。
+
 ```bash
 ./configure --prefix=/www/server/php/82 \
 --with-config-file-path=/www/server/php/82/etc \
@@ -901,9 +903,19 @@ echo $obj('设计笔记');
 
 ## PHP-FPM
 
-### 优化 PHP-FPM 配置
+### PHP-FPM 配置文件
 
-> PHP-FPM 配置文件位置（通常情况下）：/etc/php/{version}/fpm/php-fpm.conf
+- `PHP-FPM` 配置文件位置（通常情况下）：`/etc/php/{version}/fpm/php-fpm.conf`，如果是自己编译安装的 PHP，那么配置文件位置可能会有所不同。
+
+- `PHP-FPM` 配置分为全局配置和池配置，全局配置文件一般是 `php-fpm.conf`，池配置文件一般是 `www.conf`。
+
+- PHP-FPM 的配置文件中，可以使用 `;` 来注释掉一行配置，也可以使用 `include` 来引入其它配置文件。
+
+- 在池配置文件中，可以配置 PHP-FPM 的运行模式、进程数、用户组、监听地址、日志文件等。
+
+- 池配置开头的 `[www]` 里面的内容是池的名称，可以有多个池，每个池可以有不同的配置。
+
+### 优化 PHP-FPM 配置
 
 在调整性能中，我们一般关注以下几个参数:
 

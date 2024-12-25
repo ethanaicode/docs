@@ -350,10 +350,6 @@
 
 - **whoami**: 查看当前用户
 
-- **sudo -i**: 提升用户权限(以 root 权限启动 shell)
-
-  `sudo -s` 以当前用户启动 shell，但是权限是 root
-
 - **exit**: 退出当前 shell(如果是最外层 shell，则退出登录)
 
 - **useradd**: 添加用户
@@ -410,11 +406,25 @@
 
 - **groupdel**: 删除组
 
+- **chsh**: 修改 shell
+
+  `chsh -s /bin/bash` 修改 shell 为 bash
+
 - **users**: 查看当前登录系统的用户
 
 - **su**: 切换用户
 
   `-l` 切换到 root 用户
+
+- **sudo**: 以超级用户权限执行命令
+
+  `-i` 以 root 用户启动 shell
+
+  `-s` 以当前用户启动 shell，但是权限是 root
+
+  `-u` 以指定用户执行命令
+
+  `-l` 列出当前用户可以执行的命令
 
 ### 系统运行状态
 
@@ -1118,6 +1128,22 @@ Linux example.com 5.4.0-65-generic #73-Ubuntu SMP Mon Jan 18 17:25:17 UTC 2021 x
 
 ## 文本处理
 
+### 修改默认编辑器为 Vim
+
+> Vim 使用教程: [--> 站内链接](./vim)
+
+在某些系统（如 Debian/Ubuntu）提供了 `update-alternatives` 命令用于更改默认软件，如更改默认编辑器、浏览器等。
+
+以下是常用的命令:
+
+- `update-alternatives --config editor`: 更改默认编辑器
+
+  系统会显示所有可用的编辑器，你可以选择一个作为默认编辑器
+
+- `update-alternatives --display editor`: 显示当前默认编辑器
+
+  其中 `link currently points to` 后面的就是当前默认编辑器
+
 ### 使用 cat 合并追加文件
 
 cat file1 file2 > target_file: 将多个文件合并到目标文件中。
@@ -1635,11 +1661,11 @@ rsync -avz username@remote_host:/path/to/remote/file /path/to/local/destination
 >
 > visudo 命令会检查文件的语法错误，如果有错误，会提示并不保存。
 
-允许用户使用 `sudo` 命令，可以将用户添加到 `sudo` 组中。
+允许用户使用 `sudo` 命令，可以将用户添加到 `sudo` 组中（Debian/Ubuntu 系统）。
 
 不同的 linux 系统中，`sudo` 组可能不同，可以通过 `/etc/sudoers` 文件查看。
 
-在 CentOS 或 RHEL，默认的管理组是 `wheel` 组，可以将用户添加到 `wheel` 组中。
+_在 CentOS 或 RHEL，默认的管理组是 `wheel` 组_
 
 ```bash
 usermod -aG wheel username
@@ -1658,6 +1684,16 @@ username ALL=(ALL) ALL
 ```bash
 username ALL=(ALL) NOPASSWD: ALL
 ```
+
+**确认用户的 sudo 权限**
+
+```bash
+sudo -l -U username
+```
+
+- `-l` 参数用于列出用户的 sudo 权限。
+
+- `-U` 参数用于指定用户。
 
 ## 应用管理
 
@@ -1754,7 +1790,13 @@ systemd 是一个 init 系统和系统管理守护进程，用于启动、停止
 
 `systemctl` 是一个 Linux 系统中用于管理 systemd 服务的命令行工具。
 
-> 对应的服务目录: /usr/lib/systemd/system/\*.service
+**systemd 服务文件**
+
+- `/etc/systemd/system/*.service`: 系统服务目录
+
+- `/lib/systemd/user/*.service`: 系统用户服务目录
+
+- `/usr/lib/systemd/system/*.service`: 用户服务目录
 
 **创建服务文件**
 
@@ -1802,6 +1844,12 @@ WantedBy=multi-user.target
 
 - `[Install]` 部分包含了服务的启动级别。
 
+创建好服务文件后，需要重新加载 systemd 配置。
+
+```bash
+systemctl daemon-reload
+```
+
 **systemctl 常用命令**
 
 - `systemctl start SERVICE_NAME`: 启动服务
@@ -1810,9 +1858,13 @@ WantedBy=multi-user.target
 
 - `systemctl restart SERVICE_NAME`: 重启服务
 
-- `systemctl daemon-reload`: 重新加载 systemd（更新内部配置缓存，不会重新启动或者加载服务）
+- `systemctl daemon-reload`: 重新加载 systemd
 
-- `systemctl reload SERVICE_NAME`: 重新加载配置（不会重启服务，需要服务支持）
+  更新内部配置缓存，不会重新启动或者加载服务
+
+- `systemctl reload SERVICE_NAME`: 重新加载配置
+
+  不会重启服务，需要服务支持
 
 - `systemctl status SERVICE_NAME`: 查看服务状态
 
