@@ -108,11 +108,15 @@
 
   `-v` <u>显示详细信息</u>
 
-- **ln**: 创建链接文件（类似于 Windows 的快捷方式）
+- **ln**: <u>创建链接文件</u>
 
-  `-s` 创建软链接（符号链接）
+  `-s` 创建软链接（类似于 Windows 的快捷方式）
 
-  `-n` 如果目标文件已存在，不覆盖（避免和 source 文件冲突用）
+  默认情况是硬链接，硬链接是指多个文件指向同一个 inode，删除一个文件不会影响其他文件，但是删除 inode 会影响所有文件
+
+  `-i` 交互式操作，如果目标文件已存在，会询问是否覆盖
+
+  `-n` 如果目标文件已存在，不覆盖（默认）
 
   `-f` 强制创建
 
@@ -690,31 +694,23 @@
 
 > 主要包括 bash 的配置文件，环境变量配置文件，以及脚本文件等。
 >
-> 修改环境变量配置后，需要用 `source /PATH/TO/FILE_NAME` 来重新加载配置使其生效
+> 修改环境变量配置后，需要用 `source /PATH/TO/CONFIG_FILE` 来重新加载配置使其生效
 
-- /root/.bash_profile
+--> /root/.bash_profile --> /root/.bashrc
 
-- /root/.bashrc
+--> /etc/profile --> /etc/bashrc
 
-- /etc/profile
+--> ~~/etc/rc.local (/etc/rc.d/rc.local) --> /etc/profile.d/\*.sh~~
 
-- /etc/bashrc
+_开机启动自动执行的脚本文件夹，不推荐使用，可以通过创建服务实现_
 
-- /etc/rc.local (/etc/rc.d/rc.local): 开机启动文件
+--> /etc/sysconfig/i18n
 
-  _已经不推荐使用，可以通过创建服务实现_
-
-- /etc/profile.d/\*.sh: 系统启动后自动执行的脚本文件夹
-
-- /etc/sysconfig/i18n
+--> <u>~/.bash_profile</u> --> <u>~/.bashrc</u>
 
 **注意**: 如果是 `zsh`，那么配置文件为 `~/.zshrc`。
 
-- ~/.bash_profile
-
-- ~/.bashrc
-
-**.bash_profile 和 .bashrc 的区别**
+**`.bash_profile` 和 `.bashrc` 的区别**
 
 - `.bash_profile` 是登录 shell 执行的配置文件，只有在登录 shell 时才会执行。
 
@@ -1326,13 +1322,13 @@ awk '{ if ($1 > 10) print $1 }' filename
 
 ### tail/les/watch 实时查看文件变化
 
-`tail -f` 命令可以实时查看文件的变化。
+`tail -f` 命令可以实时查看文件的变化
 
 ```bash
 tail -n 10 -f filename
 ```
 
-`less +F` 命令也可以实时查看文件的变化。
+`less +F` 命令也可以实时查看文件的变化
 
 ```bash
 less +F filename
@@ -1344,7 +1340,7 @@ less +F filename
 
 - `Shift + F`: 进入跟踪模式。
 
-`watch` 命令可以定期执行一个命令，并显示结果。
+`watch` 命令可以<u>定期执行一个命令，并显示结果</u>
 
 ```bash
 watch -n 1 'ls -l'
@@ -1924,7 +1920,7 @@ _在 Centos 中，cron 服务的名称为 crond，可以使用 `systemctl status
 
   `-l` 列出定时任务
 
-  `-r` 删除定时任务
+  `-r` _清空定时任务(谨慎使用，推荐用`-e`来替代)_
 
   `-u user` 指定 `user` 的时程表，默认表示设定自己的时程表
 
@@ -2021,19 +2017,25 @@ _在 Centos 中，cron 服务的名称为 crond，可以使用 `systemctl status
 
 ## 网络工具
 
-### 获取本机的网络信息
+### IP 指令获取本机的网络信息
 
-#### 获取本机的 IP
+`ip` 命令是一个用于显示和操作网络设备、路由、策略路由和隧道的工具，它可以用来代替传统的 `ifconfig` 命令。
 
-可以使用`ip`命令来获取本机的 IP 地址。
+**常用命令**
 
-```bash
-ip addr show
-```
+- `ip addr show`: 显示所有网络设备信息包括 IP 地址、MAC 地址等
 
-- `addr` 参数表示显示网络接口的 IP 地址
+  简写: `ip a`
 
-- `show` 参数表示显示详细信息
+- `ip route show`: 显示路由表信息
+
+  简写: `ip r`
+
+- `ip -s link show`: 显示网络设备的统计信息
+
+  简写: `ip -s l`
+
+  可以通过这个指令查看网络设备的接收和发送数据包的数量
 
 ### 使用 netstat 查看网络连接信息
 
@@ -2164,8 +2166,6 @@ cURL 是一个用于传输数据的命令行工具，支持多种协议，如 HT
 
 - `curl -f -SOJL -H "License: license_key" https://example.com/file`: 下载文件并保持原始文件名
 
-- `curl -v -x http://proxy.com:8080 -L https://ipv4.icanhazip.com`: 通过代理查看代理后的 IP 地址
-
 也可以使用 `wget` 来下载文件:
 
 - `wget -O filename https://example.com/file`: 指定下载文件的名称
@@ -2211,6 +2211,10 @@ time curl -I http://yourpage.com
 ### 查询域名解析的 IP 地址
 
 有多个命令都可以查询域名解析的 IP 地址:
+
+- `curl -v https://ipv4.icanhazip.com`: 查看网页详细信息，也包括 IP 地址
+
+  `https://ipv4.icanhazip.com` 是一个返回访问者 IP 地址的网站，用这个可以查询到本机的 IP 地址
 
 - `nslookup example.com`: 查询 DNS 记录
 

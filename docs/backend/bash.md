@@ -274,11 +274,17 @@ done
 
 ### read 读取数据
 
-`read` 命令用于从标准输入读取数据。
+`read` <u>命令用于从标准输入读取数据。</u>
 
 ```bash
 read variable
 ```
+
+- `read` 命令从标准输入或文件中读取一行文本（默认以换行符为行分隔符），并将这一行的内容赋值给指定的变量。
+
+- 如果没有指定变量，`read` 命令会将读取的文本赋值给特殊变量 `$REPLY`。
+
+- 如果标准输入是多行，每次调用 `read` 命令都只会读取下一行。
 
 支持多个参数：
 
@@ -298,6 +304,10 @@ read variable
 IFS=: read var1 var2 var3
 ```
 
+#### 示例
+
+**读取文本文件**
+
 下面是一个例子，它会从文件中读取每一行，并把值存储到数组中，然后打印数组：
 
 ```bash
@@ -311,6 +321,16 @@ done < file.txt
 
 # Print array
 echo "${domains[@]}"
+```
+
+**读取用户输入**
+
+下面是一个批量处理文件的例子，它会用 `find` 先找到所有的文件，然后用 `read` 逐个处理：
+
+```bash
+find . -type f -name "*.txt" | while read file; do
+    echo "Processing $file"
+done
 ```
 
 ## 进程管理

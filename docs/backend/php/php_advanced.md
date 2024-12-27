@@ -967,9 +967,85 @@ echo $obj('设计笔记');
 sudo systemctl restart php-fpm
 ```
 
-## PDO 连接
+## Composer
+
+`Composer` 是 PHP 的一个依赖管理工具，可以用来管理项目中的依赖包，并实现自动加载。
+
+### 基础命令
+
+- `composer init`: 初始化一个项目
+
+- `composer update`: <u>更新依赖</u>
+
+- `composer install`: 安装依赖(根据 composer.lock 文件)
+
+- `composer search vendor`: 查找依赖
+
+- `composer require vendor/package`: 安装依赖
+
+  `composer require vendor/package:version` 安装指定版本的依赖
+
+- `composer remove vendor/package`: 删除依赖
+
+- `composer show`: 查看已安装的依赖
+
+  `composer show vendor/package` 查看指定依赖的版本
+
+- `composer dump-autoload`: 重新生成自动加载文件
+
+- `composer self-update`: 更新 Composer
+
+- `composer global require vendor/package`: 全局安装一个包
+
+- `composer create-project vendor/package=version dir`: 从指定的包创建一个项目
+
+  `--prefer-dist`　下载压缩包
+
+  `--stability`　指定稳定性
+
+  `--repository`　指定仓库
+
+  `--dev`　安装开发依赖
+
+  `--no-dev`　不安装开发依赖
+
+  `--no-scripts`　不执行脚本
+
+  `--no-install`　不安装依赖
+
+  `--no-progress`　不显示进度
+
+### 常见问题
+
+**Composer detected issues in your platform: Your Composer dependencies require a PHP version**
+
+这个问题是因为 Composer 检测到你项目运行的 PHP 版本低于依赖包的 PHP 版本。
+
+通常是因为系统默认的 php 版本和项目中的 php 版本不一致导致的。
+
+可以尝试用下面的命令来解决：
+
+- `composer update --ignore-platform-reqs`: 添加参数来忽略掉平台的版本检查
+
+或者通过修改 composer.json 文件来解决：
+
+```JSON
+{
+  "config": {
+    "platform": {
+      "php": "7.2.34"
+    }
+  }
+}
+```
+
+然后再执行 `composer update` 命令来更新依赖，这会让 Composer 假装当前使用的 PHP 版本是 7.4.3，即使实际上不是。
+
+## PDO 操作数据库
 
 > 推荐教程：[打通 PHP 数据库任督二脉](http://bilibili.com/video/BV1v4411A74Q/?p=2)
+
+`PDO` 是 PHP 的一个数据库操作类，可以用来操作多种数据库，比如 MySQL、SQLite、Oracle 等。
 
 ### 连接数据库
 

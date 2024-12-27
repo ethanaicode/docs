@@ -64,6 +64,22 @@ TP3 提供了一些内置函数，可以在项目中使用，比如`C`函数，`
 
 - `get_client_ip`: 用于获取客户端 IP 地址
 
+### 视图模版
+
+**开启模版主题**
+
+- 默认情况下，没有开启模板主题功能，如果需要开启，设置 DEFAULT_THEME 参数即可：`'DEFAULT_THEME'=>'blue'`
+
+- 这样模版文件就会比之前多一层目录，变成这样：`View/blue/Index/index.html`
+
+- 之后就可以动态更改模版主题了：`$this->theme('blue')->display('index');`
+
+**模版赋值**
+
+- 系统提供了 assign 方法对模板变量赋值，无论何种变量类型都统一使用 assign 赋值：`$this->assign('name',$value);`
+
+- 输出多个模版变量时可以用数组，比如：`$this->assign(array('name1'=>$value1,'name2'=>$value2));`
+
 ## TP6 使用经验总结
 
 ### 日志处理

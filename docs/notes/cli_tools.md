@@ -99,6 +99,8 @@ ffmpeg -i input.mp4 -ss 00:00:10 -t 00:00:30 -c copy output.mp4
 
 #### 基础操作
 
+_网上很多教程在转换图片时使用的是 `magick convert` 命令，但是在新版本中，`magickconvert` 命令已经被废弃，取而代之的是 `magick` 命令_
+
 ```bash
 # 转换图片格式
 magick input.jpg output.png
