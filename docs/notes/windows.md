@@ -301,11 +301,30 @@ _PowerShell 提供的命令很多都有简写，比如 `Get-Process` 可以简�
 
   类似于 Linux 的 `which` 命令。
 
-- `Get-ChildItem`: 查看文件（简写`gci`）
+  可以利用这个来判断命令是否存在，如:
 
-  - `Get-ChildItem -Path C:\` 查看 C 盘文件
+  ```powershell
+  if (-Not (Get-Command "magick" -ErrorAction SilentlyContinue)) {
+      Write-Host "ImageMagick is not installed."
+      exit 1
+  }
+  ```
 
-  - `Get-ChildItem Env:` 查看环境变量
+- `Get-ChildItem`: <u>获取文件或者目录</u>
+
+  `Get-ChildItem -Path C:\` 查看 C 盘文件
+
+  `Get-ChildItem Env:` 查看环境变量
+
+  `-Recurse` 参数可以递归查看文件
+
+  `-Filter` 参数可以过滤文件
+
+  返回的值可以继续操作，如：
+
+  - `$result.Count` 查看文件数量
+
+  - `$result | ForEach-Object { $_.Name }` 查看文件名
 
 - `Get-Content your_log_file.log -Wait`: 实时查看文件内容
 
@@ -320,6 +339,14 @@ _PowerShell 提供的命令很多都有简写，比如 `Get-Process` 可以简�
 #### 权限设置
 
 - `Get-ExecutionPolicy`: 查看脚本执行策略
+
+  `Restricted` 禁止执行任何脚本
+
+  `RemoteSigned` 允许本地脚本，但下载的脚本需要签名
+
+  `Unrestricted` 允许执行任何脚本
+
+  `AllSigned` 所有脚本都需要签名
 
 - `Set-ExecutionPolicy`: 设置脚本执行策略
 
@@ -379,7 +406,24 @@ $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
 
 ## PowerShell 脚本
 
-### 基础概念
+### 基础语法
+
+#### 脚本参数
+
+在 `PowerShell` 中，可以通过参数来传递数据，通常它们是脚本的输入。
+
+```powershell
+param (
+    [Parameter(Mandatory=$true)]
+    [string]$name
+)
+```
+
+- `param`: 定义参数
+
+- `[Parameter(Mandatory=$true)]`: 参数必须传递
+
+- `[string]`: 参数类型
 
 ### 运算符
 
@@ -417,6 +461,24 @@ Get-Hello -name "World"
 
 ### 条件判断
 
+#### if
+
+`if` 判断语句用于根据条件执行不同的代码块。支持多种条件判断，包括:
+
+- `-eq`: 等于
+
+  `-ne` 不等于
+
+  `-gt` 大于
+
+  `-lt` 小于
+
+  `-ge` 大于等于
+
+  `-le` 小于等于
+
+- `-Not` 非
+
 #### $LASTEXITCODE
 
 `$LASTEXITCODE` 变量保存了上一个命令的退出码。
@@ -431,11 +493,27 @@ if ($LASTEXITCODE -eq 0) {
 }
 ```
 
+### 文件及目录
+
+- `Test-Path`: <u> 测试路径是否存在</u>
+
+  `-Path` 参数可以指定路径
+
+  例如：`Test-Path -Path "C:\Windows"`
+
+- `Join-Path`: <u>接路径</u>
+
+  例如：`Join-Path -Path "C:\" -ChildPath "Windows"`
+
+- `New-Item`: <u>创建文件或目录</u>
+
+  例如：`New-Item -ItemType Directory -Path "C:\Temp" | Out-Null`
+
 ### 输出与日志
 
 #### 输出命令
 
-- `Write-Host`: 输出信息
+- `Write-Host`: <u>输出信息</u>
 
   例如：`Write-Host "Hello, World!"`
 

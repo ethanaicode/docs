@@ -20,7 +20,7 @@ title: 最常用的Python第三方库包大全，以及它们的简单介绍和�
 
 - **OpenCV**: 用于计算机视觉的 Python 库，可以用来处理视频和图像
 
-  `pip install opencv-python`
+  pip 安装命令: `pip install opencv-python`
 
 - **matplotlib**: 用于绘制图表和图形的 Python 库
 
@@ -52,9 +52,9 @@ title: 最常用的Python第三方库包大全，以及它们的简单介绍和�
 
 - **Pygame**: 用于编写 2D 游戏的 Python 库
 
-- **python-dotenv**: 用于从 `.env` 文件中加载环境变量的 Python 库
+- **dotenv**: 用于从 `.env` 文件中加载环境变量的 Python 库
 
-  如果要安装，使用命令: `pip install python-dotenv`
+  pip 安装命令: `pip install python-dotenv`
 
 - **Pandas**: 用于数据处理和分析的 Python 库
 
@@ -67,6 +67,10 @@ title: 最常用的Python第三方库包大全，以及它们的简单介绍和�
   4. 与 Matplotlib、Seaborn 等数据可视化库结合使用，方便生成图表和报表
 
 - **openpyxl (openpyxl.worksheet)**: 用于读写 Excel 文件的 Python 库
+
+- **yaml**: 用于读写 YAML 文件的 Python 库
+
+  pip 安装命令: `pip install PyYAML`
 
 - **lxml**: 用于解析 XML 和 HTML 的 Python 库
 

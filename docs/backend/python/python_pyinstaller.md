@@ -299,3 +299,17 @@ create-dmg \
 `--onedir`模式的程序会直接打开，不会有闪烁，打开速度快，但因为单目录打包模式不会对依赖压缩，所以体积会大一些。
 
 如果体积优先且不在意打开速度，可以使用`--onedir`模式，如果希望更快的启动速度，可以使用`--onefile`模式，特别是对体积不是很敏感的情况下。
+
+## 常见问题
+
+### FileExistsError: [Errno 17] File exists: ...
+
+这个问题通常出现在 `--add-data` 选项中，当你添加了一个文件，但是这个文件已经存在于输出目录中时，就会出现这个错误。
+
+**解决方法：** 删除缓存目录（bincache）
+
+你可以在错误中看到缓存目录的路径，删除 `bincache` 相关的目录文件后再次运行即可，比如：
+
+```bash
+rm -rf /Users/ethan/Library/Application\ Support/pyinstaller/bincache*
+```
