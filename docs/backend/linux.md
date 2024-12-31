@@ -2212,7 +2212,7 @@ time curl -I http://yourpage.com
 
 有多个命令都可以查询域名解析的 IP 地址:
 
-- `curl -v https://ipv4.icanhazip.com`: 查看网页详细信息，也包括 IP 地址
+- `curl -v https://ipv4.icanhazip.com`: 查看网页详细信息，会包括服务的 ip 地址
 
   `https://ipv4.icanhazip.com` 是一个返回访问者 IP 地址的网站，用这个可以查询到本机的 IP 地址
 

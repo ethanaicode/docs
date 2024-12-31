@@ -16,6 +16,8 @@
 
 - [Command-Line Tools](./cli_tools)
 
+- [Open Source](./open_source)
+
 - [App Recommend](./software)
 
 - [App Guides](./app_guides)
