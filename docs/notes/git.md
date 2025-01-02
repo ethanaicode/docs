@@ -480,7 +480,7 @@ Closes #123
 
   三点语法 `...` 显示两个分支各自独有的提交
 
-- `git log --oneline --graph --left-right your-branch...origin/your-branch`: 图形化显示双方差异
+- `git log --oneline --graph --left-right your-branch...origin/your-branch`: 显示两个分支的提交差异
 
   左右箭头指示差异归属，`--left-right` 显示提交是在哪个分支上的
 
