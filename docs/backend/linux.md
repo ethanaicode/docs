@@ -2676,6 +2676,74 @@ To get information on Squid profile/app, run:
 
   kill 后面可以跟多个进程 ID，用空格隔开
 
+## 日期和时间
+
+### 查看日期和时间
+
+`cal` 命令用于显示日历，可以显示当前月份的日历，也可以显示指定月份的日历。
+
+**cal 常用命令**
+
+- `cal`: 显示当前月份的日历
+
+  `-j` 显示儒略日历（Julian Calendar）
+
+- `cal 2025`: 显示 2025 年的日历
+
+- `cal 01 2025`: 显示 2025 年 01 月的日历
+
+- `cal -3`: 显示上个月、当前月和下个月的日历
+
+`date` 命令用于显示当前日期和时间，也可以用于设置系统时间。
+
+**date 常用命令**
+
+- `date`: 显示当前日期和时间
+
+- `date "+%Y-%m-%d %H:%M:%S"`: 显示指定格式的日期和时间
+
+- `date -s "2025-01-01 12:00:00"`: 设置系统时间
+
+  `date -s "12:00:00"` 设置系统时间（只设置时间）
+
+  `date -s "12:00"` 设置系统时间（只设置时间）
+
+  `date -s "tomorrow"` 设置系统时间为明天
+
+  `date -s "next year"` 设置系统时间为明年
+
+  `date -s "last year"` 设置系统时间为去年
+
+  `date -s "next month"` 设置系统时间为下个月
+
+  `date -s "last month"` 设置系统时间为上个月
+
+`hwclock` 命令用于显示硬件时钟的时间，也可以用于设置硬件时钟的时间。
+
+**hwclock 常用命令**
+
+- `hwclock`: 显示硬件时钟的时间
+
+- `hwclock --systohc`: 将系统时间同步到硬件时钟
+
+- `hwclock --hctosys`: 将硬件时钟同步到系统时间
+
+### 时区设置
+
+`timedatectl` 命令用于显示和设置系统的时间和日期，也可以用于设置时区。
+
+**timedatectl 常用命令**
+
+- `timedatectl`: 显示当前时间和日期
+
+- `timedatectl set-timezone Asia/Shanghai`: 设置时区为上海
+
+- `timedatectl set-time "2025-01-01 12:00:00"`: 设置系统时间
+
+- `timedatectl set-ntp true`: 启用 NTP 时间同步
+
+  `timedatectl set-ntp false` 禁用 NTP 时间同步
+
 ## 第三方工具
 
 ### 网络监控
