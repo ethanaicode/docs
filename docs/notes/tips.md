@@ -251,6 +251,8 @@ RSA 是一种常用的非对称加密算法，可以用于数字签名、密钥�
 
 - [SourceCodePro](https://github.com/Falkor/dotfiles/blob/master/fonts/SourceCodePro%2BPowerline%2BAwesome%2BRegular.ttf)
 
+- [Sarasa Gothic Mono](https://picaq.github.io/sarasa/)
+
 ### 中文
 
 - [得意黑](https://github.com/atelier-anchor/smiley-sans)
@@ -646,8 +648,6 @@ _2024-12-12 更新：OCBC 开始清理中国大陆用户，之后 OCBC 账户将
 ### 香港银行开卡
 
 > 移民局 12367 小程序 可以查询出入境记录
->
-> 银行开户需要预约，可以提前下载银行 APP 预约
 
 主要推荐: 汇丰银行、中银香港(出入金无损)
 
@@ -699,10 +699,6 @@ _2024-12-12 更新：OCBC 开始清理中国大陆用户，之后 OCBC 账户将
 
 - 连接香港 Wi-Fi，商场酒店等地方都有免费 Wi-Fi
 
-**如何去香港比较方便**
-
-**香港银行开户需要多久**
-
 **香港银行开户需要准备什么**
 
 - 身份证或护照
@@ -726,6 +722,8 @@ _2024-12-12 更新：OCBC 开始清理中国大陆用户，之后 OCBC 账户将
 ### 香港
 
 #### 住宿
+
+- Trip.com
 
 - Booking.com
 

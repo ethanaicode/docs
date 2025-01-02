@@ -107,11 +107,41 @@ TP3 提供了一些内置函数，可以在项目中使用，比如`C`函数，`
 
 ## EasyAdmin 后台管理系统
 
-> 我们公司目前内部在用的系统，在这里也记录下使用经验。
+> 我们公司目前内部在用的系统，在这里也记录下使用经验(不推荐使用)。
 >
 > 官方文档网站已经打不开了，这是我查到的一个[文档](https://www.kancloud.cn/wenlin524/easyaadmin/2548621)。
 
 EasyAdmin 是基于 ThinkPHP6.0+Layui 的快速开发的后台管理系统。
+
+### 配置项
+
+- 超管不受权限控制，配置文件在：`app/common/constants/AdminConstant.php`，可以在这里定义超管的账号 id
+
+- 可以定义权限忽略的配置，配置文件在：`app/admin/config/admin.php`
+
+  `no_login_controller` 不需要验证登录的控制器
+
+  `no_login_node` 不需要验证登录的节点
+
+  `no_auth_controller` 不需要验证权限的控制器
+
+  `no_auth_node` 不需要验证权限的节点
+
+### 前端
+
+#### 基础信息
+
+- 控制器中 JS 的<u>目录</u>对应为：`public/static/admin/js/`
+
+  每一个控制器对应一个 JS 文件，比如 `app/admin/controller/Login.php` 对应的 JS 文件就是 `/public/static/admin/js/login.js`
+
+  每一个控制里面的 `方法` 对应 js 里面的 `属性` 就会自动进行加载
+
+### 技巧经验
+
+> 通过查看源码以及修改使用获取到的经验
+
+- `admin_source/app/common/constants/MenuConstant.php` 定义了首页的 PID，可以通过修改这个来设置默认打开的页面
 
 ---
 
@@ -611,7 +641,7 @@ _数据表中不存在的字段_
 
 7、使用`insertGetId()`方法，可以在新增成功后返回当前数据 ID。
 
-##### save()新增
+**save()新增**
 
 1、`save()`方法是一个通用方法，可以自行判断是新增还是修改（更新）数据；
 

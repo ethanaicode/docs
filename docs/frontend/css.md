@@ -333,7 +333,7 @@ p {
 
 当使用 flex 布局时，首先想到的是两根轴线 — 主轴和交叉轴。主轴由 `flex-direction` 定义，另一根轴垂直于它。
 
-##### flex-direction
+**flex-direction**
 
 定义主轴的方向，可以取 4 个值：
 
@@ -345,7 +345,7 @@ p {
 
 - `column-reverse`
 
-##### flex-warp
+**flex-warp**
 
 用来实现多行 Flex 容器。
 
@@ -357,11 +357,11 @@ p {
 
 #### Flex 元素上的属性
 
-##### flex-basis
+**flex-basis**
 
 指定 flex 元素在主轴方向上的初始大小。
 
-##### flex-grow
+**flex-grow**
 
 用来规定在 flex 容器中**分配剩余空间**的相对比例。
 
@@ -373,13 +373,13 @@ p {
 >
 > 计算：10px + 1x + 10px + 2x = 110px，算出 x 为 30px，所以元素 B 的宽度为 20px+2x，也就是 80px。
 
-##### flex-shrink
+**flex-shrink**
 
 指定了 flex 元素的收缩规则。
 
 这个仅在默认宽度之和大于容器的时候才会发生收缩，其收缩的大小是依据 flex-shrink 的值。
 
-##### flex
+**flex**
 
 此属性是以下 CSS 属性的简写：
 
@@ -397,7 +397,7 @@ p {
 
 #### 元素间的对其和空间分配
 
-##### justify-content
+**justify-content**
 
 使元素在主轴方向上对齐。
 
@@ -415,7 +415,7 @@ p {
 
 - `space-evenly`: 使每个元素的左右空间相等（包括头尾也是一致的）
 
-##### align-items
+**align-items**
 
 可以使元素在交叉轴方向对齐。
 
@@ -429,7 +429,7 @@ p {
 
 - `baseline`: 和 start 类似，但是会以文字的基线对齐（这意味着文字大小不同时，会和 start 有明显不同）
 
-##### align-content
+**align-content**
 
 适用于允许换行后，如何在交叉轴上分布内容。
 
@@ -447,7 +447,7 @@ p {
 
 - `space-evenly`
 
-##### [order](https://developer.mozilla.org/zh-CN/docs/Web/CSS/order)
+**order**
 
 规定了弹性容器中的可伸缩项目在布局时的顺序。
 

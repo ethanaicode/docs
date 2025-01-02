@@ -713,99 +713,6 @@ $cache = Cache::instance('Mysql');
 var_dump($cache);
 ```
 
-#### 构造函数及析构函数
-
-> \_\_instruct() 构造函数，类开始时自动执行函数
->
-> \_\_destruct() 析构函数，类结束时自动执行函数
-
-一个是生，一个是死。
-
-#### 魔术方法
-
-##### **get && **set
-
-> 当访问私有的或者受保护的属性时，`__set()` `__get()` 这两个魔术方法会被调用，用来设置或者获取私有属性而不报错。
-
-如果属性不存在，也是会调用和这个魔术方法。
-
-所以可以利用这一点，使用这个方法，来统一获取属性，并实现根据需要来处理不同的输出。
-
-例如：
-
-```PHP
-<?php
-
-abstract class Query
-{
-    abstract protected function record(array $data);
-    public function select()
-    {
-        $this->record(['name' => '设计笔记', 'age' => 22, 'tel' => 18930309999]);
-    }
-}
-
-class Model extends Query
-{
-    protected $field = [];
-    public function all()
-    {
-        $this->select();
-        return $this->field;
-    }
-    public function record(array $data)
-    {
-        $this->field = $data;
-    }
-    public function __tel()
-    {
-        // 自定义处理类
-        return substr($this->field['tel'], 0, 8) . '***';
-    }
-    public function __get($name)
-    {
-        if (method_exists($this, '__' . $name)) {
-            return call_user_func_array([$this, '__' . $name], []);
-            // 调用函数，没有参数也需要传空数组
-        }
-        if (isset($this->field[$name])) {
-            return $this->field[$name];
-        }
-        throw new Exception('无效的参数');
-    }
-    public function __set($name, $value)
-    {
-        if (isset($this->field[$name])) {
-            $this->field[$name] = $value;
-        } else {
-            throw new Exception('无效的参数');
-        }
-    }
-}
-try {
-    $user = new Model;
-    $user->all();
-    // 利用__set()修改结果值
-    $user->name = '小设同学';
-    // 利用__get()获取结果值
-    echo $user->name . '的联系方式是' . $user->tel;
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
-```
-
-##### **unset()和**isset()
-
-> 分别是各自方法被使用时，调用这个魔术方法。
-
-##### \_\_call()
-
-> 找不到方法时，调用这个方法
-
-https://www.bilibili.com/video/BV14x411o7SL?p=22&vd_source=e697d97c11963b497ea46a09033367c0
-
-##### \_\_callStatic()
-
 ## 魔术方法
 
 ### \_\_invoke()
@@ -901,9 +808,100 @@ $obj = new Strategy(function ($name) {
 echo $obj('设计笔记');
 ```
 
+### \_\_instruct() 和 \_\_destruct()
+
+_一个是生，一个是死。_
+
+- `__instruct()`: 构造函数，类开始时自动执行函数
+
+- `__destruct()`: 析构函数，类结束时自动执行函数
+
+### \_\_get 和 \_\_set
+
+> 当访问私有的或者受保护的属性时，`__set()` `__get()` 这两个魔术方法会被调用，用来设置或者获取私有属性而不报错。
+
+如果属性不存在，也是会调用和这个魔术方法。
+
+所以可以利用这一点，使用这个方法，来统一获取属性，并实现根据需要来处理不同的输出。
+
+例如：
+
+```PHP
+<?php
+
+abstract class Query
+{
+    abstract protected function record(array $data);
+    public function select()
+    {
+        $this->record(['name' => '设计笔记', 'age' => 22, 'tel' => 18930309999]);
+    }
+}
+
+class Model extends Query
+{
+    protected $field = [];
+    public function all()
+    {
+        $this->select();
+        return $this->field;
+    }
+    public function record(array $data)
+    {
+        $this->field = $data;
+    }
+    public function __tel()
+    {
+        // 自定义处理类
+        return substr($this->field['tel'], 0, 8) . '***';
+    }
+    public function __get($name)
+    {
+        if (method_exists($this, '__' . $name)) {
+            return call_user_func_array([$this, '__' . $name], []);
+            // 调用函数，没有参数也需要传空数组
+        }
+        if (isset($this->field[$name])) {
+            return $this->field[$name];
+        }
+        throw new Exception('无效的参数');
+    }
+    public function __set($name, $value)
+    {
+        if (isset($this->field[$name])) {
+            $this->field[$name] = $value;
+        } else {
+            throw new Exception('无效的参数');
+        }
+    }
+}
+try {
+    $user = new Model;
+    $user->all();
+    // 利用__set()修改结果值
+    $user->name = '小设同学';
+    // 利用__get()获取结果值
+    echo $user->name . '的联系方式是' . $user->tel;
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+```
+
+### 更多魔术方法
+
+- `__unset()` 当对一个不可访问的属性调用 `unset()` 时被调用。
+
+- `__isset()`: 当对一个不可访问的属性调用 `isset()` 或 `empty()` 时被调用。
+
+- `__call()`: 当调用一个不存在的方法时，会调用这个方法
+
+- `__callStatic()`: 当调用一个不存在的静态方法时，会调用这个方法
+
+- `__toString()`: 当一个对象被当作字符串使用时，会调用这个方法
+
 ## PHP-FPM
 
-### PHP-FPM 配置文件
+### 配置 PHP-FPM
 
 - `PHP-FPM` 配置文件位置（通常情况下）：`/etc/php/{version}/fpm/php-fpm.conf`，如果是自己编译安装的 PHP，那么配置文件位置可能会有所不同。
 
@@ -915,7 +913,7 @@ echo $obj('设计笔记');
 
 - 池配置开头的 `[www]` 里面的内容是池的名称，可以有多个池，每个池可以有不同的配置。
 
-### 优化 PHP-FPM 配置
+### 优化 PHP-FPM
 
 在调整性能中，我们一般关注以下几个参数:
 

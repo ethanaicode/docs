@@ -126,10 +126,6 @@ int main() {
 
 在 macOS 上，配置编译器路径和编译选项与 Windows 类似，只是路径可能不同。VSCode 文档提供了详细的 macOS 设置指南。
 
-**Xcode 集成开发环境**
-
-如果习惯使用 IDE，可以考虑使用 Xcode，它为 C++ 提供了完整的开发环境。
-
 #### 其他资源
 
 - [C++ 开发官方文档](https://code.visualstudio.com/docs/languages/cpp)

@@ -264,7 +264,7 @@ else:
 
 Python 有两种循环语句：while 循环和 for 循环
 
-##### while 循环
+**while 循环**
 
 ```python
 while 条件:
@@ -365,7 +365,7 @@ while i <= 9:
 
 无论是 break 语句还是 continue 语句，它们只能作用域一层循环体
 
-##### for 循环
+**for 循环**
 
 它的语法结构如下：
 

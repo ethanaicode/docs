@@ -8,9 +8,9 @@
 
 ## PHP 框架
 
-- [Laravel Framework](./php_laravel)
+- [Laravel](./php_laravel)
 
-- [TP Framework](./php_thinkphp)
+- [ThinkPHP](./php_thinkphp)
 
 - [Workerman](./php_workerman)
 
