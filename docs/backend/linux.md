@@ -2726,7 +2726,7 @@ To get information on Squid profile/app, run:
 
 - `kill -9 PID`: 关闭指定 PID 的进程（强制关闭）
 
-- `killall -9 nginx`: 关闭所有 nginx 进程
+- `killall -9 php-fpm`: 关闭所有 php-fpm 进程
 
   `-9` 表示强制关闭进程（不进行清理操作）
 
