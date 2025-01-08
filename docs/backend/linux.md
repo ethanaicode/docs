@@ -466,6 +466,20 @@
 
 - `sar`: 收集、报告系统活动情况，包括 CPU 使用率、内存使用率等。
 
+#### 查看内存使用情况
+
+- `free -h`: <u>显示系统内存的空闲和已用情况。</u>
+
+- `vmstat`: 显示虚拟内存统计信息，包括内存、进程、IO 等。
+
+#### 查看网络情况
+
+- `netstat`: <u>显示网络连接、路由表、接口统计等。</u>
+
+- `ss`: 类似于 `netstat`，用于获取套接字统计信息。
+
+- `nslookup`: 查询 DNS 服务器，获取域名对应的 IP 地址。
+
 #### 查看进程情况
 
 - `ps`: 显示当前系统中的进程列表。
@@ -481,20 +495,6 @@
 - `kill`: <u>终止指定进程。</u>
 
 - `killall`: 终止指定名称的所有进程。
-
-#### 查看内存使用情况
-
-- `free -h`: <u>显示系统内存的空闲和已用情况。</u>
-
-- `vmstat`: 显示虚拟内存统计信息，包括内存、进程、IO 等。
-
-#### 查看网络情况
-
-- `netstat`: <u>显示网络连接、路由表、接口统计等。</u>
-
-- `ss`: 类似于 `netstat`，用于获取套接字统计信息。
-
-- `nslookup`: 查询 DNS 服务器，获取域名对应的 IP 地址。
 
 ### 防火墙及端口
 
@@ -2662,15 +2662,15 @@ To get information on Squid profile/app, run:
 
 - `hostname`: 查看主机名
 
-- `hostname newname`: 修改主机名（临时）
+  `hostname newname` 修改主机名（临时）
 
-- `hostnamectl set-hostname newname`: 修改主机名
+  `hostnamectl set-hostname newname` 修改主机名
 
-- `hostnamectl set-hostname newname --static`: 修改静态主机名
+  `hostnamectl set-hostname newname --static` 修改静态主机名
 
-- `hostnamectl set-hostname newname --pretty`: 修改主机名的美观名称
+  `hostnamectl set-hostname newname --pretty` 修改主机名的美观名称
 
-- `hostnamectl set-hostname newname --transient`: 修改临时主机名
+  `hostnamectl set-hostname newname --transient` 修改临时主机名
 
 如果要查看系统信息，也可以安装一个`neofetch`工具，它可以显示系统信息。
 
@@ -2680,33 +2680,37 @@ To get information on Squid profile/app, run:
 
   显示有关 CPU 架构的信息，包括其类型、核心数、架构等。
 
+- `cat /proc/cpuinfo`: 查看 CPU 信息
+
+  `cat /proc/cpuinfo | grep 'processor' | wc -l` 可以查看 CPU 的核心数
+
+- `free -h`: 查看内存使用情况
+
+- `cat /proc/meminfo`: 查看内存信息
+
+  `cat /proc/meminfo | grep 'MemTotal'` 可以查看总内存大小
+
+- `lsblk`: 查看块设备信息(列出所有存储设备的大小)
+
+- `df -h --total`: 查看磁盘使用情况(关注已挂载分区的使用情况)
+
+- `fdisk -l`: 查看磁盘分区信息
+
 - `lshw`: 查看硬件信息
 
   显示有关系统硬件的详细信息，包括 CPU、内存、磁盘、网络适配器等。
 
-- `lsblk`: 查看块设备信息
-
 - `lspci`: 查看 PCI 设备信息
 
-- `uname -a`: 查看系统内核信息(包括内核版本和处理器类型)
-
-- `cat /proc/cpuinfo`: 查看 CPU 信息
-
-- `sudo dmidecode`: 查看硬件信息
-
-  用于从系统的 BIOS 中提取硬件信息。
+- `sudo dmidecode`: 查看硬件信息(用于从系统的 BIOS 中提取硬件信息。=)
 
   你可以使用具体的选项来查看特定的硬件信息:
 
-  - `sudo dmidecode -t processor`: 查看处理器信息
+  `sudo dmidecode -t processor` 查看处理器信息
 
-  - `sudo dmidecode -t memory`: 查看内存信息
+  `sudo dmidecode -t memory` 查看内存信息
 
-  - `sudo dmidecode -t bios`: 查看 BIOS 信息
-
-  你可以直接查看 /proc/cpuinfo 文件来获取。
-
-- `free -h`: 查看内存使用情况
+  `sudo dmidecode -t bios` 查看 BIOS 信息
 
 ## 进程管理
 
@@ -2880,6 +2884,8 @@ tcpdump -i lo0 -X 'tcp port 8080'
 
 ### 进程服务管理
 
+#### supervisor
+
 `supervisor` 是一个进程管理工具，可以用来管理系统中的各种进程。
 
 - `supervisord`: 启动 supervisor
@@ -2899,6 +2905,8 @@ tcpdump -i lo0 -X 'tcp port 8080'
 - `supervisorctl update`: 更新配置文件
 
 ### 工具集
+
+#### htpasswd
 
 `htpasswd` 是一个用于创建和管理存储用户名和加密密码文件的工具。
 
