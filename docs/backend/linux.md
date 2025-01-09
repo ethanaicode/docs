@@ -532,7 +532,7 @@
 
   `-r` 向归档文件中添加文件
 
-  `-t` 显示归档文件中的内容
+  `-t` 显示归档文件中的内容（通常使用 `-tf` 来查看）
 
 - `zcat`: 查看压缩文件内容（可以不解压直接查看，支持 gzip 压缩）
 
@@ -542,7 +542,11 @@
 
   `-v` 显示详细信息
 
-  `-r` 递归压缩
+  `-r` 递归处理指定目录及子目录
+
+  `-u` 更换较新的文件到压缩文件内
+
+  `-d` 删除 zip 文件中的文件
 
   `-m` 移动文件到 zip 文件中
 
@@ -550,17 +554,23 @@
 
   `-o` 覆盖已有文件
 
-  `-u` 更新已有文件
-
-  `-d` 删除 zip 文件中的文件
-
   `-l` 显示文件列表
 
   `-T` 测试 zip 文件
 
   `-x` 排除文件
 
+  `-j` 只压缩该目录下的所有文件，不带目录名
+
 - **unzip**: 解开压缩文件
+
+  `-d` 指定解压缩目录，目录不存在会创建
+
+  `-l` 显示压缩文件内容
+
+  `-t` 测试压缩文件
+
+  `-v` 显示详细信息
 
 ### 关机重启
 
@@ -1607,7 +1617,17 @@ tar -tvf archive.tar.gz
 
 要注意参数`-z`表示使用 gzip 压缩，如果是其它格式的压缩文件，可以使用`-j`（bzip2）或者`-J`（xz）。
 
-**macOS 上可以使用 zip 命令**
+**查看特定文件的内容（不解压）**
+
+如果要直接查看归档中的某个文件，可以使用 `tar` 和 `less`：
+
+```bash
+tar -xzOf archive.tar.gz path/to/file | less
+```
+
+#### 使用 zip 命令
+
+**创建 zip 文件**
 
 ```bash
 zip -r archive.zip /path/to/directory
@@ -1615,15 +1635,17 @@ zip -r archive.zip /path/to/directory
 
 - `-r` 递归压缩
 
-  如果是单文件，可以不用加`-r`参数。如: `zip archive.zip file1 file2 file3`
+如果是单文件，可以不用加`-r`参数。如: `zip archive.zip file1 file2 file3`
 
-- 解压缩可以用`unzip`命令
+**解压缩 zip 文件**
 
-  ```bash
-   unzip archive.zip -d /path/to/extract
-  ```
+解压缩可以用`unzip`命令
 
-  - `-d` 参数指定解压缩目录
+```bash
+unzip archive.zip -d /path/to/extract
+```
+
+解压缩前可以使用`unzip -l archive.zip`命令查看压缩包内容，以确定目录等情况，避免解压缩后混乱。
 
 ### 查找文件（find, locate）
 
@@ -2076,14 +2098,32 @@ _在 Centos 中，cron 服务的名称为 crond，可以使用 `systemctl status
 这个配置对 `/var/log/syslog` 日志文件进行如下操作:
 
 - `daily`: 每天轮换一次日志文件。
+
 - `missingok`: 如果日志文件不存在，不会报错继续执行。
+
 - `rotate 7`: 保留最近的 7 个日志文件，超出部分将被删除。
+
 - `compress`: 轮换后的日志文件进行压缩。
+
 - `delaycompress`: 延迟压缩到下次轮换时。
+
 - `notifempty`: 如果日志文件为空，不进行轮换。
+
 - `create 0640 root utmp`: 创建新日志文件，权限设置为 0640，所有者为 root，所属组为 utmp。
+
 - `sharedscripts`: 在日志文件轮换前后执行脚本。
+
 - `postrotate` 到 `endscript`: 在日志文件轮换后执行 `/usr/lib/rsyslog/rsyslog-rotate` 脚本。
+
+另外 logrotate 还有一些命令来**检查配置文件和手动执行轮换操作**，如：
+
+- `logrotate -d /etc/logrotate.d/nginx`: 手动测试 logrotate 配置
+
+  其中 `-d` (debug) 选项不会实际执行日志轮转，而是显示 logrotate 处理配置的调试信息。
+
+- `logrotate -f /etc/logrotate.d/nginx`: 手动执行 logrotate
+
+  `-f` (force) 选项会强制 logrotate 进行日志轮转，即使没有到达轮转的条件。
 
 ## 网络工具
 
@@ -2280,7 +2320,7 @@ time curl -I http://yourpage.com
 
 ### 查询域名解析的 IP 地址
 
-有多个命令都可以查询域名解析的 IP 地址:
+有多个命令都可以查询域名解析的 IP 地址：
 
 - `curl -v https://ipv4.icanhazip.com`: 查看网页详细信息，会包括服务的 ip 地址
 
@@ -2296,15 +2336,17 @@ time curl -I http://yourpage.com
 
 - `ping example.com`: 虽然主要功能是测试连通性，但它会解析并显示域名对应的 IP 地址
 
-如果系统中没有这些命令，可以选择安装:
+如果系统中没有这些命令，可以手动安装（比如最小化安装的系统）：
 
 - `yum install bind-utils`: CentOS，安装后就可以使用 `nslookup` 和 `dig` 命令
 
-- `yum install inetutils`: CentOS，安装后就可以使用 `host` 命令
+  `apt install dnsutils`: Ubuntu/Debian
+
+- `yum install inetutils`: CentOS/Ubuntu/Debian，安装后就可以使用 `host` 命令
 
 - `yum install iputils`: CentOS，安装后就可以使用 `ping` 命令
 
-Ubuntu/Debian 中一般是有的，这里就不详细罗列了。
+  `apt install iputils-ping`: Ubuntu/Debian
 
 ### 禁止 PING 命令
 
@@ -2875,12 +2917,6 @@ tcpdump -i lo0 -X 'tcp port 8080'
 - `tmux ls`: 列出所有会话
 
 - `tmux kill-session -t session_name`: 关闭一个会话
-
-### 系统监控
-
-#### htop
-
-`htop` 是一个交互式的系统监控工具，可以用来查看系统资源的使用情况。
 
 ### 进程服务管理
 
