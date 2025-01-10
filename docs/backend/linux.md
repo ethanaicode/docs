@@ -1695,9 +1695,7 @@ find . -type f | shuf -n 1
 
 - `shuf` 命令用于随机排序输入行，`-n 1` 用于显示一个随机行。
 
-### 远程复制文件到本地（scp）
-
-**可以使用`scp` (secure copy) 来实现。**
+### 远程复制文件（scp）
 
 `scp` 命令是一个用于在 Linux 系统之间复制文件和目录的命令行工具。它使用 SSH 协议来加密传输数据，因此非常安全。
 
@@ -1722,9 +1720,9 @@ scp -P 22 /path/to/local/file username@remote_host:/path/to/remote/destination
 
 - `-C` 压缩传输数据
 
-**也可以使用`rsync`命令来实现。**
+### 远程同步文件（rsync）
 
-`rsync`比`scp`更加强大，它可以在本地和远程系统之间同步文件和目录，支持增量传输，可以快速复制大量文件。
+`rsync`比`scp`更加强大，它可以在本地和远程系统之间同步文件和目录，支持增量传输（只传输更改的部分），可以快速复制大文件。
 
 ```bash
 # 本地文件复制到远程服务器
@@ -1735,9 +1733,23 @@ rsync -avz username@remote_host:/path/to/remote/file /path/to/local/destination
 
 - `avz` 分别代表着 `archive`、`verbose` 和 `compress` 选项，它们分别用于保留文件属性、显示详细信息和压缩传输数据。
 
+  简单使用的话，可以只使用`-av`参数。
+
 - `-e`参数，它允许你指定一个自定义的 SSH 端口，如果是默认的 22 端口，可以省略。
 
-默认情况下，`rsync`是没有进度条的，如果想要显示进度条，可以添加`--progress`参数，或者使用`--info=progress2`参数。
+- 如果想要显示进度条，可以添加 `--progress` 参数。
+
+- rsync 允许**断点续传**，如果传输中断，可以重新运行命令，rsync 会从中断的地方继续传输。
+
+  加上 `--partial`参数可以只传输文件的一部分，而不是整个文件，这对于大文件的传输非常有用。
+
+- `--delete` 参数可以删除目标目录中不存在的文件，这对于**目录镜像**非常有用。
+
+  如: `rsync -av --delete username@remote_host:/path/to/remote/ /path/to/local/`
+
+- `--exclude` 参数可以排除某些文件或目录，如: `--exclude='*.log'`
+
+  如果有多个需要排除的目录，可以使用 `--exclude-from` 参数，后面跟一个文件名，文件中每行一个排除项。
 
 ## 用户和权限
 

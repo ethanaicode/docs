@@ -22,21 +22,21 @@ title: PHP基础知识大全，开发者必备的核心技能
 
 ## PHP 配置
 
-在早期的 linux 系统中，通常会自带 PHP，它们的配置文件通常在以下位置：
+早期 linux 系统中，通常会自带 PHP，它们的配置文件通常在以下位置：
 
-- `/etc/php.ini`：全局配置文件
+- `/etc/php.ini`: 全局配置文件
 
-- `/etc/php.d`：扩展配置文件
+- `/etc/php.d`: 扩展配置文件
 
-- `/etc/php-fpm.d`：PHP-FPM 配置文件
+- `/etc/php-fpm.d`: PHP-FPM 配置文件
 
-  `/etc/php-fpm.d/www.conf`：PHP-FPM 网站配置文件
+  `/etc/php-fpm.d/www.conf`: PHP-FPM 网站配置文件
 
-- `/etc/php-cli.ini`：CLI 配置文件
+- `/etc/php-cli.ini`: CLI 配置文件
 
 如果是自己编译安装的 PHP，那么配置文件会在安装目录下的 `etc` 目录中。
 
-## 常见问题
+## 基础知识及问题
 
 ### PHP 单引号和双引号的区别与用法
 
@@ -60,611 +60,382 @@ php 里的单引号把内容当成纯文本，不会经过服务器翻译。
 
 ## PHP 常用方法
 
-### 数组相关
-
-#### [array_column()](https://www.php.net/manual/zh/function.array-column) 返回输入数组中指定列的值
-
-> array*column(\_array*,_column_key_,_index_key_);
-
-案例：
-
-```PHP
-    protected $grade_info=[
-        [   'key' => 1,
-            'name' => '临时粉',      ],
-        [   'key' => 2,
-            'name' => '普通会员',    ],
-    ];
-
-    $gradeLevel=array_column($this->grade_info,'name','key');
-```
-
-作用：返回输入数组中某个单一列的值
-
-可以用来对公用的数组进行调用。
-
-也可以把数组降低维度，比如三维的转成二维的，如案例中的那样。
-
-其中`index_key`是可选项，用作返回数组的索引/键的列。
-
-**column_key**也可以是 **`null`** ，此时将返回整个数组（配合 **`index_key`** 参数来重新索引数组时非常好用）。
-
-#### [array_key_exists()](https://www.php.net/manual/en/function.array-key-exists.php) 检查数组里是否有指定的键名或索引
-
-> array_key_exists(string|int `$key`, array `$array`): bool
-
-用来检查键名或者索引是否存在于某个数组中。
-
-```PHP
-$userInfo = DB::link()->table('user')->field('userId', 'userName')->get();
-$userInfo = array_column($userInfo, 'userName', 'userId');
-foreach ($result as $key => $value) {
-    if (array_key_exists($value['user_id'], $userInfo)) {
-        $result[$key]['user_name'] = $userInfo[$value['user_id']];
-    } else {
-        $result[$key]['user_name'] = 'invalid username';
-    }
-}
-```
-
-#### [array_unique()](https://www.php.net/manual/zh/function.array-unique.php) 移除数组中重复的值
-
-注意键名保留不变（意味着可以保留以前的键名，为之后的操作留下方便）。
-
-如果在指定了 `flags` 时存在多个相等的元素， 会保留第一个相等的元素的键（key）和值（value）。
-
-> array_unique(array `$array`, int `$flags` = **`SORT_STRING`**): array
-
-**`array`**
-
-输入的数组。
-
-**`flags`**
-
-第二个可选参数`flags` 可用于修改比较行为：
-
-比较类型标记：
-
-- `SORT_REGULAR` - 按照通常方法比较（不修改类型）
-- `SORT_NUMERIC` - 按照数字形式比较
-- `SORT_STRING` - 按照字符串形式比较
-- `SORT_LOCALE_STRING` - 根据当前的本地化设置，按照字符串比较。
-
-#### [array_filter()](https://www.php.net/manual/zh/function.array-filter.php) 过滤数组的元素
-
-> array_filter(array `$array`, ?[callable](https://www.php.net/manual/zh/language.types.callable.php) `$callback` = **`null`**, int `$mode` = 0): array
-
-可以用来过滤掉 null 或者 empty 值
-
-#### [array_map()](https://www.php.net/manual/zh/function.array-map.php) 为数组的每个元素应用回调函数
-
-> array_map(?[callable](https://www.php.net/manual/zh/language.types.callable.php) `$callback`, array `$array`, array `...$arrays`): array
-
-```PHP
-// get all project_leader_ids，
-$projectLeaderIds = array_map(function ($item) {
-    return explode(',', $item);
-}, $projectLeaderIds);
-```
-
-#### [array_intersect_key()](https://www.php.net/manual/zh/function.array-intersect-key.php) 使用键名比较计算数组的交集
-
-就是比较键名，如果一样就放入新的数组中，和顺序无关（就不用再使用 foreach 来实现了）。
-
-三个方法可以一起使用，来实现根据数组中的某一个 id(本例为 rentaiunitId)去重的效果，例如：
-
-```PHP
-// Extracting the rentaiunitId column as a separate array
-$rentaiunitIds = array_column($result['data'], 'rentaiunitId');
-
-// Removing duplicate rentaiunitIds and preserving the original keys
-$uniqueRentaiunitIds = array_unique($rentaiunitIds, SORT_REGULAR);
-
-// Creating a new array with unique entries based on rentaiunitId
-$uniqueData = array_intersect_key($result['data'], $uniqueRentaiunitIds);
-```
-
-#### implode() / explode()
-
-> implode(_separator,array_)
-
-*separator*可选，规定数组元素之间放置的内容。默认是 ""（空字符串）。
-
-作用：把数组元素组合为一个字符串(或者把数组打散成字符串)
-
-知识点链接：[PHP implode()函数](https://www.runoob.com/php/func-string-implode.html)
-
-#### in_array($value, $params)
-
-- 可以判断值是否在数组中
-
-#### array_keys() 返回键名
-
-#### array_slice()、array_splice()
-
-> array*slice(\_array,start,length,preserve*)
->
-> array*splice(\_array1,start,length,array2*)
-
-作用：array_slice() 函数返回数组中的选定部分
-
-- array_splice() 函数从数组中移除选定的元素，并用新元素取代它
-
-利用这个可以取出或者移除自己想要的元素，头两个参数都是必需的，这两个默认都会重置数组索引。
-
-这两个和 unset()很类似。
-
-如果 array_slice()中，参数 preserve 为 false，则不会重置索引
-
-知识点链接：[PHP array_slide()函数](https://www.runoob.com/php/func-array-slice.html)
-
-#### [array_chunk()](https://php.net/manual/en/function.array-chunk.php) 分割数组
-
-> array_chunk(array `$array`, int `$length`, bool `$preserve_keys` = `false`): array
-
-- 将一个数组分割成多个
-
-例如下面这个，就可以将长字符串分割，并选取指定行的内容，其余内容再放到下一页。
-
-```PHP
-$tempContent = explode("\n", $content);
-$tempContent = array_chunk($tempContent, $maxContentLinesCount);
-$content = implode("\n", $tempContent[0]);
-```
-
-#### array_push() 追加元素
-
-> array*push(\_array,value1,value2...*)
-
-- 向数组尾部插入一个或多个元素
-
-即使您的数组有字符串键名，您所添加的元素将是数字键名
-
-#### [array_merge() ](https://php.net/manual/en/function.array-merge.php) 合并一个或多个数组
-
-> array_merge(array `...$arrays`): array
-
-可以实现一维数组后面继续追加另一个一维数组
-
-#### [array_multisort()](https://www.php.net/manual/zh/function.array-multisort.php) 对多个数组或多维数组进行排序
-
-> array_multisort( array `&$array1`, [mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed) `$array1_sort_order` = SORT_ASC, [mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed) `$array1_sort_flags` = SORT_REGULAR, [mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed) `...$rest` ): bool
-
-#### [ksort()](https://www.php.net/manual/zh/array.sorting.php) 等多个对数组排序的方法
-
-> ksort(array `&$array`, int `$flags` = **`SORT_REGULAR`**): true
-
-- 对数组根据键名升序排序
-
-还有多个排序方法，可以根据键或者值来排序，具体可以点击标题查看官方完整文档
-
-#### [array_diff()](https://www.php.net/manual/zh/function.array-diff.php) 计算数组的差集
-
-> array_diff(array `$array`, array `...$arrays`): array
-
-- 仅仅保留不在后面数组的值
-
 ### 字符串相关
 
-#### substr() - 分割字符串
+- `strlen(string)`: 返回字符串长度
 
-> substr(_string,start,length_)
->
-> start：必需，规定在字符串的何处开始
->
-> - 正数 - 在字符串的指定位置开始
-> - 负数 - 在从字符串结尾的指定位置开始
+- `strpos(string, find, offset?)`: 查找字符串首次出现的位置
 
-作用：substr() 函数返回字符串的一部分
+- `strrpos(string, find, offset?)`: 查找字符串最后一次出现的位置
 
-#### sublen() - 统计字符串长度
+- `str_replace(find, replace, string, count?)`: 替换字符串中的一些字符
 
-#### trim() - 移除空格
+- `substr(string, start, length?)`: 返回字符串的一部分
 
-> trim(_string,\*\*charlist_)
+- `trim(string, charlist?)`: 移除字符串两侧的空白字符或其他预定义字符
 
-案例：
+- `rtrim(string, charlist?)`: 移除字符串末端的空白字符或其他预定义字符
 
-```PHP
-$name = trim($name);  //去除名字两边的空格
-```
+- `ltrim(string, charlist?)`: 移除字符串开头的空白字符或其他预定义字符
 
-作用：移除字符串两侧的空白字符或其他预定义字符
+- `strtolower(string)`: 把字符串转换为小写
 
-如果第二个参数不给的，默认移除所有空格、换行等。
+- `strtoupper(string)`: 把字符串转换为大写
 
-知识点链接：[PHP trim() 函数](https://www.runoob.com/php/func-string-trim.html)
+- `ucfirst(string)`: 把字符串的首字母转换为大写
 
-#### rtrim() - 移除末尾空格（可以是预定义的字符）
+- `ucwords(string)`: 把字符串中每个单词的首字母转换为大写
 
-案例：
+- `strrev(string)`: 反转字符串
 
-```PHP
-// 拼接字符串，最后删除最后一个多余的符号
+- `str_repeat(string, multiplier)`: 重复一个字符串
 
-$customerIdString .= $value['customer_id'] . ',';
-$customerIdString = rtrim($customerIdString, ',');
-```
+- `str_shuffle(string)`: 随机打乱字符串
 
-#### str_pad 填充字符串长度
+- `str_split(string, length?)`: 把字符串分割到数组中
 
-使用另一个字符串填充字符串为指定长度
+- `str_word_count(string, format?, charlist?)`: 计算字符串中的单词数
 
-> str_pad( string `$string`, int `$length`, string `$pad_string` = " ", int `$pad_type` = `STR_PAD_RIGHT` ): string
+- `str_pad(string, length, pad_string, pad_type?)`: <u>使用另一个字符串填充字符串为指定长度</u>（格式化字符串版式非常有用）
 
-比如用字符串制表的时候这个就非常有用了，例如：
+  ![img](https://pic.shejibiji.com/i/2024/04/16/661e1ef9b63b3.png)
 
-```PHP
-public function handleFormat()
-{
-    // fake data
-    $data = [
-        [
-            'name' => 'Sondertarif',
-            'unit' => '1.0',
-            'price' => '165.00',
-            'total' => '165.00',
-        ],
-        [
-            'name' => 'Wochen-Pauschale ',
-            'unit' => '1.0',
-            'price' => '0.00',
-            'total' => '0.00',
-        ],
-        [
-            'name' => 'Zusatz-Tag-Preis',
-            'unit' => '1.0',
-            'price' => '70.00',
-            'total' => '70.00',
-        ],
+- `highlight_string(string, return?)`: 语法高亮
 
-    ];
-    $length = 12;
-    foreach ($data as $key => $value) {
-        $data[$key]['name'] = str_pad($value['name'], $length + 6, ' ', STR_PAD_RIGHT);
-        $data[$key]['unit'] = str_pad($value['unit'], $length, ' ', STR_PAD_LEFT);
-        $data[$key]['price'] = str_pad($value['price'], $length, ' ', STR_PAD_LEFT);
-        $data[$key]['total'] = str_pad($value['total'], $length, ' ', STR_PAD_LEFT);
-    }
+- `htmlentities(string, flags?, character-set?, double_encode?)`: 把字符转换为 HTML 实体
 
-    // transform array to string
-    $content = '';
-    foreach ($data as $key => $value) {
-        $content .= $value['name'] . $value['unit'] . $value['price'] . $value['total'] . "\n";
-    }
-    $content = substr($content, 0, -1);
-    return $content;
-}
+  展示代码时，可以用这个方法避免被 html 输出
 
-// Please see the picture below for the output
-```
+- `htmlspecialchars(string, flags?, character-set?, double_encode?)`: 把一些预定义的字符转换为 HTML 实体
 
-![img](https://pic.shejibiji.com/i/2024/04/16/661e1ef9b63b3.png)
+  `echo htmlspecialchars("&para");` 输出 `&para` 而不是符号 `¶`
 
-#### highlight_string(string) - 语法高亮
+- `html_entity_decode(string, flags?, character-set?)`: 把 HTML 实体转换为字符
 
-> highlight*string(\_string,return*)
+  比如把 `&lt` 会被转换为 `<`，可以实现输出 html 标签
 
-作用：对字符串进行 PHP 语法高亮显示
+- `parse_str(string, array?)`: 把查询字符串解析到变量中
 
-highlight_string() 函数对字符串进行 PHP 语法高亮显示。字符串通过使用 HTML 标签进行高亮。
+- `strtr(string, from, to)`: 转换字符串中特定字符
 
-用于高亮的颜色可通过 php.ini 文件进行设置或者通过调用 ini_set() 函数进行设置。
+- `preg_match(pattern, subject, matches, flags?, offset?)`: 正则匹配，返回匹配次数
 
-#### htmlentities(string) - 字符串转 HTML
+- `preg_replace(pattern, replacement, subject, limit?, count?)`: 正则替换
 
-> htmlentities(_string,flags,character-set,double_encode_)
+- `preg_split(pattern, subject, limit?, flags?)`: 通过一个正则表达式分隔字符串
 
-案例：
+- `preg_grep(pattern, input, flags?)`: 返回匹配模式的数组条目
 
-```PHP
-$str = "<p>操作文档尚未完成编辑</p>";
-echo htmlentities($str);
->>> <p>操作文档尚未完成编辑</p> //正常输出，并未转成html
-```
+- `preg_quote(string, delimiter?)`: 转义正则表达式字符
 
-作用：把字符转换为 HTML 实体
+- `iconv(from_encoding, to_encoding, string)`: 字符串转码
 
-展示代码时，这个就比较好用，避免被 html 给输出了
+  `iconv('UTF-8', 'windows-1252', $need_convert)` 可以解决部分文字出现奇怪符号
 
-#### preg_match() - 正则匹配
+### 数组相关
 
-> preg_match ( string `$pattern`, string `$subject`, array &$matches, int `$flags`= 0, int`$offset` = 0 ): int
+- `implode(separator, array)`: 把数组元素组合为一个字符串
 
-- preg_match 函数用于执行一个正则表达式匹配。
+- `explode(separator, string, limit?)`: 把字符串打散为数组
 
-#### preg_replace() - 正则替换
+- `array_values(array)`: 返回数组中所有的值（返回一个重新索引的数组）
 
-> preg_replace(string|array `$pattern`, string|array `$replacement`, string|array `$subject`, int `$limit` = -1, int &$count = null): string|array|null
+  可以用来将关联数组转换为索引数组，或者快速重新索引数组（如果删除了某些元素，可以用这个方法重新索引）
 
-执行一个正则表达式的搜索和替换
+- `array_keys(array)`: 返回数组中所有的键名
 
-```PHP
-// 替换字符串中的空格
-$str = preg_replace('/\s+/', '', $str);
-```
+- `array_column(array, column_key?, index_key?)`: 返回输入数组中指定的一列
 
-作用：使用正则表达式进行字符串替换
+  可以用来降低数组维度，比如三维的转成二维的，如：`array_column($array,'name','id')`
 
-#### iconv() - 字符串转码
+- `array_unique(array, sort_flags?)`: 移除数组中重复的值
 
-> iconv(string `$from_encoding`, string `$to_encoding`, string `$string`): string|false
+- `array_filter(array, callback?)`: <u>用回调函数过滤数组中的元素</u>
 
-例如：
+  只传 `array` 参数的话，会删除数组中的空值，如果传入 `callback` 参数，可以自定义过滤规则
 
-```PHP
-// 解决部分文字出现奇怪符号
-$grandNameTextMore = iconv('UTF-8', 'windows-1252', $grandNameTextMore);
-```
+- `array_map(callback, array, ...arrays?)`: 为数组的每个元素应用回调函数
 
-#### htmlspecialchars() - 转义特殊字符
+  用于对数组中的每个元素应用回调函数，返回一个新数组，支持多个数组
 
-> htmlspecialchars(_string,flags,character-set,double_encode_)
+- `in_array(needle, haystack, strict?)`: 检查数组中是否存在某个值
 
-作用：把一些预定义的字符转换为 HTML 实体（也可以通过这个方法避免被 html 输出）
+- `array_key_exists(key, array)`: 检查数组里是否有指定的键名或索引
 
-```php
-$str = "&para";
-echo htmlspecialchars($str);
-// 输出 &para 而不是符号 ¶
-```
+- `array_flip(array)`: 交换数组中的键和值
 
-#### html_entity_decode() - 转换 HTML 实体
+- `array_reverse(array)`: 返回一个单元顺序相反的数组
 
-> html*entity_decode(\_string,flags,character-set*)
+- `array_push(array, value1, value2...)`: 向数组尾部插入一个或多个元素
 
-作用：把 HTML 实体转换为字符，比如把 &lt; 转换为 <，可以实现输出 html 标签
+- `array_pop(array)`: 删除数组中的最后一个元素
+
+- `array_shift(array)`: 删除数组中的第一个元素，并返回被删除元素的值
+
+- `array_unshift(array, value1, value2...)`: 向数组的开头插入一个或多个元素
+
+- `unset(array[key])`: 删除数组中的某个元素（不会重置数组索引）
+
+- `array_slice(array, offset, length?, preserve_keys?)`: 从数组中取出一段
+
+- `array_splice(array, offset, length?, replacement?)`: 把数组中的一部分去掉并用其他值取代
+
+  重置数组索引，如果不想重置索引，可以使用 `array_slice()`
+
+- `array_rand(array, num?)`: 从数组中随机取出一个或多个元素
+
+- `array_merge(array1, array2)`: 合并一个或多个数组
+
+- `array_merge_recursive(array1, array2)`: 递归合并一个或多个数组
+
+- `array_combine(keys, values)`: 创建一个数组，用一个数组的值作为其键名，另一个数组的值作为其值
+
+- `array_diff(array1, array2)`: 计算数组的差集
+
+- `array_intersect(array1, array2)`: 计算数组的交集
+
+- `array_intersect_key(array1, array2)`: 使用键名比较计算数组的交集（array1 中的键名存在于 array2 中，保留 array1 中的键值对）
+
+- `array_search(needle, haystack)`: 在数组中搜索给定的值，如果成功则返回首个相应的键名
+
+- `array_walk(array, callback, data?)`: 对数组中的每个元素应用用户自定义函数
+
+- `array_walk_recursive(array, callback, data?)`: 对数组中的每个元素应用用户自定义函数，如果元素是数组，递归处理
+
+- `array_replace(array1, array2)`: 使用后面数组的值替换第一个数组的值
+
+- `array_chunk(array, size, preserve_keys?)`: <u>把一个数组分割为新的数组块</u>，适合分页
+
+- `count(array, mode?)`: 计算数组中的单元数目或对象中的属性个数
+
+- `array_count_values(array)`: 统计数组中所有的值出现的次数
+
+- `ksort(array, sort_flags?)`: 根据键名对数组进行排序
+
+- `array_multisort(array1, array1_sort_order?, array1_sort_flags?, ...rest)`: 对多个数组或多维数组进行排序
+
+### 数据处理
+
+- `serialize(value)`: 生成一个可存储的值的表示
+
+- `unserialize(str)`: 从已存储的表示中创建 PHP 的值
+
+- `json_encode(value, options?, depth?)`: 对变量进行 JSON 编码
+
+- `json_decode(json, assoc?, depth?, options?)`: 对 JSON 格式的字符串进行解码
+
+  如果 `assoc` 为 `true`，返回的是数组，否则返回的是对象
+
+- `base64_encode(string)`: 对字符串进行 base64 编码
+
+- `base64_decode(string)`: 对 base64 编码的字符串进行解码
 
 ### URL 相关
 
-**parse_url()**
+- `parse_url(url, component?)`: 解析 URL，并返回其组成部分
 
-> 解析 URL，并返回 url 的组成部分
->
-> parse_url(string `$url`, int `$component` = -1): int|string|array|null|false
+  Component 参数：
 
-```PHP
-$uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
-```
+  - `PHP_URL_SCHEME`: 协议
 
-作用：获取上传文件的后缀，或者请求 URL 的部分地址
+  - `PHP_URL_HOST`: 主机
 
-知识点链接：[parse_url](https://www.php.net/manual/en/function.parse-url)
+  - `PHP_URL_PORT`: 端口
 
-**http_build_query**
+  - `PHP_URL_USER`: 用户名
 
-> http*build_query(\_query_data*)
->
-> query_data：必需，规定要转换的数组
+  - `PHP_URL_PASS`: 密码
 
-作用：生成 URL-encode 之后的请求字符串
+  - `PHP_URL_PATH`: <u>路径</u>
 
-**urlencode**
+  - `PHP_URL_QUERY`: 查询字符串
 
-> urlencode(_string_)
+  - `PHP_URL_FRAGMENT`: 锚点
 
-作用：对 URL 字符串进行编码
+  比如 `rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/')` 可以获取当前页面的路径
+
+- `http_build_query(array)`: 生成 URL-encode 之后的请求字符串，`array` 为要转换的数组，通常是键值对
+
+- `urlencode(string)`: 对 URL 字符串进行编码
+
+- `urldecode(string)`: 对 URL 字符串进行解码
+
+- `rawurlencode(string)`: 对 URL 字符串进行编码
+
+- `rawurldecode(string)`: 对 URL 字符串进行解码
 
 ### 数字相关
 
-#### [round](https://www.php.net/manual/zh/function.round.php) 四舍五入取整
+- `abs(number)`: 返回一个数的绝对值
 
-> round(int|float `$num`, int `$precision` = 0, int `$mode` = `PHP_ROUND_HALF_UP`): float
+- `rand(min, max)`: 生成一个随机数
 
-#### [ceil](https://www.php.net/manual/zh/function.ceil.php) 进一法取整
+- `max(value1, value2...)`: 返回最大值
 
-> ceil(int|float `$num`): float
+- `min(value1, value2...)`: 返回最小值
 
-- 向上取整，比如 1.4，则返回 2。返回值为浮点数。
+- `round(number, precision?)`: 对浮点数进行四舍五入
 
-另外还有 **floor** 向下取整；
+- `ceil(number)`: 向上舍入为最接近的整数
 
-**intval** 对变数转成整数。
+- `floor(number)`: 向下舍入为最接近的整数
 
-#### **number_format()**
+- `intval(value, base?)`: 获取变量的整数值
 
-案例：
+- `number_format(number, decimals?, dec_point?, thousands_sep?)`: 以千位分隔符方式格式化一个数字
 
-```PHP
-$num = 195863.3333;
-$num_format = number_format($num,2);
->>>195,863.33
-```
+- `is_numeric(value)`: 检测变量是否为数字或数字字符串
 
-作用：数字格式化
+- `is_int(value)`: 检测变量是否为整数
 
-推荐就传入两个参数，第二个是要保留的小数点位置，如果不传，则默认取整数。
+- `is_float(value)`: 检测变量是否为浮点数
 
-#### [uniqid()](https://www.php.net/manual/zh/function.uniqid.php) 生成一个唯一 ID
+- `is_nan(value)`: 检测变量是否为合法数值
 
-> uniqid(string `$prefix` = "", bool `$more_entropy` = **`false`**): string
+- `is_infinite(value)`: 检测变量是否为无穷大
 
-获取一个带前缀、基于当前时间微秒数的唯一 ID。
+- `uniqid(prefix?, more_entropy?)`: 生成一个唯一 ID
 
-**参数\*\***[ ](https://www.php.net/manual/zh/function.uniqid.php#refsect1-function.uniqid-parameters)\*\*
+- `mt_rand(min, max)`: 生成更好的随机数
 
-**`prefix`**
+- `hexdec(hex_string)`: 十六进制转十进制
 
-有用的参数。例如：如果在多台主机上可能在同一微秒生成唯一 ID。
+- `dechex(number)`: 十进制转十六进制
 
-`prefix`为空，则返回的字符串长度为 13。`more_entropy` 为 `true`，则返回的字符串长度为 23。
+- `bindec(binary_string)`: 二进制转十进制
 
-**`more_entropy`**
-
-如果设置为 `true`，uniqid() 会在返回的字符串结尾增加额外的熵（使用线性同余组合发生器）。 使得唯一 ID 更具唯一性。
+- `decbin(number)`: 十进制转二进制
 
 ### 时间相关
 
-#### **data()、strtotime()**
+- `time()`: 返回当前 Unix 时间戳
 
-案例：
+- `date(format, timestamp?)`: 格式化一个本地时间/日期
 
-```PHP
-//时间截断
-//$v->create_time 为 2022-10-26 17:47:42
-//处理后为 2022-10-26
-date( 'Y-m-d ',strtotime($v->create_time));
+- `strtotime(time, now?)`: 将任何英文文本的日期时间描述解析为 Unix 时间戳
 
-//截止日期的玩法
-//$num为你想延后的时间，单位可以为hour、day、month、year
-$new_time = date('Y-m-d H:i:s',strtotime("+$num hour",strtotime($old_time)));
-```
+  可以结合 `date()` 方法使用，如：`date('Y-m-d ',strtotime('+1 day'))`
 
-作用：时间截断、截止日期
+- `microtime(get_as_float?)`: 返回当前 Unix 时间戳和微秒数
 
-#### 插件：Carbon
+- `getdate(timestamp?)`: 取得日期/时间信息
 
-知识点链接：[Carbon](https://github.com/briannesbitt/Carbon)
+### 函数方法
 
-### 方法相关
+- `function_exists(function_name)`: 检查函数是否已定义
 
-#### **call_user_func**
+- `call_user_func(callback, parameter?, parameter?)`: 调用回调函数
 
-> 把第一个参数作为回调函数调用
->
-> call_user_func([callable](https://www.php.net/manual/zh/language.types.callable.php) `$callback`, [mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed) `...$args`): [mixed](https://www.php.net/manual/zh/language.types.declarations.php#language.types.declarations.mixed)
+- `call_user_func_array(callback, parameters)`: 调用回调函数，并把一个数组参数作为回调函数的参数
 
-#### func_get_args()
+- `func_get_args()`: 返回一个包含函数参数列表的数组
 
-获取调用方法时的参数。
+- `sleep(seconds)`: 延迟执行
 
-### 图像生成及处理
-
-#### GD 库
-
-- [getimagesize()](https://www.php.net/manual/zh/function.getimagesize.php)
-
-  获取图像的大小，类型等信息（可以利用此方法获取真实的图片类型）
-
-- [imagecreatetrucolor()](https://www.php.net/manual/zh/function.imagecreatetruecolor.php)
-
-  新建一个真彩色图像
-
-- [imagecreatefrompng()](https://www.php.net/manual/zh/function.imagecreatefrompng.php)
-
-  从文件或 URL 创建一个新图像
-
-- [imagecreatefromjpeg()](https://www.php.net/manual/zh/function.imagecreatefromjpeg.php)
-
-  从文件或 URL 创建一个新图像
-
-- [imagecopyresampled()](https://www.php.net/manual/zh/function.imagecopyresampled.php)
-
-  重采样拷贝部分图像并调整大小（常用于缩略图，或者合并图片）
-
-- [imagecolorallocate()](https://www.php.net/manual/zh/function.imagecolorallocate.php)
-
-  为一幅图像分配颜色（返回的是颜色索引，可以在后续操作中用于填充颜色）
-
-- [imagefill()](https://www.php.net/manual/zh/function.imagefill.php)
-
-  用给定的颜色填充图像
-
-- [imagecopy()](https://www.php.net/manual/zh/function.imagecopy.php)
-
-  拷贝图像的一部分
-
-- [imagepng()](https://www.php.net/manual/zh/function.imagepng.php)
-
-  以 PNG 格式将图像输出到浏览器或文件
+- `usleep(micro_seconds)`: 以指定的微秒数延迟执行
 
 ### 文件相关
 
-#### [scandir() - 列出文件和目录](https://www.php.net/manual/zh/function.scandir.php)
+- `file_exists(filename)`: 检查文件或目录是否存在
 
-> scandir(_directory,sorting_order,context_);
+- `is_file(filename)`: 判断给定文件名是否为一个正常的文件
 
-#### [fopen() - 打开文件](https://www.php.net/manual/zh/function.fopen.php)
+- `is_dir(filename)`: 判断给定文件名是否为一个目录
 
-#### fputcsv() - 将行格式化为 CSV 并写入一个打开的文件中
+- `file_get_contents(filename, use_include_path?, context?, offset?, maxlen?)`: 把整个文件读入一个字符串
 
-> fputcsv(file,fields,seperator,enclosure)
+- `file_put_contents(filename, data, flags?, context?)`: 把一个字符串写入文件
 
-#### [file_get_contents() - 把整个文件读入一个字符串](https://www.php.net/manual/zh/function.file-get-contents.php)
+- `fopen(filename, mode, include_path?, context?)`: 打开文件或者 URL
 
-> file*get_contents(\_filename,use_include_path,context,offset,maxlen*)
+- `fclose(handle)`: 关闭一个打开的文件指针
 
-作用：读取文件内容
+- `fread(handle, length)`: 读取文件（可安全用于二进制文件）
 
-#### [file_put_contents() - 把一个字符串写入文件](https://www.php.net/manual/zh/function.file-put-contents.php)
+- `fwrite(handle, string, length?)`: 写入文件（可安全用于二进制文件）
 
-> int file_put_contents ( string $filename , mixed $data [, int $flags = 0 [, resource $context ]] )
+- `fgets(handle, length?)`: 从文件指针中读取一行
 
-#### fgetcsv() - 解析一行 CSV 文件
+- `fgetcsv(handle, length?, delimiter?, enclosure?)`: 从文件指针中读入一行并解析 CSV 字段
 
-> fgetcsv(file,length,separator,enclosure)
+- `fputcsv(handle, fields, delimiter?, enclosure?)`: 将行格式化为 CSV 并写入一个打开的文件中
 
-例如：
+- `fseek(handle, offset, whence?)`: 在文件指针中定位
 
-```PHP
-<?php
-$file = fopen("contacts.csv","r");
+- `ftell(handle)`: 返回文件指针读/写的位置
 
-while(! feof($file))
-{
-print_r(fgetcsv($file));
-}
+- `rewind(handle)`: 倒回文件指针的位置
 
-fclose($file);
-?>
-```
+- `feof(handle)`: 测试文件指针是否到了文件结束的位置
 
-#### fclose() - 关闭文件
+- `scandir(directory, sorting_order?, context?)`: 列出指定路径中的文件和目录
 
-### 其它拓展
+- `mkdir(dirname, mode?, recursive?, context?)`: 创建目录
 
-#### **json_encode()**
+- `rmdir(dirname, context?)`: 删除目录
 
-> string json_encode ( $value [, $options = 0 ] )
+- `unlink(filename, context?)`: 删除文件
 
-#### **json_decode()**
+- `copy(source, dest, context?)`: 拷贝文件
 
-> mixed json_decode ($json_string [,$assoc = false [, $depth = 512 [, $options = 0 ]]])
+- `rename(oldname, newname, context?)`: 重命名一个文件或目录
 
-对 JSON 格式的字符串进行编码/解码
+- `filemtime(filename)`: 取得文件修改时间
 
-案例：
+### 图像处理
 
-```PHP
-$img=[
-    0=>[
-        'data_file'=>'[id=>238]',
-        'height'=>'698',
-        'type'=>'png',
-        'url'=>'https://fuleituo.oss-cn-shanghai.aliyuncs.com/images/2022-05-21/9fd7dfb43ae3fbba086471ddba294198.png',
-        'width'=>'1227',
-        ],
-];
+#### GD 库
 
-//编解码不仅仅是名称的区别，需要的参数也不相同，切勿搞错！！
-$data['img'] = json_encode($img,JSON_UNESCAPED_UNICODE); //编码
-$img = json_decode($data['img'],true); //解码（加true为数组，否则为对象）
-```
+- `getimagesize(filename)`: 获取图像的大小，类型等信息（可以利用此方法获取真实的图片类型）
 
-作用：数组转成 json 格式，方便数据库储存
+- `imagecreate(width, height)`: 创建一个新图像
 
-知识点链接：[PHP JSON](https://www.runoob.com/php/php-json.html)
+- `imagecreatetruecolor(width, height)`: 创建一个真彩色图像
 
-#### [serialize - 生成值的可存储表示](https://www.php.net/manual/zh/function.serialize.php)
+- `imagecreatefromstring(data)`: 从字符串中的图像流新建一图像
 
-> serialize(mixed $value): string
+- `imagecreatefromjpeg(filename)`: 由文件或 URL 创建一个 jpeg 图像
 
-这有利于存储或传递 PHP 的值，同时不丢失其类型和结构。
+- `imagecreatefrompng(filename)`: 由文件或 URL 创建一个 png 图像
 
-想要将已序列化的字符串变回 PHP 的值，可使用 [unserialize()](https://www.php.net/manual/zh/function.unserialize.php)。
+- `imagecreatefromgif(filename)`: 由文件或 URL 创建一个 gif 图像
 
-_通俗理解就是把数据及结构转成字符串存到数据库，要用的时候再转回去。_
+- `imagecreatefromwbmp(filename)`: 由文件或 URL 创建一个 wbmp 图像
 
-#### unset()
+- `imagecreatefromgd(filename)`: 由文件或 URL 创建一个 GD 图像
 
-> void unset ( mixed $var [, mixed $... ] )
+- `imagecreatefromgd2(filename)`: 由文件或 URL 创建一个 GD2 图像
 
-销毁给定的变量。
+- `imagecreatefromgd2part(filename, srcX, srcY, width, height)`: 由文件或 URL 创建一个 GD2 图像
 
-#### sleep 延缓执行
+- `imagecopyresampled(dst_image, src_image, dst_x, dst_y, src_x, src_y, dst_w, dst_h, src_w, src_h)`: 重采样拷贝部分图像并调整大小
 
-> sleep(int $seconds): int
+  常用于缩略图，或者合并图片
 
-程序延迟执行指定的 `seconds` 的秒数。
+- `imagecopyresized(dst_image, src_image, dst_x, dst_y, src_x, src_y, dst_w, dst_h, src_w, src_h)`: 拷贝部分图像并调整大小
 
-_只能传整数，如果要用微秒请用 usleep_
+- `imagecopymerge(dst_image, src_image, dst_x, dst_y, src_x, src_y, src_w, src_h, pct)`: 拷贝并合并图像的一部分
+
+- `imagecopymergegray(dst_image, src_image, dst_x, dst_y, src_x, src_y, src_w, src_h, pct)`: 拷贝并合并图像的一部分并灰度
+
+- `imagecopyresampled(dst_image, src_image, dst_x, dst_y, src_x, src_y, dst_w, dst_h, src_w, src_h)`: 重采样拷贝部分图像并调整大小
+
+- `imagecopyresized(dst_image, src_image, dst_x, dst_y, src_x, src_y, dst_w, dst_h, src_w, src_h)`: 拷贝部分图像并调整大小
+
+- `imagecopymerge(dst_image, src_image, dst_x, dst_y, src_x, src_y, src_w, src_h, pct)`: 拷贝并合并图像的一部分
+
+### 其它
+
+- `header(string, replace?, http_response_code?)`: 发送原生 HTTP 头
+
+- `setcookie(name, value?, expire?, path?, domain?, secure?, httponly?)`: 发送 cookie
+
+- `session_start()`: 启动会话
+
+- `session_destroy()`: 销毁一个会话中的全部数据
+
+- `session_unset()`: 释放所有会话变量
+
+- `session_id(id?)`: 获取/设置当前会话 ID
+
+- `session_name(name?)`: 获取/设置当前会话名称
