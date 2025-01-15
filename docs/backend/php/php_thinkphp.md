@@ -2,9 +2,7 @@
 
 > 官方文档: [ThinkPHP 官方手册 v6](https://doc.thinkphp.cn/v6_1/default.html)
 >
-> 本笔记来自之前刚开始学习 TP6 时做的笔记，~~以前整理的，之后应该不会更新了，~~
->
-> 推荐了解下 PHP 的框架原理，再配合官方手册，使用起来才丝滑。
+> 本笔记来自之前刚开始学习 TP6 时做的笔记，~~以前整理的，之后应该不会更新了~~
 
 ## TP3 使用经验总结
 
@@ -109,39 +107,11 @@ TP3 提供了一些内置函数，可以在项目中使用，比如`C`函数，`
 
 > 我们公司目前内部在用的系统，在这里也记录下使用经验(不推荐使用)。
 >
-> 官方文档网站已经打不开了，这是我查到的一个[文档](https://www.kancloud.cn/wenlin524/easyaadmin/2548621)。
-
-EasyAdmin 是基于 ThinkPHP6.0+Layui 的快速开发的后台管理系统。
-
-### 配置项
-
-- 超管不受权限控制，配置文件在：`app/common/constants/AdminConstant.php`，可以在这里定义超管的账号 id
-
-- 可以定义权限忽略的配置，配置文件在：`app/admin/config/admin.php`
-
-  `no_login_controller` 不需要验证登录的控制器
-
-  `no_login_node` 不需要验证登录的节点
-
-  `no_auth_controller` 不需要验证权限的控制器
-
-  `no_auth_node` 不需要验证权限的节点
-
-### 前端
-
-#### 基础信息
-
-- 控制器中 JS 的<u>目录</u>对应为：`public/static/admin/js/`
-
-  每一个控制器对应一个 JS 文件，比如 `app/admin/controller/Login.php` 对应的 JS 文件就是 `/public/static/admin/js/login.js`
-
-  每一个控制里面的 `方法` 对应 js 里面的 `属性` 就会自动进行加载
-
-### 技巧经验
-
-> 通过查看源码以及修改使用获取到的经验
+> 官方文档网站已经打不开了，我镜像了一份，可以在这里查看：[EasyAdmin 官方文档](/easyadmin/base/introduction.html)
 
 - `admin_source/app/common/constants/MenuConstant.php` 定义了首页的 PID，可以通过修改这个来设置默认打开的页面
+
+- `admin_source/public/static/plugs/easy-admin/easy-admin.js` 定义了一些全局的 JS 方法，可以通过修改这个来实现一些全局的功能
 
 ---
 

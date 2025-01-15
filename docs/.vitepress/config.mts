@@ -83,65 +83,60 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: "Navigation",
+        text: "Frontend",
+        link: "/frontend/",
+        collapsed: true,
         items: [
+          { text: "CSS", link: "/frontend/css" },
+          { text: "JavaScript", link: "/frontend/javascript" },
+          { text: "HTML", link: "/frontend/html" },
+          { text: "NodeJs", link: "/frontend/nodejs" },
+          { text: "Vue3", link: "/frontend/vue3" },
+          { text: "TypeScript", link: "/frontend/typescript" },
+        ],
+      },
+      {
+        text: "Backend",
+        link: "/backend/",
+        collapsed: true,
+        items: [
+          { text: "Nginx", link: "/backend/nginx" },
+          { text: "Linux", link: "/backend/linux" },
+          { text: "Bash", link: "/backend/bash" },
+          { text: "Vim", link: "/backend/vim" },
+          { text: "MySQL", link: "/backend/mysql" },
+          { text: "Redis", link: "/backend/redis" },
+          { text: "Network", link: "/backend/network" },
           {
-            text: "Frontend",
-            link: "/frontend/",
+            text: "Programming",
             collapsed: true,
             items: [
-              { text: "CSS", link: "/frontend/css" },
-              { text: "JavaScript", link: "/frontend/javascript" },
-              { text: "HTML", link: "/frontend/html" },
-              { text: "NodeJs", link: "/frontend/nodejs" },
-              { text: "Vue3", link: "/frontend/vue3" },
-              { text: "TypeScript", link: "/frontend/typescript" },
+              { text: "PHP", link: "/backend/php/" },
+              { text: "Python", link: "/backend/python/" },
+              { text: "C++", link: "/backend/cpp/" },
+              { text: "Java", link: "/backend/java/" },
             ],
           },
-          {
-            text: "Backend",
-            link: "/backend/",
-            collapsed: true,
-            items: [
-              { text: "Nginx", link: "/backend/nginx" },
-              { text: "Linux", link: "/backend/linux" },
-              { text: "Bash", link: "/backend/bash" },
-              { text: "Vim", link: "/backend/vim" },
-              { text: "MySQL", link: "/backend/mysql" },
-              { text: "Redis", link: "/backend/redis" },
-              { text: "Network", link: "/backend/network" },
-              {
-                text: "Programming",
-                collapsed: true,
-                items: [
-                  { text: "PHP", link: "/backend/php/" },
-                  { text: "Python", link: "/backend/python/" },
-                  { text: "C++", link: "/backend/cpp/" },
-                  { text: "Java", link: "/backend/java/" },
-                ],
-              },
-            ],
-          },
-          {
-            text: "Others",
-            link: "/notes/",
-            collapsed: true,
-            items: [
-              { text: "Git", link: "/notes/git" },
-              { text: "Mac", link: "/notes/mac" },
-              { text: "Windows", link: "/notes/windows" },
-              { text: "Tips", link: "/notes/tips" },
-              { text: "Docker", link: "/notes/docker" },
-              { text: "Api Integration", link: "/notes/api_integration" },
-              { text: "Sys-Hardware", link: "/notes/sys_hardware" },
-              { text: "CliTools", link: "/notes/cli_tools" },
-              { text: "Open Source", link: "/notes/open_source" },
-              { text: "App Recommend", link: "/notes/software" },
-              { text: "App Guides", link: "/notes/app_guides" },
-              { text: "Language", link: "/notes/language/" },
-              { text: "Emoji", link: "/notes/emoji" },
-            ],
-          },
+        ],
+      },
+      {
+        text: "Others",
+        link: "/notes/",
+        collapsed: true,
+        items: [
+          { text: "Git", link: "/notes/git" },
+          { text: "Mac", link: "/notes/mac" },
+          { text: "Windows", link: "/notes/windows" },
+          { text: "Tips", link: "/notes/tips" },
+          { text: "Docker", link: "/notes/docker" },
+          { text: "Api Integration", link: "/notes/api_integration" },
+          { text: "Sys-Hardware", link: "/notes/sys_hardware" },
+          { text: "CliTools", link: "/notes/cli_tools" },
+          { text: "Open Source", link: "/notes/open_source" },
+          { text: "App Recommend", link: "/notes/software" },
+          { text: "App Guides", link: "/notes/app_guides" },
+          { text: "Language", link: "/notes/language/" },
+          { text: "Emoji", link: "/notes/emoji" },
         ],
       },
     ],
@@ -165,4 +160,91 @@ export default defineConfig({
       copyright: 'Copyright © 2019-present Ethan'
     }
   },
+
+  locales: {
+    en: {
+      label: 'English',
+      lang: 'en-US',
+    },
+    easyadmin: {
+      label: 'EasyAdmin',
+      lang: 'zh-CN',
+      title: 'EasyAdmin 官方开发文档 | EasyAdmin Development Docs',
+      description: 'EasyAdmin 是一款基于 ThinkPHP6 开发的后台管理系统，提供了 CURD 命令行工具，快速生成后台管理系统。',
+      themeConfig: {
+        siteTitle: 'EasyAdmin 开发文档',
+        outline: 2,
+        nav: [],
+        sidebar: [
+          {
+            "text": "简介",
+            "collapsed": false,
+            "items": [
+              { "text": "项目简介", "link": "/easyadmin/base/introduction" },
+              { "text": "系统安装", "link": "/easyadmin/base/install" },
+              { "text": "系统架构", "link": "/easyadmin/base/architecture" },
+              { "text": "数据库规范", "link": "/easyadmin/base/database" }
+            ]
+          },
+          {
+            "text": "命令行 CURD",
+            "collapsed": false,
+            "items": [
+              { "text": "CURD 命令大全", "link": "/easyadmin/curd/command" },
+              { "text": "表结构规范", "link": "/easyadmin/curd/table" }
+            ]
+          },
+          {
+            "text": "配置项",
+            "collapsed": false,
+            "items": [
+              { "text": "系统配置", "link": "/easyadmin/config/system" },
+              { "text": "权限忽略配置", "link": "/easyadmin/config/auth" },
+              { "text": "静态资源配置", "link": "/easyadmin/config/static" }
+            ]
+          },
+          {
+            "text": "控制项",
+            "collapsed": false,
+            "items": [
+              { "text": "注解权限", "link": "/easyadmin/controller/annotations" },
+              { "text": "控制器属性", "link": "/easyadmin/controller/attributes" },
+              { "text": "CURD 引用", "link": "/easyadmin/controller/curd" },
+              { "text": "验证器使用", "link": "/easyadmin/controller/validate" }
+            ]
+          },
+          {
+            "text": "前端",
+            "collapsed": false,
+            "items": [
+              { "text": "必看基础信息", "link": "/easyadmin/frontend/base" },
+              { "text": "前端 auth 权限验证", "link": "/easyadmin/frontend/auth" },
+              { "text": "Form 表单", "link": "/easyadmin/frontend/form" },
+              { "text": "Table 数据表格", "link": "/easyadmin/frontend/table" },
+              { "text": "内置监听事件", "link": "/easyadmin/frontend/listen" },
+              { "text": "动态生成下拉选择", "link": "/easyadmin/frontend/select" },
+              { "text": "上传组件", "link": "/easyadmin/frontend/upload" },
+              { "text": "时间控件", "link": "/easyadmin/frontend/date" },
+              { "text": "富文本编辑器", "link": "/easyadmin/frontend/editor" }
+            ]
+          },
+          {
+            "text": "插件功能",
+            "collapsed": true,
+            "items": [
+              { "text": "插件使用", "link": "/easyadmin/addons/use" },
+              { "text": "插件开发", "link": "/easyadmin/addons/dev" }
+            ]
+          },
+          {
+            "text": "其他",
+            "collapsed": true,
+            "items": [
+              { "text": "常见问题", "link": "/easyadmin/base/question" }
+            ]
+          }
+        ],
+      },
+    },
+  }
 });
