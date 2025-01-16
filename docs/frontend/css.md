@@ -56,6 +56,20 @@ title: CSS 前端开发学习指南，最全的CSS样式和用法汇总
   </style>
   ```
 
+**正则表达式**
+
+- `E[foo^="bar"]` 选择 `foo` 属性值以 `bar` 开头的 `E` 元素
+
+  如 `span[class^="data-card___"]` 选择 `span` 元素的 `class` 属性值以 `data-card___` 开头的元素
+
+- `E[foo$="bar"]` 选择 `foo` 属性值以 `bar` 结尾的 `E` 元素
+
+- `E[foo*="bar"]` 选择 `foo` 属性值包含 `bar` 的 `E` 元素
+
+- `E[foo~="bar"]` 选择 `foo` 属性值中包含一个以空格分隔的值为 `bar` 的 `E` 元素
+
+- `E[foo|="en"]` 选择 `foo` 属性值以 `en` 开头的 `E` 元素，或者 `foo` 属性值以 `en-` 开头的 `E` 元素
+
 **伪类**
 
 - `:hover` 鼠标悬停

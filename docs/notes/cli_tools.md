@@ -101,19 +101,26 @@ ffmpeg -i input.mp4 -ss 00:00:10 -t 00:00:30 -c copy output.mp4
 
 _网上很多教程在转换图片时使用的是 `magick convert` 命令，但是在新版本中，`magickconvert` 命令已经被废弃，取而代之的是 `magick` 命令_
 
+- `magick identify input.jpg`: 查看图片信息
+
+- `magick input.jpg output.jpg`: 转换图片格式
+
+- `magick input.jpg -resize 50% output.jpg`: 调整图片大小（50%）
+
+- `magick input.jpg -resize 800x600 output.jpg`: 调整图片大小（指定尺寸）
+
+- `magick input.jpg -rotate 90 output.jpg`: 旋转图片
+
+- `magick input.jpg -quality 80 output.jpg`: 调整图片质量（0-100）
+
+- `magick input.jpg -thumbnail 100x100 output.jpg`: 创建缩略图
+
+#### 从 ico 图标中提取图片
+
+可以直接将 ico 图标转成 png 图片，如果是图片集的话，会生成多张图片：
+
 ```bash
-# 转换图片格式
-magick input.jpg output.png
-# 调整图片大小(50%)
-magick input.jpg -resize 50% output.jpg
-# 调整图片大小(指定尺寸)
-magick input.jpg -resize 800x600 output.jpg
-# 旋转图片
-magick input.jpg -rotate 90 output.jpg
-# 调整图片质量(0-100)
-magick input.jpg -quality 80 output.jpg
-# 创建缩略图
-magick input.jpg -thumbnail 100x100 output.jpg
+magick favicon.ico output.png
 ```
 
 #### 将多张图片转成 ico 图标
@@ -206,9 +213,11 @@ magick input.jpg -gravity center -crop 800x600+0+0 output.jpg
 magick input.jpg -fill white -pointsize 40 -annotate +100+100 "Hello World" output.jpg
 ```
 
-**拼接图片**（很实用！）
+**拼接图片**
 
-可以使用 `montage` 命令，可以将多张图片拼接在一起。
+<u>可以使用 `montage` 命令，可以将多张图片拼接在一起。</u>
+
+可以利用这个来生成图片序列帧，或者将多张图片拼接成一张图片。
 
 常用到的参数有：
 
@@ -289,12 +298,6 @@ magick input.jpg -edge 1 output.jpg
 magick input.jpg -sepia-tone 80% output.jpg
 ```
 
-#### 图片信息
-
-```bash
-magick identify input.jpg
-```
-
 ### 综合案例
 
 #### 图片排版
@@ -318,8 +321,6 @@ magick -size 900x385 canvas:skyblue -gravity center -fill white -pointsize 96 -a
 magick -size 900x385 gradient:#4facfe-#00f2fe -gravity center -fill white -pointsize 96 -annotate 0 "Hello World" output.jpg
 # 指定角度渐变，标题居中（先 生成渐变色图片，再旋转裁剪）
 magick -size 1280x1280 gradient:#4facfe-#00f2fe -rotate 90 -crop 900x385+190+447 +repage -gravity center -fill white -pointsize 96 -annotate 0 "Hello World" output.jpg
-# 通过图片着色生成彩色图片，标题居中（黑白图片，黑色部分会被着色，颜色越深越明显）
-magick grayscale_base.png +level-colors "#536a49," -gravity center -fill white -pointsize 96 -annotate 0 "#Hello World" output.jpg
 ```
 
 **生成渐变色的标题文字**
@@ -349,8 +350,52 @@ magick input.jpg -resize 900x385^ -gravity center -extent 900x385 -gravity cente
 
 - `-gravity center -extent 900x385`: 裁剪图片（居中裁剪）
 
+#### 图像着色
+
+图片着色有多种方式，可以通过颜色映射、颜色填充、颜色调整等方式来实现。
+
+**-level-colors**
+
+类似 PS 中的 `渐变映射`，可以将灰度图映射到指定的颜色范围。
+
+`-level-colors` 用于 **基于灰度值对图像进行颜色映射**，通过设置两个颜色值（暗部和亮部），将灰度图的黑色和白色分别映射到新的颜色范围，同时根据图像的灰度值进行插值。
+
+`-level-colors` 接受一个或者两个颜色值，第一个颜色值是暗部颜色，第二个颜色值是亮部颜色。
+
+- 将输入灰度图的 **最暗颜色**（0% 灰度）映射到指定的第一个颜色。
+
+- 将输入灰度图的 **最亮颜色**（100% 灰度）映射到指定的第二个颜色（若未指定则为透明或默认白色）。
+
+- 中间的灰度值会线性插值，生成过渡的颜色范围。
+
+如现在有一个黑白背景图，主色调为黑色，我可以通过 `-level-colors` 来将黑色映射到绿色，生成一个绿色背景的图片：
+
+```bash
+magick input.png +level-colors "#536a49," -gravity center -fill white -pointsize 96 -annotate 0 "#Hello World" output.jpg
+```
+
+**-fill \<color\> -tint \<percent\>**
+
+`-fill <color> -tint <percent>` 用于将指定颜色填充到图像中，同时通过 **结合原图像的亮度信息** 来生成最终效果。
+
+简单来说，它会以指定颜色为基准，根据图像亮度调整颜色强度。
+
+- `-fill` 用于指定填充的主色调，`-tint` 用于指定颜色按一定比例覆盖在图片上。
+
+- 原图像亮度影响覆盖结果，更亮的部分叠加后的颜色更接近指定色调的高亮色，更暗的部分叠加后接近主色调的深色版本。
+
+```bash
+magick input.png -colorspace Gray -fill "#536a49" -tint 100 output.jpg
+```
+
+- 这里通过 `-colorspace Gray` 将图片转为灰度图，然后将灰度图的颜色映射到指定颜色，生成最终图片。
+
+- 100% 的 `-tint` 表示完全使用指定颜色着色，但仍保留原图像的亮度和对比度信息。
+
+- 比 50% 灰度更亮的区域会显得更亮，比 50% 灰度更暗的区域会显得更暗。
+
 ### 官方文档导航
 
 - [v7 使用说明](https://imagemagick.org/Usage/)
 
-  - [颜色修改](https://imagemagick.org/Usage/color_mods/)
+- [颜色修改](https://imagemagick.org/Usage/color_mods/)
