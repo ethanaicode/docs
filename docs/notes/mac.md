@@ -1,6 +1,6 @@
 # Mac 笔记
 
-## 新机器配置
+## 新机配置
 
 ### 基础设置
 
@@ -12,7 +12,19 @@
 
 - **触控板三指拖动**: 系统偏好设置 --> 辅助功能 --> 鼠标与触控板 --> 触控板 --> 启用拖移 --> 三指拖移
 
-- **打开/关闭 台前调度**: 系统偏好设置 --> 桌面与程序坞 --> 台前调度 --> 开启/关闭
+- **调换 Command 和 Option 键**: 系统偏好设置 --> 键盘 --> 快捷键 --> 修改键 --> Command 和 Option 互换
+
+  适合外接键盘的用户，因为外接键盘的 Command 键在左下角，和笔记本键盘的位置不一样。
+
+- **改变程序坞（Dock）位置**: 系统偏好设置 --> 桌面与程序坞 --> 位置 --> 左侧/底部/右侧（推荐左侧）
+
+- **设置触发角（Hot Corners）**: 系统偏好设置 --> 桌面与程序坞 --> 触发角（需要向下滚动） --> 选择对应的操作
+
+  触发角是指将鼠标移动到屏幕的角落时，会触发一些操作，比如显示桌面、启动屏保等。
+
+- **~~打开/关闭 台前调度~~**: 系统偏好设置 --> 桌面与程序坞 --> 台前调度 --> 开启/关闭（仅在需要时开启）
+
+  或者直接右上角的控制中心 --> 台前调度
 
 ### 安装软件
 
@@ -28,9 +40,11 @@
 
 - **Shottr**: 截图工具（以前喜欢用 snipaste，现在用这个，可以完美替代）
 
-## Mac shortcut
+## Mac 快捷键
 
-### 快捷操作
+### 常用
+
+> [MAC 键盘快捷键大全](https://support.apple.com/zh-cn/102650)
 
 ::: info 按键符号说明
 
@@ -47,41 +61,87 @@
 - Fn (Function)
   :::
 
-- **Command⌘ + Tab** = <u>在不同应用之间切换</u>
+- **Command + Tab** = <u>在不同应用之间切换</u>
 
-- **Command⌘ + ~** = <u>在同一个应用程序的窗口之间切换</u>
+- **Command + Space** = <u>打开 Spotlight 搜索</u>
 
-- **Command⌘ + up or down(↑ or ↓） arrow key** = 移动到页面顶部/底部
+  在搜索到的文件上按 **Command + R** 可以打开文件位置
 
-- **Control + Up arrow (↑) key** = 打开任务管理器
+- **Control + Up(↑)** = 显示所有窗口
 
-  或者双指双击鼠标（需要 Mac 鼠标）
+  _或者双指双击鼠标（需要 Mac 鼠标）_
 
-- **Command⌘ + Option⌥ + (left or right) arrow key** = 切换标签页
+- **Command + Up/Down(↑/↓)** = 移动到页面顶部/底部
 
-- **Control + Tab** = 切换到上一个标签页
+### 文字编辑
 
-- **Control + Shift + Tab** = 切换到下一个标签页
+- **Command + Control + Space** = 打开表情符号
+
+### 应用及窗口
+
+- **Control + Down(↓)** = 显示应用内所有窗口（VScode 支持比较好）
+
+- **Command + `** = 在同一个应用程序的窗口之间切换（VScode 支持比较好）
+
+- **Command + Option + Left/Right** = 切换标签页（Chrome 支持比较好）
+
+- **Command + 1/2/3...** = 切换到对应的标签页（Chrome 支持比较好）
+
+- **Control + Tab** = 切换到上一个标签页（Chrome 支持比较好）
+
+- **Control + Shift + Tab** = 切换到下一个标签页（Chrome 支持比较好）
+
+- **Command + ,** = 打开应用程序的偏好设置（大部分应用支持）
+
+- **Command + Q** = 退出应用程序
+
+- **Command + W** = 关闭窗口
+
+- **Command + H** = 隐藏当前窗口
+
+- **Command + M** = 最小化窗口
 
 ### 访达页面
 
 - **长按 Space** = 临时预览文件（松开空格就会关闭）
 
-- **Command⌘ + Option⌥ + P** = 打开访达的文件路径显示
+- **Command + Option + P** = 打开访达的文件路径显示
 
-- **Command⌘ + Shift + `.`** = 显示隐藏文件
+- **Command + Shift + `.`** = 显示隐藏文件
 
-- **Command⌘ + Option⌥ + Drag** = 拖动快速创建快捷方式
+- **Command + Option + Drag** = 拖动快速创建快捷方式
 
-- **Command⌘ + J** = 显示或隐藏视图选项（用来设置排序等，很方便）
+- **Command + I** = 显示文件信息
+
+  还可以选择多个文件一起查看（比如体积大小）
+
+- **Command + Delete** = 移动到废纸篓
+
+- **Command + E** = 弹出磁盘或者镜像
+
+- **Command + N** = 新建窗口
+
+- **Command + 1/2/3/4** = <u>切换视图</u>
+
+  列表模式下可以按 **Command + `+/-`** 放大缩小
+
+- **Command + Shift + G** = 打开文件夹
+
+- **Command + J** = 显示或隐藏视图选项（用来设置排序等，很方便）
 
 ### 截屏录屏
 
-- **Command⌘ + Shift + 3** = 截取整个屏幕
+- **Command + Shift + 3** = 截取整个屏幕
 
-- **Command⌘ + Shift + 4** = 截取部分屏幕
+- **Command + Shift + 4** = 截取部分屏幕
 
-- **Command⌘ + Shift + 5** = 截取屏幕或录屏
+- **Command + Shift + 5** = <u>截取屏幕或录屏</u>
+
+### 其它
+
+- **Command + Option + D** = 显示/隐藏 Dock
+
+- **Command + Option + Esc** = 强制退出程序
 
 ## Mac 操作技巧
 
@@ -91,15 +151,9 @@
 
 你还可以按下 **Control + 空格键** 选择上一个输入法，
 
-或按下 **Option⌥ + Control + 空格键** 在输入法菜单中选择下一个输入法。
+或按下 **Option + Control + 空格键** 在输入法菜单中选择下一个输入法。
 
 还可以 **按住 Control + 空格键** 可在多个已安装的输入法间切换。
-
-### 强行退出程序
-
-可以使用命令: **Command⌘ + Option⌥ + Esc** 打开强制退出应用程序窗口。
-
-或者使用活动监视器: **在“应用程序”文件夹中打开“实用工具”文件夹，然后双击“活动监视器”**。
 
 ### 获取本机的 IP
 
@@ -313,7 +367,7 @@ brew update
 
 苹果生态都会自带备忘录，可以用来记录一些重要的信息。
 
-**支持的特殊格式**
+- `Command + Shift + ,/.` = 缩小/放大 视图
 
 - `*`: 以该符号开头的表示列表，相似功能的还有 `-`
 
@@ -329,13 +383,13 @@ Stickies 是 macOS 自带的便签应用，可以用来记录一些重要的信�
 
 **快捷键**
 
-- **Command⌘ + N** = 新建便签
+- **Command + N** = 新建便签
 
-- **Command⌘ + +** = 放大
+- **Command + +** = 放大
 
-- **Command⌘ + -** = 缩小
+- **Command + -** = 缩小
 
-- **Option⌥ + Tab** = 添加一个列表
+- **Option + Tab** = 添加一个列表
 
 **Tips**
 
@@ -351,13 +405,13 @@ iTerm2 是一个替代 Terminal 的终端工具，功能更加强大。
 
 #### 快捷键
 
-- **Command⌘ + D** = 垂直分屏
+- **Command + D** = 垂直分屏
 
-- **Command⌘ + Shift + D** = 水平分屏
+- **Command + Shift + D** = 水平分屏
 
-- **Command⌘ + Option⌥ + 方向键** = 切换屏幕
+- **Command + Option + 方向键** = 切换屏幕
 
-- **Command⌘ + Shift + Enter** = 切换当前窗口全屏
+- **Command + Shift + Enter** = 切换当前窗口全屏
 
 #### 设置
 
