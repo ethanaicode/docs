@@ -112,6 +112,22 @@ skip-log-bin
 
 - `INSERT INTO`: 向数据库中插入新数据
 
+- `ORDER BY`: 按照指定列对结果集进行排序
+
+- `GROUP BY`: 按照一个或多个列对结果集进行分组
+
+- `HAVING`: 与 `GROUP BY` 一起使用，用于过滤分组后的结果
+
+  如：`SELECT column, COUNT(*) FROM table GROUP BY column HAVING COUNT(*) > 1;`
+
+  _如果使用 `WHERE` 过滤，会在分组前进行过滤，而 `HAVING` 在分组后进行过滤_
+
+- `LIMIT`: 限制结果集的行数
+
+  `LIMIT 5` 返回前 5 条记录
+
+  `LIMIT 5, 10` 返回从第 6 条记录开始的 10 条记录
+
 ### 库及表操作
 
 - `SHOW DATABASES`: 查看所有数据库
@@ -447,4 +463,31 @@ update user set host='%' where user='root';
 ```sql
 SELECT * FROM table1
 LEFT JOIN table2 ON table1.id = table2.id;
+```
+
+### 日期时间函数
+
+- `date('now')`: 返回当前日期
+
+- `time('now')`: 返回当前时间
+
+- `datetime('now')`: 返回当前日期和时间
+
+  `datetime(<timestamp>, 'unixepoch')` 从 Unix 时间戳转换为日期时间（`<timestamp>` 是 Unix 时间戳）
+
+  `datetime(<timestamp> / 1000, 'unixepoch')` 从毫秒级 Unix 时间戳转换为日期时间
+
+  `unixepoch` 是 SQLite 中将秒级时间戳转换为标准日期时间的格式
+
+- `strftime('%Y-%m-%d %H:%M:%S', 'now')`: 返回当前日期和时间
+
+  `strftime('%Y-%m-%d', 'now', '-1 day')` 返回昨天的日期
+
+### 查询分析
+
+使用 `EXPLAIN QUERY PLAN` 来分析查询计划。
+
+```sql
+EXPLAIN QUERY PLAN
+SELECT * FROM table_name WHERE column_name = 'value';
 ```

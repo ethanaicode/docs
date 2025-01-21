@@ -30,7 +30,7 @@
 
 - **iTerm2**: 终端工具
 
-- **VScode**: 编辑器
+- **VSCode**: 编辑器
 
 - **Termius**: SSH 连接工具
 
@@ -79,17 +79,21 @@
 
 ### 应用及窗口
 
-- **Control + Down(↓)** = 显示应用内所有窗口（VScode 支持比较好）
+窗口切换和标签页切换对应不同种类的应用，
 
-- **Command + `** = 在同一个应用程序的窗口之间切换（VScode 支持比较好）
+比如文字编辑类的应用如 VSCode、Typora 通常支持窗口切换，浏览器类的应用如 Chrome、Safari 通常支持标签页切换。
 
-- **Command + Option + Left/Right** = 切换标签页（Chrome 支持比较好）
+- **Command + `** = <u>在同一个应用程序的窗口之间切换</u>
 
-- **Command + 1/2/3...** = 切换到对应的标签页（Chrome 支持比较好）
+- **Control + Down(↓)** = 显示应用内所有窗口
 
-- **Control + Tab** = 切换到上一个标签页（Chrome 支持比较好）
+- **Command + Option + Left/Right** = <u>切换标签页</u>
 
-- **Control + Shift + Tab** = 切换到下一个标签页（Chrome 支持比较好）
+- **Command + 1/2/3...** = 切换到对应的标签页
+
+- **Control + Tab** = 切换到上一个标签页
+
+- **Control + Shift + Tab** = 切换到下一个标签页
 
 - **Command + ,** = 打开应用程序的偏好设置（大部分应用支持）
 
