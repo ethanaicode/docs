@@ -1954,45 +1954,45 @@ systemctl daemon-reload
 
 **systemctl 常用命令**
 
-- `systemctl start SERVICE_NAME`: 启动服务
+- `systemctl start <SERVICE_NAME>`: 启动服务
 
-- `systemctl stop SERVICE_NAME`: 停止服务
+- `systemctl stop <SERVICE_NAME>`: 停止服务
 
-- `systemctl restart SERVICE_NAME`: 重启服务
+- `systemctl restart <SERVICE_NAME>`: 重启服务
 
 - `systemctl daemon-reload`: 重新加载 systemd
 
   更新内部配置缓存，不会重新启动或者加载服务
 
-- `systemctl reload SERVICE_NAME`: 重新加载配置
+- `systemctl reload <SERVICE_NAME>`: 重新加载配置
 
   不会重启服务，需要服务支持
 
-- `systemctl status SERVICE_NAME`: 查看服务状态
+- `systemctl status <SERVICE_NAME>`: 查看服务状态
 
-- `systemctl enable SERVICE_NAME`: 启用服务
+- `systemctl enable <SERVICE_NAME>`: 启用服务
 
-- `systemctl disable SERVICE_NAME`: 禁用服务
+- `systemctl disable <SERVICE_NAME>`: 禁用服务
 
-- `systemctl is-enabled SERVICE_NAME`: 查看服务是否启用
+- `systemctl is-enabled <SERVICE_NAME>`: 查看服务是否启用
 
 - `systemctl list-unit-files --type=service | grep enabled`: 查看所有已启用的服务
 
 - `systemctl list-unit-files --type=service | grep disabled`: 查看所有已禁用的服务
 
-- `systemctl list-dependencies SERVICE_NAME`: 查看服务的依赖关系
+- `systemctl list-dependencies <SERVICE_NAME>`: 查看服务的依赖关系
 
-- `systemctl cat SERVICE_NAME`: 查看服务的配置文件
+- `systemctl cat <SERVICE_NAME>`: 查看服务的配置文件
 
-- `systemctl edit SERVICE_NAME`: 编辑服务的配置文件
+- `systemctl edit <SERVICE_NAME>`: 编辑服务的配置文件
 
-- `journalctl -u SERVICE_NAME`: 查看服务的日志
+- `journalctl -u <SERVICE_NAME>`: 查看服务的日志
 
   `journalctl` 命令用于查看系统日志，`-u` 参数用于指定服务名称。
 
-  `journalctl -u SERVICE_NAME --lines=100` 用于查看最近 100 行日志。
+  `journalctl -u <SERVICE_NAME> --lines=100` 用于查看最近 100 行日志。
 
-  `journalctl -u SERVICE_NAME -f` 用于查看实时日志。
+  `journalctl -u <SERVICE_NAME> -f` 用于查看实时日志。
 
 以下是一些常用的 Web 服务以及它对应的服务名称
 
