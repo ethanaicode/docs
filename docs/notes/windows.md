@@ -336,6 +336,12 @@ _PowerShell 提供的命令很多都有简写，比如 `Get-Process` 可以简�
 
   `$env:Path -split ';'` 查看 Path 环境变量，以分号分隔
 
+- `curl`: 下载文件（从 Windows 10 1803 版本开始，PowerShell 自带了 `curl` 命令）
+
+  例如：`curl -o file.zip https://example.com/file.zip`
+
+  需要指定 `-o` 参数来保存文件，否则会直接输出文件信息到控制台。
+
 #### 权限设置
 
 - `Get-ExecutionPolicy`: 查看脚本执行策略
