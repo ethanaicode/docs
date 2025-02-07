@@ -13,9 +13,9 @@ EasyAdmin 是基于 ThinkPHP6.0+Layui 的快速开发的后台管理系统。
 
 > 官方演示地址已不可用，如有需要请自行搭建。
 
-演示地址: `http://easyadmin.99php.cn/admindemo`
+~~演示地址: `http://easyadmin.99php.cn/admindemo`~~
 
-（账号：admin，密码：123456。备注：只有查看信息的权限）
+~~（账号：admin，密码：123456。备注：只有查看信息的权限）~~
 
 ## 项目特性
 

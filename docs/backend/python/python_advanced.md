@@ -675,3 +675,67 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
   ```bash
   deactivate
   ```
+
+### setuptools 打包工具
+
+`setuptools` 是 Python 的一个打包工具，可以用这个来管理 Python 包的依赖关系，以及打包和分发 Python 包。
+
+#### 安装 setuptools
+
+你可以使用 `pip` 来安装 `setuptools`:
+
+```bash
+pip install setuptools
+```
+
+#### 创建 setup.py 文件
+
+`setuptools` 使用 `setup.py` 文件来定义 Python 包的元数据，如包名、版本、作者等。
+
+下面是一个简单的 `setup.py` 文件:
+
+```python
+from setuptools import setup, find_packages
+
+setup(
+    name='my_package',
+    version='0.1',
+    packages=find_packages(),
+    install_requires=[
+        'requests',
+    ],
+)
+```
+
+#### 使用 setuptools 来定义依赖关系
+
+`setuptools` 使用 `install_requires` 参数来定义项目的依赖关系，可以通过这个参数来指定项目的依赖包。
+
+这样每次在运行项目前，先通过 `python setup.py install` 来安装依赖包，就可以保证项目正常运行。
+
+下面是一个 `setup.py` 文件的例子:
+
+```python
+from setuptools import setup, find_packages
+
+try:
+    from setuptools import setup
+except ImportError as err:
+    print("To install this package, please install setuptools first.")
+    print("You can install it using:")
+    print()
+    print("pip install setuptools")
+    exit()
+
+setup(
+    name='w+ basic authentication',
+    version='1.0.0',
+    description="w+ sample Library for Python3",
+    packages=find_packages(),
+    python_requires=">=3.6",
+    install_requires=[
+        "requests>=2.10.0",
+        "alibabacloud_tea>=0.3.3, <1.0.0",
+    ]
+)
+```

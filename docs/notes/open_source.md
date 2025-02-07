@@ -57,6 +57,12 @@ date: 2024-12-31 17:19:52
 
 - [moments](https://github.com/kingwrcy/moments): 极简朋友圈，支持图片、文字、点赞、评论等功能
 
+- [sink](https://github.com/ccbikai/sink): 链接缩短服务
+
+  一个简单快速并支持分析的链接缩短服务，完全运行在 Cloudflare 上
+
+  案例：[sink.cool](https://sink.cool/) | [zapro](https://zps.im/)
+
 ## 学习资源
 
 - [free-programming-books](https://github.com/EbookFoundation/free-programming-books): 免费编程书籍

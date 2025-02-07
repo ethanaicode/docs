@@ -336,12 +336,6 @@ _PowerShell 提供的命令很多都有简写，比如 `Get-Process` 可以简�
 
   `$env:Path -split ';'` 查看 Path 环境变量，以分号分隔
 
-- `curl`: 下载文件（从 Windows 10 1803 版本开始，PowerShell 自带了 `curl` 命令）
-
-  例如：`curl -o file.zip https://example.com/file.zip`
-
-  需要指定 `-o` 参数来保存文件，否则会直接输出文件信息到控制台。
-
 #### 权限设置
 
 - `Get-ExecutionPolicy`: 查看脚本执行策略
@@ -375,6 +369,22 @@ _PowerShell 提供的命令很多都有简写，比如 `Get-Process` 可以简�
   `-quiet` 参数可以只显示结果
 
 - `Invoke-WebRequest -Uri "https://www.example.com"`: 下载网页
+
+  `-OutFile` 参数可以保存文件，还支持更多请求参数，如 `-Method`、`-Headers` 等。
+
+- `curl`: 下载文件（从 Windows 10 1803 版本开始，PowerShell 自带了 `curl` 命令）
+
+  例如：`curl -o file.zip https://example.com/file.zip`
+
+  需要指定 `-o` 参数来保存文件，否则会直接输出文件信息到控制台。
+
+  **注意**: 默认情况下，Windows 的 `curl` 命令是 `Invoke-WebRequest` 的别名，所以使用方法和 `Invoke-WebRequest` 一样。
+
+  如果需要使用 Linux 的 `curl` 命令，可以使用 `curl.exe` 来调用，或者用 `Remove-Item Alias:curl` 来删除 `curl` 别名。
+
+- `Start-BitsTransfer -Source "https://example.com/file.zip" -Destination "C:\file.zip"`: 后台下载文件
+
+  BITS（后台智能传输服务）也可以用于下载文件，适合大文件下载，后台下载文件，不会阻塞 PowerShell。
 
 - `Test-NetConnection -ComputerName www.example.com -Port 443`: 测试端口连接
 
