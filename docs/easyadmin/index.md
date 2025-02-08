@@ -1,71 +1,29 @@
 ---
-title: EasyAdmin，一款基于 ThinkPHP 6.0+Layui 的快速开发后台管理系统
+# https://vitepress.dev/reference/default-theme-home-page
+layout: home
+
+hero:
+  name: "EasyAdmin"
+  tagline: 基于ThinkPHP6.0和Layui的快速开发的后台管理系统
+  actions:
+    - theme: brand
+      text: 简介
+      link: /easyadmin/base/introduction
+    - theme: alt
+      text: 目录
+      link: /easyadmin/SUMMARY
+
+features:
+  - title: 内置权限管理
+    details: 内置基于auth的权限系统，使用注解方式自动更新权限节点，无需手动维护。
+  - title: 表格&表单的二次封装
+    details: 对layui的数据表格和表单进行二次封装，开发起来更舒服流畅。
+  - title: 上传&附件管理
+    details: 内置封装上传方法以及上传的附件管理，支持上传到本地以及OSS，可以在此基础上自己去扩展。
+  - title: 快速生成CURD模块
+    details: 完善的命令行开发模式, 一键生成控制器、模型、视图、JS等文件, 使开发速度快速提升。
+  - title: 公众号&小程序模块
+    details: 待开发……
+  - title: 插件管理模块
+    details: 待开发……
 ---
-
-# EasyAdmin 文档目录
-
-EasyAdmin 是基于 ThinkPHP6.0+Layui 的快速开发的后台管理系统。
-
-## 简介
-
-- [项目简介](./base/introduction)
-
-- [系统安装](./base/install)
-
-- [系统架构](./base/architecture)
-
-- [数据库规范](./base/database)
-
-## 命令行 CURD
-
-- [CURD 命令大全](./curd/command)
-
-- [表结构规范](./curd/table)
-
-## 配置项
-
-- [系统配置](./config/system)
-
-- [权限忽略配置](./config/auth)
-
-- [静态资源配置](./config/static)
-
-## 控制项
-
-- [注解权限](./controller/annotations)
-
-- [控制器属性](./controller/attributes)
-
-- [CURD 引用](./controller/curd)
-
-- [验证器使用](./controller/validate)
-
-## 前端
-
-- [必看基础信息](./frontend/base)
-
-- [前端 auth 权限验证](./frontend/auth)
-
-- [Form 表单](./frontend/form)
-
-- [Table 数据表格](./frontend/table)
-
-- [内置监听事件](./frontend/listen)
-
-- [动态生成下拉选择](./frontend/select)
-
-- [上传组件](./frontend/upload)
-
-- [时间控件](./frontend/date)
-
-- [富文本编辑器](./frontend/editor)
-
-## 插件功能
-
-- [插件使用](./addons/use)
-
-- [插件开发](./addons/dev)
-
-## 其他
-
-- [常见问题](./base/question)

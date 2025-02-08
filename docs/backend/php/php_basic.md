@@ -222,6 +222,14 @@ php 里的单引号把内容当成纯文本，不会经过服务器翻译。
 
 - `json_encode(value, options?, depth?)`: 对变量进行 JSON 编码
 
+  默认情况下，会对中文以及 url 等特殊字符进行转义，如果不需要转义，可以使用 `JSON_UNESCAPED_UNICODE` 参数
+
+  多个参数可以用 `|` 连接，比如 `JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES`
+
+  **可选项还包括:**
+
+  `JSON_UNESCAPED_SLASHES` 避免斜杠转义
+
 - `json_decode(json, assoc?, depth?, options?)`: 对 JSON 格式的字符串进行解码
 
   如果 `assoc` 为 `true`，返回的是数组，否则返回的是对象

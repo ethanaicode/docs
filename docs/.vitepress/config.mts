@@ -162,10 +162,6 @@ export default defineConfig({
   },
 
   locales: {
-    en: {
-      label: 'English',
-      lang: 'en-US',
-    },
     easyadmin: {
       label: 'EasyAdmin',
       lang: 'zh-CN',
@@ -174,7 +170,11 @@ export default defineConfig({
       themeConfig: {
         siteTitle: 'EasyAdmin 开发文档',
         outline: 2,
-        nav: [],
+        nav: [
+          { text: "首页", link: "/easyadmin/"},
+          { text: "简介", link: "/easyadmin/base/introduction"},
+          { text: "目录", link: "/easyadmin/SUMMARY"},
+        ],
         sidebar: [
           {
             "text": "简介",
@@ -241,6 +241,58 @@ export default defineConfig({
             "collapsed": true,
             "items": [
               { "text": "常见问题", "link": "/easyadmin/base/question" }
+            ]
+          }
+        ],
+      },
+    },
+
+    layuimini: {
+      label: 'Layuimini',
+      lang: 'zh-CN',
+      title: 'layuimini 后台框架开发文档 | layuimini Development Docs',
+      description: 'Layuimini后台模板，最简洁、清爽、易用的layui后台框架模板。',
+      themeConfig: {
+        siteTitle: 'Layuimini 开发文档',
+        outline: 2,
+        nav: [
+          { text: "首页", link: "/layuimini/"},
+          { text: "简介", link: "/layuimini/README"},
+          { text: "目录", link: "/layuimini/SUMMARY"},
+        ],
+        sidebar: [
+          {
+            "text": "文档",
+            "collapsed": false,
+            "items": [
+              { "text": "简介", "link": "/layuimini/README" },
+              { "text": "目录", "link": "/layuimini/SUMMARY" },
+            ]
+          },
+          {
+            "text": "初始化接口后端示例(V2版)",
+            "collapsed": false,
+            "items": [
+              { "text": "数据库结构示例", "link": "/layuimini/init/sql" },
+              { "text": "PHP示例(Laravel)", "link": "/layuimini/init/laravel" },
+              { "text": "PHP示例(ThinkPHP)", "link": "/layuimini/init/thinkphp" },
+              { "text": "Golang示例(beego)", "link": "/layuimini/init/golang" }
+            ]
+          },
+          {
+            "text": "使用说明(V2版)",
+            "collapsed": false,
+            "items": [
+              { "text": "iframe版", "link": "/layuimini/iframe-v2" },
+              { "text": "单页版", "link": "/layuimini/onepage-v2" }
+            ]
+          },
+          {
+            "text": "使用说明(V1版)",
+            "collapsed": false,
+            "items": [
+              { "text": "iframe版", "link": "/layuimini/iframe" },
+              { "text": "单页版", "link": "/layuimini/onepage" }
             ]
           }
         ],
