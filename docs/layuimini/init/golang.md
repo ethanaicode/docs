@@ -1,8 +1,8 @@
-# Golang动态生成初始化数据（Beego框架）
+# Golang 动态生成初始化数据（Beego 框架）
 
 > 对应控制器 `controllers/IndexController.go`
 
-```golang
+```go
 package controllers
 
 import (
@@ -23,9 +23,9 @@ func (c *IndexController) SystemInit() {
 
 ```
 
-> 对应Model `models/SystemMenu.go`
+> 对应 Model `models/SystemMenu.go`
 
-```golang
+```go
 package models
 
 import (
