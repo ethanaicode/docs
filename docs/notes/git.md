@@ -628,25 +628,43 @@ git checkout --ours file.txt
 
 > 正常情况下，不应该有这个操作，如果是配置文件，应该在本地配置文件中添加忽略，不要提交到远程仓库，如果希望远程仓库有参考，应该使用模板文件，比如 `config.file.example`。
 
-如果本地是一个配置文件，你希望一直保留，不受版本控制的影响，可以使用 `update-index` 命令。
+- 如果本地是一个配置文件，你希望一直保留，不受版本控制的影响，可以使用 `update-index` 命令：
 
-```bash
-git update-index --skip-worktree config.json
-# 恢复使用
-git update-index --no-skip-worktree config.json
-```
+  ```bash
+  git update-index --skip-worktree config.json
+  # 恢复使用
+  git update-index --no-skip-worktree config.json
+  ```
 
-这样就可以避免本地修改被覆盖。（实测如果远程仓库对该文件有修改，会导致无法 pull @2024-11-27）
+- 检查 `skip-worktree` 状态可以用：
 
-还可以使用 `assume-unchanged` 命令，这个命令和`skip-worktree`类似，但是它会在`git status`中显示。
+  ```bash
+  git ls-files -v | grep '^S'
+  ```
 
-```bash
-git update-index --assume-unchanged config.json
-# 取消使用
-git update-index --no-assume-unchanged config.json
-```
+- 还可以使用 `assume-unchanged` 命令，这个命令和`skip-worktree`类似，但是它会在`git status`中显示。
 
-**注意**: 仅推荐配置文件使用，因为如果远程仓库对该文件有更新，你的本地版本可能会与远程版本产生差异。
+  ```bash
+  git update-index --assume-unchanged config.json
+  # 取消使用
+  git update-index --no-assume-unchanged config.json
+  ```
+
+  **注意**: 仅推荐配置文件使用，因为如果远程仓库对该文件有更新，你的本地版本可能会与远程版本产生差异。
+
+- 可以检查哪些文件被 `assume-unchanged` 标记：
+
+  ```bash
+  git ls-files -v | grep '^h'
+  ```
+
+- `assume-unchanged` 只是假设没有修改，减少 Git 进行变更检测的开销。所以 git 依然会管理该文件，本地的修改依然可能会被检测到，如果远程有更新，pull 会覆盖本地修改。
+
+  适用于性能优化，大文件、不会修改的缓存文件等。
+
+- `skip-worktree` 是告诉 Git 不要检查本地修改，不要提交到远程仓库，适用于本地配置文件等，但是如果远程有更新，pull 时会报错，因为 Git 认为该文件 "不可修改"，这个时候就需要先取消 `skip-worktree`，再 pull。
+
+  适用于本地配置文件，不希望提交到远程仓库。
 
 ### Git 区分文件名大小写
 

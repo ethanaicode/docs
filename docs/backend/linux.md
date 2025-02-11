@@ -2780,6 +2780,8 @@ To get information on Squid profile/app, run:
 
   还可以使用`lsof -i :port`来查看指定端口的进程情况（可能需要安装 lsof）。
 
+- `ps -p PID`: 查看指定 PID 的进程
+
 ### 使用 kill 关闭进程
 
 - `kill -QUIT PID`: 优雅关闭指定 PID 的进程（推荐，允许进程有序关闭）
@@ -2790,7 +2792,7 @@ To get information on Squid profile/app, run:
 
   `-9` 表示强制关闭进程（不进行清理操作）
 
-  kill 后面可以跟多个进程 ID，用空格隔开
+  kill 后面可以跟多个 PID，用空格隔开
 
 ## 日期和时间
 
