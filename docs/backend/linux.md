@@ -694,15 +694,15 @@
 
 - **/var/log/secure**: 安全日志文件，如 SSH 登录日志
 
-- **/var/log/syslog**: 系统日志文件
-
 - **/var/log/messages**: 系统消息日志文件
 
 - **/var/log/kern.log**: 内核日志文件，如硬件故障日志
 
 - **/var/log/maillog**: 邮件日志文件
 
-- **/var/log/cron**: 计划任务日志文件
+- **/var/log/syslog**: 系统日志文件
+
+- **/var/log/cron**: 计划任务日志文件（cron 日志）
 
 - **/var/log/boot.log**: 启动日志文件
 
@@ -2012,9 +2012,15 @@ systemctl daemon-reload
 
 crontab 是用来让使用者在固定时间或固定间隔执行程序之用，可以用于定期备份文件、清理日志、定时运行脚本等。
 
-crontab 的配置文件通常位于 `/etc/crontab` 或者 `/var/spool/cron` 目录中。
+- crontab 的配置文件通常位于 `/etc/crontab` 或者 `/var/spool/cron` 目录中。
 
-各个服务的定时任务配置文件通常位于 `/etc/cron.d` 目录中。
+- 各个服务的定时任务配置文件通常位于 `/etc/cron.d` 目录中。
+
+- 可以通过 `grep` 来查看定时任务日志来检查是否执行成功：
+
+  - 在 `Ubuntu/Debian` 系统中，日志文件通常位于 `/var/log/syslog`
+
+  - 在 `CentOS/RHEL` 系统中，日志文件通常位于 `/var/log/cron`
 
 _在 Centos 中，cron 服务的名称为 crond，可以使用 `systemctl status crond` 查看服务状态。_
 

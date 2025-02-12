@@ -62,11 +62,17 @@ php 里的单引号把内容当成纯文本，不会经过服务器翻译。
 
 ### 字符串相关
 
+- `(string)$var`: 强制转换为字符串
+
+- `strval($var)`: 获取变量的字符串值
+
 - `strlen(string)`: 返回字符串长度
 
 - `strpos(string, find, offset?)`: 查找字符串首次出现的位置
 
 - `strrpos(string, find, offset?)`: 查找字符串最后一次出现的位置
+
+- `strstr(string, find, before_search?)`: 查找字符串的首次出现的位置，并返回其后的所有字符
 
 - `str_replace(find, replace, string, count?)`: 替换字符串中的一些字符
 
@@ -216,7 +222,7 @@ php 里的单引号把内容当成纯文本，不会经过服务器翻译。
 
 ### 数据处理
 
-- `serialize(value)`: 生成一个可存储的值的表示
+- `serialize(value)`: 生成一个可存储的值的表示（适合存取 PHP 变量，用于存入数据库或缓存）
 
 - `unserialize(str)`: 从已存储的表示中创建 PHP 的值
 
