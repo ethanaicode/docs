@@ -2016,13 +2016,17 @@ crontab 是用来让使用者在固定时间或固定间隔执行程序之用，
 
 - 各个服务的定时任务配置文件通常位于 `/etc/cron.d` 目录中。
 
-- 可以通过 `grep` 来查看定时任务日志来检查是否执行成功：
+- 可以通过 `grep` 来查看**定时任务日志**来检查是否执行成功：
 
   - 在 `Ubuntu/Debian` 系统中，日志文件通常位于 `/var/log/syslog`
 
   - 在 `CentOS/RHEL` 系统中，日志文件通常位于 `/var/log/cron`
 
-_在 Centos 中，cron 服务的名称为 crond，可以使用 `systemctl status crond` 查看服务状态。_
+- 如果需要查看服务状态，可以使用以下命令：
+
+  - `systemctl status crond` (CentOS6)
+
+  - `systemctl status cron` (CentOS7+)
 
 #### crontab 基础命令
 
