@@ -2324,6 +2324,46 @@ cURL 是一个用于传输数据的命令行工具，支持多种协议，如 HT
 
 - `-r`: 递归下载
 
+### 多线程下载
+
+#### 方法 1：使用 `curl` 并行下载多个分片
+
+你可以使用 `curl` 的 `--range` 选项手动分段下载，并使用 `xargs` 或 `&` 进行并行处理：
+
+```bash
+seq 0 4 | xargs -n 1 -P 5 -I {} curl -o part_{}.tmp -L -r $(( {} * 1000000 ))-$(( {} * 1000000 + 999999 )) "https://example.com/largefile"
+```
+
+- `seq 0 4`：创建 5 个并行任务，每个任务处理 1 MB（可调整）。
+- `-P 5`：并行运行 5 个 `curl` 进程。
+- `-r start-end`：使用 `--range` 选项请求特定的字节范围。
+- `part_{}.tmp`：保存不同分片的文件，稍后需要合并。
+
+合并文件：
+
+```bash
+cat part_*.tmp > final_file && rm part_*.tmp
+```
+
+#### 方法 2：使用 `aria2c`（推荐）
+
+如果需要更高效的多线程下载，`aria2c` 是一个更好的选择：
+
+```bash
+aria2c -x 10 -s 10 "https://example.com/largefile"
+```
+
+- `-x 10`：使用 10 个连接。
+- `-s 10`：分 10 片下载，提高下载速度。
+
+#### 方法 3：使用 `wget` 进行分段下载
+
+`wget` 也支持断点续传和多连接下载：
+
+```bash
+wget -c --limit-rate=500k --tries=3 --progress=bar "https://example.com/largefile"
+```
+
 ### 测试是否可以远程连接某网站
 
 可以通过自带的连接工具，比如使用`wget`来下载页面内容。

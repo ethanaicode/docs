@@ -25,6 +25,12 @@ date: 2024-12-31 17:19:52
 
   支持实时预览，额外支持 LaTex 公式、UML 图、Scores 乐谱等
 
+- [cherry-markdown](https://github.com/Tencent/cherry-markdown): 一款前端-markdown-编辑器-组件
+
+  腾讯出品的 Markdown 编辑器组件，可以实时预览，可以内嵌到任何前端项目中。
+
+  案例：[veitool 开发文档](https://www.veitool.com/doc/veitool/1)
+
 ### 编辑器插件主题
 
 - [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes): iTerm2 配色方案

@@ -116,7 +116,7 @@ skip-log-bin
 
 - `GROUP BY`: 按照一个或多个列对结果集进行分组
 
-- `HAVING`: 与 `GROUP BY` 一起使用，用于过滤分组后的结果
+- `HAVING`: 用于<u>过滤分组后的结果集</u>，类似于 `WHERE`，但是 `HAVING` 是在 `GROUP BY` 之后执行的
 
   如：`SELECT column, COUNT(*) FROM table GROUP BY column HAVING COUNT(*) > 1;`
 
@@ -237,6 +237,14 @@ skip-log-bin
 - `FIND_IN_SET(<string>, <string>)`: 查找字符串在另一个字符串中的位置
 
   示例: `SELECT FIND_IN_SET('b', 'a,b,c,d');` 返回 `2`
+
+### 日期时间函数
+
+- `TIMESTAMPDIFF(unit, start, end)`: 返回两个日期之间的差值
+
+  `unit` 可以是 `YEAR`, `MONTH`, `DAY`, `HOUR`, `MINUTE`, `SECOND`
+
+  示例: `SELECT TIMESTAMPDIFF(MINUTE, create_time, update_time) AS duration_minutes`
 
 ### 特殊函数
 
