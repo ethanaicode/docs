@@ -108,6 +108,28 @@ html {
 
 > 参考：[MDN 文档](https://developer.mozilla.org/en-US/docs/Web/API/Element)
 
+### 事件相关 (Event)
+
+我们可以为元素添加事件监听器，当事件发生时执行指定的函数。
+
+```js
+element.addEventListener("click", () => {
+  console.log("Element clicked");
+});
+```
+
+不同的元素事件有不同的类型，下面是一些常见的事件类型：
+
+- `click`: 鼠标点击事件
+
+- `mousedown`: 鼠标按下事件
+
+  和`click`事件的区别是，`mousedown`事件是鼠标按下时触发，所以不受按钮禁用（`disabled`）状态的影响，而`click`事件是鼠标按下和抬起都在同一个元素上时触发。
+
+- `mouseover`: 鼠标移入事件
+
+- `mouseout`: 鼠标移出事件
+
 ### 滚动相关 (Scroll)
 
 - `element.scrollTop`：获取或设置一个元素的内容垂直滚动的像素数。

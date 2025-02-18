@@ -2460,6 +2460,30 @@ echo | openssl s_client -connect localhost:443 -servername your_domain.com 2>/de
 
 - `subjectAltName` 表示证书的子域名信息
 
+#### openssl 查看本地证书
+
+如果是本地的证书，可以直接查看证书文件，主要通过以下命令:
+
+```bash
+openssl x509 -in /path/to/cert.crt -noout -dates
+```
+
+- `x509` 表示查看证书信息
+
+- `-in` 指定证书文件
+
+- `-noout` 不显示证书信息
+
+- `-dates` 只显示证书的有效期
+
+  还支持其它参数：
+
+  - `-issuer` 显示颁发者信息
+
+  - `-subject` 显示证书的签发对象（Common Name, CN）
+
+  - `-text` 显示证书的详细信息
+
 ### openssl 创建自签名证书
 
 如果你想要在本地搭建一个 HTTPS 服务器，可以使用 openssl 来创建自签名证书。
