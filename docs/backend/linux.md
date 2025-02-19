@@ -148,6 +148,16 @@
 
   `command1 | command2` 将 command1 的输出作为 command2 的输入
 
+- **xargs**: <u>将标准输入转换为命令行参数</u>（不接收标准输入的命令需要用到）
+
+  `command | xargs command2` 将 command 的输出作为 command2 的参数
+
+  `-n` 指定参数个数
+
+  `-I` 指定替换字符串
+
+  **注意**: xargs 默认是以空格作为分隔符，如果文件名中有空格，可能会出现问题
+
 - **&**: 后台运行
 
   `command &` 将命令放到后台运行

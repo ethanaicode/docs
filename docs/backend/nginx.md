@@ -151,6 +151,25 @@ limit_rate 2048k;
 
 - `limit_rate 2048k`: 流量限制，限制每个请求的流量上限（单位是 KB）
 
+#### server_names 配置
+
+Nginx 维护一个 `server_names_hash` 表，将 `server_name` 作为键，对应的服务器配置作为值，以加速匹配！
+
+如果多个 `server_name` 哈希冲突，它们会被存入同一个 `bucket`，这时 Nginx 会遍历这个 `bucket` 中的所有 `server_name` 来匹配请求。
+
+可以在`http`块中配置`server_names`相关的配置：
+
+- `server_names_hash_max_size`: 服务器名哈希表的最大大小，默认为 512 或 1024。
+
+- `server_names_hash_bucket_size`: 服务器名哈希表的桶大小（必须是 CPU 缓存行大小的倍数），默认为 32 或 64。
+
+```nginx
+http {
+    server_names_hash_bucket_size 64;
+    server_names_hash_max_size 512;
+}
+```
+
 ### 日志配置
 
 #### 自定义日志格式
