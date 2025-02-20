@@ -84,32 +84,6 @@
 
   `+a` 设置文件只能追加内容
 
-- **curl**: 用于传输数据或者访问服务
-
-  `-I` <u>只显示响应头</u>
-
-  `-x` 设置代理
-
-  `-X` 指定请求方法
-
-  `-f` 如果下载失败，则不创建文件
-
-  `-L` 跟踪重定向，如果请求的 URL 有重定向，会继续请求重定向后的 URL
-
-  `-J` 下载文件时使用文件名中的描述信息
-
-  `-o` 指定保存文件名，如: `curl -o filename http://example.com/file.zip` 下载文件并保存为 filename
-
-  `-O` 将下载的内容保存到文件，文件名为 URL 的最后部分
-
-  `-s` 静默模式
-
-  `-S` 显示错误信息
-
-  `-v` <u>显示详细信息</u>
-
-  `-k` <u>忽略 SSL 证书验证错误</u>，并继续访问 HTTPS 站点
-
 - **ln**: <u>创建链接文件</u>
 
   `-s` 创建软链接（类似于 Windows 的快捷方式）
@@ -451,6 +425,12 @@
   `-u` 以指定用户执行命令
 
   `-l` 列出当前用户可以执行的命令
+
+- **sh**: 启动 shell
+
+  `-c` 执行命令
+
+  有时候使用 `>>` 重定向会出现权限问题，可以使用 `sudo sh -c "command >> filename"` 来解决
 
 ### 系统运行状态
 
@@ -1172,19 +1152,13 @@ Linux example.com 5.4.0-65-generic #73-Ubuntu SMP Mon Jan 18 17:25:17 UTC 2021 x
 
   其中 `link currently points to` 后面的就是当前默认编辑器
 
-### 使用 cat 合并追加文件
+### 使用 cat 处理文本文件
 
-cat file1 file2 > target_file: 将多个文件合并到目标文件中。
+- `cat file1 file2 > target_file`: 将多个文件**合并**到目标文件中
 
-```bash
-cat file1 file2 > target_file
-```
+- `cat file1 file2 >> target_file`: 将几个文件**住家**到目标文件中
 
-cat file1 file2 >> target_file: 将几个文件附加到目标文件中。
-
-```bash
-cat file1 file2 >> target_file
-```
+- `cat file1 file2 | sort | uniq > target_file`: 将多个文件**合并**并排序去重后写入目标文件
 
 ### 使用 sed 批量替换文本内容
 
@@ -2304,15 +2278,57 @@ grep "192.168.1.1" | awk '{print $7}' | sort | uniq -c | sort -nr | head -n 50
 
 ### 使用 cURL 或者 wget 下载文件
 
+#### 使用 cURL
+
 cURL 是一个用于传输数据的命令行工具，支持多种协议，如 HTTP、HTTPS、FTP 等。
+
+`cURL` 命令的基本用法是:
+
+```bash
+curl [options] [URL]
+```
+
+常用的 `cURL` 参数有：
+
+- `-I` <u>只显示响应头</u>
+
+- `-x` 设置代理
+
+- `-X` 指定请求方法
+
+- `-f` 如果下载失败，则不创建文件
+
+- `-L` 跟踪重定向，如果请求的 URL 有重定向，会继续请求重定向后的 URL
+
+- `-J` 下载文件时使用文件名中的描述信息
+
+- `-o` 指定保存文件名，如: `curl -o filename http://example.com/file.zip` 下载文件并保存为 filename
+
+- `-O` 将下载的内容保存到文件，文件名为 URL 的最后部分
+
+- `-s` 静默模式
+
+- `-S` 显示错误信息
+
+- `-v` <u>显示详细信息</u>
+
+- `-k` <u>忽略 SSL 证书验证错误</u>，并继续访问 HTTPS 站点
 
 下面是使用 `cURL` 下载文件的一些常见用法:
 
 - `curl -f -SOJL -H "License: license_key" https://example.com/file`: 下载文件并保持原始文件名
 
-也可以使用 `wget` 来下载文件:
+- `curl -O https://example.com/file`: 下载文件并保存为 URL 的最后部分
 
-- `wget -O filename https://example.com/file`: 指定下载文件的名称
+#### wget 下载文件
+
+`wget` 是一个用于下载文件的命令行工具，支持 HTTP、HTTPS 和 FTP 协议。
+
+`wget` 命令的基本用法是:
+
+```bash
+wget [options] [URL]
+```
 
 常用的 wget 参数有:
 
