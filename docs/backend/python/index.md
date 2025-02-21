@@ -30,4 +30,6 @@ title: Python 文档导航，Python 基础、进阶、库、自动化工具汇�
 
 - [PyInstaller](./python_pyinstaller)
 
+- [MoviePy](./python_moviepy)
+
 - [自动化工具](./python_automation)
