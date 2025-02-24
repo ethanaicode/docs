@@ -8,7 +8,23 @@
 
 _本来以为不会再更新，奈何公司有 TP 的项目，偶尔遇到问题看官方文档也容易一头雾水，所以在这里记录下看文档时遇到的问题及知识点吧。_
 
-### 实用知识点
+### 内置帮助函数
+
+TP3 提供了一些内置函数，可以在项目中使用，比如`C`函数，`I`函数等。
+
+函数代码主要的位置在 `ThinkPHP/Common/functions.php` 和 `ThinkPHP/Mode/Api/functions.php` 中。
+
+以下是一些常用的内置函数：
+
+- `C`: 用于获取配置信息，比如`C('DB_NAME')`
+
+- `I`: 用于获取输入数据，比如`I('get.id')`
+
+- `dump`: 用于页面友好的打印数据，比如`dump($data)`
+
+- `get_client_ip`: 用于获取客户端 IP 地址
+
+### 实用技巧
 
 **模块化设计**
 
@@ -46,21 +62,22 @@ TP3 中自动加载是通过`ThinkPHP/Library/Think/Think.class.php`文件中的
   namespace One;
   ```
 
-### 内置函数
+### 控制器
 
-TP3 提供了一些内置函数，可以在项目中使用，比如`C`函数，`I`函数等。
+**跳转与重定向**
 
-函数代码主要的位置在 `ThinkPHP/Common/functions.php` 和 `ThinkPHP/Mode/Api/functions.php` 中。
+- Controller 类的 `redirect` 方法可以实现页面的重定向功能。
 
-以下是一些常用的内置函数：
+  ```php
+  //重定向到New模块的Category操作
+   $this->redirect('New/category', array('cate_id' => 2), 5, '页面跳转中...');
+  ```
 
-- `C`: 用于获取配置信息，比如`C('DB_NAME')`
+- 如果你仅仅是想重定向要一个指定的 URL 地址，而不是到某个模块的操作方法，可以直接使用 `redirect` 函数重定向，例如：
 
-- `I`: 用于获取输入数据，比如`I('get.id')`
-
-- `dump`: 用于页面友好的打印数据，比如`dump($data)`
-
-- `get_client_ip`: 用于获取客户端 IP 地址
+  ```php
+  redirect('http://www.gobiji.com', 5, '页面跳转中...');
+  ```
 
 ### 视图模版
 

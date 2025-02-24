@@ -37,6 +37,14 @@ date: 2024-12-31 17:19:52
 
   一款 iTerm2 配色方案集合，也包括了一些其他终端的配色方案
 
+### 文档知识库
+
+- [mkdocs](https://github.com/mkdocs/mkdocs): 一款基于 Markdown 的文档生成工具
+
+  通过 Markdown 编写文档，然后通过 mkdocs 生成静态网站，支持自定义主题
+
+  案例：[大学生活质量指北](https://colleges.chat/)
+
 ### 媒体管理
 
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp): 一款支持下载 YouTube 视频的工具
@@ -74,6 +82,14 @@ date: 2024-12-31 17:19:52
 - [free-programming-books](https://github.com/EbookFoundation/free-programming-books): 免费编程书籍
 
   一份免费的编程书籍列表，包括了各种编程语言、框架、工具的书籍
+
+- [toBeBetterJavaer](https://github.com/itwanger/toBeBetterJavaer): 成为一名更好的 Java 程序员
+
+  计算机基础部分的内容挺好的。作者自学 Java 以来所有原创文章和学习资料的大聚合。
+
+- [科技爱好者周刊](https://github.com/ruanyf/weekly): 汇总每周值得分享的科技内容
+
+  由阮一峰维护的科技爱好者周刊，每周分享一些值得分享的科技内容
 
 ## 标准文档
 
