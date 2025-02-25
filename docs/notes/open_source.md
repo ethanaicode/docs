@@ -37,13 +37,19 @@ date: 2024-12-31 17:19:52
 
   一款 iTerm2 配色方案集合，也包括了一些其他终端的配色方案
 
-### 文档知识库
+### 静态网站生成文档知识库
 
 - [mkdocs](https://github.com/mkdocs/mkdocs): 一款基于 Markdown 的文档生成工具
 
   通过 Markdown 编写文档，然后通过 mkdocs 生成静态网站，支持自定义主题
 
   案例：[大学生活质量指北](https://colleges.chat/)
+
+- [gridea](https://github.com/getgridea/gridea): 一个静态博客写作客户端
+
+  Gridea 是一个静态博客写作客户端，帮助你更容易地构建并管理博客或任何静态站点。
+
+  案例：[Box's](https://boxofficial2002.github.io/)
 
 ### 媒体管理
 
