@@ -39,6 +39,12 @@ date: 2024-12-31 17:19:52
 
 ### 静态网站生成文档知识库
 
+- [Docusaurus](https://docusaurus.io/): 一款由 Facebook 开源的静态网站生成器
+
+  适用于文档、网站、博客等静态网站生成，支持 React 组件、Markdown 编写文档
+
+  案例：[Showcase](https://docusaurus.io/showcase) | [AingDesk Docs](https://docs.aingdesk.com/zh-Hans/)
+
 - [mkdocs](https://github.com/mkdocs/mkdocs): 一款基于 Markdown 的文档生成工具
 
   通过 Markdown 编写文档，然后通过 mkdocs 生成静态网站，支持自定义主题

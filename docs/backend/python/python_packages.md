@@ -26,7 +26,7 @@ title: 最常用的Python第三方库包大全，以及它们的简单介绍和�
 
 - **moviepy**: 用于处理视频的 Python 库，提供了视频剪辑、合并、转换等功能 [--> 站内链接](./python_moviepy)
 
-- **numpy**: 用于数值计算的 Python 库
+- **numpy**: 用于数值计算的 Python 库，可以高效处理数组，许多图像处理和机器学习库都依赖于它
 
 - **pywin32**: Python 的 Windows 扩展
 
