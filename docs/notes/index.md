@@ -1,6 +1,6 @@
 # 更多笔记 文档导航
 
-- [Docker](./docker)
+- [Tips](./tips)
 
 - [Git](./git)
 
@@ -8,19 +8,21 @@
 
 - [Windows](./windows)
 
-- [Tips](./tips)
+- [Command-Line Tools](./cli_tools)
+
+- [App Guides](./app_guides)
+
+- [App Recommend](./software)
+
+- [Open Source](./open_source)
+
+- [Design Sources](./design)
+
+- [Docker](./docker)
 
 - [平台开发](./api_integration)
 
 - [计算机系统与硬件](./sys_hardware)
-
-- [Command-Line Tools](./cli_tools)
-
-- [Open Source](./open_source)
-
-- [App Recommend](./software)
-
-- [App Guides](./app_guides)
 
 - [语言学习](./language/)
 

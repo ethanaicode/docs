@@ -454,9 +454,34 @@ location / {
 
 #### 反向代理
 
-默认是轮询的方式来代理的。
+Nginx 作为反向代理，可以将请求转发到后端服务器，比如下面的配置：
 
-下面是反向代理最简单的一个例子：
+```nginx
+server {
+    listen 80;
+    server_name www.example.com;
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+```
+
+- `proxy_pass`: 转发的地址，可以是一个域名或者 IP 地址，也可以是一个后端服务器的地址。
+
+- `proxy_set_header`: 设置请求头，比如 Host、X-Real-IP、X-Forwarded-For 等，可以都省略，根据自己的需求来设置。
+
+  `Host $host` 设置 Host 头，保证后端服务器能够正确识别请求的域名。
+
+  `X-Real-IP $remote_addr` 设置真实 IP 地址，保证后端服务器能够正确识别客户端的 IP。
+
+  `X-Forwarded-For $proxy_add_x_forwarded_for` X-Forwarded-For 记录了所有代理链路，对于安全审计和调试很有用。
+
+#### 负载均衡
+
+**负载均衡**是指将请求分发到多台服务器上，可以结合反向代理来实现，比如下面的配置：
 
 ```nginx
 # /app 页面将被轮询转发到三台服务器上
@@ -473,8 +498,6 @@ server {
     ...
 }
 ```
-
-#### 负载均衡
 
 可以在服务器后面设置`weight`来配置权重。
 

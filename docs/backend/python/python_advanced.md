@@ -36,16 +36,16 @@
     class A:
         def __init__(self):
             self.get_a()
-
+  
         @abstractmethod
         def get_a(self):
             pass
-
+  
     class B(A):
         def __init__(self):
             super().__init__()
             self.b = 1
-
+  
         def get_a(self):
             print(self.b)
   ```
@@ -261,15 +261,15 @@ Python 的装饰器是一种高级特性，它可以在不修改原函数的情�
   ```python
     class A:
         data = []
-
+  
         def __init__(self, value):
             self.value = value
             A.data.append(value)
-
+  
         @classmethod
         def get_data(cls):
             return cls.data
-
+  
     a = A(1)
     b = A(2)
     print(A.get_data())
@@ -365,30 +365,49 @@ logger = logging.getLogger('my_logger')
 
 #### 日志级别
 
-Python 的日志级别有以下几种:
+Python 的 `logging` **有两个独立的日志级别控制**：
 
-- `logging.CRITICAL`: 严重错误级别。
+1. **`Logger`（日志记录器）级别**（`logger.setLevel()`）
 
-- `logging.ERROR`: 错误级别。
+2. **`Handler`（日志处理器）级别**（`file_handler.setLevel()`）
 
-- `logging.WARNING`: 警告级别。
+**日志的生效顺序**：
 
-- `logging.INFO`: 信息级别。
+1. **日志记录器** (`Logger`) 先决定是否**接受**日志。
 
-- `logging.DEBUG`: 调试级别。
+2. **日志处理器** (`Handler`) 之后决定是否**处理**日志。
 
-**注意**: 日志级别是可以设置的，只有大于等于设置的级别的日志才会被记录。
-如果你没有设置日志级别，默认是 `WARNING`，这意味着只有 `WARNING`、`ERROR` 和 `CRITICAL` 级别的日志会被记录。
+默认情况下，日志级别是 `WARNING`，这意味着只有 `WARNING`、`ERROR` 和 `CRITICAL` 级别的日志会被记录。
+
+所以需要**同时**设置 `Logger` 和 `Handler`，否则 `Handler` 设置的再低，也有可能无法记录 `INFO` 日志。
+
+**日志级别包括:**
+
+- `logging.CRITICAL`: 严重错误级别
+
+- `logging.ERROR`: 错误级别
+
+- `logging.WARNING`: 警告级别
+
+- `logging.INFO`: 信息级别
+
+- `logging.DEBUG`: 调试级别
 
 #### 日志处理器
 
-Python 的日志处理器是通过 `logging` 模块中的处理器类来实现的，处理器类有以下几种:
+Python 的日志处理器是通过 `logging` 模块中的处理器类来实现的，如:
+
+```python
+custom_handler = logging.StreamHandler()
+```
+
+处理器类有以下几种:
 
 - `logging.NullHandler`: 空处理器。
 
 - `logging.StreamHandler`: 输出到控制台。
 
-- `logging.FileHandler`: 输出到文件。
+- `logging.FileHandler`: <u>输出到文件</u>。
 
 - `logging.handlers.RotatingFileHandler`: 输出到滚动文件。
 
@@ -404,19 +423,19 @@ custom_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(leveln
 
 **格式化字符串有以下几种**:
 
-- `%(asctime)s`: 日志记录的时间。
+- `%(asctime)s`: 日志记录的时间，格式为 `YYYY-MM-DD HH:MM:SS,sss`
 
-- `%(name)s`: 日志记录的名称。
+- `%(name)s`: 日志记录器的名称
 
-- `%(levelname)s`: 日志记录的级别。
+- `%(levelname)s`: 日志记录的级别
 
-- `%(message)s`: 日志记录的消息。
+- `%(message)s`: 日志记录的消息
 
-- `%(filename)s`: 日志记录的文件名。
+- `%(filename)s`: 日志记录的文件名
 
-- `%(lineno)d`: 日志记录的行号。
+- `%(lineno)d`: 日志记录的行号
 
-- `%(funcName)s`: 日志记录的函数名。
+- `%(funcName)s`: 日志记录的函数名
 
 #### 日志记录器的使用
 
@@ -442,7 +461,7 @@ import logging
 # 配置日志记录器
 logger = logging.getLogger(__name__)
 
-# 设置日志级别
+# 设置日志级别（这一步千万不能省，原因参考前文）
 logger.setLevel(logging.DEBUG)
 
 # 创建一个控制台处理器
@@ -464,7 +483,7 @@ logger.info('This is a info message')
 
 `logging.basicConfig()` 函数是一个快速配置日志记录器的函数，它可以设置日志记录器的级别、处理器和格式化器，适合简单的日志需求。
 
-下面是设置多个处理器的例子:
+下面是一个例子:
 
 ```python
 import logging
@@ -669,6 +688,8 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
   ```
 
   激活后，命令行提示符会显示虚拟环境的名称。
+
+   `activate` **修改了 `PATH` 变量**，让 shell 知道从 `venv/bin/` 里寻找可执行文件。
 
 - 退出虚拟环境:
 

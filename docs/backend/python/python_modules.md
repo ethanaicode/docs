@@ -102,33 +102,37 @@ Python 内置了一个操作系统接口模块 `os`，可以用于处理文件�
 
 **主要方法**
 
-- `os.getcwd()`: 获取当前工作目录。
+- `os.getcwd()`: 获取当前工作目录
 
-- `os.remove()`: 删除文件。
+- `os.remove()`: 删除文件
 
-- `os.path`: 处理文件路径的模块。
+- `os.path`: 处理文件路径的模块
 
-  - `os.path.join()`: 拼接文件路径。
+  - `os.path.join()`: 拼接文件路径
 
-  - `os.path.dirname()`: 获取文件路径的目录部分。
+  - `os.path.dirname()`: 获取文件路径的目录部分
 
-  - `os.path.basename()`: 获取文件路径的文件名部分。
+  - `os.path.basename()`: 获取文件路径的文件名部分
 
-  - `os.path.splitext()`: 分割文件路径的扩展名。
+  - `os.path.splitext()`: 分割文件路径的扩展名
 
-    返回值是一个元组，包含文件名和扩展名。
+    返回值是一个元组，包含文件名和扩展名
 
-  - `os.path.exists()`: 判断文件或目录是否存在。
+  - `os.path.exists()`: 判断文件或目录是否存在
 
-  - `os.path.sep`: 获取当前操作系统的路径分隔符。
+  - `os.path.sep`: 获取当前操作系统的路径分隔符
 
-- `os.startfile()`: 打开文件。
+- `os.makedirs()`: 创建目录（可以实现目录不存在，则自动创建）
 
-- `os.listdir()`: 列出目录下的文件。
+  例如：`os.makedirs('path/to/dir', exist_ok=True)` 可以创建多级目录，且如果目录已存在不会报错
 
-- `os.environ`: 获取和设置环境变量。
+- `os.startfile()`: 打开文件
 
-- `os.chmod()`: 修改文件权限。
+- `os.listdir()`: 列出目录下的文件
+
+- `os.environ`: 获取和设置环境变量
+
+- `os.chmod()`: 修改文件权限
 
 ### sys 系统相关
 

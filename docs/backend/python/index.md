@@ -14,11 +14,17 @@ title: Python 文档导航，Python 基础、进阶、库、自动化工具汇�
 
 - [Python Modules](./python_modules)
 
-## Python 库
+## Python 常用库
 
 - [packages_index](./python_packages)
 
 - [Requests](./python_requests)
+
+- [MoviePy](./python_moviepy)
+
+- [自动化工具](./python_automation)
+
+## Python 桌面开发
 
 - [PyQT5](./python_pyqt5)
 
@@ -30,6 +36,8 @@ title: Python 文档导航，Python 基础、进阶、库、自动化工具汇�
 
 - [PyInstaller](./python_pyinstaller)
 
-- [MoviePy](./python_moviepy)
+## Web 开发
 
-- [自动化工具](./python_automation)
+- [Flask](./python_flask)
+
+<!-- - [Django](./python_django) -->
