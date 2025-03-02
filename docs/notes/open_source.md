@@ -71,11 +71,15 @@ date: 2024-12-31 17:19:52
 
 ## 服务器运维
 
+### 运维工具
+
 - [acme.sh](https://github.com/acmesh-official/acme.sh): Shell 脚本实现的 ACME 协议客户端
 
   可以从 `ZeroSSL`、`Let's Encrypt` 等 CA 证书颁发机构获取免费的 SSL 证书
 
 ## 网页项目
+
+### 网页应用
 
 - [douyin](https://github.com/zyronon/douyin): 仿抖音网页版
 
@@ -89,7 +93,13 @@ date: 2024-12-31 17:19:52
 
   案例：[sink.cool](https://sink.cool/) | [zapro](https://zps.im/)
 
+### 网页开发工具
+
+- [Pannellum](https://github.com/mpetroff/pannellum): 一款轻量免费的网页全景图展示工具
+
 ## 学习资源
+
+### 综合学习
 
 - [free-programming-books](https://github.com/EbookFoundation/free-programming-books): 免费编程书籍
 
@@ -98,6 +108,8 @@ date: 2024-12-31 17:19:52
 - [toBeBetterJavaer](https://github.com/itwanger/toBeBetterJavaer): 成为一名更好的 Java 程序员
 
   计算机基础部分的内容挺好的。作者自学 Java 以来所有原创文章和学习资料的大聚合。
+
+### 科技资讯
 
 - [科技爱好者周刊](https://github.com/ruanyf/weekly): 汇总每周值得分享的科技内容
 
