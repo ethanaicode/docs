@@ -93,6 +93,12 @@ date: 2024-12-31 17:19:52
 
   案例：[sink.cool](https://sink.cool/) | [zapro](https://zps.im/)
 
+- [Fake-images-please](https://github.com/Rydgel/Fake-images-please): 生成占位图片的网站
+
+  一个生成占位图片的网站，支持自定义图片大小、背景颜色、文字等
+
+  案例：[fakeimg.pl](https://fakeimg.pl/)
+
 ### 网页开发工具
 
 - [Pannellum](https://github.com/mpetroff/pannellum): 一款轻量免费的网页全景图展示工具

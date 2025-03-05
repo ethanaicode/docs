@@ -33,3 +33,36 @@
 - `Access-Control-Allow-Origin`: \* (或者指定域名)
 
 - `Access-Control-Allow-Methods`: GET, POST, PUT, DELETE, OPTIONS
+
+## ChatGPT/Chatbox 类 API
+
+### 图片生成
+
+**请求数据**
+
+```python
+url = "https://api.example.com/images/generations"
+headers = {
+    "Authorization": "Bearer YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+data = {
+  "prompt": "laiba",
+  "response_format": "b64_json",
+  "model": "dall-e-3",
+  "style": "vivid"
+}
+```
+
+**返回数据**
+
+```json
+{
+  "created": 1631234567, // 时间戳
+  "data": [
+    {
+      "b64_json": "base64-encoded-image-data" // Base64 编码的图片数据
+    }
+  ]
+}
+```
