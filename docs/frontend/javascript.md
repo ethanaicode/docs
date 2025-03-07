@@ -1,5 +1,155 @@
 # JavaScript
 
+## ECMAScript
+
+`ECMAScript`（简称 `ES`）是 JavaScript 的**核心标准**，由 **ECMA 国际组织** 维护和制定（官方组织是 **TC39**）。
+
+JavaScript 是基于 `ECMAScript` 规范的编程语言，**所有现代 JavaScript 解释器（如 V8 引擎）都遵循 ECMAScript 规范**。
+
+`ES` 的版本代表 JavaScript 语法的演进，例如：
+
+- **ES5（2009）**：第一个被广泛支持的版本（`JSON`、`strict mode`）。
+
+- **ES6（2015）**：引入了大量新特性（箭头函数、`let`/`const`、模块化、Promise）。
+
+- **ES7+（2016~2024）**：逐步增加了新特性（`async/await`、可选链 `?.`、空值合并 `??`）。
+
+### Promise 和异步编程
+
+**JavaScript 是单线程的**，为了避免 阻塞 UI，它引入了 异步编程 来处理 网络请求、文件读取、定时器、事件监听 等任务。
+
+在 JavaScript 中，主要的异步编程方式有：
+
+1. **回调函数（Callback）** → 早期方式，容易形成回调地狱
+
+2. **Promise（ES6，2015）** → 更清晰的异步流程控制
+
+3. **`async/await`（ES8，2017）** → 语法更简洁，读起来像同步代码
+
+### 模块化
+
+`ES6` 引入了模块化的概念，可以使用 `import` 和 `export` 关键字导入和导出模块。
+
+#### ESM 的特点
+
+- ESM 是 JavaScript 的模块化规范，它是 ECMAScript 的一部分
+
+- ESM 使用 `import` 和 `export` 关键字来导入和导出模块
+
+- ESM 是静态的，<u>模块的依赖关系在编译时</u>就确定了
+
+- ESM 是单例的，同一个模块只会加载一次
+
+#### ESM 的使用
+
+- **导出模块**
+
+  ```javascript
+  // math.js
+  export function add(a, b) {
+    return a + b;
+  }
+  ```
+
+- **导入模块**
+
+  ```javascript
+  // index.js
+  import { add } from "./math.js";
+
+  console.log(add(1, 2));
+  ```
+
+- **运行 ESM 模块**
+
+  <u>Node.js 默认不支持 ESM 语法</u>，需要在 `package.json` 文件中添加 `"type": "module"` 字段，或者使用 `.mjs` 文件扩展名。
+
+  ```json
+  {
+    "type": "module"
+  }
+  ```
+
+  示例：`node index.js` 或 `node --experimental-modules index.mjs`
+
+#### ESM 和 CommonJS 的区别
+
+- **标准来源**
+
+  - ESM 是 ECMAScript 的一部分，官方标准，新增语法
+
+  - CommonJS 是 Node.js 的模块化规范，社区标准，仅新增了 `require` 和 `module.exports` 两个全局对象
+
+- **导入模块**
+
+  - ESM 使用 `import` 关键字导入模块
+
+  - CommonJS 使用 `require` 函数导入模块
+
+- **导出模块**
+
+  - ESM 使用 `export` 关键字导出模块
+
+  - CommonJS 使用 `module.exports` 导出模块
+
+- **加载模块**
+
+  - ESM 是静态的，模块的依赖关系在编译时就确定了
+
+  - CommonJS 是动态的，模块的依赖关系在运行时确定
+
+- **模块的单例**
+
+  - ESM 是单例的，同一个模块只会加载一次
+
+  - CommonJS 是非单例的，同一个模块会加载多次
+
+- **模块的循环依赖**
+
+  - ESM 不允许模块的循环依赖
+
+  - CommonJS 允许模块的循环依赖
+
+#### ESM 和 CommonJS 的兼容
+
+- **ESM 导入 CommonJS 模块**
+
+  ESM 可以导入 CommonJS 模块，但是导入的模块会被当作默认导出。
+
+  ```javascript
+  // index.js
+  import math from "./math.js";
+
+  console.log(math.add(1, 2));
+  ```
+
+  ```javascript
+  // math.js
+  module.exports = {
+    add(a, b) {
+      return a + b;
+    },
+  };
+  ```
+
+- **CommonJS 导入 ESM 模块**
+
+  CommonJS 无法导入 ESM 模块，需要使用 `import` 函数。
+
+  ```javascript
+  // index.js
+  const { add } = await import("./math.js");
+
+  console.log(add(1, 2));
+  ```
+
+  ```javascript
+  // math.js
+  export function add(a, b) {
+    return a + b;
+  }
+  ```
+
 ## 常用对象的原型方法速查表
 
 ### 字符串对象

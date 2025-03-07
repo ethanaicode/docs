@@ -6,132 +6,6 @@
 
 Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境，可以让 JavaScript 运行在服务端。
 
-### 内置模块
-
-Node.js 提供了一些内置模块，可以直接使用，无需安装。
-
-- **fs**: 文件系统模块，用于操作文件
-
-- **http**: HTTP 模块，用于创建 Web 服务器
-
-- **path**: 路径模块，用于处理文件路径
-
-## ES Module (ESM)
-
-### ESM 的特点
-
-- ESM 是 JavaScript 的模块化规范，它是 ECMAScript 的一部分
-
-- ESM 使用 `import` 和 `export` 关键字来导入和导出模块
-
-- ESM 是静态的，模块的依赖关系在编译时就确定了
-
-- ESM 是单例的，同一个模块只会加载一次
-
-### ESM 的使用
-
-- **导出模块**
-
-  ```javascript
-  // math.js
-  export function add(a, b) {
-    return a + b;
-  }
-  ```
-
-- **导入模块**
-
-  ```javascript
-  // index.js
-  import { add } from "./math.js";
-
-  console.log(add(1, 2));
-  ```
-
-- **运行 ESM 模块**
-
-  <u>Node.js 默认不支持 ESM</u>，需要在 `package.json` 文件中添加 `"type": "module"` 字段，或者使用 `.mjs` 文件扩展名。
-
-  ```json
-  {
-    "type": "module"
-  }
-  ```
-
-  示例：`node index.js` 或 `node --experimental-modules index.mjs`
-
-### ESM 和 CommonJS 的区别
-
-- **导入模块**
-
-  - ESM 使用 `import` 关键字导入模块
-
-  - CommonJS 使用 `require` 函数导入模块
-
-- **导出模块**
-
-  - ESM 使用 `export` 关键字导出模块
-
-  - CommonJS 使用 `module.exports` 导出模块
-
-- **加载模块**
-
-  - ESM 是静态的，模块的依赖关系在编译时就确定了
-
-  - CommonJS 是动态的，模块的依赖关系在运行时确定
-
-- **模块的单例**
-
-  - ESM 是单例的，同一个模块只会加载一次
-
-  - CommonJS 是非单例的，同一个模块会加载多次
-
-- **模块的循环依赖**
-
-  - ESM 不允许模块的循环依赖
-
-  - CommonJS 允许模块的循环依赖
-
-### ESM 和 CommonJS 的兼容
-
-- **ESM 导入 CommonJS 模块**
-
-  ESM 可以导入 CommonJS 模块，但是导入的模块会被当作默认导出。
-
-  ```javascript
-  // index.js
-  import math from "./math.js";
-
-  console.log(math.add(1, 2));
-  ```
-
-  ```javascript
-  // math.js
-  module.exports = {
-    add(a, b) {
-      return a + b;
-    },
-  };
-  ```
-
-- **CommonJS 导入 ESM 模块**
-
-  CommonJS 无法导入 ESM 模块，需要使用 `import` 函数。
-
-  ```javascript
-  // index.js
-  const { add } = await import("./math.js");
-
-  console.log(add(1, 2));
-  ```
-
-  ```javascript
-  // math.js
-  export function add(a, b) {
-    return a + b;
-  }
-  ```
-
 ## npm 包管理器
 
 ### npm 常用命令
@@ -284,9 +158,17 @@ PM2 是一个 Node.js 进程管理器，可以用于管理 Node.js 应用程序�
 
 - `pm2 start app.js --name my-app`: 启动应用程序
 
+- `pm2 start app.js --watch`: 启动应用程序并监视文件变化
+
+  `pm2 start app.js --watch --ignore-watch="node_modules"`: 启动应用程序并忽略 `node_modules` 目录
+
+- `pm2 show <app_name_or_id>`: 显示应用程序信息
+
 - `pm2 stop my-app`: 停止应用程序
 
 - `pm2 restart my-app`: 重启应用程序
+
+- `pm2 reload my-app`: 重新加载应用程序
 
 - `pm2 delete my-app`: 删除应用程序
 
@@ -301,3 +183,94 @@ PM2 是一个 Node.js 进程管理器，可以用于管理 Node.js 应用程序�
   保存好的应用程序列表会在系统重启后自动恢复。
 
 - `pm2 startup`: 生成开机启动命令
+
+- `pm2 unstartup systemd`: 取消开机启动
+
+#### ecosystem.config.js
+
+可以使用 `ecosystem.config.js` 文件来配置 PM2。
+
+**注意**：pm2 默认不支持 ESM 模块，如果 `package.json` 包含 `"type": "module"` 字段，则全局都是 ESM 模块，会导致 PM2 启动应用失败，
+
+需要修改 `ecosystem.config.js` 文件为 `ecosystem.config.cjs` 让 PM2 正确解析 CommonJS 模块。
+
+```javascript
+module.exports = {
+  apps: [
+    {
+      name: "my-app",
+      script: "./src/app.js",
+      watch: true,
+      ignore_watch: ["node_modules"],
+    },
+  ],
+};
+```
+
+然后使用 `pm2 start ecosystem.config.js` 启动应用程序。
+
+还可以配置更多的选项，例如**环境变量、日志文件、错误日志**等。
+
+```javascript
+module.exports = {
+  apps: [
+    {
+      name: "my-app",
+      script: "./src/app.js",
+      watch: true,
+      ignore_watch: ["node_modules"],
+      env: {
+        NODE_ENV: "development",
+        PORT: 3000,
+      },
+      env_production: {
+        NODE_ENV: "production",
+        PORT: 80,
+      },
+      log_date_format: "YYYY-MM-DD HH:mm Z",
+      out_file: "./logs/out.log",
+      error_file: "./logs/error.log",
+    },
+  ],
+};
+```
+
+这样就可以使用 `pm2 start ecosystem.config.js --env production` 来启动生产环境的应用程序。
+
+**其它选项**
+
+- `namespace`: 设置命名空间，默认会归类到 default，用于逻辑分组应用，特别适用于 管理多个项目 或 不同环境的应用
+
+  `pm2 list --namespace <namespace>` 用于查看指定命名空间的应用
+
+- `instances`: 设置应用程序的实例数量，默认为 1
+
+- `exec_mode`: 设置应用程序的执行模式，可选值为 `fork` 或 `cluster`
+
+  `fork` 模式是默认模式，每个应用程序实例都是一个单独的进程
+
+  `cluster` 模式是多进程模式，每个 CPU 核心都会启动一个实例（仅适用于 HTTP 服务器）
+
+- `version`: 设置应用程序的版本号（不推荐）
+
+  pm2 会自动读取 `package.json` 文件中的 `version` 字段作为应用程序的版本号
+
+## 更多知识
+
+### 内置模块
+
+Node.js 提供了一些内置模块，可以直接使用，无需安装。
+
+- **fs**: 文件系统模块，用于操作文件
+
+- **http**: HTTP 模块，用于创建 Web 服务器
+
+- **path**: 路径模块，用于处理文件路径
+
+### 面试题
+
+- **const 和 let 的区别**
+
+  - `const` 声明的变量是常量，不可修改
+
+  - `let` 声明的变量是块级作用域，可以修改

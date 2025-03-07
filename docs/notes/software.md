@@ -74,21 +74,23 @@
 
 ## 编程开发工具
 
-| 类别                | 推荐                                                          | 系统    | 费用 | 备注                                                        |
-| ------------------- | ------------------------------------------------------------- | ------- | ---- | ----------------------------------------------------------- |
+| 类别                | 推荐                                                         | 系统    | 费用 | 备注                                                        |
+| ------------------- | ------------------------------------------------------------ | ------- | ---- | ----------------------------------------------------------- |
 | 代码编辑器          | [Visual Studio Code](https://code.visualstudio.com/Download#) | Win/Mac |      |                                                             |
-| Python 环境搭建     | [Python](https://www.python.org/)                             | Win/Mac |      |                                                             |
-| Python 开发工具     | [pycharm](https://www.jetbrains.com/)                         | Win/Mac |      | [[激活]](https://mp.weixin.qq.com/s/aZ4SmMy1IF223-oml8rGJw) |
-| 本地 WEB 开发环境   | [wamp](https://www.wampserver.com/en/)                        | Mac     |      | [本站介绍](https://www.shejibiji.com/archives/8523)         |
-| 本地 WEB 开发环境   | [MAMP](https://www.mamp.info/)                                | Mac     |      |                                                             |
-| 数据库 GUI 工具     | [Navicat](https://navicat.com.cn/)                            | Win/Mac | 很贵 | [本站介绍](https://www.shejibiji.com/archives/8381)         |
-| 数据库 GUI 工具     | [dbeaver](https://dbeaver.io/)                                | Win/Mac |      | 免费                                                        |
-| 二进制代码反汇编器  | IDA_Pro                                                       | Win     |      |                                                             |
-| JavaScript 环境搭建 | [nodejs](https://nodejs.org/zh-cn/)                           | Win/Mac |      |                                                             |
-| PHP 包管理工具      | [Composer](https://github.com/composer/composer)              | Win/Mac |      |                                                             |
-| 分布式版本控制系统  | GIT                                                           | Win/Mac |      |                                                             |
-| 网络数据包分析器    | [Wireshark](https://www.wireshark.org/)                       | Win/Mac |      |                                                             |
-| 网络数据调试工具    | [Proxyman](https://proxyman.io/)                              | Mac     |      |                                                             |
+| Python 环境搭建     | [Python](https://www.python.org/)                            | Win/Mac |      |                                                             |
+| Python 开发工具     | [pycharm](https://www.jetbrains.com/)                        | Win/Mac |      | [[激活]](https://mp.weixin.qq.com/s/aZ4SmMy1IF223-oml8rGJw) |
+| 本地 WEB 开发环境   | [wamp](https://www.wampserver.com/en/)                       | Mac     |      | [本站介绍](https://www.shejibiji.com/archives/8523)         |
+| 本地 WEB 开发环境   | [MAMP](https://www.mamp.info/)                               | Mac     |      |                                                             |
+| 数据库 GUI 工具     | [Navicat](https://navicat.com.cn/)                           | Win/Mac | 很贵 | [本站介绍](https://www.shejibiji.com/archives/8381)         |
+| 数据库 GUI 工具     | [dbeaver](https://dbeaver.io/)                               | Win/Mac |      | 免费                                                        |
+| 二进制代码反汇编器  | IDA_Pro                                                      | Win     |      |                                                             |
+| JavaScript 环境搭建 | [nodejs](https://nodejs.org/zh-cn/)                          | Win/Mac |      |                                                             |
+| PHP 包管理工具      | [Composer](https://github.com/composer/composer)             | Win/Mac |      |                                                             |
+| 分布式版本控制系统  | GIT                                                          | Win/Mac |      |                                                             |
+| 网络数据包分析器    | [Wireshark](https://www.wireshark.org/)                      | Win/Mac |      |                                                             |
+| 网络数据调试工具    | [Proxyman](https://proxyman.io/)                             | Mac     |      |                                                             |
+| 可执行文件修改器    | [Resource Hacker](https://www.angusj.com/resourcehacker/)    | Win     |      |                                                             |
+| 打包成可执行文件    | [NSIS](https://sourceforge.net/projects/nsis/)               | Win     |      | 可以把软件打包成安装包                                      |
 
 ## 系统管理优化
 
