@@ -8,7 +8,7 @@ title: NPM 常用 Package 介绍，开发中那些常用的 NPM 包
 
 > NPM 官方库：[npmjs](https://www.npmjs.com/package/package)
 
-## **📌 常用工具类**
+## **常用工具类**
 
 - [lodash](https://www.npmjs.com/package/lodash): JavaScript 实用工具库，提供了很多常用的工具函数。
 
@@ -26,7 +26,11 @@ title: NPM 常用 Package 介绍，开发中那些常用的 NPM 包
 
 - [colors](https://www.npmjs.com/package/colors): 类似 `chalk`，用于终端文本着色。
 
-## **📌 HTTP 请求**
+## **图片处理**
+
+- [sharp](https://www.npmjs.com/package/sharp): 高性能图片处理库，支持缩放、裁剪、旋转、水印等操作。
+
+## **HTTP 请求**
 
 - [axios](https://www.npmjs.com/package/axios): 基于 `Promise` 的 HTTP 客户端，支持浏览器和 Node.js。
 
@@ -36,17 +40,41 @@ title: NPM 常用 Package 介绍，开发中那些常用的 NPM 包
 
 - [superagent](https://www.npmjs.com/package/superagent): 轻量级 HTTP 请求库，支持 Node.js 和浏览器。
 
-## **📌 文件 & 目录操作**
-
-- [fs-extra](https://www.npmjs.com/package/fs-extra): 提供比 `fs` 更丰富的文件操作 API（如 `copy`、`move`、`remove`）。
+## **文件 & 目录操作**
 
 - [path](https://www.npmjs.com/package/path): 处理和解析文件路径的 Node.js 内置模块。
+
+- [url](https://www.npmjs.com/package/url): Node.js 内置模块，用于解析 URL。
+
+  `path.dirname(fileURLToPath(import.meta.url))` 用于获取当前文件的目录
+
+- [fs](https://www.npmjs.com/package/fs): Node.js 内置模块，用于文件操作（如读取、写入、删除）。
+
+  `fs.existsSync()` 用于判断文件或目录是否存在
+
+  `fs.mkdirSync(path, { recursive: true })` 用于创建目录
+
+  `fs.promises` 提供了基于 Promise 的文件操作 API
+
+  - `fs.promises.readFile()` 读取文件
+
+  - `fs.promises.writeFile()` 写入文件
+
+  - `fs.promises.unlink()` 删除文件
+
+  - `fs.promises.stat()` 获取文件信息
+
+  - `fs.promises.open()` 打开文件
+
+  - `fs.promises.readdir()` 读取目录
+
+- [fs-extra](https://www.npmjs.com/package/fs-extra): 提供比 `fs` 更丰富的文件操作 API（如 `copy`、`move`、`remove`）。
 
 - [fast-glob](https://www.npmjs.com/package/fast-glob): 高性能文件匹配库，类似 `glob`，但速度更快。
 
 - [adm-zip](https://www.npmjs.com/package/adm-zip): 处理 ZIP 文件的库，支持创建、解压缩。
 
-## **📌 进程管理 & 任务自动化**
+## **进程管理 & 任务自动化**
 
 - [pm2](https://www.npmjs.com/package/pm2): <u>进程管理工具</u>，适用于 Node.js 应用，支持负载均衡、日志管理。
 
@@ -56,7 +84,7 @@ title: NPM 常用 Package 介绍，开发中那些常用的 NPM 包
 
 - [cross-env](https://www.npmjs.com/package/cross-env): 解决不同操作系统之间环境变量设置的兼容性问题。
 
-## **📌 命令行工具（CLI 开发）**
+## **命令行工具（CLI 开发）**
 
 - [commander](https://www.npmjs.com/package/commander): 轻量级 CLI 命令解析工具。
 
@@ -66,7 +94,7 @@ title: NPM 常用 Package 介绍，开发中那些常用的 NPM 包
 
 - [figlet](https://www.npmjs.com/package/figlet): 在终端打印大 ASCII 字体字符。
 
-## **📌 数据库 & 存储**
+## **数据库 & 存储**
 
 - [mongoose](https://www.npmjs.com/package/mongoose): MongoDB 的对象数据模型（ODM），简化操作 MongoDB 数据库。
 
@@ -78,7 +106,7 @@ title: NPM 常用 Package 介绍，开发中那些常用的 NPM 包
 
 - [lowdb](https://www.npmjs.com/package/lowdb): 轻量级 JSON 数据库，适用于小型项目。
 
-## **📌 认证 & 安全**
+## **认证 & 安全**
 
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken): 用于生成和验证 JWT（JSON Web Token）。
 
@@ -86,7 +114,7 @@ title: NPM 常用 Package 介绍，开发中那些常用的 NPM 包
 
 - crypto: Node.js 内置加密模块，支持哈希、对称/非对称加密。
 
-## **📌 测试**
+## **测试**
 
 - [jest](https://www.npmjs.com/package/jest): Facebook 开发的 JavaScript 测试框架，适用于单元测试、集成测试。
 
@@ -96,7 +124,9 @@ title: NPM 常用 Package 介绍，开发中那些常用的 NPM 包
 
 - [supertest](https://www.npmjs.com/package/supertest): 用于测试 API，支持 `Express` 等框架。
 
-## **📌 Web 框架**
+## **Web 框架**
+
+- [next](https://www.npmjs.com/package/next): React 服务端渲染框架，支持静态导出、动态路由。
 
 - [express](https://www.npmjs.com/package/express): 轻量级、灵活的 Node.js Web 框架。
 
@@ -106,13 +136,13 @@ title: NPM 常用 Package 介绍，开发中那些常用的 NPM 包
 
 - [nest](https://www.npmjs.com/package/@nestjs/core): 适用于企业级应用的 TypeScript Web 框架，基于 `Express`。
 
-## **📌 WebSocket**
+## **WebSocket**
 
 - [ws](https://www.npmjs.com/package/ws): WebSocket 服务器端和客户端实现。
 
 - [socket.io](https://www.npmjs.com/package/socket.io): WebSocket 库，支持自动重连、事件机制。
 
-## **📌 其他**
+## **其他**
 
 - [dotenv](https://www.npmjs.com/package/dotenv): 读取 `.env` 文件中的环境变量。
 
