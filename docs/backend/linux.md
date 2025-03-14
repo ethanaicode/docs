@@ -866,9 +866,9 @@ which command
 
 - **Ctrl + C** = 终止当前命令
 
-- **Ctrl + A** = 光标移动到行首
+- **Ctrl + A** = 光标移动到<u>行首</u>
 
-- **Ctrl + E** = 光标移动到行尾
+- **Ctrl + E** = 光标移动到<u>行尾</u>
 
 - **Ctrl + W** = 删除光标前的一个单词
 
@@ -880,7 +880,7 @@ which command
 
 - **Ctrl + D** = 退出当前 shell（比如 sort 进入读键盘操作后）
 
-- **Ctrl + L** = 清屏（常用）
+- **Ctrl + L** = <u>清屏</u>
 
 - **Ctrl + R** = 搜索历史命令
 
@@ -2595,14 +2595,6 @@ sudo certbot certonly \
 
 - `--quiet`: 静默模式，不输出冗余信息
 
-**证书续期**
-
-Let's Encrypt 证书有效期为 90 天，可以使用 `certbot renew` 命令来续期证书，它会自动检查证书是否快过期，如果快过期就会自动续期。
-
-```bash
-sudo certbot renew
-```
-
 #### 管理证书命令
 
 - `certbot certificates`: <u>查看所有证书</u>，包括证书的域名、有效期等信息
@@ -2610,6 +2602,8 @@ sudo certbot renew
   _留意下方注意内容，如果使用了 `--config-dir` 参数，需要加上 `--config-dir` 参数来指定配置目录_
 
 - `certbot renew`: 续期证书
+
+  它会自动检查证书是否快过期，如果快过期就会自动续期，否则会直接跳过
 
 - `certbot revoke --cert-name example.com`: 撤销证书
 

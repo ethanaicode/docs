@@ -1,6 +1,8 @@
 # Bash
 
 > bash 写的脚本记得加上执行权限，`chmod +x filename`。
+>
+> 命令都支持直接在 Bash 命令行中使用，不需要写在脚本中。
 
 ## 基础语法
 
@@ -240,6 +242,15 @@ do
     command1
     command2
     ...
+done
+```
+
+例如；
+
+```bash
+for size in 16 32 48 64 128 256 512; do
+  magick input.png \
+    -resize ${size}x${size} output@${size}.png
 done
 ```
 
