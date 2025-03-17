@@ -603,9 +603,31 @@ server {
 }
 ```
 
+### 负载配置
+
 ## 模块
 
 ### http
+
+#### ngx_http_core_module
+
+> 参考文档: [ngx_http_core_module](https://nginx.org/en/docs/http/ngx_http_core_module.html)
+
+`ngx_http_core_module` 模块是 Nginx 的核心模块，它提供了一些基本的配置指令，比如`listen`、`server_name`、`root`、`index`等。
+
+以下是一些常用的配置项：
+
+- `client_max_body_size`: 设置请求体的最大长度，默认为 1M
+
+  如果转发时报错 `413 Request Entity Too Large`，可以尝试增大这个值。
+
+- `client_body_buffer_size`: 设置请求体的缓冲区大小，默认为 8K
+
+  如果请求体较大，可以适当增大这个值，缓存更大的请求，减少磁盘 I/O。
+
+- `client_body_timeout`: 设置请求体的超时时间，默认为 60s
+
+  如果请求体较大，可以适当增大这个值，避免超时。
 
 #### ngx_http_stub_status_module
 

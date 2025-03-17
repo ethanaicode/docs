@@ -162,6 +162,10 @@ PM2 是一个 Node.js 进程管理器，可以用于管理 Node.js 应用程序�
 
   `pm2 start app.js --watch --ignore-watch="node_modules"`: 启动应用程序并忽略 `node_modules` 目录
 
+  **注意**: `--watch` 选项会导致 PM2 监视文件变化，当文件发生变化时，PM2 会自动重启应用程序。如果是<u>缓存文件或者上传目录一定一定要忽略掉</u>，避免用户上传文件导致应用程序频繁重启。
+
+  并不推荐在生产环境中使用 `--watch` 选项，因为它会导致 PM2 消耗更多的 CPU 和内存资源，也可能导致应用程序频繁重启，影响用户体验。
+
 - `pm2 show <app_name_or_id>`: 显示应用程序信息
 
 - `pm2 stop my-app`: 停止应用程序

@@ -99,6 +99,8 @@ date: 2024-12-31 17:19:52
 
   案例：[fakeimg.pl](https://fakeimg.pl/)
 
+- [kamiFaka](https://github.com/Baiyuetribe/kamiFaka): 一款基于 VUE3.0 的高颜值卡密发卡系统
+
 ### 网页开发工具
 
 - [Pannellum](https://github.com/mpetroff/pannellum): 一款轻量免费的网页全景图展示工具

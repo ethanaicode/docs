@@ -126,16 +126,6 @@ TP3 中自动加载是通过`ThinkPHP/Library/Think/Think.class.php`文件中的
 
 - `single`：默认是按天生成日志文件，如果设置为`true`，则表示都会记录到一个文件中，默认名为`single.log`，如果设置为字符串，则表示文件名。
 
-## EasyAdmin 后台管理系统
-
-> 我们公司目前内部在用的系统，在这里也记录下使用经验(不推荐使用)。
->
-> 官方文档网站已经打不开了，我镜像了一份，可以在这里查看：[EasyAdmin 官方文档](/easyadmin/base/introduction.html)
-
-- `admin_source/app/common/constants/MenuConstant.php` 定义了首页的 PID，可以通过修改这个来设置默认打开的页面
-
-- `admin_source/public/static/plugs/easy-admin/easy-admin.js` 定义了一些全局的 JS 方法，可以通过修改这个来实现一些全局的功能
-
 ---
 
 ---
