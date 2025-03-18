@@ -142,6 +142,18 @@ title: CSS 前端开发学习指南，最全的CSS样式和用法汇总
 
 ## 属性样式
 
+### margin-\* 外边距
+
+#### margin
+
+`margin` 属性是一个简写属性，用于设置所有外边距属性。
+
+简写的顺序如下:
+
+- `margin: 2px 1em 0 auto;`: 上边 | 右边 | 下边 | 左边（顺时针）
+
+- `margin: 1em auto 2em;`: 上边 | 左右 | 下边
+
 ### box-\* 盒模型
 
 #### box-shadow

@@ -348,16 +348,6 @@ Typora 支持数学公式的输入，我们可以使用 LaTeX 语法来输入数
 
 - 截取图片后，选择粘贴图片功能，可以把剪贴板中的图片覆盖到新截图中，进行对比或者生成 2 帧的动画
 
-## Chrome
-
-### 快捷键 Hotkeys
-
-- **Ctrl + Shift + I** = 打开开发者工具(Inspect)
-
-  Mac 版使用 `Command + Option + I`
-
-- **Ctrl + Shift + J** = 打开控制台(Console)
-
 ## Wireshark
 
 一款网络协议分析工具，可以用来分析网络数据包。
@@ -763,6 +753,20 @@ _优点是可以保留皮肤的纹理，缺点是比较繁琐，效率非常慢_
 ### 快捷键 Hotkeys
 
 - **tab** = 显示/隐藏 视频详情
+
+## Chrome
+
+### 快捷键 Hotkeys
+
+- **Ctrl + Shift + I** = 打开开发者工具(Inspect)
+
+  Mac 版使用 `Command + Option + I`
+
+- **Ctrl + Shift + J** = 打开控制台(Console)
+
+- **Ctrl + F5** = 强制刷新
+
+  Mac 版使用 `Command + Shift + R`
 
 ## Youtube
 

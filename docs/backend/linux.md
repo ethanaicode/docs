@@ -308,13 +308,31 @@
 
   `-group` 指定所属组
 
-  `-size` 指定文件大小
-
   `-mtime` 指定修改时间
 
-  `-exec` <u>执行操作</u>
-
   `-print` 显示搜索结果
+
+  `-empty` 搜索空文件或目录
+
+  `-delete` <u>删除搜索结果</u>
+
+  `-exec` <u>执行命令</u>，`{}` 代表搜索到的文件
+
+  - `-exec` 和 `-delete` 一般结合使用，如: `find . -name "*.txt" -exec rm {} \;`
+
+  `-ok` 与 `-exec` 类似，但是会询问是否执行
+
+  `-maxdepth` 指定搜索深度
+
+  `-mindepth` 指定搜索深度
+
+  `-prune` 排除指定目录
+
+  `-regex` 使用正则表达式搜索
+
+  `-size` 指定文件大小
+
+  `-perm` 指定权限
 
 - **sort**: 排序文件内容
 
