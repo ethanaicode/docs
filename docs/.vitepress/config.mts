@@ -39,6 +39,7 @@ export default defineConfig({
           { text: "NPM-Package", link: "/frontend/npm-package" },
           { text: "Vue3", link: "/frontend/vue3" },
           { text: "TypeScript", link: "/frontend/typescript" },
+          { text: "前端随记本", link: "/frontend/snippets" },
         ],
       },
       {
@@ -96,6 +97,7 @@ export default defineConfig({
           { text: "NPM-Package", link: "/frontend/npm-package" },
           { text: "Vue3", link: "/frontend/vue3" },
           { text: "TypeScript", link: "/frontend/typescript" },
+          { text: "Snippets", link: "/frontend/snippets" },
         ],
       },
       {
