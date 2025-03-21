@@ -20,6 +20,28 @@
 | 快捷搜索   | [Listary](https://www.listary.com/)                                 | Win     |      | 双击 ctrl 搜索右键，方便的右键菜单                          |
 | — 快捷搜索 | [everything](https://www.voidtools.com/zh-cn/downloads/)            | Win     |      | 纯粹的快速搜索                                              |
 
+## 电脑实用工具
+
+| 类别              | 推荐                                                         | 系统    | 费用 | 备注                                                         |
+| ----------------- | ------------------------------------------------------------ | ------- | ---- | ------------------------------------------------------------ |
+| 长截图工具        | [FastStone Capture](https://www.faststone.org/FSCaptureDetail.htm) | Win     |      | 不免费，可破解                                               |
+| 屏幕录制          | [bandicam](https://www.bandicam.com/)                        | Win     |      | 收费 249                                                     |
+| 屏幕录制          | [oCam](https://ocam.en.softonic.com/)                        | Win     |      | 录屏录音都可以                                               |
+| 屏幕录制/直播推流 | OBS                                                          | Win/Mac |      |                                                              |
+| 图像批量转换      | [XnConvert](https://www.xnview.com/en/xnconvert/)            | Win     |      |                                                              |
+| 图片上传          | [PicGo](https://github.com/Molunerfinn/PicGo)                | Win/Mac |      |                                                              |
+| 文件对比工具      | [Beyond Compare](https://www.scootersoftware.com/)           | Win     |      |                                                              |
+| 远程控制工具      | [Todesk](https://www.todesk.com/)                            | Win/Mac |      |                                                              |
+| 批量重命名        | [FFRenamePro](http://www.ffhome.com/)                        | Win     |      | [本站介绍](https://www.shejibiji.com/archives/8684)，菲菲更名宝贝 |
+| GIF 录制编辑      | [ScreenToGif](https://www.screentogif.com/)                  | Win     |      |                                                              |
+| 文件大小分析      | [spacesniffer](http://www.uderzo.it/main_products/space_sniffer/) | Win     |      | 找出硬盘中的大文件                                           |
+| 重复文件搜索工具  | [Duplicate Cleaner](https://www.duplicatecleaner.com/)       | Win     |      |                                                              |
+| 翻译工具          | [Poedit](https://poedit.net/)                                | Win/Mac |      | .po -> .mo                                                   |
+| 卡牌学习工具      | [anki](https://anki.link/)                                   | Win/Mac |      |                                                              |
+| 内容组织管理工具  | [mymind](https://mymind.com/)                                | Win/Mac |      | 插件（来自大佬推荐）                                         |
+| 电子书下载-台湾   | [Readmoo](https://readmoo.com/)                              | Win/Mac |      | 网页（来自大佬推荐）                                         |
+| 阅读管理器        | [Readwise Reader](https://readwise.io/read)                  | Win/Mac | free | （来自大佬推荐）                                             |
+
 ## 平面设计软件
 
 | 类别         | 推荐                                            | 系统    | 费用 | 备注    |
@@ -52,25 +74,6 @@
 | 视频转换工具      | [HandBrake](https://handbrake.fr/)                                   | Mac     |      |                    |
 | AVS 视频处理脚本  | [AviSynth](http://www.avisynth.org/)                                 | Win     |      | 代码操作，功能强大 |
 | AV 元数据刮削     | [Movie_Data_Capture](https://github.com/yoshiko2/Movie_Data_Capture) | Win     |      |                    |
-
-## 电脑实用工具
-
-| 类别              | 推荐                                                               | 系统    | 费用 | 备注                                                              |
-| ----------------- | ------------------------------------------------------------------ | ------- | ---- | ----------------------------------------------------------------- |
-| 长截图工具        | [FastStone Capture](https://www.faststone.org/FSCaptureDetail.htm) | Win     |      | 不免费，可破解                                                    |
-| 屏幕录制          | [bandicam](https://www.bandicam.com/)                              | Win     |      | 收费 249                                                          |
-| 屏幕录制          | [oCam](https://ocam.en.softonic.com/)                              | Win     |      | 录屏录音都可以                                                    |
-| 屏幕录制/直播推流 | OBS                                                                | Win/Mac |      |                                                                   |
-| 图像批量转换      | [XnConvert](https://www.xnview.com/en/xnconvert/)                  | Win     |      |                                                                   |
-| 图片上传          | [PicGo](https://github.com/Molunerfinn/PicGo)                      | Win/Mac |      |                                                                   |
-| 文件对比工具      | [Beyond Compare](https://www.scootersoftware.com/)                 | Win     |      |                                                                   |
-| 远程控制工具      | [Todesk](https://www.todesk.com/)                                  | Win/Mac |      |                                                                   |
-| 批量重命名        | [FFRenamePro](http://www.ffhome.com/)                              | Win     |      | [本站介绍](https://www.shejibiji.com/archives/8684)，菲菲更名宝贝 |
-| GIF 录制编辑      | [ScreenToGif](https://www.screentogif.com/)                        | Win     |      |                                                                   |
-| 文件大小分析      | [spacesniffer](http://www.uderzo.it/main_products/space_sniffer/)  | Win     |      | 找出硬盘中的大文件                                                |
-| 重复文件搜索工具  | [Duplicate Cleaner](https://www.duplicatecleaner.com/)             | Win     |      |                                                                   |
-| 翻译工具          | [Poedit](https://poedit.net/)                                      | Win/Mac |      | .po -> .mo                                                        |
-| 卡牌学习工具      | [anki](https://anki.link/)                                         | Win/Mac |      |                                                                   |
 
 ## 编程开发工具
 
