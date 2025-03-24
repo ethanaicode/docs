@@ -63,6 +63,10 @@ date: 2024-12-31 17:19:52
 
   由于 YouTube-dl 项目被 DMCA 下架，yt-dlp 是一个很好的替代品
 
+- [BBDown](https://github.com/nilaoda/BBDown): 一个命令行式哔哩哔哩下载器
+
+  鸟大的哔哩哔哩下载器，支持下载视频、音频、字幕等
+
 ## 开发资源
 
 ### 框架

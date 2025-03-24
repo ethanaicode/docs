@@ -411,7 +411,7 @@ location / {
 
 #### return 重定向实现
 
-可以使用`return`指令来进行重定向，比如下面的配置：
+可以使用`return`指令来进行重定向，比如将 `HTTP` 请求全部重定向到 `HTTPS`，可以这样配置：
 
 ```nginx
 server {
@@ -575,21 +575,29 @@ location ~ .*\.(jpg|jpeg|gif|png|js|css)$
 
 ```nginx
 server {
-    listen              443 ssl;
+    listen              443 ssl http2;
     server_name         www.example.com;
+
     ssl_certificate     www.example.com.crt;
     ssl_certificate_key www.example.com.key;
     ssl_protocols       TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
     ssl_ciphers         HIGH:!aNULL:!MD5;
     ...
 }
 ```
+
+- `listen 443 ssl http2`: 监听 443 端口，并开启 SSL 和 HTTP/2
 
 - `ssl_certificate`: 证书文件的路径
 
 - `ssl_certificate_key`: 证书私钥的路径
 
 - `ssl_protocols`: SSL 协议的版本，它表示支持的 SSL 协议版本
+
+- `ssl_prefer_server_ciphers`: 是否优先使用服务器端的加密算法，默认为 off
+
+  如果设置为 on，表示优先使用服务器端的加密算法，否则优先使用客户端的加密算法。
 
 - `ssl_ciphers`: SSL 加密算法，它表示支持的 SSL 加密算法
 

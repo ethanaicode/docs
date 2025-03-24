@@ -2623,6 +2623,10 @@ sudo certbot certonly \
 
   它会自动检查证书是否快过期，如果快过期就会自动续期，否则会直接跳过
 
+- `certbot renew --dry-run`: 模拟续期证书
+
+  用于测试续期证书是否正常，不会实际续期证书，开启自动续期前可以先测试一下
+
 - `certbot revoke --cert-name example.com`: 撤销证书
 
 - `certbot delete --cert-name example.com`: 删除证书
@@ -2630,6 +2634,16 @@ sudo certbot certonly \
   _也可以直接删除 `/path/to/live/example.com` 目录和 `/path/to/renewal/example.com.conf` 文件来实现_
 
 **注意**: 如果通过 `--config-dir` 指定了配置目录，在管理时需要加上 `--config-dir` 参数来指定配置目录，否则会默认使用 `/etc/letsencrypt` 目录。
+
+#### 定时任务自动续期证书
+
+Certbot 安装后通常会自动添加一个 systemd 定时任务，你可以使用以下命令查看：
+
+```bash
+systemctl list-timers | grep certbot
+```
+
+你可以通过查看服务状态来查看定时任务的执行情况：`systemctl status certbot.timer`
 
 #### 管理账号命令
 

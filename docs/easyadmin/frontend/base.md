@@ -15,6 +15,8 @@
 - 控制器对应的 JS 文件`public/static/admin/js/mall/cate.js`
 - 每一个控制里面的`方法`对应 js 里面的`属性`就会自动进行加载
 
+**设计笔记注**：下面案例中 `del_url: "mall.cate/del",` 在某些版本要写成 `delete_url: "mall.cate/delete",`，否则会报错（可以参考代码中的案例进行判断）
+
 ```js
 define(["jquery", "easy-admin"], function ($, ea) {
   var init = {
