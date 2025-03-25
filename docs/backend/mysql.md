@@ -266,7 +266,7 @@ skip-log-bin
 
 ## 使用案例
 
-### 基础语法
+### 基础使用
 
 #### INSERT 插入行
 
@@ -292,7 +292,7 @@ SET column1 = value1, column2 = value2, ...
 WHERE condition;
 ```
 
-#### ALTER TABLE 修改表
+#### ALTER TABLE 新增或修改字段
 
 ```sql
 -- 添加字段

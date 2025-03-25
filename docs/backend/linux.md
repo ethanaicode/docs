@@ -2477,18 +2477,18 @@ sysctl -p
 可以使用`openssl`来模拟请求，查看证书详细信息:
 
 ```bash
-echo | openssl s_client -connect localhost:443 -servername your_domain.com 2>/dev/null
+echo | openssl s_client -connect example.com:443 -servername example.com 2>/dev/null
 ```
 
 - `echo` 命令用于向管道发送空字符串，给 `openssl` 命令提供输入
 
   默认情况下 `openssl s_client` 命令会等待用户输入，否则连接会挂起，通过 `echo` 命令可以避免这种情况
 
-- `-connect` 要访问的目标地址和端口，如果是远程的话，需要替换为远程地址，可以为域名或者 IP 地址
+- `-connect` 要访问的目标地址和<u>端口</u>，如果是远程的话，需要替换为远程地址，可以为域名或者 IP 地址
 
-- `-servername` 告知服务器要访问的域名，<u>如果访问的已经是远程域名，可以省略</u>
+- `-servername` 告知服务器要访问的域名，**可以省略**（如果访问 localhost，则需要指定）
 
-也可以继续把输出信息交给`openssl`来只显示证书有效期:
+也可以继续把输出信息交给`openssl`来**只显示证书有效期**:
 
 ```bash
 echo | openssl s_client -connect localhost:443 -servername your_domain.com 2>/dev/null | openssl x509 -noout -dates
