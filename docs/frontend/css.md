@@ -10,7 +10,21 @@ title: CSS 前端开发学习指南，最全的CSS样式和用法汇总
 
 ## CSS 基础
 
-### CSS 选择器
+### CSS 单位
+
+- `px` 像素
+
+- `em` 相对于父元素的字体大小
+
+- `rem` 相对于根元素的字体大小（`html`）
+
+- `vw` 视窗宽度的百分比
+
+- `vh` 视窗高度的百分比
+
+- `%` 百分比，通常是相对于父元素的宽度
+
+### 属性选择器
 
 **分组选择器**
 
@@ -140,6 +154,26 @@ title: CSS 前端开发学习指南，最全的CSS样式和用法汇总
 
 - `伪类` > `类` > `标签`
 
+> 参考：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Attribute_selectors)
+
+### 常见问题解决
+
+#### 内容溢出
+
+溢出是在你往盒子里面塞太多东西的时候发生的，所以盒子里面的东西也不会老老实实待着。
+
+- `overflow: hidden;` 隐藏溢出内容
+
+- `overflow: scroll;` 显示滚动条
+
+- `overflow: auto;` 自动显示滚动条
+
+- `overflow-x: hidden;` 隐藏水平溢出内容
+
+  如果内容右侧溢出，而你暂时不想定位是哪一个元素导致的，可以使用这个属性
+
+- `overflow-y: hidden;` 隐藏垂直溢出内容
+
 ## 属性样式
 
 ### margin-\* 外边距
@@ -153,6 +187,68 @@ title: CSS 前端开发学习指南，最全的CSS样式和用法汇总
 - `margin: 2px 1em 0 auto;`: 上边 | 右边 | 下边 | 左边（顺时针）
 
 - `margin: 1em auto 2em;`: 上边 | 左右 | 下边
+
+### display 显示
+
+`display` 属性规定元素应该生成的框的类型。
+
+- `block`: 块级元素，元素前后会有换行
+
+- `inline`: 行内元素，元素前后不会有换行
+
+- `inline-block`: 行内块元素，元素前后不会有换行，但是可以设置宽高
+
+- `none`: 元素不会被显示
+
+- `flex`: 弹性布局
+
+- `grid`: 网格布局
+
+### postion 定位
+
+#### position
+
+`position` 属性指定元素的定位类型。它有以下值:
+
+- `static`: 默认值，元素在正常文档流中
+
+- `relative`: 相对定位，元素相对于其正常位置进行定位
+
+- `absolute`: 绝对定位，元素相对于最近的已定位祖先元素进行定位
+
+  如果没有已定位的祖先元素，那么它相对于最初的包含块进行定位(通常是 `<html>` 元素)
+
+  这个很适合用来做角标，如下面的案例：
+
+  ```html
+  <style>
+    .container {
+      position: relative;
+    }
+
+    .badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: red;
+      color: white;
+      padding: 5px;
+      border-radius: 50%;
+    }
+  </style>
+  ```
+
+- `fixed`: 固定定位，元素相对于浏览器窗口进行定位
+
+  fixed 与 absolute 很相似，但 fixed 会定位到屏幕中固定位置，不受页面滚动影响
+
+- `sticky`: 粘性定位，元素根据用户的滚动位置进行定位
+
+  sticky 当贴到顶部的时候，固定在顶部
+
+  最常用的就是顶部导航栏，当用户滚动页面时，导航栏会固定在页面顶部
+
+参考：[认识 position 各参数，附带解释和多个案例](https://jsrun.net/ZL2Kp)
 
 ### box-\* 盒模型
 
