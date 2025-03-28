@@ -2442,6 +2442,16 @@ time curl -I http://yourpage.com
 
 - `nslookup example.com`: 查询 DNS 记录
 
+  默认情况下会查询 A 记录，通过添加 `-type` 参数可以查询其他类型的 DNS 记录
+
+  `-type=A` 参数可以查询 A 记录
+
+  `-type=TXT` 参数可以查询 TXT 记录
+
+  `-type=CNAME` 参数可以查询 CNAME 记录
+
+  `-type=any` 参数可以查询所有类型的 DNS 记录
+
 - `dig example.com`: 更强大的 DNS 查询工具，适合高级用户
 
   `-A` 参数可以只查看 A 记录
