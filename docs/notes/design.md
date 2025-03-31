@@ -86,6 +86,14 @@
 
 - [Peepslab](https://peepslab.com/): Pablo Stanley 风格头像在线生成器
 
+## 动画设计工具
+
+- [Lottie](https://lottiefiles.com/): 跨设备的轻量级动画文件
+
+  有很多动画库，现在多邻国正在使用的工具
+
+- [Rive](https://rive.app/): 网页互动动画设计工具
+
 ## 素材下载
 
 - [Lummi](https://www.lummi.ai/): AI 素材库

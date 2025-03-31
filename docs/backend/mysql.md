@@ -464,6 +464,24 @@ update user set host='%' where user='root';
 
 ## SQLite
 
+### 字段类型
+
+SQLite 的字段类型是动态类型的，字段类型并不严格。
+
+而 SQLite 内部会将字段类型转换为以下几种类型：
+
+- `INTEGER`: 整数类型
+
+- `NUMERIC`: 数值类型
+
+- `REAL`: 浮点数类型
+
+- `TEXT`: 字符串类型
+
+- `BLOB`: 二进制数据类型
+
+其它的类型虽然支持，但 SQLite 采用 **类型亲和性** 的方式来处理这些类型，如 `VARCHAR`、`CHAR`、`DATE`、`DATETIME` 等会被转换为 `TEXT` 类型。
+
 ### 连表查询
 
 要注意，SQLite 是不支持全连接，但是可以通过左连接和右连接来实现。

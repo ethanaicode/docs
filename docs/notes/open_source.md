@@ -11,6 +11,12 @@ date: 2024-12-31 17:19:52
 
 ### 编辑器
 
+- [neovim](https://github.com/neovim/neovim): 一款现代化的 Vim 编辑器
+
+  Neovim 是一个现代化的 Vim 编辑器，支持插件、异步执行等功能
+
+  官网：[neovim.io](https://neovim.io/)
+
 - [markdown-css](https://github.com/wecatch/markdown-css): 把 Markdown 转换成漂亮的 HTML
 
   首先生成没有样式的 html 文件，然后利用这个工具把样式添加进去，以方便在公众号或者浏览器中查看使用
@@ -67,6 +73,12 @@ date: 2024-12-31 17:19:52
 
   鸟大的哔哩哔哩下载器，支持下载视频、音频、字幕等
 
+### 其他工具
+
+- [KeePassXC](https://github.com/keepassxreboot/keepassxc): 一款开源的密码管理器
+
+  KeePassXC 是一个跨平台的密码管理器，支持多种平台和浏览器扩展
+
 ## 开发资源
 
 ### 框架
@@ -108,6 +120,16 @@ date: 2024-12-31 17:19:52
 ### 网页开发工具
 
 - [Pannellum](https://github.com/mpetroff/pannellum): 一款轻量免费的网页全景图展示工具
+
+## AI 开发
+
+### AI 工具
+
+- [Cline](https://github.com/cline/cline): cline 命令行 AI 助手，支持 MCP 协议
+
+  MCP(Model Context Protocol) 是一个用于 AI 模型之间通信的协议，类似于 HTTP 协议，通过 MCP 协议，可以实现不同 AI 模型之间的互操作性和协同工作
+
+  比如我有一个 Github 的 MCP 代理，可以通过 MCP 协议将 Github 的数据传递给 cline，然后 cline 可以使用这些数据来生成代码、回答问题等。
 
 ## 学习资源
 
