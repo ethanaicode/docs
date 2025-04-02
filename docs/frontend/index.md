@@ -12,6 +12,10 @@
 
 - [Vue3](./vue3)
 
+- [Electron](./electron)
+
+- [Vite](./vite)
+
 - [Typescript](./typescript)
 
 - [Snippets](./snippets)

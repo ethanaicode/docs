@@ -208,3 +208,89 @@ layui 虽然用的不多，但是公司的老项目很多都是基于 layui 开�
 ### 内置模块-表格
 
 > [table 数据表格文档 - layui.table](https://layui.dev/2.7/docs/modules/table.html)
+
+## highlight.js
+
+> [highlight.js 官网](https://highlightjs.org/)
+>
+> [highlight.js Examples](https://highlightjs.org/examples)
+
+### 主题推荐
+
+- `atom-one-dark`: Atom One Dark 主题
+
+- `atom-one-light`: Atom One Light 主题
+
+- `github`: GitHub 主题
+
+- `github-dark`: GitHub Dark 主题
+
+- `github-gist`: GitHub Gist 主题
+
+- `a11y-dark`: A11y Dark 主题
+
+- `a11y-light`: A11y Light 主题
+
+## Element UI
+
+> [Element UI 官方文档](https://element.eleme.cn/#/zh-CN/component/installation)
+>
+> [Element UI 组件库](https://element-plus.gitee.io/zh-CN/guide/design.html)
+
+## Native UI
+
+> [Native UI 官方文档](https://www.naiveui.com/zh-CN/os-theme/docs/introduction)
+>
+> [Native UI 组件库](https://www.naiveui.com/zh-CN/os-theme/components/avatar)
+
+### 开始使用
+
+首先需要安装 `naive-ui`：
+
+```bash
+npm install -D naive-ui
+```
+
+使用时可以全局引入，也可以按需引入。
+
+并不推荐全局引入，因为会导致打包体积过大，按需引入也非常简单，在你用到的组件文件中（比如 `App.vue` 或 `Hello.vue`）这样写：
+
+```javascript
+<template>
+  <n-button type="primary">点击我</n-button>
+</template>
+
+<script setup>
+import { NButton } from 'naive-ui'
+</script>
+```
+
+这样只引入了 `NButton`，构建时 Vite 会自动 Tree Shaking 未用的组件，**无需做任何插件配置**。
+
+### 实用笔记
+
+- `n-space`: 用于设置组件之间的间距，可以把它理解成一个 `div`，它的 `display` 属性是 `flex`，并且有 `gap` 属性。
+
+  但官方更推荐使用 `n-flex` 组件来实现。
+
+## Tailwind CSS
+
+> [Tailwind CSS 官网](https://tailwindcss.com/)
+>
+> [Tailwind CSS 中文文档](https://www.tailwindcss.cn/docs/installation)
+
+### 开始使用
+
+```bash
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+
+- `tailwindcss`: Tailwind CSS 核心库
+- `postcss`: PostCSS 核心库，CSS 处理器平台， Tailwind 通过它运行
+- `autoprefixer`: PostCSS 插件，自动添加浏览器前缀
+- `npx tailwindcss init -p`: 创建 `tailwind.config.js` 和 `postcss.config.js` 文件
+
+## 图标库
+
+- [xicons](https://xicons.org/#/): Native UI 推荐的图标库

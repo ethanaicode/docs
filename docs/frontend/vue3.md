@@ -2,6 +2,8 @@
 
 > 官方中文文档：https://cn.vuejs.org/guide/introduction.html
 >
+> 快速开始指南：https://vuejs.org/guide/quick-start.html#local
+>
 > 主要参考教程：https://www.bilibili.com/video/BV1Rs4y127j8?p=15
 
 ## 基础知识

@@ -8,6 +8,10 @@ Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境，可以让 
 
 ## npm 包管理器
 
+npm 是 Node.js 的包管理器，用于安装、管理和发布 JavaScript 包。
+
+npm 包是一个包含 JavaScript 代码的文件夹，通常包含一个 `package.json` 文件，用于描述包的信息和依赖。
+
 ### npm 常用命令
 
 - **npm init**: 初始化项目
@@ -20,11 +24,21 @@ Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境，可以让 
 
 - **npm install \<package\>**: 安装指定包
 
-  `-g` 全局安装
+  `-g` 全局安装（可以在命令行中使用）
 
-  `--save` 安装到生产环境
+  `--save` 安装到生产环境（默认）
 
   `--save-dev` 安装到开发环境
+
+  `--save-exact` 安装指定版本
+
+  `--no-save` 不保存到 `package.json` 文件中
+
+  `--force` 强制安装
+
+  `--legacy-peer-deps` 忽略对等依赖冲突（npm 7+）
+
+  `--registry <registry>`: 指定 npm 源地址
 
 - **npm uninstall \<package\>**: 卸载包
 
@@ -40,9 +54,7 @@ Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境，可以让 
 
 - **npm run \<script\>**: 运行脚本
 
-  脚本在`package.json`文件中的`scripts`字段中定义
-
-  `-g` 全局安装的包
+  脚本在 `package.json` 文件中的 `scripts` 字段中定义
 
 - **npm root -g**: 查看全局包的安装路径
 
@@ -258,6 +270,10 @@ module.exports = {
 - `version`: 设置应用程序的版本号（不推荐）
 
   pm2 会自动读取 `package.json` 文件中的 `version` 字段作为应用程序的版本号
+
+## Vercel
+
+Vercel 是一个云平台，可以快速部署 Node.js 应用程序，另外它也支持其它语言和框架，例如 Flask、Django、Ruby on Rails 等。
 
 ## 更多知识
 

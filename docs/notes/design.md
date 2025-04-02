@@ -66,6 +66,12 @@
 
   - `阿里妈妈东方大楷体` 中文字体
 
+- [Zpix (最像素)](https://zpix.vercel.app/)
+
+  开源免费像素字体，支持简体中文、繁体中文、日文
+
+  开源地址: [Github](https://github.com/SolidZORO/zpix-pixel-font)
+
 - [HarmonyOS Sans](https://developer.huawei.com/consumer/en/doc/design-guides-V1/font-0000001157868583-V1)
 
   华为

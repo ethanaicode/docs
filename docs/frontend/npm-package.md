@@ -46,7 +46,9 @@ title: NPM 常用 Package 介绍，开发中那些常用的 NPM 包
 
 - [url](https://www.npmjs.com/package/url): Node.js 内置模块，用于解析 URL。
 
-  `path.dirname(fileURLToPath(import.meta.url))` 用于获取当前文件的目录
+  `path.dirname(fileURLToPath(import.meta.url))` 用于获取当前文件的目录(`import.meta.url` 是 ES 模块的 URL 格式，路径为 `file://` 开头，所以需要使用 `fileURLToPath` 转换为文件路径)
+
+  `path.basename(fileURLToPath(import.meta.url))` 用于获取当前文件的文件名
 
 - [fs](https://www.npmjs.com/package/fs): Node.js 内置模块，用于文件操作（如读取、写入、删除）。
 
@@ -96,6 +98,12 @@ title: NPM 常用 Package 介绍，开发中那些常用的 NPM 包
 
 ## **数据库 & 存储**
 
+- [better-sqlite3](https://www.npmjs.com/package/better-sqlite3): 高性能 SQLite3 客户端，支持异步和同步操作。
+
+- [sqlite3](https://www.npmjs.com/package/sqlite3): SQLite3 客户端，支持异步和同步操作。
+
+- [mysql2](https://www.npmjs.com/package/mysql2): MySQL 客户端，支持 Promise 和异步操作。
+
 - [mongoose](https://www.npmjs.com/package/mongoose): MongoDB 的对象数据模型（ODM），简化操作 MongoDB 数据库。
 
 - [sequelize](https://www.npmjs.com/package/sequelize): 支持 MySQL、PostgreSQL、SQLite、MSSQL 的 ORM 库。
@@ -135,6 +143,14 @@ title: NPM 常用 Package 介绍，开发中那些常用的 NPM 包
 - [fastify](https://www.npmjs.com/package/fastify): 高性能 Web 框架，比 `Express` 快 2~3 倍。
 
 - [nest](https://www.npmjs.com/package/@nestjs/core): 适用于企业级应用的 TypeScript Web 框架，基于 `Express`。
+
+## **开发工具**
+
+- [Shiki](https://www.npmjs.com/package/shiki): 语法高亮库，支持多种语言和主题。
+
+  [shiki 官网](https://shiki.matsu.io/) | [中文文档](https://shiki.tmrs.site/guide/)
+
+- [rehype-katex](https://www.npmjs.com/package/rehype-katex): 用于将 LaTeX 数学公式转换为 HTML 的库。
 
 ## **WebSocket**
 

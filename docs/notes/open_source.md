@@ -85,6 +85,10 @@ date: 2024-12-31 17:19:52
 
 - [MultiWechat](https://github.com/coderiderlin/MultiWechat): 微信多开开发框架
 
+- [ Electron + Vite + Vue](https://github.com/electron-vite/electron-vite-vue.git): Electron + Vite + Vue3 开发框架
+
+  Electron + Vite + Vue3 开发起点项目
+
 ## 服务器运维
 
 ### 运维工具
