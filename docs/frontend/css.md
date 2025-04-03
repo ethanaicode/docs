@@ -537,6 +537,8 @@ p {
 
 - `space-evenly`: 使每个元素的左右空间相等（包括头尾也是一致的）
 
+推荐阅读：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/justify-content)
+
 **align-items**
 
 可以使元素在交叉轴方向对齐。

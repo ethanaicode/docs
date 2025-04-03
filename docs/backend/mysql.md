@@ -389,6 +389,108 @@ GROUP BY COUNTRY
 
 ## 高级操作
 
+### 实时查看 MySQL 连接状态
+
+- `SHOW FULL PROCESSLIST;`: 会显示当前<u>所有连接的状态</u>
+
+  `Command` 列显示执行类型，关键：Query、Sleep、Connect
+
+  `Time` 列显示执行时间，单位是秒
+
+- `SHOW PROCESSLIST;`: 会显示当前所有连接的状态，但不显示完整的 SQL 语句
+
+- `SHOW ENGINE INNODB STATUS;`: 会显示 InnoDB 的状态信息
+
+- `SHOW STATUS LIKE 'Threads%';`: 会显示当前线程的状态信息
+
+- `SHOW VARIABLES LIKE 'max_connections';`: 会显示最大连接数
+
+- `SHOW VARIABLES LIKE 'max_connections';`: 会显示最大连接数
+
+- `SHOW VARIABLES LIKE 'max_allowed_packet';`: 会显示最大允许的包大小
+
+### SQL 性能分析
+
+有时候发现 SQL 执行很慢，或者感觉 MySQL 占用过高，可以参考以下方式进行分析
+
+#### 慢查询日志
+
+**打开慢查询日志**
+
+```sql
+SET GLOBAL slow_query_log = 'ON';
+SET GLOBAL long_query_time = 1;
+```
+
+**查看日志路径**
+
+```sql
+SHOW VARIABLES LIKE 'slow_query_log_file';
+```
+
+**查看慢查询日志**
+
+```bash
+mysqldumpslow -s t -t 10 /path/to/slow-query.log
+# 或更详细：
+pt-query-digest /path/to/slow-query.log
+```
+
+#### 观察线程运行情况
+
+高并发也会吃 CPU，`Threads_running` 如果经常 > 10，说明 CPU 很可能在处理高并发 SQL。
+
+`Threads_connected` 很高时，可能程序没及时关闭连接，或者并发太大。
+
+```sql
+SHOW STATUS LIKE 'Threads_running';
+SHOW STATUS LIKE 'Threads_connected';
+```
+
+#### 查看 MySQL 当前最耗 CPU 的 SQL
+
+`performance_schema` 是 MySQL 提供的一个非常强大的监控和诊断功能，它可以记录 SQL 的执行时间、资源消耗、锁情况等，**默认在 MySQL 5.6+ 中通常是开启的**，但某些发行版可能默认关闭，需要你手动开启。
+
+**检查是否已启用**
+
+```sql
+SHOW VARIABLES LIKE 'performance_schema';
+```
+
+**查询最耗时的 SQL 语句**
+
+```sql
+SELECT DIGEST_TEXT, COUNT_STAR, SUM_TIMER_WAIT / 1000000000000 AS total_time_s
+FROM performance_schema.events_statements_summary_by_digest
+ORDER BY SUM_TIMER_WAIT DESC
+LIMIT 10;
+```
+
+**每个用户执行的 SQL 总耗时**
+
+```sql
+SELECT user, SUM_TIMER_WAIT / 1000000000000 AS total_time_s
+FROM performance_schema.events_statements_summary_by_user_by_event_name
+ORDER BY total_time_s DESC;
+```
+
+**查看当前所有监控表**
+
+```sql
+SHOW TABLES FROM performance_schema;
+```
+
+**手动启动 performance_schema**
+
+因为 `performance_schema` 是一个启动参数，必须在启动 MySQL 时就启用。需要修改配置文件，然后重启 MySQL。
+
+通常是 `/etc/my.cnf` 或 `/etc/mysql/my.cnf`，找到 `[mysqld]` 段落，加入：
+
+```ini
+[mysqld]
+performance_schema=ON
+```
+
 ### EXPLAIN 查询分析
 
 使用了 `EXPLAIN` 关键字，则查询将返回有关数据库引擎执行查询的信息，而不会返回实际结果。

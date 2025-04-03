@@ -62,6 +62,8 @@
 
 如果是文件，通常客户端会解析文件，然后将文件内容发送给服务器，服务器会返回对应的回复。
 
+#### 基础案例
+
 **请求数据**
 
 ```python
@@ -118,6 +120,10 @@ data = {
 ```json
 data: {"choices":[{"delta":{"content":null,"reasoning_content":"“"},"finish_reason":null,"index":0,"logprobs":null}],"object":"chat.completion.chunk","usage":null,"created":1741676945,"system_fingerprint":null,"model":"deepseek-r1","id":"chatcmpl-fbc7c94f-05e2-98d6-840a-897837dac57d"}
 ```
+
+#### 相关知识
+
+- **role 角色**，通常有 `user`、`assistant`、`system` 三种角色
 
 ### 图片生成
 
