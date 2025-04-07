@@ -238,6 +238,20 @@ git config --global user.email "youremail"
 
 ## 开发实践
 
+### 管理多个版本
+
+当需要维护多个版本的应用时，你可以创建不同的分支来分别管理生产版本和开发版本。例如，你可以使用以下的分支结构：
+
+- `master` 分支：用于发布生产版本。
+
+- `develop` 分支：用于开发新特性。
+
+- `release` 分支：用于发布新版本。
+
+- `hotfix` 分支：用于修复生产版本的 bug。
+
+- `feature` 分支：用于开发新特性。
+
 ### 开发分支
 
 可以通过创建开发分支来进行特性开发，然后合并到主分支。
@@ -259,6 +273,137 @@ git merge feature-branch
 
 ```bash
 git branch -d feature-branch
+```
+
+### 合并策略
+
+如果直接合并分支，Git 会创建一个新的合并提交，这样会使提交历史变得混乱。
+
+为了保持提交历史的整洁，可以使用 `rebase` 命令来变基。
+
+```bash
+git checkout feature-branch
+git rebase master
+```
+
+_要注意的是， `git rebase master` 实际上是在 `feature-branch` 分支上进行的操作。_
+
+_`rebase` 的目的是将一个分支的提交重新应用到目标分支（通常是主分支）的末尾，这样可以避免出现分支和合并的痕迹，让分支历史保持线性。_
+
+**注意**: 如果在执行 `rebase` 时出现冲突，你需要手动解决冲突并继续 `rebase`。解决冲突后，使用以下命令继续：
+
+```bash
+git rebase --continue
+```
+
+如果是远程的分支，你可以先将远程的分支拉取到本地，然后再进行 `rebase`。
+
+```bash
+git checkout -b feature-branch origin/feature-branch
+```
+
+如果你希望让主分支和开发分支保持一致，你还需要切换到主分支，然后合并开发分支。
+
+```bash
+git checkout master
+git merge feature-branch --ff-only
+```
+
+- `--ff-only` 参数表示只允许快进合并（适用在目标分支是直接的父分支的情况，也就是目标分支没有新的提交，仅在源分支上有新提交）。
+
+  如果主分支已经有新的提交，就不需要这个参数了。
+
+通过这种方法，Git 的提交历史不会显示分支的合并痕迹，历史看起来就像在一条线上演进。
+
+### 交互式整理提交历史
+
+如果你在开发过程中提交了很多次，但是这些提交并不需要保留，可以使用 `git rebase -i` 命令来整理提交历史，它是用来交互式地整理提交历史的强大工具。你可以用它来：
+
+- 合并（squash）多个提交为一个提交
+
+- 修改提交信息
+
+- 删除不需要的提交
+
+- 改变提交顺序
+
+- 分割一个提交为多个提交
+
+使用方式主要有：
+
+- `git rebase -i HEAD~n`：将最近的 n 次提交进行交互式变基。
+
+- `git rebase -i <branch>`：从当前分支起点，一直到指定的分支进行交互式变基。
+
+打开后会显示一个编辑器界面，列出所有的提交记录，每一行代表一个提交，类似下面这样：
+
+```bash
+pick e3a1a00 修复登录bug
+pick 14bc9f0 调整UI样式
+pick 7f6d912 添加调试代码
+pick 4b1ff23 修复UI缩放问题
+```
+
+你可以把 `pick` 改为以下几种操作：
+
+- `pick`：保留这个提交
+
+- `reword`：保留这个提交，但是修改提交信息
+
+- `edit`：保留这个提交，但是暂停在这个提交上，你可以修改代码或者提交信息
+
+- `squash`：合并到上一个提交（压缩提交）
+
+- `fixup`：将这个提交和前一个提交合并为一个提交，并且丢弃这个提交的提交信息（类似 squash，但自动丢弃提交信息）
+
+- `drop`：删除这个提交
+
+### Commit 规范
+
+**每次提交消息中应该包含以下内容：**
+
+- **type**: 提交的类型。
+
+- **scope**: 可选，提交的范围，比如 `button`、`header`、`footer` 等。
+
+- **subject**: 提交的简短描述，不超过 50 个字符。
+
+- **body**: 提交的详细描述，可以包含原因、解决方案等。
+
+- **footer**: 提交的备注，比如关联的 issue、关闭的 issue 等。
+
+**type 类型**
+
+- **feat**: 新功能（feature）
+
+- **fix**: 修复 bug
+
+- **docs**: 文档（documentation），比如 README、CHANGELOG 等
+
+- **style**: 格式（不影响代码运行的变动），比如空格、格式化等
+
+- **refactor**: 重构（不是新增功能，也不是修复 bug）
+
+- **perf**: 性能优化，体验优化
+
+- **test**: 测试用例
+
+- **chore**: 构建过程或辅助工具的变动
+
+- **revert**: 撤销
+
+**示例**
+
+```bash
+feat(button): add new button component
+
+Add a new button component to the project.
+
+- Add button component
+- Add button styles
+- Add button tests
+
+Closes #123
 ```
 
 ### 使用标签
@@ -323,102 +468,6 @@ git tag v1.0
 ```
 
 这种标签不会记录任何额外的信息，只是一个指向某个提交的指针。
-
-### 管理多个版本
-
-当需要维护多个版本的应用时，你可以创建不同的分支来分别管理生产版本和开发版本。例如，你可以使用以下的分支结构：
-
-- `master` 分支：用于发布生产版本。
-
-- `develop` 分支：用于开发新特性。
-
-- `release` 分支：用于发布新版本。
-
-- `hotfix` 分支：用于修复生产版本的 bug。
-
-- `feature` 分支：用于开发新特性。
-
-### 合并策略
-
-如果直接合并分支，Git 会创建一个新的合并提交，这样会使提交历史变得混乱。
-
-为了保持提交历史的整洁，可以使用 `rebase` 命令来变基。
-
-```bash
-git checkout feature-branch
-git rebase master
-```
-
-_要注意的是， `git rebase master` 实际上是在 `feature-branch` 分支上进行的操作。_
-
-_`rebase` 的目的是将一个分支的提交重新应用到目标分支（通常是主分支）的末尾，这样可以避免出现分支和合并的痕迹，让分支历史保持线性。_
-
-**注意**: 如果在执行 `rebase` 时出现冲突，你需要手动解决冲突并继续 `rebase`。解决冲突后，使用以下命令继续：
-
-```bash
-git rebase --continue
-```
-
-如果你希望让主分支和开发分支保持一致，你还需要切换到主分支，然后合并开发分支。
-
-```bash
-git checkout master
-git merge --ff-only feature-branch
-```
-
-- `--ff-only` 参数表示只允许快进合并（适用在目标分支是直接的父分支的情况，也就是目标分支没有新的提交，仅在源分支上有新提交）。
-
-  如果主分支已经有新的提交，就不需要这个参数了。
-
-通过这种方法，Git 的提交历史不会显示分支的合并痕迹，历史看起来就像在一条线上演进。
-
-### Commit 规范
-
-**每次提交消息中应该包含以下内容：**
-
-- **type**: 提交的类型。
-
-- **scope**: 可选，提交的范围，比如 `button`、`header`、`footer` 等。
-
-- **subject**: 提交的简短描述，不超过 50 个字符。
-
-- **body**: 提交的详细描述，可以包含原因、解决方案等。
-
-- **footer**: 提交的备注，比如关联的 issue、关闭的 issue 等。
-
-**type 类型**
-
-- **feat**: 新功能（feature）
-
-- **fix**: 修复 bug
-
-- **docs**: 文档（documentation），比如 README、CHANGELOG 等
-
-- **style**: 格式（不影响代码运行的变动），比如空格、格式化等
-
-- **refactor**: 重构（不是新增功能，也不是修复 bug）
-
-- **perf**: 性能优化，体验优化
-
-- **test**: 测试用例
-
-- **chore**: 构建过程或辅助工具的变动
-
-- **revert**: 撤销
-
-**示例**
-
-```bash
-feat(button): add new button component
-
-Add a new button component to the project.
-
-- Add button component
-- Add button styles
-- Add button tests
-
-Closes #123
-```
 
 ## 案例及技巧
 
