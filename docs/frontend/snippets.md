@@ -273,6 +273,10 @@ import { NButton } from 'naive-ui'
 
   但官方更推荐使用 `n-flex` 组件来实现。
 
+## Pinia
+
+> [中文官网](https://pinia.vuejs.org/zh/)
+
 ## Tailwind CSS
 
 > [Tailwind CSS 官网](https://tailwindcss.com/)

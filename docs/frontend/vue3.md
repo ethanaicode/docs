@@ -1,8 +1,8 @@
 # Vue3
 
-> 官方中文文档：https://cn.vuejs.org/guide/introduction.html
+> 官方中文文档：https://cn.vuejs.org/guide/introduction
 >
-> 快速开始指南：https://vuejs.org/guide/quick-start.html#local
+> 英文开始指南（：https://vuejs.org/guide/quick-start
 >
 > 主要参考教程：https://www.bilibili.com/video/BV1Rs4y127j8?p=15
 
@@ -254,6 +254,43 @@ export default {
 ### [计算属性 computed()](https://cn.vuejs.org/guide/essentials/computed.html)
 
 ### 表单输入绑定 v-model
+
+待补充
+
+### 计算属性 computed
+
+待补充
+
+### 侦听器 watch
+
+待补充
+
+## API
+
+### 生命周期钩子 onMounted
+
+待补充
+
+### CSS 功能
+
+#### 深度选择器
+
+处于 `scoped` 样式中的选择器如果想要做更“深度”的选择，也即：影响到子组件，可以使用 `:deep()` 这个伪类：
+
+```vue
+<template>
+  <div class="parent">
+    <h1>Parent</h1>
+    <child-component></child-component>
+  </div>
+</template>
+<style scoped>
+/* ... */
+.parent :deep(.child) {
+  color: blue;
+}
+</style>
+```
 
 ## Router
 
