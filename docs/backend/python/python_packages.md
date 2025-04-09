@@ -84,6 +84,8 @@ title: 最常用的Python第三方库包大全，以及它们的简单介绍和�
 
 - **matplotlib**: 用于绘制图表和图形的 Python 库
 
+- **seaborn**: 基于 Matplotlib 的数据可视化库，提供了更高级的绘图接口和美观的默认样式
+
 ### 桌面开发
 
 - **Pygame**: 用于编写 2D 游戏的 Python 库

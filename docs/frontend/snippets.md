@@ -237,11 +237,11 @@ layui 虽然用的不多，但是公司的老项目很多都是基于 layui 开�
 >
 > [Element UI 组件库](https://element-plus.gitee.io/zh-CN/guide/design.html)
 
-## Native UI
+## Naive UI
 
-> [Native UI 官方文档](https://www.naiveui.com/zh-CN/os-theme/docs/introduction)
+> [Naive UI 官方文档](https://www.naiveui.com/zh-CN/os-theme/docs/introduction)
 >
-> [Native UI 组件库](https://www.naiveui.com/zh-CN/os-theme/components/avatar)
+> [Naive UI 组件库](https://www.naiveui.com/zh-CN/os-theme/components/avatar)
 
 ### 开始使用
 
