@@ -811,6 +811,20 @@ git fetch origin
 
 ## Github 远程仓库
 
+### 下载原始单文件
+
+GitHub 上的文件来自 `raw.githubusercontent.com`，它们存储在可访问的位置，因此如果您知道用户名、存储库和文件路径，则可以像这样下载任何分支上的任何文件：
+
+```bash
+wget https://raw.githubusercontent.com/<username>/<repository>/<branch>/<path-to-file>
+```
+
+比如我想下载我自己写的一个脚本到服务器上，就可以直接这样：
+
+```bash
+wget https://raw.githubusercontent.com/ethanaicode/debian-ubuntu-webserver-setup/main/script/auto_get_ssl_cert.sh
+```
+
 ### Access Token
 
 #### 生成 Access Token

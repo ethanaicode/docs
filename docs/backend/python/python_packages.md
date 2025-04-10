@@ -42,18 +42,6 @@ title: 最常用的Python第三方库包大全，以及它们的简单介绍和�
 
 ### 数据处理
 
-- **numpy**: 用于数值计算的 Python 库，可以高效处理数组，许多图像处理和机器学习库都依赖于它
-
-- **Pandas**: 用于数据处理和分析的 Python 库
-
-  1. 高效的 DataFrame 对象，用于数据处理，以及强大的数据聚合和转换等功能
-
-  2. 读取和写入多种文件格式的数据，包括 CSV、Excel、SQL 数据库等
-
-  3. 提供多种方式来对数据进行筛选、排序、分组、合并等操作
-
-  4. 与 Matplotlib、Seaborn 等数据可视化库结合使用，方便生成图表和报表
-
 - **openpyxl (openpyxl.worksheet)**: 用于读写 Excel 文件的 Python 库
 
 - **yaml**: 用于读写 YAML 文件的 Python 库
@@ -81,6 +69,22 @@ title: 最常用的Python第三方库包大全，以及它们的简单介绍和�
   pip 安装命令: `pip install opencv-python`
 
 - **moviepy**: 用于处理视频的 Python 库，提供了视频剪辑、合并、转换等功能 [--> 站内链接](./python_moviepy)
+
+### 数据处理
+
+- **numpy**: 用于数值计算的 Python 库，可以高效处理数组，许多图像处理和机器学习库都依赖于它
+
+- **Pandas**: 用于数据处理和分析的 Python 库
+
+  1. 高效的 DataFrame 对象，用于数据处理，以及强大的数据聚合和转换等功能
+
+  2. 读取和写入多种文件格式的数据，包括 CSV、Excel、SQL 数据库等
+
+  3. 提供多种方式来对数据进行筛选、排序、分组、合并等操作
+
+  4. 与 Matplotlib、Seaborn 等数据可视化库结合使用，方便生成图表和报表
+
+### 数据可视化
 
 - **matplotlib**: 用于绘制图表和图形的 Python 库
 

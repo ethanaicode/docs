@@ -261,7 +261,7 @@ export default {
 
 待补充
 
-### 侦听器 watch
+### 侦听器 watch/watchEffect
 
 待补充
 
