@@ -164,63 +164,71 @@ _绑定的期待是一个基础类型的值，如字符串或者 number 类型_
 
 监听 DOM 事件，并在事件触发时执行对应的 JavaScript。
 
-值可以为：
+#### 按键修饰符
 
-1. 内联事件处理器（Javascript 语句）
-2. 方法事件处理器
+在监听键盘事件时，我们经常需要检查特定的按键。
 
-事件支持传递参数，默认参数为`e`事件，如果传递了别的参数，依然还想要传递`event`参数，就需要加`$event`，类似下面这样：
+Vue 允许在 `v-on` 或 `@` 监听按键事件时添加按键修饰符。
+
+```vue
+<!-- 仅在 `key` 为 `Enter` 时调用 `submit` -->
+<input @keyup.enter="submit" />
+```
+
+例如我希望在输入框中，按下 Enter 执行我自定义的方法，就可以这样：
 
 ```vue
 <template>
-  <h3>内联事件处理器</h3>
-  <button @click="count++">Clicked {{ count }} times</button>
-  <h3>方法事件处理器</h3>
-  <button @click="increment('Incremented', $event)">Increment</button>
+  <div id="app">
+    <h1>Vue3</h1>
+    <input @keydown.enter.prevent="handleSend" placeholder="Enter message" />
+  </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      count: 0,
-    };
-  },
-  methods: {
-    increment(text, e) {
-      e.target.innerText = text;
-      this.count++;
-    },
-  },
-};
-</script>
 ```
 
-Vue 为`v-on`提供了**事件修饰符**，常用有以下：
+等价于标准的 JS 写法：
 
-- .stop
-- .prevent
-- .once
-- enter
-- ...
+```js
+<input
+  @keydown="(event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleSend(event);
+    }
+  }"
+/>
+```
 
-具体可以参考：https://vuejs.org/guide/essentials/event-handling.html#event-modifiers
+它表示：
+
+- `keydown` → 绑定键盘按下事件
+
+- `.enter` → 只在 `event.key === 'Enter'` 时触发
+
+- `.prevent` → 自动调用 `event.preventDefault()`，阻止默认行为（例如在表单中按下回车会提交）
 
 ### 数组变化侦测
 
-数组变化有两种方法：变更方法和替换数组
+数组变化有两种方法：变更方法和替换数组。
 
-变更方法：Vue 能够侦听响应式数组的变更方法，并在调用时触发相关的更新。这些变更方法包括：
+**变更方法**：Vue 能够侦听响应式数组的变更方法，并在调用时触发相关的更新。这些变更方法包括：
 
-- push()
-- pop()
-- shift()
-- unshift()
-- splice()
-- sort()
-- reverse
+- `push()`
 
-替换数组：有一些不可变的方法(immnutable)，如`filter()`，`concat()`和`slice()`，这些不会更改数组，而是**返回一个新数组**，这些方法就不会导致 UI 变化，需要重新赋值才能更新页面：
+- `pop()`
+
+- `shift()`
+
+- `unshift()`
+
+- `splice()`
+
+- `sort()`
+
+- `reverse`
+
+**替换数组**：有一些不可变的方法(immnutable)，如`filter()`，`concat()`和`slice()`，这些不会更改数组，而是**返回一个新数组**，这些方法就不会导致
+UI 变化，需要重新赋值才能更新页面：
 
 ```vue
 <template>
@@ -456,3 +464,7 @@ next('/login'); } else { // 如果用户已认证，则继续路由导航 next()
    - `useRouter` 是用于在组件的 `setup()` 函数中获取路由实例的函数。
    - 它返回一个路由实例，该实例具有诸如 `push`, `replace`, `go` 等方法，用于编程式导航以及访问路由的其他属性和方法。
    - 通常用于需要在组件中进行编程式导航或者访问路由实例的情况，比如在点击事件中导航到其他路由。
+
+```
+
+```

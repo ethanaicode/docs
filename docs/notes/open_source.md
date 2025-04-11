@@ -127,6 +127,14 @@ date: 2024-12-31 17:19:52
 
 ## AI 开发
 
+### AI 客户端
+
+- [lobe-chat](https://github.com/lobehub/lobe-chat): 一款开源的 AI 聊天客户端
+
+  支持多种 AI 模型，支持本地部署和云端部署
+
+  官网：[lobehub.com](https://lobehub.com/)
+
 ### AI 工具
 
 - [Cline](https://github.com/cline/cline): cline 命令行 AI 助手，支持 MCP 协议
