@@ -413,7 +413,7 @@ GROUP BY COUNTRY
 
 有时候发现 SQL 执行很慢，或者感觉 MySQL 占用过高，可以参考以下方式进行分析
 
-#### 慢查询日志
+#### 慢查询日志（✅ 推荐）
 
 **打开慢查询日志**
 
@@ -423,6 +423,10 @@ SET GLOBAL long_query_time = 1;
 ```
 
 **查看日志路径**
+
+日志文件通常默认写在：`/var/lib/mysql/your-hostname-slow.log`，比如我的是 `/var/lib/mysql/izbpz-slow.log`
+
+也可以通过以下命令查看日志路径：
 
 ```sql
 SHOW VARIABLES LIKE 'slow_query_log_file';
@@ -459,8 +463,14 @@ SHOW VARIABLES LIKE 'performance_schema';
 
 **查询最耗时的 SQL 语句**
 
+可以通过 `performance_schema.events_statements_summary_by_digest` 表来查看 SQL 的执行，找出最耗时的 SQL 语句。
+
 ```sql
-SELECT DIGEST_TEXT, COUNT_STAR, SUM_TIMER_WAIT / 1000000000000 AS total_time_s
+SELECT
+    DIGEST_TEXT,
+    COUNT_STAR,
+    SUM_TIMER_WAIT / 1000000000000 AS total_time_s,
+    (SUM_TIMER_WAIT / COUNT_STAR) / 1000000000000 AS avg_time_s
 FROM performance_schema.events_statements_summary_by_digest
 ORDER BY SUM_TIMER_WAIT DESC
 LIMIT 10;
@@ -478,6 +488,19 @@ ORDER BY total_time_s DESC;
 
 ```sql
 SHOW TABLES FROM performance_schema;
+```
+
+**定期清理监控表**
+
+`performance_schema.events_statements_summary_by_digest` 表本身不会记录每条语句的具体执行时间戳，
+
+它是一个累计统计表，记录的是“某类 SQL 自数据库启动以来执行的次数和耗时总和”，而不是每次执行的具体信息。
+
+所以如果你想要查看某个时间段内的 SQL 执行情况，可以定期清理这个表。
+
+```sql
+TRUNCATE TABLE performance_schema.events_statements_summary_by_digest;
+-- 等你执行一段时间后再查询统计值
 ```
 
 **手动启动 performance_schema**

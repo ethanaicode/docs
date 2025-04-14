@@ -113,12 +113,51 @@ data = {
 }
 ```
 
+如果是文件，还需要先读取文件内容，并以这样的格式进行发送：
+
+```python
+messages: [
+  {
+      "role": "user",
+      "content": "输入的内容\n\n\n<ATTACHMENT_FILE>\n<FILE_INDEX>File 1</FILE_INDEX>\n<FILE_NAME>文件名称.md</FILE_NAME>\n<FILE_CONTENT>\n# 内容标题...\n</FILE_CONTENT>\n</ATTACHMENT_FILE>\n"
+    }
+]
+```
+
+如果是图片，需要转成 url 或者 base64 格式进行发送：
+
+```python
+messages: [
+  {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "输入的内容\n[image]"
+        },
+        {
+          "type": "image_url",
+          "image_url": {
+            "url": "data:image/png;base64,iV...="
+          }
+        }
+      ]
+    }
+]
+```
+
 **返回数据**
 
 返回的数据类似下面这样，不断地发送给客户端，直到最后会发送一条 `end` 事件，表示对话结束。
 
-```json
+```bash
 data: {"choices":[{"delta":{"content":null,"reasoning_content":"“"},"finish_reason":null,"index":0,"logprobs":null}],"object":"chat.completion.chunk","usage":null,"created":1741676945,"system_fingerprint":null,"model":"deepseek-r1","id":"chatcmpl-fbc7c94f-05e2-98d6-840a-897837dac57d"}
+```
+
+如果有错误时会返回：
+
+```bash
+{"error":{"code":"invalid_type","param":"'messages.[0].content'","message":"Invalid type for 'messages.[0].content': expected one of a string or array of objects, but got an object instead.","type":"invalid_request_error"},"request_id":"chatcmpl-29eac547-a262-9c24-9690-e4c3a31ad122"}
 ```
 
 #### 相关知识
