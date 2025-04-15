@@ -81,6 +81,12 @@ date: 2024-12-31 17:19:52
 
 ## 开发资源
 
+### UI
+
+- [Inspira UI](https://github.com/unovue/inspira-ui): Inspira UI
+
+  Inspira UI 是一个基于 Vue3 的开源组件库，提供了一些常用的 UI 组件
+
 ### 框架
 
 - [MultiWechat](https://github.com/coderiderlin/MultiWechat): 微信多开开发框架

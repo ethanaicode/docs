@@ -30,21 +30,15 @@ Git 是一个分布式版本控制系统，它将文件的修改记录为不同�
 
 - **git reset**: 回退版本
 
+  `--hard` 回退版本，丢弃工作区和暂存区的修改(谨慎使用)
+
   `--mixed` 默认参数，回退版本，保留工作区的修改
 
   `--soft` 回退版本，保留暂存区的修改
 
-  `--hard` 回退版本，丢弃工作区和暂存区的修改(谨慎使用)
-
 - **git revert [commit_hash]**: 撤销某次提交
 
   会生成一个新的提交，这个提交是对之前提交的撤销
-
-- **git rebase**: 变基
-
-  `git rebase -i HEAD~[n]` 可以合并 n 个提交
-
-  `git rebase -i [commit_hash]` 可以合并某个提交
 
 - **git stash**: <u>暂存工作区</u>
 
@@ -73,6 +67,12 @@ Git 是一个分布式版本控制系统，它将文件的修改记录为不同�
 - **git fetch**: 拉取远程分支
 
   不会自动合并，需要手动合并
+
+- **git rebase**: 变基
+
+  `git rebase -i HEAD~[n]` 可以合并 n 个提交
+
+  `git rebase -i [commit_hash]` 可以合并某个提交
 
 - **git merge <branch_name>**: 合并 `<branch_name>` 分支到当前分支
 
@@ -144,11 +144,13 @@ Git 的分支合并有两种策略：快进合并（Fast-forward Merge）和合�
 
 - **三方合并（Three-way merge）**: 如果两个分支都有新的提交，Git 会创建一个新的合并提交（merge commit），将两个分支的内容结合在一起。这种情况下，有时会出现冲突，需要手动解决。
 
-### merge 和 rebase
+### merge vs rebase vs cherry-pick
 
 - **merge**：直接合并分支，将两个分支的历史“合并”在一起，生成一个新的合并提交。适合保留分支开发历史的场景。
 
 - **rebase**：将一个分支的提交重放到另一个分支之后，不产生合并提交，历史保持线性。适合在功能完成后整理提交历史的场景。
+
+- **cherry-pick**：将某个提交应用到当前分支，适合选择性地将某些提交应用到其他分支的场景。
 
 ### log 和 reflog
 
@@ -314,11 +316,60 @@ git checkout master
 git merge feature-branch --ff-only
 ```
 
-- `--ff-only` 参数表示只允许快进合并（适用在目标分支是直接的父分支的情况，也就是目标分支没有新的提交，仅在源分支上有新提交）。
-
-  如果主分支已经有新的提交，就不需要这个参数了。
+- `--ff-only` 参数表示只允许快进合并，用于强制保持 **线性历史**，如果不能快进，就 **拒绝合并**，报错退出。
 
 通过这种方法，Git 的提交历史不会显示分支的合并痕迹，历史看起来就像在一条线上演进。
+
+### 合并时整理历史去掉远程的分支合并记录
+
+如果别人推送了新的提交到远程分支，但是里面包含了合并的提交，破坏了线性历史，而我们像撤销掉那条“合并提交”，然后把对方修改过的那条记录线性地整合到你们自己的代码历史中，保持干净（无合并）的提交历史。
+
+这是一个很典型的需要 **“打碎合并”**、**“线性整合”** 的场景，我们可以通过 `rebase` + `cherry-pick` 等方式实现。
+
+情况类似下面这种：
+
+```bash
+       A --- B --- C        (你们的代码)
+              \
+               D            (对方的修改)
+                \
+                 E          (合并提交，D+C)
+```
+
+我们希望保留 对方的修改 D，去掉合并提交 E，变成下面这种：
+
+```bash
+       A --- B --- C --- D'  (D' 是 D 的变种，如果需要合并的话)
+```
+
+可以按照下面的步骤来实现：
+
+```bash
+# 首先检查历史记录，找到干净历史的提交，比如 C
+git checkout main
+git log --oneline --graph
+# 重置到 C 的提交，这个时候得到的历史是 A-B-C
+git reset --hard <C-commit-hash>
+
+# 找到对方提交的哈希，把对方的修改（D）用 cherry-pick 方式加进来
+git cherry-pick <D-commit-hash>
+# 如果有冲突，解决冲突后：
+git add .
+git cherry-pick --continue
+
+# 如果远程还包含了合并提交 E，强制推送到远程覆盖
+git push origin main --force
+```
+
+如果想要的是一段范围的提交，可以这样写：
+
+```bash
+# 比如想要把 D 到 F 的提交都整合到一起（不包含 F）
+git cherry-pick <D-commit-hash>^..<F-commit-hash>
+
+# 或者单独选择每一个想要的提交
+git cherry-pick <D-commit-hash> <E-commit-hash>
+```
 
 ### 交互式整理提交历史
 
@@ -502,9 +553,15 @@ git remote add origin <repository-url>
 
   每行显示一个提交，格式为: `<短哈希> <提交信息>`
 
-- `git log --graph`: <u>显示提交历史的图形化分支</u>(可以结合 `--oneline` 使用)
+- `git log --graph`: 显示提交历史的图形化分支
 
   显示提交历史的分支图，可以清晰地看到分支的合并和分叉
+
+- `git log --decorate`: 显示提交历史的引用信息
+
+  显示每个提交的引用信息，比如分支名、标签名等
+
+  把上面的三个选项组合在一起，可以使用 `git log --oneline --graph --decorate` <u>来显示简洁的提交历史和分支图</u>，这个就已经很接近 git 图形化工具的效果了。
 
 #### 筛选提交记录
 
