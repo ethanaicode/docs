@@ -102,9 +102,6 @@ data = {
       role: 'assistant',
       content: '欢迎您来到深度求索！我是深度求索的一款智能助手，随时准备帮助您解答问题、提供信息或者进行愉快的对话。请随时告诉我您需要什么帮助，我会尽力提供！'
     },
-    { role: 'user', content: '您好' },
-    { role: 'assistant', content: '您好！有什么我可以帮助您的吗？' },
-    { role: 'user', content: '您好' }
   ],
   model: 'deepseek-r1',
   temperature: 0.7,
@@ -113,20 +110,20 @@ data = {
 }
 ```
 
-如果是文件，还需要先读取文件内容，并以这样的格式进行发送：
+如果是**文件**，还需要先读取文件内容，并以这样的格式进行发送：
 
-```python
+```json
 messages: [
   {
       "role": "user",
-      "content": "输入的内容\n\n\n<ATTACHMENT_FILE>\n<FILE_INDEX>File 1</FILE_INDEX>\n<FILE_NAME>文件名称.md</FILE_NAME>\n<FILE_CONTENT>\n# 内容标题...\n</FILE_CONTENT>\n</ATTACHMENT_FILE>\n"
+      "content": "输入的文字内容\n\n\n<ATTACHMENT_FILE>\n<FILE_INDEX>File 1</FILE_INDEX>\n<FILE_NAME>文件名称.md</FILE_NAME>\n<FILE_CONTENT>\n# 内容标题...\n</FILE_CONTENT>\n</ATTACHMENT_FILE>\n"
     }
 ]
 ```
 
-如果是图片，需要转成 url 或者 base64 格式进行发送：
+如果是**图片**，需要转成 url 或者 base64 格式进行发送：
 
-```python
+```json
 messages: [
   {
       "role": "user",
@@ -150,15 +147,38 @@ messages: [
 
 返回的数据类似下面这样，不断地发送给客户端，直到最后会发送一条 `end` 事件，表示对话结束。
 
-```bash
+```json
 data: {"choices":[{"delta":{"content":null,"reasoning_content":"“"},"finish_reason":null,"index":0,"logprobs":null}],"object":"chat.completion.chunk","usage":null,"created":1741676945,"system_fingerprint":null,"model":"deepseek-r1","id":"chatcmpl-fbc7c94f-05e2-98d6-840a-897837dac57d"}
 ```
 
-如果有错误时会返回：
+如果有**错误**时会返回：
 
-```bash
-{"error":{"code":"invalid_type","param":"'messages.[0].content'","message":"Invalid type for 'messages.[0].content': expected one of a string or array of objects, but got an object instead.","type":"invalid_request_error"},"request_id":"chatcmpl-29eac547-a262-9c24-9690-e4c3a31ad122"}
+```json
+{
+  "error": {
+    "code": "invalid_type",
+    "param": "'messages.[0].content'",
+    "message": "Invalid type for 'messages.[0].content': expected one of a string or array of objects, but got an object instead.",
+    "type": "invalid_request_error"
+  },
+  "request_id": "chatcmpl-29eac547-a262-9c24-9690-e4c3a31ad122"
+}
 ```
+
+#### 初始化对话名称
+
+通常需要给当前对话一个名称，可以在新建的对话后，发送第一次对话内容时让 AI 先帮忙起一个名字，消息可以类似下面这种：
+
+````json
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "Based on the chat history, give this conversation a name.\nKeep it short - 10 characters max, no quotes.\nUse 简体中文.\nJust provide the name, nothing else.\n\nHere's the conversation:\n\n```\n<用户第一次发送的消息，替换这里，不包括符号>\n\n---------\n\n\n```\n\nName this conversation in 10 characters or less.\nUse 简体中文.\nOnly give the name, nothing else.\n\nThe name is:"
+    }
+  ]
+}
+````
 
 #### 相关知识
 

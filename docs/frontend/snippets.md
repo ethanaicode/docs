@@ -267,6 +267,31 @@ import { NButton } from 'naive-ui'
 
 这样只引入了 `NButton`，构建时 Vite 会自动 Tree Shaking 未用的组件，**无需做任何插件配置**。
 
+### 使用案例
+
+#### 在图标按钮上弹出信息或者添加提示
+
+添加提示有两种组件：`Tooltip`和 `Popover`，`Tooltip` 有基础的文本样式，适合展示一些基础的内容，如果你想自定义样式，可以使用 `Popover` 组件。
+
+```vue
+<script setup lang="ts">
+import { CashOutline } from "@vicons/ionicons5";
+</script>
+
+<template>
+  <n-tooltip trigger="hover" placement="top" :delay="300">
+    <template #trigger>
+      <n-button quaternary circle style="padding: 8px">
+        <template #icon>
+          <n-icon><CashOutline /></n-icon>
+        </template>
+      </n-button>
+    </template>
+    打开钱包（悬浮提示）
+  </n-tooltip>
+</template>
+```
+
 ### 实用笔记
 
 - `n-space`: 用于设置组件之间的间距，可以把它理解成一个 `div`，它的 `display` 属性是 `flex`，并且有 `gap` 属性。
