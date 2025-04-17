@@ -303,6 +303,8 @@ xattr -cr /path/to/application.app
 
 - **brew install PKG_NAME**: 安装软件
 
+- **brew reinstall PKG_NAME**: 重新安装软件
+
 - **brew update**: 更新 Homebrew 库信息
 
 - **brew upgrade PKG_NAME**: 更新软件
