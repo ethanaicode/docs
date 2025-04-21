@@ -106,6 +106,30 @@ skip-log-bin
 
 - `SELECT DISTINCT`: 仅返回不同的值
 
+- `WHERE`: 用于过滤结果集
+
+- `AND`: 用于连接多个条件
+
+- `OR`: 用于连接多个条件
+
+- `NOT`: 用于否定条件
+
+- `LIKE`: 用于模糊查询
+
+  - `%` 表示任意多个字符
+
+  - `_` 表示一个字符
+
+    这个要特别注意，**不然很容易匹配到不期待的结果**。
+
+    如果是真的想匹配 `_` 字符本身，可以使用 `ESCAPE` 关键字来定义转义字符，如
+
+    ```sql
+     SELECT * FROM table_name WHERE column_name LIKE 'abc\_' ESCAPE '\';
+    ```
+
+    表示定义 `\` 为转义字符，匹配 `abc_` 字符串
+
 - `UPDATE`: 更新数据库中的数据
 
 - `DELETE`: 从数据库中删除数据，没有 `WHERE` 会删除所有数据

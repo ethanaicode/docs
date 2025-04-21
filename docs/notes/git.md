@@ -541,6 +541,12 @@ git remote add origin <repository-url>
 
 查看提交历史可以使用 `git log` 命令，通过不同的选项组合，`git log` 可以满足各种需求，从简单的日志查看到复杂的差异分析。
 
+#### 常用组合
+
+- `git log --oneline --graph --decorate`: 显示简洁的提交历史和分支图
+
+- `git log -p --follow -- <path/to/file>`: 显示每次提交中该文件的 **diff** 差异，便于你直接看到每次改了什么
+
 #### 基础用法
 
 - `git log`: 显示所有提交历史
@@ -560,8 +566,6 @@ git remote add origin <repository-url>
 - `git log --decorate`: 显示提交历史的引用信息
 
   显示每个提交的引用信息，比如分支名、标签名等
-
-  把上面的三个选项组合在一起，可以使用 `git log --oneline --graph --decorate` <u>来显示简洁的提交历史和分支图</u>，这个就已经很接近 git 图形化工具的效果了。
 
 #### 筛选提交记录
 
@@ -620,6 +624,8 @@ git remote add origin <repository-url>
 - `%an`：作者名
 
 - `%ae`：作者邮箱
+
+- `%ad`：提交时间（格式化）
 
 - `%ar`：提交时间（相对时间）
 
