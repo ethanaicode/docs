@@ -40,6 +40,4 @@ title: Python 文档导航，Python 基础、进阶、库、自动化工具汇�
 
 ## Web 开发
 
-- [Flask](./python_flask)
-
-<!-- - [Django](./python_django) -->
+- [Web 开发入门](./python_web)

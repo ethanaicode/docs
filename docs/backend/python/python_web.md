@@ -1,14 +1,12 @@
 ---
-title: Python web 开发框架 Flask 新手指南
+title: Python web 开发新手指南，常用的网络框架使用以及如何额部署
 ---
 
-# Flask
+# Python web 开发新手指南
+
+## Flask
 
 > 官方文档：[Flask](https://flask.palletsprojects.com/)
-
-Flask 是一个轻量级的 Web 框架，适用于快速开发小型 Web 应用。它提供了路由、模板引擎、请求和响应处理等功能，适用于构建 RESTful API、网站、博客等 Web 应用。
-
-## 开始
 
 ### 最小化 Flask 应用
 
@@ -106,7 +104,7 @@ def show_post(post_id):
    @app.get('/login')
    def login_get():
        return show_the_login_form()
-   
+
    @app.post('/login')
    def login_post():
        return do_the_login()
@@ -168,6 +166,40 @@ Jinja2 模板引擎支持以下几种语法：
 ```
 
 完整文档：[Jinja2](https://jinja.palletsprojects.com/en/stable/templates/)
+
+## FastAPI
+
+> 官方文档：[FastAPI](https://fastapi.tiangolo.com/)
+
+如果是简单的 API 接口，可以使用 FastAPI 来实现，FastAPI 是一个现代的、快速（高性能）的 Web 框架，内置 Swagger 文档，支持异步编程，可以适应多种场景（性能上比 Flask 更好）。
+
+### 开始使用
+
+首先需要安装 FastAPI 和 Uvicorn：
+
+```bash
+pip install fastapi uvicorn[standard]
+```
+
+创建一个 `main.py` 文件并写入以下代码：
+
+```python
+from typing import Union
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Union[str, None] = None):
+    return {"item_id": item_id, "q": q}
+```
 
 ## 部署
 
@@ -242,3 +274,39 @@ WantedBy=multi-user.target
 
 - `Environment` 变量让 `systemd` 知道应该在哪个环境中运行程序
 - `ExecStart` 直接使用了 venv 里的 Gunicorn，因此它会自动使用该虚拟环境的 Python 解释器和库
+
+### uvicorn
+
+**Uvicorn** 是一个轻量级的 ASGI 服务器，适用于异步 Python Web 框架（如 FastAPI、Starlette）。
+
+Gunicorn 就像是一个汽车管理系统，可以管理多辆汽车，而 Uvicorn 就像是汽车的引擎，负责提供动力。
+
+如果是开发环境或者小型应用，可以直接使用 Uvicorn 来运行 FastAPI 应用：
+
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
+```
+
+当然，你需要先安装 Uvicorn：
+
+```bash
+pip install uvicorn[standard]
+```
+
+#### 常用参数及说明
+
+- `uvicorn` → 启动 Uvicorn 服务器
+
+- `app.main:app` → `app/main.py` 文件中的 `app` FastAPI 实例
+
+- `--host 0.0.0.0` → 绑定到所有 IP 地址（可选，允许局域网访问）
+
+- `--port 8000` → 绑定到 8000 端口（可选，默认是 8000）
+
+- `--workers 4` → 使用 4 个 worker 进程（可选，默认是 1）
+
+  工作进程数可以根据 CPU 核心数来调整，通常设置为 CPU 核心数的 2 倍
+
+- `--reload` → 开启热重载（可选，默认是 False，它会在代码修改时自动重启服务器）
+
+- `--reload-dir` → 指定需要监控的目录（可选，默认是当前目录）
