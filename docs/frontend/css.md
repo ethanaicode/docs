@@ -5,6 +5,10 @@ title: CSS 前端开发学习指南，最全的CSS样式和用法汇总
 # CSS
 
 > 由于有一定基础，这里仅记录一些重要的知识点
+>
+> 可以用 mozilla 的 [MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS) 来查阅 CSS 的详细信息
+>
+> mozilla 还提供了一个在线运行的 [CSS 编辑器](https://developer.mozilla.org/zh-CN/play)，可以用来测试 CSS 的效果
 
 文字内容元素存在默认宽度`min-content`，宽度由内容中最长单词来决定（避免单词被拆开）。
 
@@ -380,6 +384,41 @@ transition: all 1s 0.5s;
 - `letter-spacing` 字母间距
 
 - `word-spacing` 单词间距
+
+## 指南
+
+### 动画
+
+CSS animations 可以在网页中添加动画效果。
+
+创建动画序列，需要使用 animation 属性或其子属性，该属性允许配置动画时间、时长以及其他动画细节，但该属性不能配置动画的实际表现，动画的实际表现是由 `@keyframes` 规则实现。
+
+下面是一个简单的图形位移并变色的动画：
+
+```html
+<div></div>
+```
+
+```css
+@keyframes example {
+  from {
+    background-color: red;
+    transform: translateX(0);
+  }
+  to {
+    background-color: yellow;
+    transform: translateX(100px);
+  }
+}
+
+div {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  animation-name: example;
+  animation-duration: 4s;
+}
+```
 
 ## 功能函数 Functions
 
