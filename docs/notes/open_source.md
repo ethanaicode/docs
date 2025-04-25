@@ -43,7 +43,7 @@ date: 2024-12-31 17:19:52
 
   一款 iTerm2 配色方案集合，也包括了一些其他终端的配色方案
 
-### 静态网站生成文档知识库
+### 文档知识库
 
 - [Docusaurus](https://docusaurus.io/): 一款由 Facebook 开源的静态网站生成器
 
@@ -99,6 +99,8 @@ date: 2024-12-31 17:19:52
 
 ### 运维工具
 
+- [mdserver-web](https://github.com/midoks/mdserver-web): 一款开源的服务器管理面板
+
 - [acme.sh](https://github.com/acmesh-official/acme.sh): Shell 脚本实现的 ACME 协议客户端
 
   可以从 `ZeroSSL`、`Let's Encrypt` 等 CA 证书颁发机构获取免费的 SSL 证书
@@ -127,9 +129,23 @@ date: 2024-12-31 17:19:52
 
 - [kamiFaka](https://github.com/Baiyuetribe/kamiFaka): 一款基于 VUE3.0 的高颜值卡密发卡系统
 
+### 静态博客
+
+- [HUGO](https://github.com/gohugoio/hugo): 静态网站博客构建生成器
+
+- [Hexo](https://github.com/hexojs/hexo): 快速、简洁且高效的博客框架
+
 ### 网页开发工具
 
 - [Pannellum](https://github.com/mpetroff/pannellum): 一款轻量免费的网页全景图展示工具
+
+## 软件工具
+
+### 网络工具
+
+- [Wiredoor](https://github.com/wiredoor/wiredoor): 内网穿透 VPN 服务
+
+  可以暴露本地服务到公网
 
 ## AI 开发
 

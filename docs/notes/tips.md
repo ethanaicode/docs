@@ -45,6 +45,40 @@ return True
 return not a == b or b == c
 ```
 
+## 网址收藏夹
+
+### 开发工具
+
+#### IP 地址
+
+**获取用户设备的 IP 及信息**
+
+- [ipinfo.io/json](http://ipinfo.io/json): 获取 IP 地址信息，返回 json 数据，包含国家、城市、经纬度等信息（[mdserver-web](./open_source) 项目使用）
+
+- [ipv4.geojs.io/](https://ipv4.geojs.io/): 返回 IP 归属地时区等信息（auvpn 使用）
+
+- [ip138.com/](https://ip138.com/): IP 地址归属地查询（适合国内）
+
+- [myip.ipip.net/](https://myip.ipip.net/): 返回 IP 及归属地信息
+
+**输入 IP 查询地址**
+
+- [IPinfo](https://ipinfo.io/): 免费版不限次数，只返回简单信息
+
+  请求数据接口：`https://ipinfo.io/8.8.8.8`
+
+- [ip-api](https://ip-api.com/): 免费版不限次数，但有限制（每分钟最多 45 次），返回格式简单
+
+  请求 json 数据接口：`http://ip-api.com/json/8.8.8.8`
+
+- [ipstack](https://ipstack.com/): 免费版每个月限制 100 次
+
+- [ipgeolocation](https://ipgeolocation.io/what-is-my-ip/): 免费版每天 1000 次查询，返回详细信息（时区、ISP 等）
+
+#### DNS 查询
+
+- [www.nslookup.io](https://www.nslookup.io/): 在线查询域名的 DNS 记录
+
 ## Regex 正则表达式
 
 设计笔记官方有一篇文章专门介绍正则表达式，可以参考[这里](https://www.shejibiji.com/archives/8719)。

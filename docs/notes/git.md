@@ -725,6 +725,16 @@ git fetch --all # 取回远程库的所有修改；
 git reset --hard origin/main  # 指向远程库origin的main分支；
 ```
 
+如果 `reset` 遇到问题，或者合并时遇到问题，都可以通过新建临时分支来解决：
+
+```bash
+git fetch origin main:temp-branch # 创建一个新的分支，指向远程库origin的main分支；
+git checkout temp-branch # 切换到新的分支；
+git branch -D main # 删除本地的main分支；
+git checkout -b main # 创建一个新的main分支；
+git branch -D temp-branch # 删除临时分支；
+```
+
 ### 避免本地修改被远程覆盖
 
 > 仅讨论文件已经被追踪的情况。
