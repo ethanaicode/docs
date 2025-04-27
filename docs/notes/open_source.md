@@ -81,19 +81,25 @@ date: 2024-12-31 17:19:52
 
 ## 开发资源
 
-### UI
+### UI 组件
 
 - [Inspira UI](https://github.com/unovue/inspira-ui): Inspira UI
 
   Inspira UI 是一个基于 Vue3 的开源组件库，提供了一些常用的 UI 组件
 
-### 框架
+### 基础框架
 
 - [MultiWechat](https://github.com/coderiderlin/MultiWechat): 微信多开开发框架
 
-- [ Electron + Vite + Vue](https://github.com/electron-vite/electron-vite-vue.git): Electron + Vite + Vue3 开发框架
+- [Electron + Vite + Vue](https://github.com/electron-vite/electron-vite-vue.git): Electron + Vite + Vue3 开发框架
 
   Electron + Vite + Vue3 开发起点项目
+
+### 后台管理
+
+- [Vue Vben Admin](https://github.com/vbenjs/vue-vben-admin): 超火的 Vue3 + Vite + TypeScript 后台管理框架，功能特别全
+
+- [Arco Design Pro Vue](https://github.com/arco-design/arco-design-pro-vue): 字节跳动出品的 Arco Design 的 Vue 版后台模板
 
 ## 服务器运维
 
