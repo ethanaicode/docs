@@ -666,3 +666,19 @@ LEFT JOIN table2 ON table1.id = table2.id;
 EXPLAIN QUERY PLAN
 SELECT * FROM table_name WHERE column_name = 'value';
 ```
+
+## phpmyadmin
+
+由于公司同事习惯用这个工具了，所以在部署服务器时，就难免还要安装一个:(
+
+在这里顺便记录下一些经验。
+
+- 最好的安装方式就是下载压缩包，直接当成一个 php 项目放入项目目录，并手动配置 nginx 等（完全可控）
+
+- **以下是当你用 apt 安装时的默认配置**
+
+  _遇到依赖问题会很烦，而且它会默认给你安装一堆依赖，并不推荐_
+
+- 默认路径：`/usr/share/phpmyadmin`
+
+- 默认配置文件：`/etc/dbconfig-common/phpmyadmin.conf`

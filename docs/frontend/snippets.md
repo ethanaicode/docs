@@ -323,3 +323,5 @@ npx tailwindcss init -p
 ## 图标库
 
 - [xicons](https://xicons.org/#/): Native UI 推荐的图标库
+
+- [iconify](https://iconify.design/): 一款图标库，支持多种图标库的图标

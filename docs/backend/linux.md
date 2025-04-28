@@ -504,9 +504,11 @@
 
 - `pgrep`: 根据进程名或者其他条件查找进程 ID。
 
-- `kill`: <u>终止指定进程。</u>
+- `kill`: 终止指定进程。
 
 - `killall`: 终止指定名称的所有进程。
+
+  更详细的使用可以看 --> [#进程管理](#进程管理)
 
 ### 防火墙及端口
 
@@ -576,6 +578,8 @@
 
 - **unzip**: 解开压缩文件
 
+  先确保有安装 `unzip` 工具：`apt install unzip`
+
   `-d` 指定解压缩目录，目录不存在会创建
 
   `-l` 显示压缩文件内容
@@ -583,6 +587,8 @@
   `-t` 测试压缩文件
 
   `-v` 显示详细信息
+
+  有些 zip 包如果是 Windows 创建的，Linux 下可能解压中文会乱码，可以加参数 `unzip -O CP936 yourfile.zip`（特别是中文 Windows）
 
 ### 关机重启
 
@@ -2918,7 +2924,7 @@ To get information on Squid profile/app, run:
 
 - `ps aux | grep nginx`: 查找 nginx 进程
 
-- `ps aux | grep php-fpm`: 查找 php-fpm 进程
+- `ps aux | grep php-fpm`: <u>查找 php-fpm 进程</u>
 
   还可以使用`lsof -i :port`来查看指定端口的进程情况（可能需要安装 lsof）。
 
@@ -2930,7 +2936,7 @@ To get information on Squid profile/app, run:
 
 - `kill -9 PID`: 关闭指定 PID 的进程（强制关闭）
 
-- `killall -9 php-fpm`: 关闭所有 php-fpm 进程
+- `killall -9 php-fpm`: <u>关闭所有 php-fpm 进程</u>
 
   `-9` 表示强制关闭进程（不进行清理操作）
 
