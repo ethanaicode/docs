@@ -190,6 +190,14 @@ skip-log-bin
 
 ### 用户及权限管理
 
+#### 创建一个新用户
+
+```sql
+CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+```
+
 - `CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';`: 创建用户
 
   `username` 新用户的用户名
@@ -206,9 +214,11 @@ skip-log-bin
 
   `WITH GRANT OPTION` 允许用户将自己的权限授予其他用户
 
-- `REVOKE ALL PRIVILEGES ON *.* FROM 'username'@'localhost';`: 撤销权限
+- `FLUSH PRIVILEGES;`: <u>刷新权限</u>，使权限更改生效
 
-- `FLUSH PRIVILEGES;`: <u>刷新权限</u>
+#### 用户及权限管理
+
+- `REVOKE ALL PRIVILEGES ON *.* FROM 'username'@'localhost';`: 撤销权限
 
 - `SHOW GRANTS FOR 'username'@'localhost';`: 查看用户权限
 

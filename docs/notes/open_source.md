@@ -101,6 +101,12 @@ date: 2024-12-31 17:19:52
 
 - [Arco Design Pro Vue](https://github.com/arco-design/arco-design-pro-vue): 字节跳动出品的 Arco Design 的 Vue 版后台模板
 
+### 开发工具
+
+- [Ip2region](https://github.com/lionsoul2014/ip2region): 离线 IP 地址定位库和 IP 定位数据管理框架
+
+  提供了众多主流编程语言的 `xdb` 数据生成和查询客户端实现。
+
 ## 服务器运维
 
 ### 运维工具
