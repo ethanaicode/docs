@@ -6,6 +6,8 @@ title: PHP基础知识大全，开发者必备的核心技能
 
 ## PHP 命令
 
+### PHP CLI
+
 - `php -m`: 查看已经安装的模块
 
 - `php -v`: 查看版本
@@ -19,6 +21,16 @@ title: PHP基础知识大全，开发者必备的核心技能
 - `php -i`: 查看 php 配置
 
   `php -i | grep php.ini`: 查看 php.ini 文件路径
+
+- `php --ini`: 查看 php.ini 文件路径
+
+### PHP-FPM
+
+- `php-fpm -t`: 检查配置文件是否正确
+
+- `php-fpm -tt`: <u>检查配置文件是否正确</u>，并显示配置文件路径
+
+- `php-fpm -i`: 查看 php-fpm 配置
 
 ## PHP 配置
 

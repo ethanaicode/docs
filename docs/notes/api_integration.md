@@ -34,6 +34,16 @@
 
 - `Access-Control-Allow-Methods`: GET, POST, PUT, DELETE, OPTIONS
 
+## Cloudflare
+
+### R2 Object Storage
+
+> 参考文章：[Cloudflare R2 对象存储搭建高速免费图床完全指南](https://www.oneyangcrown.top/posts/cloudflare-r2-free-image-hosting-guide/)
+
+Cloudflare R2 是一个对象存储服务，类似于 AWS S3。它提供了一个简单的 API 来存储和检索数据。
+
+- 在设置中可以自定义域名（域名需要托管在 Cloudflare 上），并设置 CORS 策略
+
 ## ChatGPT/Chatbox 类 API
 
 ### 模型的选择

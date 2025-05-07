@@ -957,6 +957,8 @@ try {
 
 - `request_slowlog_timeout` 设置为 0，避免 PHP-FPM 进程因为超时而被记录到慢日志中
 
+  _如果你希望记录慢日志，可以设置为 5s 或者 10s_
+
 - `rlimit_files` 设置为 65535，避免 PHP-FPM 进程因为打开文件数过多而被限制
 
 修改后记得重启 PHP-FPM:
