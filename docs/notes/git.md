@@ -938,6 +938,30 @@ git clone https://<username>:<token>@<repository-url>
 
 - Contents: Read and write
 
+### README.md 排版
+
+> 请在 GitHub 上查看，由于 markdown 渲染引擎不同，可能在其他平台上显示效果不一样。
+
+#### 居中及显示星标数量徽章效果
+
+```markdown
+<div align="center">
+<h1 align="center">Adobe-Block-Hosts-List <img src="https://img.shields.io/github/stars/ethanaicode/Adobe-Block-Hosts-List?label=Stars" alt="stars"></h1>
+</div>
+```
+
+- `https://shields.io/` 这个网站可以生成各种各样的徽章
+
+#### 右边图左边文字效果
+
+```markdown
+# [<img src="https://img.techrk1688.eu.org/file/e44951f61086ae4dc9591.png" width="250" align="right" alt="Cloudflare">](https://www.cloudflare.com)
+
+> [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&vCenter=true&multiline=true&random=false&height=80&lines=%E7%B2%BE%E9%80%89%E7%9A%84%E4%BA%92%E8%81%94%E7%BD%91%E4%B9%8B%E5%85%89+Cloudflare+%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE;%E3%80%81%E6%8C%87%E5%8D%97%E3%80%81%E5%8D%9A%E5%AE%A2%E5%92%8C%E5%85%B6%E4%BB%96%E8%B5%84%E6%BA%90%E5%88%97%E8%A1%A8%E3%80%82)](https://git.io/typing-svg)
+```
+
+- `https://git.io/typing-svg` 这个网站可以生成打字机效果的 SVG 图片
+
 ## 工具推荐
 
 ### gitkraken

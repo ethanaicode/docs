@@ -7,7 +7,7 @@ date: 2024-12-31 17:19:52
 
 > 感觉比 star 收藏好用多了，会持续收录的
 
-## 工具
+## 实用工具
 
 ### 编辑器
 
@@ -63,6 +63,18 @@ date: 2024-12-31 17:19:52
 
   案例：[Box's](https://boxofficial2002.github.io/)
 
+### 图片上传及管理
+
+- [rclone](https://github.com/rclone/rclone): 一款命令行式的云存储管理工具
+
+  支持多种云存储服务的文件上传、下载、同步等操作，阿里云 OSS，Cloudflare R2，Google Drive，OneDrive，Dropbox 等等。
+
+  官网：[rclone.org](https://rclone.org/)
+
+- [Telegraph-Image](https://github.com/cf-pages/Telegraph-Image): 免费图片托管解决方案，Flickr/imgur 替代品
+
+  使用 Cloudflare Pages 和 Telegraph，只需要准备一个 Cloudflare 账号就可以实现无限图片储存。
+
 ### 媒体管理
 
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp): 一款支持下载 YouTube 视频的工具
@@ -86,6 +98,12 @@ date: 2024-12-31 17:19:52
 - [Inspira UI](https://github.com/unovue/inspira-ui): Inspira UI
 
   Inspira UI 是一个基于 Vue3 的开源组件库，提供了一些常用的 UI 组件
+
+- [shields](https://github.com/badges/shields): 徽章生成器
+
+  提供了一个在线徽章生成器，可以生成各种类型的徽章，比如 GitHub star、npm 下载量等
+
+  官网：[shields.io](https://shields.io/)
 
 ### 基础框架
 
@@ -139,6 +157,12 @@ date: 2024-12-31 17:19:52
 
   案例：[fakeimg.pl](https://fakeimg.pl/)
 
+- [readme-typing-svg](https://github.com/denvercoder1/readme-typing-svg): 动态打字 SVG 效果生成器
+
+  可以实现动态打字效果的 SVG 图片生成器，支持多种语言和样式。
+
+  案例：[readme-typing-svg](https://readme-typing-svg.demolab.com/demo/)
+
 - [kamiFaka](https://github.com/Baiyuetribe/kamiFaka): 一款基于 VUE3.0 的高颜值卡密发卡系统
 
 ### 静态博客
@@ -146,6 +170,8 @@ date: 2024-12-31 17:19:52
 - [HUGO](https://github.com/gohugoio/hugo): 静态网站博客构建生成器
 
 - [Hexo](https://github.com/hexojs/hexo): 快速、简洁且高效的博客框架
+
+  - [hexo-theme-stellar](https://github.com/xaoxuu/hexo-theme-stellar/): 内置文档系统的简约商务风 Hexo 主题，支持大量的标签组件和动态数据组件
 
 ### 网页开发工具
 
@@ -163,6 +189,8 @@ date: 2024-12-31 17:19:52
 
 ### AI 客户端
 
+- [NextChat](https://github.com/ChatGPTNextWeb/NextChat): 一键免费部署你的私人 ChatGPT 网页应用，支持 Claude, GPT4 & Gemini Pro 模型
+
 - [lobe-chat](https://github.com/lobehub/lobe-chat): 一款开源的 AI 聊天客户端
 
   支持多种 AI 模型，支持本地部署和云端部署
@@ -170,6 +198,10 @@ date: 2024-12-31 17:19:52
   官网：[lobehub.com](https://lobehub.com/)
 
 ### AI 工具
+
+- [one-api](https://github.com/songquanpeng/one-api): LLM API 管理 & 分发系统，统一 API 适配，可用于 key 管理与二次分发
+
+  支持 OpenAI、Azure、Anthropic Claude、Google Gemini、DeepSeek、字节豆包、ChatGLM、文心一言、讯飞星火、通义千问、360 智脑、腾讯混元等主流模型
 
 - [Cline](https://github.com/cline/cline): cline 命令行 AI 助手，支持 MCP 协议
 

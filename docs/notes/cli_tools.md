@@ -399,3 +399,88 @@ magick input.png -colorspace Gray -fill "#536a49" -tint 100 output.jpg
 - [v7 使用说明](https://imagemagick.org/Usage/)
 
 - [颜色修改](https://imagemagick.org/Usage/color_mods/)
+
+## Rclone
+
+### 开始使用
+
+#### 安装 rclone
+
+如果是 `Linux/macOS/BSD` 系统，可以直接使用脚本安装：
+
+```bash
+sudo -v ; curl https://rclone.org/install.sh | sudo bash
+```
+
+_执行时会下载 zip 文件（检查脚本可知），速度较慢且没有提示 :(，需要耐心等待下_
+
+如果需要安装 `beta` 版本，可以使用下面的命令：
+
+```bash
+sudo -v ; curl https://rclone.org/install.sh | sudo bash -s beta
+```
+
+#### 配置 rclone
+
+> 官方文档: [Usage](https://rclone.org/docs/)
+
+最简单的配置方法是使用 `rclone config` 命令，会进入交互式配置界面，可以按照自己需求进行配置。
+
+交互式配置完成后就会生成一个配置文件，当然你也可以直接自己手动创建配置文件，路径为：
+
+- Windows: `%APPDATA%/rclone/rclone.conf`
+
+- MacOS 或者其它: `~/.config/rclone/rclone.conf`
+
+以下是常见平台的示例：
+
+- Cloudflare R2
+
+  ```ini
+  [r2]
+  type = s3
+  provider = Cloudflare
+  access_key_id = XXX
+  secret_access_key = XXX
+  endpoint = https://XXX.r2.cloudflarestorage.com
+  ```
+
+  _`r2` 为别名，可以自定义_
+
+### 常用命令
+
+> `remote` 表示配置中的别名，如 `r2`，`bucket` 表示远程存储桶名称
+
+- `rclone tree remote:bucket`: 查看存储桶中的文件列表
+
+- `rclone ls remote:bucket`: 查看存储桶中的文件列表（不带目录）
+
+- `rclone lsd remote:bucket`: 查看存储桶中的目录列表
+
+- `rclone copy /path/to/file remote:bucket`: 上传文件到存储桶
+
+  - `rclone copy /path/to/file remote:bucket/path` 上传文件到存储桶的指定路径
+
+  - `-P` 参数可以显示上传进度
+
+  - 如果本地文件路径为目录，则会上传整个目录下所有文件
+
+- `rclone copy remote:bucket /path/to/directory`: 下载文件到本地
+
+- `rclone sync /path/to/directory remote:bucket`: 同步本地目录到存储桶
+
+  - `rclone sync remote:bucket /path/to/directory`: 同步存储桶到本地目录
+
+- `rclone delete remote:bucket`: 删除存储桶中的文件
+
+  - `rclone delete remote:bucket/file`: 删除存储桶中的指定文件
+
+  - `rclone delete /path/to/directory`: 删除本地目录中的文件
+
+  - `rclone delete /path/to/file`: 删除本地目录中的指定文件
+
+- `rclone check remote:bucket /path/to/directory`: 检查存储桶和本地目录中的文件是否一致
+
+- `rclone size remote:bucket`: 查看存储桶的大小
+
+- `rclone size /path/to/directory`: 查看本地目录的大小
