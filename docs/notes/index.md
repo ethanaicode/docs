@@ -4,6 +4,8 @@
 
 - [Git](./git)
 
+- [Docker](./docker)
+
 - [Mac](./mac)
 
 - [Windows](./windows)
@@ -17,8 +19,6 @@
 - [Open Source](./open_source)
 
 - [Design Sources](./design)
-
-- [Docker](./docker)
 
 - [平台开发](./api_integration)
 

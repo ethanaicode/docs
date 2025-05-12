@@ -70,6 +70,7 @@ export default defineConfig({
         items: [
           { text: "Tips", link: "/notes/tips" },
           { text: "Git", link: "/notes/git" },
+          { text: "Docker", link: "/notes/docker" },
           { text: "Mac", link: "/notes/mac" },
           { text: "Windows", link: "/notes/windows" },
           { text: "命令行工具", link: "/notes/cli_tools" },
@@ -77,7 +78,6 @@ export default defineConfig({
           { text: "软件推荐", link: "/notes/software" },
           { text: "开源项目收藏", link: "/notes/open_source" },
           { text: "设计资源导航", link: "/notes/design" },
-          { text: "Docker", link: "/notes/docker" },
           { text: "平台开发", link: "/notes/api_integration" },
           { text: "系统与硬件", link: "/notes/sys_hardware" },
           { text: "语言学习", link: "/notes/language/" },
@@ -135,6 +135,7 @@ export default defineConfig({
         items: [
           { text: "Tips", link: "/notes/tips" },
           { text: "Git", link: "/notes/git" },
+          { text: "Docker", link: "/notes/docker" },
           { text: "Mac", link: "/notes/mac" },
           { text: "Windows", link: "/notes/windows" },
           { text: "CliTools", link: "/notes/cli_tools" },
@@ -142,7 +143,6 @@ export default defineConfig({
           { text: "App Recommend", link: "/notes/software" },
           { text: "Open Source", link: "/notes/open_source" },
           { text: "Design Source", link: "/notes/design" },
-          { text: "Docker", link: "/notes/docker" },
           { text: "Api Integration", link: "/notes/api_integration" },
           { text: "Sys-Hardware", link: "/notes/sys_hardware" },
           { text: "Language", link: "/notes/language/" },

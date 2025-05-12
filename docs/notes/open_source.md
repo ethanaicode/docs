@@ -105,6 +105,10 @@ date: 2024-12-31 17:19:52
 
   官网：[shields.io](https://shields.io/)
 
+- [svgl](https://github.com/pheralb/svgl): SVG logos 图标库
+
+  提供 SVG 格式的 logos，支持多种平台和语言的图标
+
 ### 基础框架
 
 - [MultiWechat](https://github.com/coderiderlin/MultiWechat): 微信多开开发框架
@@ -124,6 +128,12 @@ date: 2024-12-31 17:19:52
 - [Ip2region](https://github.com/lionsoul2014/ip2region): 离线 IP 地址定位库和 IP 定位数据管理框架
 
   提供了众多主流编程语言的 `xdb` 数据生成和查询客户端实现。
+
+- [anime](https://github.com/juliangarnier/anime): JavaScript 动画引擎
+
+  一个轻量级的 JavaScript 动画引擎，支持 CSS 属性、SVG、DOM 属性等动画效果，可以实现复杂的动画效果。
+
+  官网：[animejs.com](https://animejs.com/)
 
 ## 服务器运维
 
