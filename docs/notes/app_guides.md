@@ -804,6 +804,12 @@ _优点是可以保留皮肤的纹理，缺点是比较繁琐，效率非常慢_
 
   Mac 版使用 `Command + Shift + R`
 
+- **Alt + 向左键** = 后退
+
+  Mac 版使用 `Command + 向左键`
+
+- **Alt + 向右键** = 前进
+
 ## Youtube
 
 ### 快捷键 Hotkeys

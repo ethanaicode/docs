@@ -965,13 +965,15 @@ https://www.example.com/wp-content/themes/theme-name/screenshot.png
 
 ### 跨境汇款
 
-**中国银行跨境汇款到中银香港**
+#### 中国银行跨境汇款到中银香港
 
 - 中国银行**购汇**
 
 - 选择**跨境汇款**到香港中银（需要开通手机盾）
 
   - 详细地址（使用中银香港总部英文地址）：`BANK OF CHINA TOWER, 1 GARDEN ROAD, CENTRAL, HONG KONG`
+
+    实测总部地址已无法使用（没有具体门牌号），可以使用分行地址如：`36 Texaco Rd, Tsuen Wan, Hong Kong`
 
   - 汇款留言：`travel`
 
@@ -983,7 +985,7 @@ https://www.example.com/wp-content/themes/theme-name/screenshot.png
 
   - 跨境汇款 --> 汇款记录 --> 查看汇款状态
 
-**币安出金到 Bybit**
+#### 币安出金到 Bybit
 
 - Bybit 选择充值
 
@@ -993,9 +995,11 @@ https://www.example.com/wp-content/themes/theme-name/screenshot.png
 
 - 币安选择 `提现`，复制钱包地址，并且选择对应的链网络
 
-~~**工商银行跨境汇款到新加坡 OCBC**（不推荐再使用）~~
+#### ~~工商银行跨境汇款到新加坡 OCBC（不推荐再使用）~~
 
-_2024-12-12 更新：OCBC 开始清理中国大陆用户，之后 OCBC 账户将无法入帐_
+> 2024-12-12 更新：OCBC 开始清理中国大陆用户，之后 OCBC 账户将无法入帐
+>
+> 2025-05-13 更新：OCBC 没有对账户进行封禁，但由于无法再相信，不推荐再使用
 
 1. 工商银行购汇（选择新加坡）
 
@@ -1011,7 +1015,7 @@ _2024-12-12 更新：OCBC 开始清理中国大陆用户，之后 OCBC 账户将
 
 ### 投资账户入金
 
-~~**新加坡 Tiger Brokers 账户入金**（不推荐再使用）~~
+#### ~~新加坡 Tiger Brokers 账户入金（不推荐再使用）~~
 
 _OCBC 清理大陆用户，未来不安全，建议使用香港银行入金_
 
