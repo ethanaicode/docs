@@ -2964,7 +2964,7 @@ To get information on Squid profile/app, run:
 
 - `ps aux | grep php-fpm`: <u>查找 php-fpm 进程</u>
 
-  还可以使用`lsof -i :port`来查看指定端口的进程情况（可能需要安装 lsof）。
+  `lsof -i :port` 可以用来查看占用指定端口进程情况（可能需要安装 `lsof`）。
 
 - `ps -p PID`: 查看指定 PID 的进程
 
@@ -2974,11 +2974,11 @@ To get information on Squid profile/app, run:
 
 - `kill -9 PID`: 关闭指定 PID 的进程（强制关闭）
 
-- `killall -9 php-fpm`: <u>关闭所有 php-fpm 进程</u>
-
   `-9` 表示强制关闭进程（不进行清理操作）
 
   kill 后面可以跟多个 PID，用空格隔开
+
+- `killall -9 php-fpm`: <u>关闭所有 php-fpm 进程</u>
 
 ## 日期和时间
 

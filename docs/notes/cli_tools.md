@@ -55,11 +55,15 @@ ffmpeg -i input.mp4 -ss 00:00:10 -t 00:00:30 -c copy output.mp4
 
 ## imagemagick
 
-> 命令行选项：[ImageMagick Command-line Options](https://imagemagick.org/script/command-line-options.php)
+> v7 使用说明： [ImageMagick Version 7](https://usage.imagemagick.org/)
 >
-> 命令行处理：[ImageMagick Command-line Processing](https://imagemagick.org/script/command-line-processing.php)
+> 颜色修改： [ImageMagick Examples -- Color Modifications](https://usage.imagemagick.org/color_mods/)
 >
-> （关于图片几何变换、图片编辑、图片生成、图片滤镜、图片信息等有详细介绍）
+> 命令行选项： [ImageMagick Command-line Options](https://imagemagick.org/script/command-line-options.php)
+>
+> 命令行处理： [ImageMagick Command-line Processing](https://imagemagick.org/script/command-line-processing.php)
+>
+> _关于图片几何变换、图片编辑、图片生成、图片滤镜、图片信息等有详细介绍_
 
 ### 常用参数说明
 
@@ -114,6 +118,21 @@ _网上很多教程在转换图片时使用的是 `magick convert` 命令，但�
 - `magick input.jpg -quality 80 output.jpg`: 调整图片质量（0-100）
 
 - `magick input.jpg -thumbnail 100x100 output.jpg`: 创建缩略图
+
+#### 批量对目录中的所有图片进行转换
+
+可以直接使用循环命令来批量转换图片格式：
+
+```bash
+mkdir -p output
+for img in *.png; do
+  magick "$img" "output/${img%.png}.jpg"
+done
+```
+
+- `mkdir -p output`: 创建输出目录
+
+- `for img in *.png; do ... done`: 遍历当前目录下所有的 png 图片
 
 #### 从 ico 图标中提取图片
 
@@ -393,12 +412,6 @@ magick input.png -colorspace Gray -fill "#536a49" -tint 100 output.jpg
 - 100% 的 `-tint` 表示完全使用指定颜色着色，但仍保留原图像的亮度和对比度信息。
 
 - 比 50% 灰度更亮的区域会显得更亮，比 50% 灰度更暗的区域会显得更暗。
-
-### 官方文档导航
-
-- [v7 使用说明](https://imagemagick.org/Usage/)
-
-- [颜色修改](https://imagemagick.org/Usage/color_mods/)
 
 ## Rclone
 
