@@ -63,6 +63,8 @@ date: 2024-12-31 17:19:52
 
   案例：[Box's](https://boxofficial2002.github.io/)
 
+- [mind-map](https://github.com/wanglin2/mind-map): 一个还算强大的 Web 思维导图
+
 ### 图片上传及管理
 
 - [rclone](https://github.com/rclone/rclone): 一款命令行式的云存储管理工具
@@ -129,11 +131,31 @@ date: 2024-12-31 17:19:52
 
   提供了众多主流编程语言的 `xdb` 数据生成和查询客户端实现。
 
+- [GASP](https://github.com/greensock/GSAP): 动画领域的 “老大哥”
+
+  它能给任何 HTML 元素甚至 JavaScript 对象添加动画效果，而且性能超棒，在各个浏览器上都能稳定运行。
+
 - [anime](https://github.com/juliangarnier/anime): JavaScript 动画引擎
 
   一个轻量级的 JavaScript 动画引擎，支持 CSS 属性、SVG、DOM 属性等动画效果，可以实现复杂的动画效果。
 
   官网：[animejs.com](https://animejs.com/)
+
+- [Inspira UI](https://github.com/unovue/inspira-ui): 专门为 Vue3 设计的动效组件库，官方示例有 100 + 个
+
+  它自带超多惊艳的动画效果，像`炫酷背景`、`粒子特效`、`按钮交互`等，无需额外引入其他库就能做出流畅的过渡效果。
+
+- [Uiverse.io](https://github.com/uiverse-io): 超厉害的协作设计工具，它聚焦于 UI 组件和动画
+
+  里面有着超多的组件和模板，动画编辑功能也是强大到不行，你可以把不同的组件拼凑在一起，加上各种动画效果，就像搭积木一样，轻松打造出复杂又惊艳的动画场景。
+
+- [Galacean Engine](https://github.com/galacean/engine): 蚂蚁重磅开源 Web 3D 动效引擎，是一个专注于 3D 场景实时渲染的引擎
+
+  它能实现 `3D 模型`、`相机`、`灯光`等元素的动画效果，还支持`关键帧动画`、`程序化动画`和`动画混合`，能做出逼真的 3D 动画场景，让你的项目瞬间高端大气上档次。
+
+- [NavNav+](https://thuvien.org/navnav/): 集合了超过 1000 种 UI 组件模板的在线平台
+
+  不仅提供了丰富的设计资源，还允许用户查看每个案例的源码和实时效果。
 
 ## 服务器运维
 
