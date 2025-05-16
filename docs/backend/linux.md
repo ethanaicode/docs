@@ -3032,7 +3032,11 @@ To get information on Squid profile/app, run:
 
 - `hwclock --hctosys`: 将硬件时钟同步到系统时间
 
-### 时区设置
+### 设置服务器时区
+
+不同地区的服务器时区不同，设置时区可以避免时间不一致的问题。
+
+在 Linux 系统中，时区信息通常存储在 `/etc/localtime` 文件中。
 
 `timedatectl` 命令用于显示和设置系统的时间和日期，也可以用于设置时区。
 
