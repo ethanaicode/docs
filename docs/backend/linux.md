@@ -3052,6 +3052,8 @@ To get information on Squid profile/app, run:
 
   `timedatectl set-ntp false` 禁用 NTP 时间同步
 
+**注意**: 设置时区后，MySQL 等服务不一定会自动更新时区，需要重启服务才能生效。
+
 ## 第三方工具
 
 ### 网络监控

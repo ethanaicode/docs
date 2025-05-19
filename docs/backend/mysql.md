@@ -423,6 +423,68 @@ GROUP BY COUNTRY
 
 ## 高级操作
 
+### 查询和设置数据库时区
+
+#### 查询时区
+
+```sql
+SELECT @@global.time_zone, @@session.time_zone;
+```
+
+- `SYSTEM`: 表示使用操作系统的时区
+
+#### 设置时区
+
+**临时设置（当前会话有效）**
+
+_一旦关闭连接或重启 MySQL，就会失效_
+
+```sql
+SET time_zone = '+8:00'; -- 设置为东八区
+SET time_zone = 'Asia/Shanghai'; -- 设置为上海时区
+```
+
+**全局设置（新会话有效）**
+
+_重启 MySQL 后会失效_
+
+```sql
+SET GLOBAL time_zone = 'Asia/Singapore'; -- 设置为新加坡时区
+```
+
+**永久设置（重启 MySQL 后有效）**
+
+_需要修改配置文件_
+
+编辑配置文件，例如 `/etc/mysql/my.cnf` 或 `/etc/mysql/mysql.conf.d/mysqld.cnf`，在 `[mysqld]` 段落中添加：
+
+```ini
+[mysqld]
+default-time-zone = 'Asia/Singapore'
+```
+
+然后重启 MySQL 服务：
+
+```bash
+sudo systemctl restart mysql
+```
+
+**确认当前时间**
+
+```sql
+SELECT NOW(), CURRENT_TIMESTAMP, @@global.time_zone, @@session.time_zone;
+```
+
+**注意**: MySQL **只在启动时**读取 `SYSTEM` 时区（即系统当前时区）。如果你是 **在 MySQL 启动之后才设置的服务器时区**，MySQL 不会自动同步。需要**重启 MySQL 服务**才会生效。
+
+**补充：确认 MySQL 是否支持 named 时区**
+
+如果你设置了 `Asia/Singapore` 但 MySQL 报错，说明没有加载时区表，用这个命令导入：
+
+```bash
+mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p mysql
+```
+
 ### 实时查看 MySQL 连接状态
 
 - `SHOW FULL PROCESSLIST;`: 会显示当前<u>所有连接的状态</u>
