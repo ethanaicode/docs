@@ -333,6 +333,11 @@ WHERE condition;
 ALTER TABLE tablename
 ADD column1 datatype;
 
+-- 添加字段并指定位置
+ALTER TABLE tablename
+ADD column1 datatype
+AFTER column2;
+
 -- 修改字段
 ALTER TABLE tablename
 MODIFY column1 datatype;
