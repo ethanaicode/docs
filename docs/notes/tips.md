@@ -334,17 +334,27 @@ Base64 是一种将二进制数据编码为 ASCII 字符的编码方式，常用
 
 ## 加密算法
 
-### 哈希算法
+### 常见类型
 
-哈希算法是一种将任意长度的输入数据转换为固定长度的输出数据的算法，常用于密码存储、数字签名等场景。
+以下是集中常见的加密算法以及它们的特点：
+
+| 类型           | 是否可逆  | 是否用密钥   | 是否可用于<br/>加密/解密 | 常见算法    | 主要用途           |
+| -------------- | --------- | ------------ | ------------------------ | ----------- | ------------------ |
+| **哈希函数**   | ❌ 不可逆 | ❌ 无        | ❌                       | SHA256、MD5 | 内容摘要、密码存储 |
+| **对称加密**   | ✅ 可逆   | ✅ 是        | ✅                       | AES、DES    | 加密/解密数据      |
+| **非对称加密** | ✅ 可逆   | ✅ 公钥/私钥 | ✅                       | RSA、ECC    | 数据加密、签名     |
+
+### 哈希函数
+
+哈希函数是一种将任意长度的输入数据转换为固定长度的输出数据的算法，常用于密码存储、数字签名等场景。
 
 #### MD5
 
-MD5（Message Digest Algorithm 5）是一种常用的哈希算法，生成 128 位的哈希值。
+MD5（Message Digest Algorithm 5）是一种常用的哈希函数，生成 128 位的哈希值。
 
 #### SHA
 
-SHA（Secure Hash Algorithm）是一系列哈希算法的统称，包括 SHA-1、SHA-256、SHA-512 等。
+SHA（Secure Hash Algorithm）是一系列哈希函数的统称，包括 SHA-1、SHA-256、SHA-512 等。
 
 ### 对称加密
 
@@ -361,6 +371,83 @@ AES（Advanced Encryption Standard）是一种常用的对称加密算法，支�
 #### RSA
 
 RSA 是一种常用的非对称加密算法，可以用于数字签名、密钥交换等场景。
+
+### 其它
+
+#### HMAC
+
+HMAC（Hash-based Message Authentication Code）是一种基于哈希函数的消息认证码，用于验证数据的完整性和身份认证。
+
+它使用哈希函数（如 SHA256）和密钥进行计算，生成一个固定长度的哈希值，本质上是一个带密钥的哈希签名算法。
+
+**实战示例组合设计方案**
+
+```bash
+1. 前端启动 → 向后端申请临时签名 key（1 分钟有效）
+2. 后端返回：HMAC key + timestamp + 签名字段结构
+3. 前端构造签名内容（如：path + device_id + timestamp）
+4. 前端用临时 key 执行 HMAC-SHA256 → 生成 req_sign
+5. 后端用相同方式验证签名是否正确、是否过期
+6. 签名过期则拒绝请求；密钥泄露也只能使用短时间
+```
+
+**实现代码示例**
+
+🌐 浏览器端（Web Crypto API）
+
+```js
+const secret = "my-secret-key";
+const msg = "user_id=123&timestamp=1747904110";
+
+// 导入密钥
+const key = await crypto.subtle.importKey(
+  "raw",
+  new TextEncoder().encode(secret),
+  { name: "HMAC", hash: "SHA-256" },
+  false,
+  ["sign"]
+);
+
+// 生成签名
+const signature = await crypto.subtle.sign(
+  "HMAC",
+  key,
+  new TextEncoder().encode(msg)
+);
+
+// 转 base64
+const base64 = btoa(String.fromCharCode(...new Uint8Array(signature)));
+console.log("签名:", base64);
+```
+
+🐘 服务端（Node.js 示例）
+
+```js
+const crypto = require("crypto");
+
+const secret = "my-secret-key";
+const msg = "user_id=123&timestamp=1747904110";
+
+const hmac = crypto.createHmac("sha256", secret);
+hmac.update(msg);
+const signature = hmac.digest("base64");
+
+console.log("签名:", signature);
+```
+
+📌 为什么浏览器不能用和服务端一样的代码？
+
+因为浏览器没有权限调用像 Node.js 那样的本地库或系统 API，它只能调用：
+
+- 浏览器内置的安全模块（Web Crypto API）；
+
+- 或引入额外的 JS 库（如 CryptoJS）来“模拟”加密过程。
+
+这正是浏览器出于安全、兼容、异步执行等限制而设计的。
+
+#### ECDSA
+
+ECDSA（Elliptic Curve Digital Signature Algorithm）是一种基于椭圆曲线密码学的数字签名算法，具有较高的安全性和较小的密钥长度。
 
 ## IOS 应用推荐
 
