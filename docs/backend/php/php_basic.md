@@ -58,6 +58,34 @@ php 里的单引号把内容当成纯文本，不会经过服务器翻译。
 
 > 说人话就是双引号支持变量，单引号会将文本原样输出
 
+### Heredoc 和 Nowdoc
+
+Heredoc 和 Nowdoc 都是 PHP 中的字符串定义方式。
+
+- **Heredoc**: 类似于双引号字符串，可以包含变量和转义字符。
+
+  ```php
+  $name = "World";
+  $str = <<<EOD
+  Hello, $name!
+  This is a Heredoc string.
+  EOD;
+  echo $str; // 输出: Hello, World! This is a Heredoc string.
+  ```
+
+- **Nowdoc**: 类似于单引号字符串，不会解析变量和转义字符。
+
+  ```php
+  $name = "World";
+  $str = <<<'EOD'
+  Hello, $name!
+  This is a Nowdoc string.
+  EOD;
+  echo $str; // 输出: Hello, $name! This is a Nowdoc string.
+  ```
+
+相较于单引号和双引号，Heredoc 和 Nowdoc 更适合处理多行字符串，更像 “复制粘贴模版” 的方式。
+
 ### require 和 include
 
 他们大部分时候都是可以互换的。

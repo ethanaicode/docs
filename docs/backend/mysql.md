@@ -378,6 +378,29 @@ ADD COLUMN created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 ADD COLUMN updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 ```
 
+### 利用唯一键实现有则更新无则插入
+
+使用 `INSERT ... ON DUPLICATE KEY UPDATE` 语句可以实现有则更新无则插入的效果。
+
+这个需要在表中设置唯一键（`UNIQUE`）或主键（`PRIMARY KEY`）。
+
+```sql
+INSERT INTO tablename (id, column1, column2)
+VALUES (1, 'value1', 'value2')
+ON DUPLICATE KEY UPDATE
+column1 = 'value1', column2 = 'value2';
+```
+
+如果是在 thinkphp 中使用，可以这样写：
+
+```php
+$data = [
+    'column1' => 'value1',
+    'column2' => 'value2',
+];
+Db::execute('INSERT INTO tablename (column1, column2) VALUES (:column1, :column2) ON DUPLICATE KEY UPDATE column1 = VALUES(column1), column2 = VALUES(column2)', $data);
+```
+
 ### 区间日期查询
 
 开始和结束时间包含在某区间，比如包含当日（2023 年 4 月 18 日）：
@@ -630,27 +653,59 @@ SELECT * FROM table_name WHERE column_name = 'value';
 
 - `id`: 查询的序列号
 
-- `select_type`: 查询的类型。
+- `select_type`: 查询的类型
 
-- `table`: 正在访问的表。
+  `SIMPLE` 表示简单查询，没有子查询或联合查询。
 
-- `partitions`: 分区信息，NULL 表示没有分区。
+  `PRIMARY` 表示主查询。
 
-- `type`: 访问表的方式，这里是范围扫描（range），表示在索引上执行了范围查找。
+  `UNION` 表示联合查询。
 
-- `possible_keys`: 可能使用的索引，比如有一个索引 `idx_request_timestamp`。
+  `SUBQUERY` 表示子查询。
 
-- `key`: 实际使用的索引。
+- `table`: 被查询的表名
 
-- `key_len`: 使用的索引的长度。
+- `partitions`: 分区信息，NULL 表示没有分区
 
-- `ref`: 表示索引的参考。
+- `type`: <u>访问表的方式</u>
 
-- `rows`: 预估扫描的行数。
+  `ALL`: 全表扫描，性能差
 
-- `filtered`: 表示查询的过滤条件的估计百分比，这里是 100%。
+  `index`: 索引扫描，扫描整个索引（无 WHERE 过滤），效率较低
 
-- `Extra`: 额外的信息，这里是使用了索引条件`Using index condition`。
+  `range`: 范围扫描，，如 `BETWEEN`、`IN`，效率较高
+
+  `ref`: 使用非唯一索引查找，效率较高
+
+  `eq_ref`: 使用唯一索引查找，效率最高
+
+  `const`: 常量查找，效率最高
+
+- `possible_keys`: 可能使用的索引
+
+  表示优化器考虑过哪些索引。
+
+- `key`: 实际使用的索引
+
+- `key_len`: 使用的索引的长度
+
+  长度越接近字段实际大小越好
+
+- `ref`: 索引与什么字段比较
+
+- `rows`: 预估扫描的行数
+
+  越少越好（一般小于 1000 才算快）
+
+- `filtered`: 表示查询的过滤条件的估计百分比
+
+  这个表示查询结果中有多少行会被过滤掉，通常是一个百分比，`100` 表示没有过滤。
+
+- `Extra`: <u>关键补充信息</u>
+
+  `Using index`: 表示查询使用了索引
+
+  `Using index condition`: 表示查询使用了索引条件
 
 ### 一次主查询记录总数
 
