@@ -209,6 +209,130 @@ layui 虽然用的不多，但是公司的老项目很多都是基于 layui 开�
 
 > [table 数据表格文档 - layui.table](https://layui.dev/2.7/docs/modules/table.html)
 
+#### 简介
+
+`layTable` 是 layui 中用于渲染表格的模块，常用语法是通过 `table.render` 来初始化。
+
+```js
+layui.use("table", function () {
+  var table = layui.table;
+
+  table.render({
+    elem: "#demo", // 表格容器 ID 选择器
+    url: "/api/list", // 数据接口（返回 JSON）
+    cols: [
+      [
+        // 表头（二维数组）
+        { field: "id", title: "ID", width: 80 },
+        { field: "username", title: "用户名" },
+        { field: "sex", title: "性别" },
+        { field: "status", title: "状态", templet: "#statusTpl" },
+      ],
+    ],
+    page: true, // 是否开启分页
+  });
+});
+```
+
+#### cols 参数详解
+
+`cols` 是一个二维数组，通常定义每一列的行为与样式。
+
+```
+js
+
+
+CopyEdit
+cols: [[
+  {field: 'id', title: 'ID', width: 80, sort: true},
+  {field: 'username', title: '用户名'},
+  {type: 'checkbox'}, // 选择框
+  {type: 'numbers'},  // 自动编号
+  {title: '操作', toolbar: '#toolbarTpl'}
+]]
+```
+
+**常用配置项说明：**
+
+| 属性      | 说明                               |
+| --------- | ---------------------------------- |
+| `field`   | 对应数据字段名（JSON 的 key）      |
+| `title`   | 表头显示的名称                     |
+| `width`   | 列宽（可选）                       |
+| `sort`    | 是否开启排序                       |
+| `fixed`   | 是否固定列（'left' 或 'right'）    |
+| `type`    | 特殊列类型（如 checkbox、numbers） |
+| `toolbar` | 使用外部模板（如按钮组等）         |
+| `templet` | 自定义模板函数或引用模板 ID        |
+
+#### templet 用法详解
+
+`templet` 可以是函数，也可以是字符串模板（通常引用 `<script type="text/html">` 的内容）。
+
+不管是那种方式，`d` 都是**当前行**数据的对象。
+
+**函数方式**
+
+```js
+{
+  field: 'status',
+  title: '状态',
+  templet: function(d){
+    return d.status == 1 ? '启用' : '禁用';
+  }
+}
+```
+
+**模板引用方式**
+
+```js
+<script type="text/html" id="statusTpl">
+  {{# if(d.status == 1){ }}
+    <span style="color: green;">启用</span>
+  {{# } else { }}
+    <span style="color: red;">禁用</span>
+  {{# } }}
+</script>
+```
+
+```js
+{ field: 'status', title: '状态', templet: '#statusTpl' }
+```
+
+**综合案例**
+
+```html
+<table id="userTable" lay-filter="userFilter"></table>
+
+<script type="text/html" id="statusTpl">
+  {{# if(d.status == 1){ }}
+  <span class="layui-badge layui-bg-green">正常</span>
+  {{# } else { }}
+  <span class="layui-badge">停用</span>
+  {{# } }}
+</script>
+
+<script>
+  layui.use("table", function () {
+    var table = layui.table;
+
+    table.render({
+      elem: "#userTable",
+      url: "/user/list",
+      cols: [
+        [
+          { field: "id", title: "ID", width: 60 },
+          { field: "name", title: "姓名" },
+          { field: "status", title: "状态", templet: "#statusTpl" },
+          { title: "操作", toolbar: "#toolbarTpl" },
+        ],
+      ],
+      page: true,
+    });
+  });
+</script>
+```
+
 ## highlight.js
 
 > [highlight.js 官网](https://highlightjs.org/)
