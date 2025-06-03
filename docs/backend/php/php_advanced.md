@@ -32,6 +32,20 @@ title: PHP进阶优化技巧，高效开发Web应用的最佳实践
 
 ### 注意事项
 
+- 使用 `empty($var)` 函数时一定要注意，`empty()` 函数会将 `0`、`0.0`、`false`、`null`、`''`（空字符串）等视为 `true`，
+
+  所以如果你需要判断一个变量是否为 `0`，请使用 `isset()` 或者直接比较。
+
+  例如：
+
+  ```php
+  if (!empty($task['status']) && $task['status'] == 1) {
+    // 执行某些操作
+  }
+  ```
+
+  会显得有点呆（请仔细阅读上面的代码，找到并记住这个低级错误）。
+
 - `strpos(string $haystack, string $needle, int $offset = 0)` 函数在 8.0 之前的版本中，如果传入的 `$needle` 为 `int`，则会返回 `false`，而导致不期待的结果
 
   总之，别用 `int` 作为 `$needle`。

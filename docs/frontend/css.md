@@ -619,3 +619,84 @@ p {
 可以配合 flex 元素实现想要的元素顺序。
 
 > 参考：[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox)
+
+## 案例
+
+### 图片元素效果
+
+#### 常用样式
+
+- `opacity: 0.5;` 设置透明度为 50%
+
+- `filter: grayscale(100%);` 设置灰度效果为 100%
+
+- `border-radius: 50%;` 设置圆角为 50%，使图片变成圆形
+
+- `clip-path: circle(50%);` 设置裁剪路径为圆形，和 `border-radius` 类似，但更灵活
+
+#### 滤镜效果
+
+这是图片专属的最酷属性之一，包括：
+
+```css
+img {
+  filter: brightness(0.8) contrast(120%) blur(2px) saturate(50%);
+}
+```
+
+- `filter: grayscale(100%)` 灰度效果
+
+- `filter: blur(3px)` 模糊效果
+
+- `filter: brightness(1.2)` 亮度效果
+
+- `filter: contrast(150%)` 对比度效果
+
+- `filter: saturate(50%)` 饱和度效果
+
+- `filter: invert(100%)` 反转颜色效果
+
+- `filter: hue-rotate(90deg)` 色相旋转效果
+
+- `filter: grayscale(100%) brightness(0.8)` 多效果组合
+
+#### 动效
+
+主要是使用 `transition` 和 `transform` 属性来实现。
+
+```css
+img {
+  transition: all 0.3s ease;
+  filter: grayscale(100%);
+}
+
+img:hover {
+  transform: scale(1.1) rotate(5deg);
+  filter: grayscale(0%);
+}
+img:active {
+  transform: scale(0.9);
+}
+```
+
+**图像置灰 + 悬停恢复彩色示例**
+
+```css
+img {
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+img:hover {
+  filter: grayscale(0%);
+}
+```
+
+#### 混合模式
+
+可以让图片和背景融合产生特别视觉，主要用到 `mix-blend-mode` 和 `background-blend-mode`。
+
+```css
+img {
+  mix-blend-mode: multiply; /* 图片和背景颜色混合 */
+}
+```

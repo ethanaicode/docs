@@ -408,14 +408,6 @@
 
   如: `usermod -l newname oldname` 修改用户名
 
-- **getent**: 获取用户信息
-
-  `passwd` 获取用户个人信息(来自`/etc/passwd`)
-
-  `group` 获取组信息
-
-  `shadow` 获取用户密码信息(来自`/etc/shadow`)
-
 - **groupadd**: 添加组
 
   `-g` 指定组 ID
@@ -431,6 +423,8 @@
 - **chsh**: 修改 shell
 
   `chsh -s /bin/bash` 修改 shell 为 bash
+
+  `echo $SHELL` 查看当前 shell
 
 - **users**: 查看当前登录系统的用户
 
@@ -453,6 +447,16 @@
   `-c` 执行命令
 
   有时候使用 `>>` 重定向会出现权限问题，可以使用 `sudo sh -c "command >> filename"` 来解决
+
+- **getent**: 从系统数据库中获取条目（entry），例如用户、组、主机、服务等信息。
+
+  `passwd` 获取用户个人信息(来自`/etc/passwd`)
+
+  `group` 获取组信息(来自`/etc/group`)
+
+  `shadow` 获取用户密码信息(来自`/etc/shadow`)
+
+  > 注意: `getent` 命令可以获取系统数据库中的信息，而不仅仅是 `/etc/passwd`、`/etc/group` 和 `/etc/shadow` 文件中的信息。
 
 ### 系统运行状态
 
@@ -1807,13 +1811,17 @@ rsync -avz username@remote_host:/path/to/remote/file /path/to/local/destination
 
 ## 用户和权限
 
-用户的配置文件一般在`/etc/passwd`中，用户组的配置文件一般在`/etc/group`中。
+- 用户的配置文件一般在`/etc/passwd`
+
+- 用户组的配置文件一般在`/etc/group`
+
+- 用户的密码文件一般在`/etc/shadow`
 
 ### 允许用户使用 sudo 命令
 
-> /etc/sudoers 文件比较敏感，不允许直接用编辑器修改，可以使用`visudo`命令来编辑，后面不需要加文件名。
+> **/etc/sudoers** 文件比较敏感，通常不允许直接用编辑器修改，
 >
-> visudo 命令会检查文件的语法错误，如果有错误，会提示并不保存。
+> 可以用 `visudo` 命令来编辑，该命令会在保存前检查文件的语法错误
 
 允许用户使用 `sudo` 命令，可以将用户添加到 `sudo` 组中（Debian/Ubuntu 系统）。
 
