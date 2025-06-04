@@ -62,7 +62,7 @@ php 里的单引号把内容当成纯文本，不会经过服务器翻译。
 
 Heredoc 和 Nowdoc 都是 PHP 中的字符串定义方式。
 
-- **Heredoc**: 类似于双引号字符串，可以包含变量和转义字符。
+- **Heredoc**: <u>类似于双引号字符串，可以包含变量和转义字符</u>。
 
   ```php
   $name = "World";
@@ -74,6 +74,8 @@ Heredoc 和 Nowdoc 都是 PHP 中的字符串定义方式。
   ```
 
 - **Nowdoc**: 类似于单引号字符串，不会解析变量和转义字符。
+
+  写法上和 Heredoc 类似，但使用单引号包裹标识符。
 
   ```php
   $name = "World";
@@ -282,7 +284,9 @@ Heredoc 和 Nowdoc 都是 PHP 中的字符串定义方式。
 
 - `base64_encode(string)`: 对字符串进行 base64 编码
 
-- `base64_decode(string)`: 对 base64 编码的字符串进行解码
+- `base64_decode(string, strict?)`: 对 base64 编码的字符串进行解码
+
+  如果 `strict` 为 `true`，则会检查字符串是否是有效的 base64 编码，如果不是，则返回 `false`
 
 ### URL 相关
 
