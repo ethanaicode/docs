@@ -103,6 +103,14 @@ TP3 中自动加载是通过`ThinkPHP/Library/Think/Think.class.php`文件中的
 
 ## TP6 使用经验总结
 
+### 注意事项
+
+- 如果是生产环境，默认会缓存数据库表结构，如果修改了表结构，需要清除缓存：`php think clear`
+
+  否则，可能导致新增的字段无法被正确识别，从而导致无法更新数据。
+
+  _真实经历：新增了一个字段，本地测试好好的，上线后数据一直无法更新，调试了半天，用了各种办法，最后才发现清除缓存就好了:(_
+
 ### 数据库及模型
 
 #### 数据库原生查询
@@ -121,6 +129,12 @@ TP3 中自动加载是通过`ThinkPHP/Library/Think/Think.class.php`文件中的
   $user = Db::query('select * from tp_users where id = ?', [1]);
   $user = Db::query('select * from tp_users where id = :id', ['id' => 1]);
   ```
+
+#### 模型的定义
+
+- `table`：设置当前模型对应的**完整数据表**名称，如果表名有大写，就必须要自定义
+
+- `name`：模型名（相当于不带数据表前后缀的表名，默认为当前模型类名）
 
 #### 模型的新增及更新
 
@@ -181,9 +195,39 @@ TP3 中自动加载是通过`ThinkPHP/Library/Think/Think.class.php`文件中的
 
 - 虽然官方说第二个参数为 `日志级别`，但是如果你使用的是 `single` 单文件模式，并且传入了别的名字如 `task`，那么就会生成一个 `single_task.log` 的文件
 
+### 命令行
+
+#### 自定义指令
+
+因为网页中执行的代码会受到很多限制，所以有时候需要在命令行中执行一些操作，这个时候可以直接使用 ThinkPHP 的命令行工具。
+
+**创建自定义命令行指令**
+
+1. `php think make:command CommandClassName CommandName`
+
+这个命令会在 `app/command` 目录下生成一个 `CommandClassName.php` 的文件，并设置命令名为 `CommandName`。
+
+2. 在生成的文件中，继承 `think\console\Command` 类，并实现 `configure` 和 `execute` 方法。
+
+   - `configure` 方法用于配置命令的名称和描述等信息；
+   - `execute` 方法用于执行命令的具体逻辑。
+
+3. 在 `config/console.php` 文件中注册命令：
+
+   ```php
+   <?php
+   return [
+       'commands' => [
+           'hello' => 'app\command\Hello',
+       ]
+   ];
+   ```
+
+4. 现在就可以在命令行中执行 `php think hello` 来运行这个命令了。
+
 ### 助手函数
 
-助手函数可以直接调用，本人会用到的有    ：
+助手函数可以直接调用，本人会用到的有 ：
 
 - `halt`: 变量调试输出并中断执行
 
