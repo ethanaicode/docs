@@ -116,6 +116,8 @@ Vim 是一个非常强大的文本编辑器，它分为三种模式：Normal 模
 
 - `:w`: 保存
 
+  `:w filename_draft.txt` 保存到指定文件（类似于 `Save As`）
+
 - `:wq`: 保存并退出
 
 ### Insert 模式
