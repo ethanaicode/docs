@@ -20,7 +20,7 @@ Nginx 是一个高性能的 HTTP 和反向代理服务器，也是一个 IMAP/PO
 
 - `nginx -V`: 查看信息(可以看到安装配置等目录)
 
-- `nginx -T`: 查看配置信息(可以看到完整配置)
+- `nginx -T`: <u>查看配置信息</u>(可以看到完整配置)
 
 - `nginx -s [SIGNAL]`: 控制
 
@@ -87,7 +87,11 @@ events {
 }
 ```
 
-- `worker_connections`: 每个 worker 进程可以同时接受的连接数，一般设置为 1024 或 2048。所以最大连接数 = worker_processes \* worker_connections。
+- `worker_connections`: 每个 worker 进程可以同时接受的连接数。
+
+  最大连接数 = worker_processes \* worker_connections。
+
+  _可以参考 [#调优](#调优) 部分的内容来调整这个值。_
 
 - `use`: 指定 Nginx 使用的事件模型，可以是 `select`、`poll`、`kqueue`、`epoll` 等。显式指定 `epoll` 可以确保使用高效模型。
 
@@ -134,22 +138,6 @@ http {
 ```
 
 它的作用是告诉 Nginx，当返回的文件是`html`、`htm`、`shtml`时，它的 MIME 类型是`text/html`。
-
-#### 流量限制
-
-可以使用`limit_conn`和`limit_rate`来限制连接数和速率。
-
-```nginx
-limit_conn perserver 50;
-limit_conn perip 3;
-limit_rate 2048k;
-```
-
-- `limit_conn perserver 50`: 并发限制，限制当前站点最大并发数
-
-- `limit_conn perip 3`: 单 IP 限制，限制单个 IP 访问最大并发数
-
-- `limit_rate 2048k`: 流量限制，限制每个请求的流量上限（单位是 KB）
 
 #### server_names 配置
 
@@ -449,6 +437,54 @@ location / {
 - `add_header Access-Control-Allow-Headers '...'`: 允许的请求头
 
 - `if ($request_method = 'OPTIONS')`: 如果是 OPTIONS 请求，返回 204
+
+### 请求限速
+
+可以使用`limit_req`指令来限制请求速率。
+
+```nginx
+http {
+    limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
+    server {
+        location /api/ {
+            limit_req zone=one burst=5 nodelay;
+            proxy_pass http://backend;
+        }
+    }
+}
+```
+
+- `limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s`: 定义一个名为 `one` 的限速区域，使用客户端的 IP 地址作为键，限制速率为每秒 1 个请求。
+
+- `limit_req zone=one burst=5 nodelay`: 在 `one` 区域内，允许突发请求数为 5 个，并且不延迟处理。
+
+  - `burst`: 突发请求数，表示在短时间内允许超过限制的请求数。
+
+  - `nodelay`: 不延迟处理突发请求，直接处理，如果去掉，则会延迟处理突发请求。
+
+- `$binary_remote_addr`: 使用二进制格式的客户端 IP 地址作为键，这意味着相同的 IP 地址会被视为同一个客户端，都会收到相同的限制。
+
+  如果希望为相同的 IP 不同的路径设置不同的限速，可以使用 `$binary_remote_addr$request_uri` 作为键，这样每个路径都会有独立的限速。
+
+**注意**: 限速配置需要在 `http` 块中定义 `limit_req_zone`，然后在 `server` 或 `location` 块中使用 `limit_req`，而且名字不可以搞错（复制代码是要注意），否则会报错。
+
+### 流量限制
+
+可以在 `http`、`server` 或 `location` 块中使用流量限制指令。
+
+可以使用`limit_conn`和`limit_rate`来限制连接数和速率。
+
+```nginx
+limit_conn perserver 50;
+limit_conn perip 3;
+limit_rate 2048k;
+```
+
+- `limit_conn perserver 50`: 并发限制，限制当前站点最大并发数
+
+- `limit_conn perip 3`: 单 IP 限制，限制单个 IP 访问最大并发数
+
+- `limit_rate 2048k`: 流量限制，限制每个请求的流量上限（单位是 KB）
 
 ### 反向代理和负载均衡
 
@@ -804,9 +840,17 @@ Nginx 的调优主要包括以下几个方面：
 
 - 调整 worker_processes 和 worker_connections
 
-  `worker_processes` 是 Nginx 的工作进程数，一般设置为 CPU 核心数的 2 倍。
+  `worker_processes` 是 Nginx 的工作进程数，可以设置为 CPU 核心数或者 `auto`，表示自动检测 CPU 核心数。
 
-  `worker_connections` 是每个 worker 进程可以同时接受的连接数，一般设置为 1024 或 2048。
+  `worker_connections` 是每个 worker 的并发连接数，一般设置为 1024 ~ 8192。每个连接都占用内存和文件描述符，也会给 CPU 调度带来一定的压力，并不一定越高越好，所以需要根据实际情况来设置。
+
+  **总最大连接数** = `worker_processes` \* `worker_connections`。
+
+  如果每个连接时间都很短，`worker_connections` 可以设置低一点，这样在不占用太多资源的情况下也可以处理更多的并发请求。
+
+  如果每个连接时间都很长，比如存在长连接的情况，`worker_connections` 可以设置高一点，这样可以处理更多的并发请求。
+
+  原则都是**在尽可能不占用太多资源的情况下，尽可能提高并发处理能力**。
 
 - 调整 keepalive_timeout
 
@@ -870,9 +914,49 @@ Nginx 的调优主要包括以下几个方面：
 
 #### 调整系统内核参数
 
+`/etc/security/limits.conf` 文件用于设置用户的资源限制，包括文件描述符、内存、进程数等。
+
 - 调整文件描述符
 
   `ulimit -n` 表示文件描述符的数量，可以通过修改`/etc/security/limits.conf`来调整。
+
+  默认情况下，Linux 系统的文件描述符数量是 1024，可以通过修改`/etc/security/limits.conf`来调整。
+
+  ```bash
+  * soft nofile 65535
+  * hard nofile 65535
+  ```
+
+  `*` 表示所有用户，`soft` 表示软限制，`hard` 表示硬限制。
+
+  也可以单独为 nginx 用户设置文件描述符数量：
+
+  ```bash
+  www-data soft nofile 65535
+  www-data hard nofile 65535
+  ```
+
+  **注意**: www-data 是 Nginx 的默认用户，如果使用其他用户，请替换为对应的用户名。
+
+另外一个调整系统内核参数的文件为 `/etc/sysctl.conf`。
+
+调整后如果希望生效，可以使用以下命令：
+
+```bash
+sysctl -p
+```
+
+- 调整文件句柄数
+
+  `fs.file-max` 表示<u>系统允许的最大文件句柄数</u>，也就是系统允许的最大“打开文件数”。
+
+  ```bash
+  fs.file-max = 100000
+  ```
+
+  `vfs_cache_pressure` 表示虚拟文件系统缓存的压力，默认值为 100，可以设置为 50 ~ 75，减少文件系统缓存的压力。
+
+  50 表示减少一半的压力，表示**更倾向于保留目录/文件名结构缓存**（即访问过的路径、文件结构保留更久）。
 
 - 调整 TCP 参数
 
@@ -886,7 +970,7 @@ Nginx 的调优主要包括以下几个方面：
 
   `vm.overcommit_memory` 表示内存过量分配，可以减少内存分配失败。
 
-  `vm.swappiness` 表示内存交换分区，可以减少内存交换。
+  `vm.swappiness` 表示<u>内存交换分区</u>，默认为 60，可以设置为 10 ~ 20，减少内存交换。
 
   `vm.dirty_ratio` 表示脏页比例，可以减少脏页写入。
 
@@ -895,6 +979,8 @@ Nginx 的调优主要包括以下几个方面：
   `net.core.somaxconn` 表示最大连接数，可以提高网络连接数。
 
   `net.core.netdev_max_backlog` 表示网络接收队列，可以提高网络接收队列。
+
+  `ip_local_port_range` 表示本地端口范围，可以扩大本地端口范围。
 
   `net.ipv4.tcp_max_syn_backlog` 表示 SYN 队列，可以提高 SYN 队列。
 
@@ -911,19 +997,3 @@ Nginx 的调优主要包括以下几个方面：
 - 使用 epoll 模型
 
   `use epoll` 表示使用 epoll 模型，可以提高网络处理能力。
-
-- 使用 kqueue 模型
-
-  `use kqueue` 表示使用 kqueue 模型，可以提高网络处理能力。
-
-- 使用 poll 模型
-
-  `use poll` 表示使用 poll 模型，可以提高网络处理能力。
-
-- 使用 select 模型
-
-  `use select` 表示使用 select 模型，可以提高网络处理能力。
-
-```
-
-```

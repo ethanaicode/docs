@@ -989,6 +989,80 @@ try {
 sudo systemctl restart php-fpm
 ```
 
+## PEAR/PECL
+
+- PEAR 全称是 PHP Extension and Application Repository，PHP 类库的集合（用 PHP 写的），类似 Composer 包，属于功能性类库。
+
+  PEAR 只依赖于 PHP 本身。文件形式通常为 `.php`。
+
+  _可以把 PEAR 理解为 Python 中的 pip，Ruby 中的 gem 等_
+
+- PECL 全称是 PHP Extension Community Library，是 PHP 的一个扩展库（用 C 写的），可以用来安装和管理 PHP 扩展，属于性能更高的底层扩展。
+
+  由于依赖 PHP 的扩展 API，需要编译安装，文件形式通常为 `.so` 或 `.dll`。
+
+- `pecl` 是 PEAR 工具链的一部分，都可以使用 `go-pear.phar` 安装。
+
+### PEAR/PECL 的安装
+
+通常情况下，PEAR/PECL 会随着 PHP 的安装而自动安装，可以通过以下命令来检查是否安装：
+
+```bash
+pear version
+pecl version
+```
+
+如果是自己编译安装的 PHP，可以在安装目录 `bin` 下找到 `pear` 和 `pecl` 命令。如果没有找到，表示你 **下载并编译的是 PHP 源码包中不包含** PEAR/PECL 的工具链，就需要手动安装。
+
+_PEAR/PECL 是可以通过编译时安装的，只需要在编译时添加 `--with-pear` 选项即可，这样可以确保编译后 PEAR/PECL 工具可用_
+
+#### 下载并初始化 PEAR/PECL
+
+首先可以确认下当前 PHP 是否内置了 PEAR 支持（而只是没有安装），你可以运行：
+
+```bash
+/path/to/php/bin/php -r "var_dump(defined('PEAR_INSTALL_DIR'));"
+```
+
+如果输出为 `bool(true)`，说明编译时 PEAR 是支持的，只是你还需要执行一次初始化安装（`go-pear.phar`）。
+
+可以通过以下命令来下载并初始化 PEAR/PECL：
+
+```bash
+cd /path/to/php
+wget https://pear.php.net/go-pear.phar
+/path/to/php/bin/php go-pear.phar
+```
+
+执行过程中按回车选择默认路径即可，安装后你会得到：
+
+```bash
+/path/to/php/bin/pear
+/path/to/php/bin/pecl
+```
+
+#### 使用 PECL 安装扩展
+
+PECL 扩展的安装非常简单，只需要使用 `pecl install` 命令即可。
+
+比如安装 `redis` 扩展：
+
+```bash
+/path/to/php/bin/pecl install redis
+```
+
+**注意**：安装扩展时，可能会提示你缺少依赖，比如安装 `redis` 时 可能会提示缺少 `autoconf` 依赖，那么先安装下依赖，再运行安装命令即可。
+
+安装完成后，通常会提示你将扩展添加到 `php.ini` 文件中。
+
+你也可以手动添加扩展到 `php.ini` 文件中，在 `php.ini` 文件中添加以下行即可：
+
+```ini
+extension=redis.so
+```
+
+然后重启 PHP-FPM 服务使配置生效。
+
 ## Composer
 
 `Composer` 是 PHP 的一个依赖管理工具，可以用来管理项目中的依赖包，并实现自动加载。

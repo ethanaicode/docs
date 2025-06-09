@@ -41,7 +41,7 @@
   bottom: -4px;
   height: 2px;
   width: 108px;
-  background-color: var(--vp-c-gutter); /* 一个简单的底部装饰线 */
+  background-color: var(--vp-code-bg);
 }
 
 em {

@@ -1369,7 +1369,7 @@ awk '{ if ($1 > 10) print $1 }' filename
 7. **退出**:
    - 按下 `q` 键退出 `less`。
 
-### tail/les/watch 实时查看文件变化
+### tail/les/watch 实时查看监控文件变化
 
 `tail -f` 命令可以实时查看文件的变化
 
@@ -1397,11 +1397,7 @@ watch -n 1 'ls -l'
 
 - `-n 1`: 每秒执行一次命令。
 
-可以使用`watch`结合`tail`命令来实时查看文件的变化。
-
-```bash
-watch -n 1 'tail -n 10 filename'
-```
+- `watch -n 1 'tail -n 10 filename'`: 每秒查看文件的最后 10 行。
 
 ### 使用 grep 查找文本
 
@@ -3097,7 +3093,7 @@ macOS 下可以直接使用 `tcpdump` 命令，Linux 下可以使用 `apt` 安�
 
 - `tcpdump -i eth0 -w output.pcap`: 可以将捕获的数据包保存到文件
 
-- `tcpdump -i eth0 -r input.pcap: 可以读取保存的数据包文件
+- `tcpdump -i eth0 -r input.pcap`: 可以读取保存的数据包文件
 
 - `tcpdump -i lo0 -X 'tcp port 8080'`: 可以查看指定端口的数据包
 
