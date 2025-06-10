@@ -2039,6 +2039,12 @@ systemctl daemon-reload
 
 - `systemctl list-unit-files --type=service | grep disabled`: 查看所有已禁用的服务
 
+- `systemctl list-units --type=service`: <u>列出所有服务</u>
+
+  `systemctl list-units --type=service | grep fpm` 列出 php-fpm 服务
+
+- `systemctl list-units --type=service --state=running`: 列出所有正在运行的服务
+
 - `systemctl list-dependencies <SERVICE_NAME>`: 查看服务的依赖关系
 
 - `systemctl cat <SERVICE_NAME>`: 查看服务的配置文件

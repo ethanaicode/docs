@@ -997,3 +997,19 @@ sysctl -p
 - 使用 epoll 模型
 
   `use epoll` 表示使用 epoll 模型，可以提高网络处理能力。
+
+### 错误排查
+
+#### 502 Bad Gateway
+
+Nginx 报错 “502 Bad Gateway” 是一种常见的反向代理错误，意思是：Nginx 作为网关或代理服务器时，尝试将请求转发给后端服务器（如 PHP-FPM、Node.js、FastCGI 等）时没有收到有效响应，或响应无效。
+
+常见的原因包括：
+
+- **后端服务未运行或宕机**：检查 PHP-FPM / Node 等服务是否正常运行。
+
+- **PHP-FPM 进程耗尽**：若你设置了 `pm.max_children` 太小，流量高时进程用尽，会出现 502。
+
+- **Nginx 配置错误**：`fastcgi_pass` 配置错误，比如端口写错或套接字路径不匹配。
+
+- **请求处理超时**：后端服务响应时间过长，超过了 Nginx 的超时设置。可以通过调整 `proxy_read_timeout` 或 `fastcgi_read_timeout` 来增加超时时间。
