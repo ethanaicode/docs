@@ -191,6 +191,63 @@ axios({
 
 - `Network`: 查看网络请求，里面还可以设置网络条件，比如网络速度设置为 `Slow 3G`
 
+### 脚本书签
+
+脚本书签是一种非常实用的 Chrome 开发者工具，我们可以把一段 JS 代码保存为书签，然后在需要的时候直接运行。
+
+脚本书签的好处是可以快速执行一些常用的脚本，而不需要每次都打开控制台。
+
+#### 创建脚本书签
+
+创建脚本书签的方法也很简单，只要把书签的 URL 设置为 `javascript:` 开头，然后后面跟上你的 JS 代码即可。
+
+主要有这两种写法：
+
+1. 具名函数的 IIFE，可以用于调试：
+
+   ```javascript
+   javascript: (function myFunction() {
+     alert("Hello, World!");
+   })();
+   ```
+
+2. 匿名函数的 IIFE，适合直接执行，更紧凑且兼容性好
+
+   ```javascript
+   javascript: !(function () {
+     alert("Hello, World!");
+   })();
+   ```
+
+   `!function(){}`、`+function(){}`、`~function(){}`、`void function(){}` 等前缀，都是 IIFE 的惯用技巧，目的都是将 `function` 转成表达式。
+
+推荐编辑好代码后进行压缩，压缩后可以去掉空格和换行符，使得书签更短。
+
+#### 常用脚本书签示例
+
+- **开启网页编辑模式**：可以直接编辑网页内容，适用于临时修改页面内容。
+
+  ```javascript
+  javascript: !(function () {
+    "true" === document.body.getAttribute("contenteditable")
+      ? (document.body.setAttribute("contenteditable", !1),
+        alert("网页不能编辑啦！"))
+      : (document.body.setAttribute("contenteditable", !0),
+        alert("网页可以编辑啦！"));
+  })();
+  ```
+
+- **开启密码输入框的明文显示**：可以将密码输入框的内容显示为明文，方便查看。
+
+  ```javascript
+  javascript: !(function () {
+    var inputs = document.querySelectorAll("input[type='password']");
+    inputs.forEach(function (input) {
+      input.type = "text";
+    });
+  })();
+  ```
+
 ## layui
 
 layui 虽然用的不多，但是公司的老项目很多都是基于 layui 开发的，所以还是有必要了解一下。

@@ -1200,23 +1200,35 @@ Linux example.com 5.4.0-65-generic #73-Ubuntu SMP Mon Jan 18 17:25:17 UTC 2021 x
 
 - `cat file1 file2 | sort | uniq > target_file`: 将多个文件**合并**并排序去重后写入目标文件
 
-### 使用 sed 批量替换文本内容
+### 使用 sed 操作文本内容（替换、删除、插入等）
 
 `sed` 是一个流编辑器，用于处理文本数据。`sed` 可以用于替换文本、删除文本、插入文本等。
 
 特别是在通过脚本来修改配置文件时，`sed` 是一个非常有用的工具。
 
-**基本语法**
+#### 基本语法
 
-```bash
-sed [options] 's/old/new/g' filename
-```
+- `sed [options] 's/old/new/g' filename`: 全局替换文本
 
-- `s`: 表示替换操作。
+  - `s`: 表示替换操作。
 
-- `g`: 表示全局替换。
+  - `g`: 表示全局替换。
 
-**选项**
+  - 不加 `g`，则只替换第一处匹配的文本，如 `sed 's/old/new/' filename` 只替换第一处匹配的文本。
+
+- `sed [options] '/old/d' filename`: 删除匹配的文本行
+
+  - `d`: 表示删除匹配的文本行。
+
+- `sed [options] '/old/i\new_text' filename`: 在匹配的文本行之前插入新文本
+
+  - `i`: 在匹配的文本行之前插入新文本。
+
+  如: `sed '/pattern/i\new_text' filename` 在匹配到 `pattern` 的行之前插入 `new_text`。
+
+  - `sed [options] '/old/a\new_text' filename`: 在匹配的文本行之后添加新文本
+
+#### options 选项
 
 - `-i`: 直接修改文件内容。
 
@@ -1224,7 +1236,7 @@ sed [options] 's/old/new/g' filename
 
 - `-e`: 多次替换。
 
-**示例-批量替换多个文件中的文本**
+#### 示例-批量替换多个文件中的文本
 
 ```bash
 find /path/to/files -type f -name "*.conf" -exec sed -i.bak 's|/www/server/panel/vhost/|/www/vhost/|g' {} +
@@ -2086,6 +2098,16 @@ crontab 是用来让使用者在固定时间或固定间隔执行程序之用，
   - 在 `Ubuntu/Debian` 系统中，日志文件通常位于 `/var/log/syslog`
 
   - 在 `CentOS/RHEL` 系统中，日志文件通常位于 `/var/log/cron`
+
+  - 如 `grep CRON /var/log/syslog` 可以查看定时任务的执行情况。
+
+- 某些 Debian 安装不启用 rsyslog，而使用 `journald`。可以这样查看 cron 运行记录：
+
+  - `journalctl -u cron`
+
+  - `journalctl -u crond` (CentOS/RHEL)
+
+  - `journalctl | grep CRON`
 
 - 如果需要查看服务状态，可以使用以下命令：
 

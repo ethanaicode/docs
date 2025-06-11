@@ -232,6 +232,8 @@ Heredoc 和 Nowdoc 都是 PHP 中的字符串定义方式。
 
 - `array_rand(array, num?)`: 从数组中随机取出一个或多个元素
 
+- `shuffle(array)`: <u>打乱数组中的元素顺序</u>（不想按照统一顺序的话，可以使用这个方法）
+
 - `array_merge(array1, array2)`: 合并一个或多个数组
 
 - `array_merge_recursive(array1, array2)`: 递归合并一个或多个数组

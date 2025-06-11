@@ -533,6 +533,54 @@ mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p mysql
 
 - `SHOW VARIABLES LIKE 'max_allowed_packet';`: 会显示最大允许的包大小
 
+### 导入导出高级操作
+
+#### 高版本导出数据兼容低版本
+
+8.0+ 版本的 MySQL 导出的 SQL 文件可能会包含一些低版本不支持的语法。
+
+导出是我们可以添加一些参数来兼容低版本。
+
+```bash
+mysqldump -u root -p --databases database_name --default-character-set=utf8mb4  --skip-tz-utc --set-gtid-purged=OFF > database_name.sql
+```
+
+- `--default-character-set=utf8mb4`: 设置字符集为 `utf8mb4`，以支持更广泛的字符集
+
+- `--skip-tz-utc`: 跳过时区设置，避免低版本不支持的时区语法
+
+- `--set-gtid-purged=OFF`: 禁用 GTID 相关的语法，避免低版本不支持的 GTID 语法
+
+- 在导出大型数据库时，使用 `--single-transaction` 可以确保导出过程中的一致性，避免锁表
+
+- 在导出大型数据时，使用 `--quick` 可以提高导出效率，避免一次性加载所有数据到内存中
+
+MySQL 5.7 及以下版本不支持 `utf8mb4_0900_ai_ci`，可以用 sed 快速处理：
+
+```bash
+sed -i 's/utf8mb4_0900_ai_ci/utf8mb4_general_ci/g' database_name.sql
+```
+
+#### 导出时压缩
+
+使用 `mysqldump` 配合管道输出到 `gzip`，将导出的 SQL 文件进行压缩，以节省存储空间。
+
+```bash
+mysqldump -u root -p database_name | gzip > database_name.sql.gz
+```
+
+导入时也可以不需要解压：
+
+```bash
+gunzip < database_name.sql.gz | mysql -u root -p
+```
+
+或者配合管道：
+
+```bash
+zcat database_name.sql.gz | mysql -u root -p
+```
+
 ### SQL 性能分析
 
 有时候发现 SQL 执行很慢，或者感觉 MySQL 占用过高，可以参考以下方式进行分析
