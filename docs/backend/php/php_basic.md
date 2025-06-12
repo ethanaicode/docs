@@ -232,6 +232,8 @@ Heredoc 和 Nowdoc 都是 PHP 中的字符串定义方式。
 
 - `array_rand(array, num?)`: 从数组中随机取出一个或多个元素
 
+  **注意**：返回的是键名而不是值
+
 - `shuffle(array)`: <u>打乱数组中的元素顺序</u>（不想按照统一顺序的话，可以使用这个方法）
 
 - `array_merge(array1, array2)`: 合并一个或多个数组
@@ -330,6 +332,14 @@ Heredoc 和 Nowdoc 都是 PHP 中的字符串定义方式。
 
 - `rand(min, max)`: 生成一个随机数
 
+- `mt_rand(min, max)`: 生成更好的随机数
+
+  使用 Mersenne Twister 算法（梅森旋转算法），随机性更好、更一致，而且性能上比 `rand()` 更快
+
+- `random_int(min, max)`: 生成一个加密安全的随机整数(PHP 7.0+)
+
+  它是一个 **加密安全的伪随机数生成器（CSPRNG）**，底层使用操作系统提供的加密随机数源，性能上会稍微差一点
+
 - `max(value1, value2...)`: 返回最大值
 
 - `min(value1, value2...)`: 返回最小值
@@ -355,8 +365,6 @@ Heredoc 和 Nowdoc 都是 PHP 中的字符串定义方式。
 - `is_infinite(value)`: 检测变量是否为无穷大
 
 - `uniqid(prefix?, more_entropy?)`: 生成一个唯一 ID
-
-- `mt_rand(min, max)`: 生成更好的随机数
 
 - `hexdec(hex_string)`: 十六进制转十进制
 
