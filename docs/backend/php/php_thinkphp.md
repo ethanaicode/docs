@@ -130,6 +130,23 @@ TP3 中自动加载是通过`ThinkPHP/Library/Think/Think.class.php`文件中的
   $user = Db::query('select * from tp_users where id = :id', ['id' => 1]);
   ```
 
+#### 数据库事务操作
+
+使用事务处理的话，需要数据库引擎支持事务处理。
+
+最简单的方式是使用 transaction 方法操作数据库事务，当闭包中的代码发生异常会自动回滚，例如：
+
+```php
+Db::transaction(function () use ($ids) {
+    // 执行一系列数据库操作
+    Db::table('users')->where('id', $ids[0])->update(['status' => 'active']);
+    Db::table('orders')->where('user_id', $ids[0])->update(['status' => 'completed']);
+    // 如果有异常抛出，事务会自动回滚
+});
+```
+
+**注意**：在事务操作的时候，确保你的数据库连接使用的是同一个。
+
 #### 模型的定义
 
 - `table`：设置当前模型对应的**完整数据表**名称，如果表名有大写，就必须要自定义
@@ -206,6 +223,12 @@ TP3 中自动加载是通过`ThinkPHP/Library/Think/Think.class.php`文件中的
 1. `php think make:command CommandClassName CommandName`
 
 这个命令会在 `app/command` 目录下生成一个 `CommandClassName.php` 的文件，并设置命令名为 `CommandName`。
+
+如果你想创建一个名为 `Hello` 的命令，可以执行：
+
+```bash
+php think make:command Hello hello
+```
 
 2. 在生成的文件中，继承 `think\console\Command` 类，并实现 `configure` 和 `execute` 方法。
 
