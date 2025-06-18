@@ -108,13 +108,33 @@ http {
     sendfile on;
     tcp_nopush on;
     tcp_nodelay on;
-    keepalive_timeout 65;
+    keepalive_timeout 15;
+    types_hash_max_size 2048;
+    server_tokens off
     gzip on;
     server {
         ...
     }
 }
 ```
+
+- `include mime.types`: 引入 MIME 类型配置文件，定义了各种文件类型的 MIME 类型。
+
+- `default_type application/octet-stream`: 设置默认的 MIME 类型，如果没有匹配到其他类型，则使用这个类型。
+
+- `sendfile on`: 开启高效的文件传输模式，使用`sendfile`系统调用来传输文件。
+
+- `tcp_nopush on`: 开启 TCP_NOPUSH，减少网络传输的延迟。
+
+- `tcp_nodelay on`: 开启 TCP_NODELAY，减少网络传输的延迟。
+
+- `keepalive_timeout 15`: 设置客户端连接的超时时间，单位为秒。
+
+- `types_hash_max_size 2048`: 设置 MIME 类型哈希表的最大大小，默认为 1024。
+
+- `server_tokens off`: 是否在响应头和错误页面中显示 Nginx 的版本号信息。
+
+- `gzip on`: 开启 gzip 压缩，可以减少传输的数据量，提高传输速度。
 
 #### MIME 类型
 
@@ -293,7 +313,7 @@ Nginx 本身并不提供日志切割功能，但是可以通过 logrotate 工具
 
 ```nginx
 server {
-    listen 80;
+    listen 80 default_server;
     server_name localhost;
     location / {
         root /var/www/html;
@@ -312,6 +332,10 @@ server {
 
 - `index`: 默认的首页
 
+- `default_server`: 表示这是<u>默认的服务器块</u>，如果没有匹配到其他服务器块，则使用这个服务器块
+
+  **注意**: 如果有多个服务器块都设置了 `default_server`，则只会使用第一个匹配到的服务器块，请确保只有一个服务器块设置了 `default_server`。
+
 #### include
 
 可以使用`include`来引入其他配置文件。
@@ -325,15 +349,21 @@ http {
 
 #### location 匹配规则
 
-- `/`: 通用匹配，任何请求都会匹配到。
+- `/`: 通用匹配，任何请求都会匹配到
 
-- `=`: 精确匹配，只有完全匹配时才会生效。
+- `=`: 精确匹配，只有完全匹配时才会生效
 
-- `^~`: 匹配 URL 前缀，如果匹配成功，则不再匹配其他规则。
+  例如：`location = /app` 只会匹配 `/app`，不会匹配 `/app/` 或 `/app/index.html`。
 
-- `~`: 区分大小写的正则匹配。
+- `^~`: 匹配 URL 前缀，如果匹配成功，则不再匹配其他规则
 
-- `~*`: 不区分大小写的正则匹配。
+  例如：`location ^~ /app/` 会匹配以 `/app/` 开头的请求。
+
+- `~`: 区分大小写的正则匹配
+
+  例如：`location ~ \.php$` 会匹配以 `.php` 结尾的请求。
+
+- `~*`: 不区分大小写的正则匹配
 
 **案例**
 
@@ -397,15 +427,13 @@ location / {
 
 - `last`: 重定向后是否继续匹配其他规则
 
-#### return 重定向实现
+#### return 指令
 
-可以使用`return`指令来进行重定向，比如将 `HTTP` 请求全部重定向到 `HTTPS`，可以这样配置：
+`return` 指令用于直接返回一个 HTTP 状态码和可选的响应内容。
 
 ```nginx
-server {
-    listen 80;
-    server_name www.example.com;
-    return 301 https://$server_name$request_uri;
+location / {
+    return 404 "Not Found";
 }
 ```
 
@@ -614,8 +642,8 @@ server {
     listen              443 ssl http2;
     server_name         www.example.com;
 
-    ssl_certificate     www.example.com.crt;
-    ssl_certificate_key www.example.com.key;
+    ssl_certificate     /path/to/www.example.com.crt;
+    ssl_certificate_key /path/to/www.example.com.key;
     ssl_protocols       TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
     ssl_prefer_server_ciphers on;
     ssl_ciphers         HIGH:!aNULL:!MD5;

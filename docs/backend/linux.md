@@ -2308,11 +2308,13 @@ crontab 是用来让使用者在固定时间或固定间隔执行程序之用，
 
 - `netstat -nr`: 显示路由表
 
-### 获取 Nginx 服务流量消耗信息
+### 分析 Nginx 日志文件
 
-如果是网络服务器的话，通常都会用到 Nginx 或者 Apache 来提供服务，可以通过查看 Nginx 或者 Apache 的访问日志来获取服务器流量消耗信息。
+Nginx 的访问日志文件通常位于 `/var/log/nginx/access.log`。
 
-这里以 Nginx 为例，Nginx 的访问日志文件通常位于 `/var/log/nginx/access.log`。
+#### 获取 Nginx 服务流量消耗信息
+
+可以通过查看 Nginx 的访问日志来获取服务器流量消耗信息。
 
 **查看今日流量总量**
 
@@ -2366,7 +2368,69 @@ awk '{
 }'
 ```
 
-**分析已压缩的日志文件**
+#### 获取 Nginx 服务访问量信息
+
+可以通过分析 Nginx 的访问日志来获取访问量信息。
+
+**查看今日访问量**
+
+```bash
+awk '{print $1}' /var/log/nginx/access.log | sort | uniq | wc -l
+```
+
+**查看排名前 10 的访问路径**
+
+```bash
+awk '{print $7}' /var/log/nginx/access.log | sort | uniq -c | sort -nr | head -n 10
+```
+
+#### 耗时统计及分析
+
+默认情况下，Nginx 的访问日志格式中并不包含请求的耗时信息。
+要实现耗时统计，需要在 Nginx 的配置文件中添加 `$request_time` 变量。
+
+我们可以修改日志格式支持耗时分析，比如在 `nginx.conf` 的 `http` 块中添加：
+
+```nginx
+log_format timed_combined '$remote_addr - $remote_user [$time_local] '
+                          '"$request" $status $body_bytes_sent '
+                          '"$http_referer" "$http_user_agent" '
+                          '$request_time';
+```
+
+然后在 `http` 或 `server` 或 `location` 中加上：
+
+```nginx
+access_log /var/log/nginx/access.log timed_combined;
+```
+
+**分析“哪个接口最慢”了**
+
+```bash
+awk '{print $(NF-1), $7}' /var/log/nginx/access.log | \
+awk '{sum[$2]+=$1; count[$2]++} END {for (url in sum) print sum[url]/count[url], count[url], url}' | \
+sort -nr | head -20
+```
+
+**查看平均耗时>0.2 秒的接口**
+
+```bash
+awk '{print $(NF-1), $7}' /var/log/nginx/access.log | \
+awk '{sum[$2]+=$1; count[$2]++} END {for (url in sum) if (sum[url]/count[url] > 0.2) print sum[url]/count[url], count[url], url}' | \
+sort -nr
+```
+
+**显示“总耗时”**
+
+```bash
+awk '{print $(NF-1), $7}' /var/log/nginx/access.log | \
+awk '{sum[$2]+=$1; count[$2]++} END {for (url in sum) print sum[url], sum[url]/count[url], count[$2], url}' | \
+sort -nr
+```
+
+输出字段依次为：`总耗时 平均耗时 访问次数 URL`。
+
+#### 分析已压缩的日志文件
 
 如果日志文件是经过压缩的，可以使用`zcat`命令来查看日志文件内容。
 
@@ -2417,11 +2481,19 @@ curl [options] [URL]
 
 - `-k` <u>忽略 SSL 证书验证错误</u>，并继续访问 HTTPS 站点
 
+- `-H "Header: Value"` 添加自定义请求头
+
+- `-e http://zx6.ru` 设置 HTTP Referer 为 `http://zx6.ru`
+
+- `-A "Xenu Link Sleuth/1.3.8"` 设置 User-Agent
+
 下面是使用 `cURL` 下载文件的一些常见用法:
 
-- `curl -f -SOJL -H "License: license_key" https://example.com/file`: 下载文件并保持原始文件名
+- `curl -f -SOJL https://example.com/file`: 下载文件并保持原始文件名
 
 - `curl -O https://example.com/file`: 下载文件并保存为 URL 的最后部分
+
+- `curl -I -X POST https://example.com`: 发送 POST 请求并只显示响应头
 
 #### wget 下载文件
 

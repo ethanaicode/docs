@@ -608,7 +608,7 @@ SHOW VARIABLES LIKE 'slow_query_log_file';
 
 ```bash
 mysqldumpslow -s t -t 10 /path/to/slow-query.log
-# 或更详细：
+# 或更详细（Percona Toolkit 强大的日志分析工具）：
 pt-query-digest /path/to/slow-query.log
 ```
 
@@ -684,6 +684,16 @@ TRUNCATE TABLE performance_schema.events_statements_summary_by_digest;
 ```ini
 [mysqld]
 performance_schema=ON
+```
+
+#### 错误日志（Error Log）
+
+虽然不是查询日志，但常用于排查查询失败、权限拒绝、连接超时等问题。
+
+查看位置：
+
+```sql
+SHOW VARIABLES LIKE 'log_error';
 ```
 
 ### EXPLAIN 查询分析

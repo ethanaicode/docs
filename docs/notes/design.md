@@ -86,6 +86,14 @@
 
   小米
 
+#### 宋体
+
+- [思源宋体](https://github.com/adobe-fonts/source-han-serif)
+
+  Adobe 出品的开源字体，支持简体中文、繁体中文、日文、韩文
+
+  相关页面：[思源宋体](https://source.typekit.com/source-han-serif/cn/#get-the-fonts)
+
 ## 在线设计工具
 
 - [blush](https://blush.design/collections): 在线插画生成工具
