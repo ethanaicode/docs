@@ -587,7 +587,7 @@ This is a dangerous warning.
 This is a details block.
 :::
 
-惊喜的是，它们都支持自定义标题，比如：
+惊喜的是，它们都支持自定义标题（Github 风格同样支持），比如：
 
 ::: tip 提示
 这是一个提示

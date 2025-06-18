@@ -1,6 +1,6 @@
 # Linux
 
-> Linux 的知识是非常多的，一篇文章肯定是不够的。
+> Linux 的知识是非常多的，不同版本的系统也有差异，一篇文章肯定是不够的。
 >
 > 这里包含常用的知识，更多内容可以结合使用需求及公司场景进行学习和使用。
 
@@ -16,7 +16,13 @@
 
   `-a` 显示所有文件，包括隐藏文件
 
-  `-F` 区分文件和目录，目录末尾加 `/`，链接文件末尾加 `@`
+  `-F` 区分文件和目录
+
+  - `/` 目录
+  - `@` 符号链接文件（symbolic link）
+  - `*` 可执行文件（executable）
+  - `=` 套接字文件（socket）
+  - `|` 管道文件（FIFO）
 
   `-r` 反序显示
 
@@ -88,7 +94,7 @@
 
   `-s` 创建软链接（类似于 Windows 的快捷方式）
 
-  默认情况是硬链接，硬链接是指多个文件指向同一个 inode，删除一个文件不会影响其他文件，但是删除 inode 会影响所有文件
+  _默认情况是硬链接，硬链接是指多个文件指向同一个 inode，删除一个文件不会影响其他文件，但是删除 inode 会影响所有文件_
 
   `-i` 交互式操作，如果目标文件已存在，会询问是否覆盖
 
@@ -105,6 +111,10 @@
   `alias ll='ls -l'` 设置别名
 
   `unalias ll` 取消别名
+
+- **ldd**: 查看动态链接库依赖
+
+  `ldd redis.so` 查看 redis.so 的依赖库
 
 ### 命令行符号
 
@@ -1880,6 +1890,14 @@ sudo -l -U username
 
 - `yum repolist all | grep <package_name>`: 查看所有软件列表
 
+  `yum repolist enabled` 查看已启用的软件源列表
+
+- `yum-config-manager --add-repo <repo_url>`: 添加新的软件源
+
+  `yum-config-manager --enable <repo_name>` 启用软件源
+
+  `yum-config-manager --disable <repo_name>` 禁用软件源
+
 - `yum search <package_name>`: 搜索软件包
 
 - `yum info <package_name>`: 查看软件包信息
@@ -2162,13 +2180,15 @@ crontab 是用来让使用者在固定时间或固定间隔执行程序之用，
 
 #### 使用示例
 
+- `* * * * * /path/to/script.sh`: 每分钟执行脚本
+
+- `*/30 * * * * /path/to/script.sh`: 每隔 30 分钟执行脚本
+
 - `0 * * * * /path/to/script.sh`: 每小时执行脚本
 
 - `0 3 * * * /path/to/script.sh`: 每天凌晨 3 点执行脚本
 
 - `0 */3 * * * /path/to/script.sh`: 每隔 3 小时执行脚本
-
-- `*/30 * * * * /path/to/script.sh`: 每隔 30 分钟执行脚本
 
 - `0 2 * * 1 /path/to/clean_logs.sh`: 每周一凌晨 2 点执行清理日志脚本
 
@@ -2292,9 +2312,9 @@ crontab 是用来让使用者在固定时间或固定间隔执行程序之用，
 
 我们可以利用这些参数来查看不同的网络连接信息，以下是一些常用的 `netstat` 命令示例:
 
-- `netstat -nat|grep -i "80"|wc -l`: 统计 80 端口连接数
+- `netstat -anp | grep ':80' | wc -l`: 统计 80 端口连接数
 
-- `netstat -na|grep ESTABLISHED|wc -l`: 统计已连接上的，状态为“established”的连接数
+- `netstat -anp | grep ':80' | grep ESTABLISHED | wc -l`: <u>统计已连接上的，状态为 ESTABLISHED 的 80 端口连接数</u>
 
 - `netstat -n | awk '/^tcp/ {++S[$NF]} END {for (a in S) print a, S[a]}`: 统计 TCP 连接状态的类型和数量
 

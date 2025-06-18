@@ -4,63 +4,65 @@ title: PHP进阶优化技巧，高效开发Web应用的最佳实践
 
 # PHP 进阶知识
 
-## 进阶知识
+## PHP 命令
 
-### 实用技巧
+### PHP CLI
 
-- **`...`参数**表示可以接受任意数量的参数，可以用来代替数组。
+- `php -m`: 查看已经安装的模块
 
-  例如：
+- `php -v`: 查看版本
 
-  ```PHP
-  function sum(...$nums)
-  {
-      return array_sum($nums);
-  }
-  ```
+- `php -S localhost:8000`: 启动一个简单的服务器
 
-- **file_get_contents()** 用于读取文件内容，也可以用来读取远程文件，利用这个实现简单的接口请求。
+- `php -a`: 进入交互模式
 
-  例如：
+- `php -r "echo extension_loaded('redis') ? 'yes' : 'no';"`: 执行一行代码
 
-  ```PHP
-  $response = file_get_contents('https://api.github.com/shejibiji/data');
-  print_r(json_decode($response, true));
-  ```
+- `php -i`: 查看 php 配置
 
-  **注意**: 如果服务器返回的状态码不是 200，`file_get_contents()` 会返回 `false`，而不会返回错误信息。
+  `php -i | grep php.ini`: 查看 php.ini 文件路径
 
-### 注意事项
+- `php --ini`: 查看 php.ini 文件路径
 
-- 使用 `empty($var)` 函数时一定要注意，`empty()` 函数会将 `0`、`0.0`、`false`、`null`、`''`（空字符串）等视为 `true`，
+### PHP-FPM
 
-  所以如果你需要判断一个变量是否为 `0`，请使用 `isset()` 或者直接比较。
+- `php-fpm -t`: 检查配置文件是否正确
 
-  例如：
+- `php-fpm -tt`: <u>检查配置文件是否正确</u>，并显示配置文件路径
 
-  ```php
-  if (!empty($task['status']) && $task['status'] == 1) {
-    // 执行某些操作
-  }
-  ```
+- `php-fpm -i`: 查看 php-fpm 配置
 
-  会显得有点呆（请仔细阅读上面的代码，找到并记住这个低级错误）。
+## PHP 安装
 
-- `strpos(string $haystack, string $needle, int $offset = 0)` 函数在 8.0 之前的版本中，如果传入的 `$needle` 为 `int`，则会返回 `false`，而导致不期待的结果
+### 包管理器安装
 
-  总之，别用 `int` 作为 `$needle`。
+**CentOS/RHEL**
 
-### PHP 的数据在内存中的存储位置
+```bash
+# 安装 EPEL 和 Yum Utils 依赖
+sudo yum install -y epel-release yum-utils
+# 安装 Remi 仓库
+sudo yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+# 查看可用的 PHP 模块
+yum module list php
+# 启用你想要的 PHP 版本（以 7.4 为例）
+sudo yum-config-manager --enable remi-php74
+# 安装 PHP 及常用扩展
+sudo yum install -y php php-cli php-fpm php-mysqlnd php-pdo php-gd php-mbstring php-xml php-json php-opcache
+# 查看 PHP 版本
+php -v
+# 启动 PHP-FPM（如果你要用 nginx）
+sudo systemctl start php-fpm
+sudo systemctl enable php-fpm
+# 如果安装错了版本，可以卸载重新安装，卸载命令：
+sudo yum remove php*
+```
 
-PHP 的数据在内存中的存储位置有两种：
+> [!TIP] Remi 仓库
+> `remi` 仓库是一个第三方仓库，提供了最新版本的 PHP 和常用扩展。`remi` 安装的应用都可以在 `/opt/remi/` 目录下找到。
+> 但要注意的是这个目录下的应用和系统自带的应用是分开的，比如用这个源安装了 PHP 7.4，同时更换了系统自带的 PHP 版本为 7.4，但是他们是不同的，配置和运行环境也不同。
 
-- 栈内存：存储基本数据类型，如整型、浮点型、布尔型等。
-
-- 堆内存：存储复杂数据类型，如数组、对象等。
-
-> 堆(heap)和栈(stack)的区别：堆经典的实现是完全二叉树，栈是一种先进后出的数据结构，所以堆是一种树形结构，栈是一种线性结构。想象一下画面就比较好记了。
-
-### PHP 编译安装
+### 编译安装 PHP
 
 > 官方版本下载：[PHP 官方下载](https://www.php.net/releases/)
 
@@ -131,6 +133,78 @@ PHP 的编译安装，需要先下载 PHP 源码，然后解压，进入解压�
 - `--without-gdbm` 禁用 GDBM 支持（GDBM 是一个开源的数据库管理系统，PHP 7.4 之后已经移除了对 GDBM 的支持）
 
 - `--enable-gd` 启用 GD 图形库
+
+## 进阶知识
+
+### PHP 配置
+
+早期 linux 系统中，通常会自带 PHP，它们的配置文件通常在以下位置：
+
+- `/etc/php.ini`: 全局配置文件
+
+- `/etc/php.d`: 扩展配置文件
+
+- `/etc/php-fpm.d`: PHP-FPM 配置文件
+
+  `/etc/php-fpm.d/www.conf`: PHP-FPM 网站配置文件
+
+- `/etc/php-cli.ini`: CLI 配置文件
+
+如果是自己编译安装的 PHP，那么配置文件会在安装目录下的 `etc` 目录中。
+
+### 实用技巧
+
+- **`...`参数**表示可以接受任意数量的参数，可以用来代替数组。
+
+  例如：
+
+  ```PHP
+  function sum(...$nums)
+  {
+      return array_sum($nums);
+  }
+  ```
+
+- **file_get_contents()** 用于读取文件内容，也可以用来读取远程文件，利用这个实现简单的接口请求。
+
+  例如：
+
+  ```PHP
+  $response = file_get_contents('https://api.github.com/shejibiji/data');
+  print_r(json_decode($response, true));
+  ```
+
+  **注意**: 如果服务器返回的状态码不是 200，`file_get_contents()` 会返回 `false`，而不会返回错误信息。
+
+### 注意事项
+
+- 使用 `empty($var)` 函数时一定要注意，`empty()` 函数会将 `0`、`0.0`、`false`、`null`、`''`（空字符串）等视为 `true`，
+
+  所以如果你需要判断一个变量是否为 `0`，请使用 `isset()` 或者直接比较。
+
+  例如：
+
+  ```php
+  if (!empty($task['status']) && $task['status'] == 1) {
+    // 执行某些操作
+  }
+  ```
+
+  会显得有点呆（请仔细阅读上面的代码，找到并记住这个低级错误）。
+
+- `strpos(string $haystack, string $needle, int $offset = 0)` 函数在 8.0 之前的版本中，如果传入的 `$needle` 为 `int`，则会返回 `false`，而导致不期待的结果
+
+  总之，别用 `int` 作为 `$needle`。
+
+### 数据存储
+
+PHP 不同的数据在内存中的存储方式不同，主要分为两种：栈内存和堆内存。
+
+- 栈内存：存储基本数据类型，如整型、浮点型、布尔型等。
+
+- 堆内存：存储复杂数据类型，如数组、对象等。
+
+> 堆(heap)和栈(stack)的区别：堆经典的实现是完全二叉树，栈是一种先进后出的数据结构，所以堆是一种树形结构，栈是一种线性结构。想象一下画面就比较好记了。
 
 ## 命名空间
 
@@ -991,6 +1065,8 @@ sudo systemctl restart php-fpm
 
 ## PEAR/PECL
 
+> 在 Centos 中，如果 php 是通过 yum 安装的，那么安装拓展直接就可以使用`yum install php-pecl-扩展名`命令来安装即可。
+
 - PEAR 全称是 PHP Extension and Application Repository，PHP 类库的集合（用 PHP 写的），类似 Composer 包，属于功能性类库。
 
   PEAR 只依赖于 PHP 本身。文件形式通常为 `.php`。
@@ -1041,7 +1117,7 @@ wget https://pear.php.net/go-pear.phar
 /path/to/php/bin/pecl
 ```
 
-#### 使用 PECL 安装扩展
+### 使用 PECL 安装扩展
 
 PECL 扩展的安装非常简单，只需要使用 `pecl install` 命令即可。
 
@@ -1051,17 +1127,34 @@ PECL 扩展的安装非常简单，只需要使用 `pecl install` 命令即可�
 /path/to/php/bin/pecl install redis
 ```
 
-**注意**：安装扩展时，可能会提示你缺少依赖，比如安装 `redis` 时 可能会提示缺少 `autoconf` 依赖，那么先安装下依赖，再运行安装命令即可。
+安装完成后，通常会提示你将扩展添加到 `/etc/php.ini` 文件或 `/etc/php.d/` 目录下的配置文件中。
 
-安装完成后，通常会提示你将扩展添加到 `php.ini` 文件中。
-
-你也可以手动添加扩展到 `php.ini` 文件中，在 `php.ini` 文件中添加以下行即可：
+你也可以手动添加扩展到 `/etc/php.ini` 文件中，在 `/etc/php.ini` 文件中添加以下行即可：
 
 ```ini
 extension=redis.so
 ```
 
 然后重启 PHP-FPM 服务使配置生效。
+
+**常见问题**
+
+- 安装扩展时，可能会提示你缺少依赖，比如安装 `redis` 时 可能会提示缺少 `autoconf` 依赖，
+
+  那么先安装下依赖，再运行安装命令即可。
+
+- 如果在安装扩展时遇到 `ERROR: phpize failed` 错误，通常是因为缺少 `phpize` 工具。
+
+  你可以通过以下命令安装：
+
+  ```bash
+  # Linux（例如 Ubuntu/Debian）
+  apt install php-dev
+  # CentOS / RHEL
+  yum install php-devel
+  # 如果使用的是特定版本（实测没必要，用上面命令即可）
+  yum install php82-php-devel
+  ```
 
 ## Composer
 

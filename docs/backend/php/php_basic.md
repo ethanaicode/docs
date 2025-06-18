@@ -4,50 +4,6 @@ title: PHP基础知识大全，开发者必备的核心技能
 
 # PHP 基础
 
-## PHP 命令
-
-### PHP CLI
-
-- `php -m`: 查看已经安装的模块
-
-- `php -v`: 查看版本
-
-- `php -S localhost:8000`: 启动一个简单的服务器
-
-- `php -a`: 进入交互模式
-
-- `php -r "echo 'Hello World';"`: 执行一行代码
-
-- `php -i`: 查看 php 配置
-
-  `php -i | grep php.ini`: 查看 php.ini 文件路径
-
-- `php --ini`: 查看 php.ini 文件路径
-
-### PHP-FPM
-
-- `php-fpm -t`: 检查配置文件是否正确
-
-- `php-fpm -tt`: <u>检查配置文件是否正确</u>，并显示配置文件路径
-
-- `php-fpm -i`: 查看 php-fpm 配置
-
-## PHP 配置
-
-早期 linux 系统中，通常会自带 PHP，它们的配置文件通常在以下位置：
-
-- `/etc/php.ini`: 全局配置文件
-
-- `/etc/php.d`: 扩展配置文件
-
-- `/etc/php-fpm.d`: PHP-FPM 配置文件
-
-  `/etc/php-fpm.d/www.conf`: PHP-FPM 网站配置文件
-
-- `/etc/php-cli.ini`: CLI 配置文件
-
-如果是自己编译安装的 PHP，那么配置文件会在安装目录下的 `etc` 目录中。
-
 ## 基础知识及问题
 
 ### PHP 单引号和双引号的区别与用法
@@ -491,6 +447,14 @@ Heredoc 和 Nowdoc 都是 PHP 中的字符串定义方式。
 - `imagecopyresized(dst_image, src_image, dst_x, dst_y, src_x, src_y, dst_w, dst_h, src_w, src_h)`: 拷贝部分图像并调整大小
 
 - `imagecopymerge(dst_image, src_image, dst_x, dst_y, src_x, src_y, src_w, src_h, pct)`: 拷贝并合并图像的一部分
+
+### PHP 选项
+
+- `ini_get(option)`: 获取 PHP 配置选项的值
+
+- `extension_loaded(extension)`: 检查指定的扩展是否已加载
+
+- `get_loaded_extensions()`: 返回已加载的扩展列表
 
 ### 其它
 

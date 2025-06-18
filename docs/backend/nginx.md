@@ -710,17 +710,16 @@ server {
 ```nginx
 server {
     listen 80;
-    server_name localhost;
+    server_name 127.0.0.1;
+    allow 127.0.0.1;
     location /nginx_status {
         stub_status on;
         access_log off;
-        allow
-        deny all;
     }
 }
 ```
 
-这将会在`http://localhost/nginx_status`上显示 Nginx 的状态信息。
+这将会在`http://127.0.0.1/nginx_status`上显示 Nginx 的状态信息。
 
 ```bash
 Active connections: 291
@@ -729,15 +728,17 @@ server accepts handled requests
 Reading: 6 Writing: 179 Waiting: 106
 ```
 
-- `Active connections`: 当前活跃连接数
+- `Active connections`: 当前活跃连接数（包括正在读取、写入、等待中的连接）
 
-- `server accepts handled requests`: 总共处理的连接数(下面的三个数字分别是总接收、总处理、总请求)
+- `server accepts handled requests`: 总共处理的连接数(总接收、总处理、总请求)
 
-- `Reading`: 读取请求的连接数
+- `Reading`: 读取请求的连接数（Nginx 正在从客户端读取请求头的连接数）
 
-- `Writing`: 响应请求的连接数
+- `Writing`: 响应请求的连接数（Nginx 正在向客户端发送响应数据的连接数）
 
-- `Waiting`: 等待连接的连接数
+- `Waiting`: 等待连接的连接数（连接空闲，等待新请求（HTTP Keep-Alive））
+
+  Nginx 正在等待下一个请求的**空闲连接数**，也叫 `keep-alive` 状态
 
 ## 进阶
 
