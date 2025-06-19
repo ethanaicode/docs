@@ -462,7 +462,9 @@ sudo -v ; curl https://rclone.org/install.sh | sudo bash -s beta
 
 ### 常用命令
 
-> `remote` 表示配置中的别名，如 `r2`，`bucket` 表示远程存储桶名称
+> `remote` 表示配置中的别名，如 `r2`
+>
+> `bucket` 表示远程存储桶名称，如 `my-bucket`
 
 - `rclone tree remote:bucket`: 查看存储桶中的文件列表
 
@@ -472,7 +474,7 @@ sudo -v ; curl https://rclone.org/install.sh | sudo bash -s beta
 
 - `rclone copy /path/to/file remote:bucket -P` : 上传文件到存储桶
 
-  - `rclone copy /path/to/file remote:bucket/path -P` 上传文件到存储桶的指定路径
+  - `rclone copy /path/to/file remote:bucket/path` 上传文件到存储桶的指定路径
 
   - `-P` 参数可以显示上传进度（可选参数，推荐加上，不然网络慢的话会以为卡了）
 

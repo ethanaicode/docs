@@ -113,6 +113,14 @@ TP3 中自动加载是通过`ThinkPHP/Library/Think/Think.class.php`文件中的
 
 ### 数据库及模型
 
+#### 数据库连接及调试
+
+数据库的连接配置在 `config/database.php` 文件中。
+
+**重要配置参考**
+
+- `trigger_sql`：开启后会记录 SQL 调试信息，默认是 `true`，不想记录 SQL 调试信息可以设置为 `false`。
+
 #### 数据库原生查询
 
 - `Db::query('sql语句')`：执行原生 SQL 语句，返回结果集；
