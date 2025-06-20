@@ -83,6 +83,39 @@ return not a == b or b == c
 
 - [www.nslookup.io](https://www.nslookup.io/): 在线查询域名的 DNS 记录
 
+## AI Related
+
+### 概念
+
+- **提示工程（Prompt Engineering）**：指的是设计和优化提示语，以便更好地引导 AI 模型生成所需的输出。
+
+  在实际落地中，多数情况下是靠提示工程来“调教”模型行为，而不是对模型做真正的微调，尤其当模型本身已经是一个 chat-tuned 模型，比如 DeepSeek R1、ChatGLM、Mistral-Instruct 等。
+
+- **模型微调（Fine-Tuning）**：指的是在预训练模型的基础上，使用特定领域的数据进行再训练，以提高模型在特定任务上的性能。
+
+- **检索增强生成（Retrieval-Augmented Generation）**：一种结合检索和生成的模型架构，通过检索相关信息来增强生成的内容。
+
+  RAG 模型通常由两个部分组成：一个检索器（Retriever）和一个生成器（Generator）。检索器从知识库中检索相关信息，生成器则基于这些信息生成最终的输出。
+
+  可以简单理解为：模型不知道的东西，我帮它查出来，然后让它用这些内容来回答你。
+
+### RAG 的技术实现
+
+你可以这样简单理解：
+
+1. **文档预处理**：把企业文档/网页分块 + 向量化（用 BGE、text-embedding 等）；
+2. **构建知识库**：存入向量数据库（如 FAISS、Milvus）；
+3. **用户提问时**：
+   - 把问题向量化 → 去知识库找最相关的文档片段；
+   - 将这些片段 + 问题 → 送给大语言模型；
+   - 模型基于这些内容来生成回答。
+
+常用技术栈：
+
+- 向量数据库：`FAISS`、`Milvus`、`Weaviate`
+- 向量模型：`text-embedding-ada-002`、`BGE-small`、`E5` 等
+- 框架：`LangChain`、`LlamaIndex`
+
 ## Regex 正则表达式
 
 设计笔记官方有一篇文章专门介绍正则表达式，可以参考[这里](https://www.shejibiji.com/archives/8719)。

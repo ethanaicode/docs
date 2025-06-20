@@ -119,6 +119,10 @@ date: 2024-12-31 17:19:52
 
   Electron + Vite + Vue3 开发起点项目
 
+- [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot/): Python 版 Telegram Bot API
+
+  一个 Python 版的 Telegram Bot API 库，支持异步和同步两种方式，如果需要开发 Telegram Bot，可以使用这个库。
+
 ### 后台管理
 
 - [Vue Vben Admin](https://github.com/vbenjs/vue-vben-admin): 超火的 Vue3 + Vite + TypeScript 后台管理框架，功能特别全
