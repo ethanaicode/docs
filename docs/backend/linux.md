@@ -1884,6 +1884,66 @@ sudo -l -U username
 
 - `-U` 参数用于指定用户。
 
+## 系统状态
+
+### 系统监控工具
+
+#### top
+
+`top` 是一个实时的系统监控工具，可以用来查看系统的 CPU、内存、磁盘等资源的使用情况。
+
+`top` 顶部的这一行通常长这样（根据系统略有不同）：
+
+```bash
+%Cpu(s):  10.0 us,  5.0 sy,  0.0 ni, 80.0 id,  5.0 wa,  0.0 hi,  0.0 si,  0.0 st
+```
+
+`us`: 用户空间占用（用户程序）
+
+`sy`: 内核空间占用（系统调用等）
+
+`id`: 空闲
+
+`wa`: I/O 等待
+
+`hi`: 硬件中断
+
+`si`: 软件中断
+
+`st`: 被虚拟机抢占的时间
+
+> [!TIP]
+> 顶部的 `%Cpu(s)` 显示的是系统所有 CPU 核心的平均使用情况；例如 `us` 表示用户空间的平均 CPU 占用。
+> 下方进程列表中的 `%CPU` 表示该进程在整个系统上所有核心的 **总 CPU 占用率**，可以超过 100%。
+> 在多核系统中，如果一个进程使用了两个核心的全部计算资源，它的 `%CPU` 可能显示为 200%。
+> 因此，某个进程的 `%CPU` 和顶部 `us` 不一定对齐，因为 `us` 是全系统平均，而进程是具体进程的加总。
+
+### 进程状态分析
+
+> `ps` 和 `top` 占用统计口径是不同的，`ps` 显示的是 进程自启动以来的平均占用率，`top` 显示的是 实时瞬时占用率。
+
+#### 查看进程 CPU 占用总和
+
+比如我要查看 **php-fpm 进程总体占用的 CPU 总和**，可以使用以下命令：
+
+```bash
+ps -C php-fpm -o %cpu= | awk '{s+=$1} END {printf "php-fpm total CPU usage: %.2f%%\n", s}'
+```
+
+**说明**：
+
+- `ps -C php-fpm`: 查找所有名为 `php-fpm` 的进程
+- `-o %cpu=`: 仅输出 CPU 占用（去掉列名）
+- `awk '{s+=$1} END {printf ...}'`: 累加所有进程的 CPU 占用并输出
+
+#### 查看进程 CPU 和内存占用总和
+
+可以使用以下命令：
+
+```bash
+ps -C php-fpm -o %cpu=,%mem= | awk '{cpu+=$1; mem+=$2} END {printf "CPU: %.2f%%, MEM: %.2f%%\n", cpu, mem}'
+```
+
 ## 应用管理
 
 在 Centos 或 RHEL 系统中，可以使用 `yum` 命令来管理软件包。
@@ -2398,11 +2458,13 @@ awk '{
 
 可以通过分析 Nginx 的访问日志来获取访问量信息。
 
-**查看今日访问量**
+**查看今日访问总量**
 
 ```bash
 awk '{print $1}' /var/log/nginx/access.log | sort | uniq | wc -l
 ```
+
+_统计的是不同 IP 地址的访问量，如果要统计行数，可以去掉 `sort` 和 `uniq`，直接使用 `wc -l`_
 
 **查看排名前 10 的访问路径**
 
@@ -3292,3 +3354,7 @@ tcpdump -i lo0 -X 'tcp port 8080'
 - `htpasswd /etc/nginx/.htpasswd username`: 添加一个新的用户
 
 - `htpasswd -cs /etc/nginx/.htpasswd username`: 创建一个新文件并添加用户（使用 SHA 加密）
+
+
+
+8.28 02/07 seO:/ W@M.wf 25款cb400f骑行片段-进来听歌 25款cb400f，上海闵浦大桥# 本田摩托车 # 摩托车爱好者 # 骑行随拍 # 旅行vlog # 城市风景 # 摩托骑行  https://v.douyin.com/8pHF7NfIHAA/ 复制此链接，打开Dou音搜索，直接观看视频！

@@ -83,6 +83,12 @@ return not a == b or b == c
 
 - [www.nslookup.io](https://www.nslookup.io/): 在线查询域名的 DNS 记录
 
+### 游戏娱乐
+
+#### 游戏平台
+
+- [CrazyGames](https://www.crazygames.com/): 免费在线游戏网站，提供各种类型的 HTML5 游戏。
+
 ## AI Related
 
 ### 概念

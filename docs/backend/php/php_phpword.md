@@ -8,7 +8,7 @@
 
 ## HTML
 
-支持传入HTML标签，这是简单的案例：
+支持传入 HTML 标签，这是简单的案例：
 
 ```php
 $phpWord = new \PhpOffice\PhpWord\PhpWord();
@@ -28,10 +28,10 @@ margin-top: 240pt;
 font-size: 16px;
 text-align: center;
 text-decoration: underline;
-text-align: justify; 
-text-indent: 70.9pt; 
+text-align: justify;
+text-indent: 70.9pt;
 line-height: 150%;
-font-family: arial,helvetica,sans-serif;
+font-family: arial, helvetica, sans-serif;
 ```
 
 支持比较好的标签
@@ -41,16 +41,12 @@ font-family: arial,helvetica,sans-serif;
 <a></a>
 <strong></strong>
 <sub></sub>
-<ul><li><ol></ol></li></ul>
+<ul>
+  <li><ol></ol></li>
+</ul>
 ```
 
-
-
-
-
-
-
-## [Containers  容器](https://phpoffice.github.io/PHPWord/usage/containers.html)
+## [Containers 容器](https://phpoffice.github.io/PHPWord/usage/containers.html)
 
 ### addSection 添加内容块
 
@@ -109,11 +105,10 @@ $section->addPageBreak();
 
 也可以用来添加页面背景。
 
-需要一个header来作为参考。
+需要一个 header 来作为参考。
 
 ```php
 $section = $phpWord->addSection();
 $header = $section->addHeader();
 $header->addWatermark('resources/_earth.jpg', array('marginTop' => 200, 'marginLeft' => 55));
 ```
-

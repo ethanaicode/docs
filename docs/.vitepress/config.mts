@@ -7,6 +7,7 @@ export default defineConfig({
   ignoreDeadLinks: true, // 忽略死链接（编译时会检查）
   lang: "zh-CN",
   title: "设计笔记",  // 网站标题
+  // titleTemplate: 'Ethan的技术笔记', // 网站标题模板（默认是网站标题）
   description: "设计笔记的文档集合",
   head: [
     ["link", { rel: "icon", href: "/logo.png" }],
@@ -308,5 +309,8 @@ export default defineConfig({
         ],
       },
     },
+  },
+  sitemap: {
+    hostname: 'https://doc.shejibiji.com/',
   }
 });

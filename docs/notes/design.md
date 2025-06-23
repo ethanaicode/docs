@@ -121,3 +121,13 @@
   免费下载，包含 照片、插画、3D 作品，高质量作品，由 AI 生成。
 
   [![1740639075627.jpg](https://img.shejibiji.com/2025/02/27/67c00b6534919.jpg)](https://img.shejibiji.com/2025/02/27/67c00b6534919.jpg)
+
+### 游戏素材
+
+- [OpenGameArt](https://opengameart.org/): 免费游戏素材库
+
+  包含了大量的免费游戏素材，支持多种格式。
+
+- [Kenney](https://kenney.nl/assets): 免费游戏素材库
+
+  Kenney 是一个知名的游戏素材设计师，提供了大量的免费游戏素材。
