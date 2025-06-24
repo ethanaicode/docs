@@ -205,8 +205,8 @@ LRANGE key 0 -1  # 获取列表全部元素
 
 #### 🧮 3. Hash（哈希表）
 
-- 类似于 PHP 的关联数组（key => value 字段集合）。
-- 存储对象、用户信息等结构化数据。
+- 每个数组元素有唯一标识（key），类似<u>对象数组</u>。
+- 你希望通过 key 快速访问或修改元素。
 
 **常用命令**：
 
@@ -222,15 +222,15 @@ HDEL user:1 name
 #### 🔘 4. Set（集合）
 
 - 无序、不重复元素集合。
-- 自动去重，适合去重判断。
+- 需要去重或集合运算（交集、并集、差集）。
 
 **常用命令**：
 
 ```bash
 SADD key member
 SREM key member
-SMEMBERS key
-SISMEMBER key member
+SMEMBERS key            # 获取所有成员
+SISMEMBER key member    # 判断成员是否存在
 ```
 
 **典型用途**：标签、关注列表、去重记录、抽奖等。
@@ -244,9 +244,9 @@ SISMEMBER key member
 
 ```bash
 ZADD rank 100 Alice
-ZRANGE rank 0 -1 WITHSCORES
-ZREVRANGE rank 0 -1 WITHSCORES
-ZINCRBY rank 10 Alice
+ZRANGE rank 0 -1 WITHSCORES     # 获取所有元素及分数
+ZREVRANGE rank 0 -1 WITHSCORES  # 倒序获取
+ZINCRBY rank 10 Alice           # 增加分数
 ```
 
 **典型用途**：排行榜、权重排序、计分系统等。
