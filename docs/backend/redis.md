@@ -55,7 +55,7 @@ _MacOS 用户可以通过 Homebrew 安装 Redis，配置文件通常位于 `/usr
 
 通常在生产环境中，建议设置密码以保护 Redis 实例。可以在配置文件中找到以下行并取消注释：
 
-```conf
+```bash
 # requirepass foobared
 ```
 
