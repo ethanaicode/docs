@@ -1884,7 +1884,7 @@ sudo -l -U username
 
 - `-U` 参数用于指定用户。
 
-## 系统状态
+## 系统及进程
 
 ### 系统监控工具
 
@@ -1898,25 +1898,47 @@ sudo -l -U username
 %Cpu(s):  10.0 us,  5.0 sy,  0.0 ni, 80.0 id,  5.0 wa,  0.0 hi,  0.0 si,  0.0 st
 ```
 
-`us`: 用户空间占用（用户程序）
+- `us`: 用户空间占用（用户程序）
 
-`sy`: 内核空间占用（系统调用等）
+- `sy`: 内核空间占用（系统调用等）
 
-`id`: 空闲
+- `id`: 空闲
 
-`wa`: I/O 等待
+- `wa`: I/O 等待
 
-`hi`: 硬件中断
+- `hi`: 硬件中断
 
-`si`: 软件中断
+- `si`: 软件中断
 
-`st`: 被虚拟机抢占的时间
+- `st`: 被虚拟机抢占的时间
 
 > [!TIP]
 > 顶部的 `%Cpu(s)` 显示的是系统所有 CPU 核心的平均使用情况；例如 `us` 表示用户空间的平均 CPU 占用。
 > 下方进程列表中的 `%CPU` 表示该进程在整个系统上所有核心的 **总 CPU 占用率**，可以超过 100%。
-> 在多核系统中，如果一个进程使用了两个核心的全部计算资源，它的 `%CPU` 可能显示为 200%。
-> 因此，某个进程的 `%CPU` 和顶部 `us` 不一定对齐，因为 `us` 是全系统平均，而进程是具体进程的加总。
+
+`top` 进程列表中的列通常包括：
+
+- `PID`: 进程 ID
+
+- `USER`: 进程所有者
+
+- `PR`: 进程优先级
+
+- `NI`: 进程的 nice 值（优先级调整）
+
+- `VIRT`: 进程使用的虚拟内存大小（单位为 KB）
+
+- `RES`: 进程使用的<u>物理内存大小</u>（单位为 KB）
+
+- `SHR`: 进程使用的共享内存大小（单位为 KB）
+
+- `%CPU`: 进程使用的 CPU 占用率
+
+- `%MEM`: 进程使用的物理内存占用率
+
+- `TIME+`: 进程使用的 CPU 时间
+
+- `COMMAND`: 进程的命令行
 
 ### 进程状态分析
 
@@ -1943,6 +1965,32 @@ ps -C php-fpm -o %cpu= | awk '{s+=$1} END {printf "php-fpm total CPU usage: %.2f
 ```bash
 ps -C php-fpm -o %cpu=,%mem= | awk '{cpu+=$1; mem+=$2} END {printf "CPU: %.2f%%, MEM: %.2f%%\n", cpu, mem}'
 ```
+
+### 使用 PS 查找进程
+
+- `ps aux`: 查看所有进程
+
+  `ps aux | grep nginx` 查找 nginx 进程
+
+  `ps aux | grep php-fpm` <u>查找 php-fpm 进程</u>
+
+  _`lsof -i :port` 可以用来查看占用指定端口进程情况（可能需要安装 `lsof`）_
+
+- `ps -p PID`: 查看指定 PID 的进程
+
+- `ps -C process_name`: 查看指定名称的进程
+
+- `pidof process_name`: 获取指定进程的 PID
+
+### 使用 kill 关闭进程
+
+- `kill -QUIT PID`: 优雅关闭指定 PID 的进程（推荐，允许进程有序关闭）
+
+- `kill -9 PID`: 关闭指定 PID 的进程（强制关闭）
+
+  `-9` 表示强制关闭进程（不进行清理操作），可以跟多个 PID，用空格隔开
+
+  如 `killall -9 php-fpm` <u>关闭所有 php-fpm 进程</u>
 
 ## 应用管理
 
@@ -3149,32 +3197,6 @@ To get information on Squid profile/app, run:
 
   `sudo dmidecode -t bios` 查看 BIOS 信息
 
-## 进程管理
-
-### 使用 PS 查找进程
-
-- `ps aux`: 查看所有进程
-
-- `ps aux | grep nginx`: 查找 nginx 进程
-
-- `ps aux | grep php-fpm`: <u>查找 php-fpm 进程</u>
-
-  `lsof -i :port` 可以用来查看占用指定端口进程情况（可能需要安装 `lsof`）。
-
-- `ps -p PID`: 查看指定 PID 的进程
-
-### 使用 kill 关闭进程
-
-- `kill -QUIT PID`: 优雅关闭指定 PID 的进程（推荐，允许进程有序关闭）
-
-- `kill -9 PID`: 关闭指定 PID 的进程（强制关闭）
-
-  `-9` 表示强制关闭进程（不进行清理操作）
-
-  kill 后面可以跟多个 PID，用空格隔开
-
-- `killall -9 php-fpm`: <u>关闭所有 php-fpm 进程</u>
-
 ## 日期和时间
 
 ### 查看日期和时间
@@ -3354,7 +3376,3 @@ tcpdump -i lo0 -X 'tcp port 8080'
 - `htpasswd /etc/nginx/.htpasswd username`: 添加一个新的用户
 
 - `htpasswd -cs /etc/nginx/.htpasswd username`: 创建一个新文件并添加用户（使用 SHA 加密）
-
-
-
-8.28 02/07 seO:/ W@M.wf 25款cb400f骑行片段-进来听歌 25款cb400f，上海闵浦大桥# 本田摩托车 # 摩托车爱好者 # 骑行随拍 # 旅行vlog # 城市风景 # 摩托骑行  https://v.douyin.com/8pHF7NfIHAA/ 复制此链接，打开Dou音搜索，直接观看视频！
