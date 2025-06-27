@@ -54,7 +54,7 @@ export default defineConfig({
           { text: "Vim", link: "/backend/vim" },
           { text: "MySQL", link: "/backend/mysql" },
           { text: "Redis", link: "/backend/redis" },
-          { text: "Network", link: "/backend/network" },
+          { text: "Docker", link: "/backend/docker" },
           {
             text: "Programming",
             items: [
@@ -71,9 +71,9 @@ export default defineConfig({
         items: [
           { text: "Tips", link: "/notes/tips" },
           { text: "Git", link: "/notes/git" },
-          { text: "Docker", link: "/notes/docker" },
           { text: "Mac", link: "/notes/mac" },
           { text: "Windows", link: "/notes/windows" },
+          { text: "Network", link: "/notes/network" },
           { text: "命令行工具", link: "/notes/cli_tools" },
           { text: "软件指南", link: "/notes/app_guides" },
           { text: "软件推荐", link: "/notes/software" },
@@ -116,7 +116,7 @@ export default defineConfig({
           { text: "Vim", link: "/backend/vim" },
           { text: "MySQL", link: "/backend/mysql" },
           { text: "Redis", link: "/backend/redis" },
-          { text: "Network", link: "/backend/network" },
+          { text: "Docker", link: "/backend/docker" },
           {
             text: "Programming",
             collapsed: true,
@@ -136,9 +136,9 @@ export default defineConfig({
         items: [
           { text: "Tips", link: "/notes/tips" },
           { text: "Git", link: "/notes/git" },
-          { text: "Docker", link: "/notes/docker" },
           { text: "Mac", link: "/notes/mac" },
           { text: "Windows", link: "/notes/windows" },
+          { text: "Network", link: "/notes/network" },
           { text: "CliTools", link: "/notes/cli_tools" },
           { text: "App Guides", link: "/notes/app_guides" },
           { text: "App Recommend", link: "/notes/software" },

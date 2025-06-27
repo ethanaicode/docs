@@ -1,5 +1,33 @@
 # 平台 API 开发与集成
 
+## Cloudflare
+
+### R2 Object Storage
+
+> 参考文章：[Cloudflare R2 对象存储搭建高速免费图床完全指南](https://www.oneyangcrown.top/posts/cloudflare-r2-free-image-hosting-guide/)
+
+Cloudflare R2 是一个对象存储服务，类似于 AWS S3。它提供了一个简单的 API 来存储和检索数据。
+
+- 在设置中可以自定义域名（域名需要托管在 Cloudflare 上），并设置 CORS 策略
+
+- 可以使用 `rclone` 工具来管理 R2 存储桶 [--> 站内相关内容链接](/notes/cli_tools.html#rclone)
+
+- R2 的 API Tokens 存储权限分 `Admin Read & Write` 和 `Object Read & Write`。
+
+  如果是在存储桶根目录下上传新的文件，可能会遇到 `Access Denied` 错误（未深究具体原因），这时需要使用 `Admin Read & Write` 权限的 API Token。
+
+## 阿里云
+
+### CDN 服务
+
+#### 开启跨域资源共享
+
+在 CDN 控制台 --> 域名管理 --> 目标域名 --> 缓存配置 --> 节点 HTTP 相应头 --> 添加:
+
+- `Access-Control-Allow-Origin`: \* (或者指定域名)
+
+- `Access-Control-Allow-Methods`: GET, POST, PUT, DELETE, OPTIONS
+
 ## 微信公众号开发
 
 **相关资源**
@@ -20,29 +48,11 @@
 
 发布接口为 `https://api.weixin.qq.com/cgi-bin/freepublish/submit?access_token=ACCESS_TOKEN`
 
-要注意它们的区别，**发布图文**后，已发布的内容可被自定义菜单、自动回复、合集引用等使用，**群发消息**是直接发送给用户，也就是我们常理解的推送图文消息给用户。
+要注意它们的区别：
 
-## 阿里云
+- **发布图文**后，已发布的内容可被自定义菜单、自动回复、合集引用等使用。
 
-### CDN 服务
-
-#### 开启跨域资源共享
-
-在 CDN 控制台 --> 域名管理 --> 目标域名 --> 缓存配置 --> 节点 HTTP 相应头 --> 添加:
-
-- `Access-Control-Allow-Origin`: \* (或者指定域名)
-
-- `Access-Control-Allow-Methods`: GET, POST, PUT, DELETE, OPTIONS
-
-## Cloudflare
-
-### R2 Object Storage
-
-> 参考文章：[Cloudflare R2 对象存储搭建高速免费图床完全指南](https://www.oneyangcrown.top/posts/cloudflare-r2-free-image-hosting-guide/)
-
-Cloudflare R2 是一个对象存储服务，类似于 AWS S3。它提供了一个简单的 API 来存储和检索数据。
-
-- 在设置中可以自定义域名（域名需要托管在 Cloudflare 上），并设置 CORS 策略
+- **群发消息**是直接发送给用户，也就是我们常理解的推送图文消息给用户。
 
 ## ChatGPT/Chatbox 类 API
 

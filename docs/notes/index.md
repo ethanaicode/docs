@@ -4,11 +4,11 @@
 
 - [Git](./git)
 
-- [Docker](./docker)
-
 - [Mac](./mac)
 
 - [Windows](./windows)
+
+- [Network](./network)
 
 - [Command-Line Tools](./cli_tools)
 

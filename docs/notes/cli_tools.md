@@ -447,24 +447,35 @@ sudo -v ; curl https://rclone.org/install.sh | sudo bash -s beta
 
 以下是常见平台的示例：
 
-- Cloudflare R2
+**Cloudflare R2**
 
-  ```ini
-  [r2]
-  type = s3
-  provider = Cloudflare
-  access_key_id = XXX
-  secret_access_key = XXX
-  endpoint = https://XXX.r2.cloudflarestorage.com
-  ```
+官方文档：[Configure rclone](https://developers.cloudflare.com/r2/examples/rclone/)
 
-  _`r2` 为别名，可以自定义_
+参考配置文件示例：
+
+```ini
+# ~/.config/rclone/rclone.conf
+[r2]
+type = s3
+provider = Cloudflare
+access_key_id = XXX
+secret_access_key = XXX
+endpoint = https://XXX.r2.cloudflarestorage.com
+```
+
+_`r2` 为别名，可以自定义_
 
 ### 常用命令
 
 > `remote` 表示配置中的别名，如 `r2`
 >
 > `bucket` 表示远程存储桶名称，如 `my-bucket`
+
+- `rclone config`: 进入 rclone 配置界面
+
+- `rclone config file`: 查看 rclone 配置文件路径
+
+  `rclone config show`: 查看当前 rclone 配置
 
 - `rclone tree remote:bucket`: 查看存储桶中的文件列表
 
