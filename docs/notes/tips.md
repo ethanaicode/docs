@@ -10,13 +10,15 @@
 
 在设计架构时，不管选择哪个数据库，一定要用工厂模式来封装数据库操作，这样可以方便切换数据库。
 
-（我刚开始利用 Python 开发的应用选用了 SQLite，用了一个类来操作，现在我想更换为 MySQL，发现要改动的地方太多了）
+_我刚开始利用 Python 开发的应用选用了 SQLite，用了一个类来操作，现在我想更换为 MySQL，发现要改动的地方太多了_
 
 ### 错误捕获可以更细致
 
 在捕获异常时，可以更细致一些，比如针对可能出现错误的地方，都单独捕获异常，这样可以更好地定位问题。
 
 另外，也可以针对不同的异常类型，做不同的处理。
+
+_python 中有不同的错误类型，比如 ValueError、TypeError 等，可以根据具体的错误类型来捕获异常_
 
 ### 使用 FTP 工具时避免拖动
 
@@ -43,6 +45,28 @@ if a == b:
 return True
 # 优化后
 return not a == b or b == c
+```
+
+## 算法题
+
+### 刷题平台
+
+- [LeetCode](https://leetcode.cn/problemset/all/): 在线刷题平台，提供各种算法题目。
+
+- [掘金 AI 刷题](https://juejin.cn/problemset): 掘金的在线刷题平台，提供 AI 辅助答题。
+
+### 经典算法题
+
+#### 找出数组中只出现一次的数字
+
+利用异或运算的特性，即 a⊕a=0 和 a⊕0=a，可以快速求出数组中只出现一次的数字，时间复杂度为 O(n)。
+
+```python
+def singleNumber(nums):
+    result = 0
+    for num in nums:
+        result ^= num
+    return result
 ```
 
 ## 网址收藏夹

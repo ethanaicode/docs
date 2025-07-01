@@ -445,6 +445,41 @@ setTimeout(() => {
 }, 1000);
 ```
 
+### Location
+
+`Location` 对象表示当前窗口的 URL。可以通过 `window.location` 或者 `document.location` 访问。
+
+以下是 URL 的组成部分：
+
+<div class="url-visualization">
+<span id="href" title="href">
+  <span id="origin" title="origin">
+    <span id="protocol" title="protocol">https:</span>
+    //
+    <span id="host" title="host">
+      <span id="hostname" title="hostname">example.org</span>
+      :
+      <span id="port" title="port">8080</span>
+    </span>
+  </span>
+  <span id="pathname" title="pathname">/foo/bar</span>
+  <span id="search" title="search">?q=baz</span>
+  <span id="hash" title="hash">#bang</span>
+</span>
+</div>
+
+我们可以通过 `location` 对象的属性来获取这些信息：
+
+- `location.href`: 获取或设置整个 URL。
+
+- `location.origin`: 获取当前页面的协议、主机名和端口号。
+
+例如：
+
+```js
+console.log(location.origin); // "https://example.org:8080"
+```
+
 ### [Web Storage](https://www.w3schools.com/html/html5_webstorage.asp)
 
 通过 Web Storage，网页可以在本地存储数据（类似于 Cookie，但是更安全，更快）。
@@ -540,3 +575,62 @@ localStorage.setItem("lastname", "Smith");
 // 获取
 document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 ```
+
+<style>
+.url-visualization{
+  width: 100%;
+  min-height: 6em;
+  vertical-align: middle;
+  font-family: Georgia;
+  font-size: 180%;
+  line-height: 1em;
+  white-space: nowrap;
+}
+.url-visualization [title] {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  line-height: 2em;
+  cursor: pointer;
+  text-align: center;
+  color: gray;
+}
+
+.url-visualization [title]::before {
+  content: attr(title);
+  font-family: monospace;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  left: 50%;
+  margin-left: -50%;
+  font-size: 50%;
+  line-height: 1.5;
+  background: black;
+}
+
+.url-visualization [title]:hover::before,
+.url-visualization :target::before {
+  background: black;
+  color: yellow;
+}
+
+.url-visualization [title] [title]::before {
+  margin-top: 1.5em;
+}
+
+.url-visualization [title] [title] [title]::before {
+  margin-top: 3em;
+}
+
+.url-visualization [title] [title] [title] [title]::before {
+  margin-top: 4.5em;
+}
+
+.url-visualization [title]:hover,
+.url-visualization :target {
+  position: relative;
+  z-index: 1;
+  outline: 50em solid rgb(255 255 255 / 80%);
+}
+</style>

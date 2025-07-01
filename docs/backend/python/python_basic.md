@@ -425,6 +425,26 @@ print(sum)
 500500
 ```
 
+**for 循环列表**
+
+1. 使用 `for item in list`
+
+```python
+list = [1, 2, 3, 4, 5]
+for item in list:
+    print(item)
+```
+
+2. 使用 `for index in range(len(list))`
+
+如果需要访问列表的下标索引，可以使用 range() 函数来实现。
+
+```python
+list = [1, 2, 3, 4, 5]
+for index in range(len(list)):
+    print(list[index])
+```
+
 ### 7、随机模块 random
 
 > 伪随机数，是可以重现的。
@@ -1816,6 +1836,14 @@ seasons = ["Spring", "Summer", "Fall", "Winter"]
 list(enumerate(seasons))
 >>>
 [(0, 'Spring'), (1, 'Summer'), (2, 'Fall'), (3, 'Winter')]
+```
+
+利用这个可以实现循环遍历：
+
+```python
+seasons = ["Spring", "Summer", "Fall", "Winter"]
+for index, value in enumerate(seasons):
+    print(f"第{index + 1}个季节是：{value}")
 ```
 
 **zip()**
