@@ -16,6 +16,24 @@ Cloudflare R2 是一个对象存储服务，类似于 AWS S3。它提供了一�
 
   如果是在存储桶根目录下上传新的文件，可能会遇到 `Access Denied` 错误（未深究具体原因），这时需要使用 `Admin Read & Write` 权限的 API Token。
 
+## 亚马逊
+
+### 名词概念
+
+- **AWS**：Amazon Web Services，亚马逊云服务平台
+
+- **IAM**：Identity and Access Management，身份和访问管理，用于管理 AWS 资源的访问权限
+
+- **S3**：Simple Storage Service，亚马逊简单存储服务，用于存储和检索任意数量的数据
+
+- **EC2**：Elastic Compute Cloud，亚马逊弹性计算云，用于提供虚拟服务器
+
+- **EBS**：Elastic Block Store，亚马逊弹性块存储，用于为 EC2 实例提供持久化存储
+
+- **AMIs**：Amazon Machine Images，亚马逊机器镜像，用于创建 EC2 实例的模板
+
+- **CloudFront**：亚马逊的内容分发网络（CDN），用于加速静态和动态内容的分发
+
 ## 阿里云
 
 ### CDN 服务

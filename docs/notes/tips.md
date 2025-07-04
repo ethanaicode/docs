@@ -73,6 +73,16 @@ def singleNumber(nums):
 
 ### 开发工具
 
+#### 网站托管平台
+
+- [netlify.com](https://www.netlify.com/): 免费的静态网站托管平台，支持自定义域名、HTTPS 等
+
+  支持自动部署，自带构建流程。
+
+- [static.app](https://static.app/): 部署静态网站的服务，可以通过上传 ZIP 包或连接 Git 仓库发布静态网站
+
+  支持免费 SSL 和自定义域名，适合部署简单项目。
+
 #### IP 地址
 
 **获取用户设备的 IP 及信息**

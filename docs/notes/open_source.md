@@ -27,6 +27,14 @@ date: 2024-12-31 17:19:52
 
 - [Draw.io](https://github.com/jgraph/drawio-desktop): 一款在线绘制流程图、思维导图工具
 
+- [Quarkdown](https://github.com/iamgio/quarkdown): 基于 Markdown 的现代排版系统
+
+  可以实现复杂的排版需求，支持导出 HTML 或 PDF 格式
+
+- [Typst](https://github.com/typst/typst): 一款现代化的文档排版工具
+
+  Typst 是一个现代化的文档排版工具，支持 LaTeX 语法，适合写论文、报告等，主要导出为 PDF 格式
+
 - [stackedit](https://github.com/benweet/stackedit): 在线 Markdown 编辑器
 
   支持实时预览，额外支持 LaTex 公式、UML 图、Scores 乐谱等
