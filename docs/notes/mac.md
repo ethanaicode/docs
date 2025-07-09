@@ -169,6 +169,26 @@ ipconfig getifaddr en0
 
 - 如果没有结果，可以使用 `networksetup -listallhardwareports` 列出所有的网络服务和对应的网卡。
 
+### 获取局域网内其他电脑的 IP
+
+#### 已知 Windows 设备名称
+
+假设设备名为 `Win-Name`，可以使用以下命令获取其 IP 地址：
+
+- `smbutil lookup Win-Name` 这个命令会查询该设备的 SMB 服务，包括其 IP 地址
+
+  `smbutil lookup` 依赖 **NetBIOS Name Service (NBNS，UDP 137)** 的广播来把 Windows 机器的 **NetBIOS** 名（Win-Name）解析成 IP。
+
+- `ping Win-Name.local` 这个命令会尝试 ping 该设备，并显示其 IP 地址
+
+- `dns-sd -Q Win-Name.local` 这个命令会查询该设备的 DNS 服务，可以看到其 IP 地址
+
+#### 未知设备名称
+
+如果不知道 Windows 设备的名称，可以使用以下命令获取局域网内所有设备的 IP 地址：
+
+- `arp -a` 这个命令会列出局域网内所有设备的 IP 地址和 MAC 地址
+
 ### 获取域名的解析 IP
 
 最简单的就是使用`nslookup`命令，可以获取到域名的解析 IP:
