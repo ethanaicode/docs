@@ -206,6 +206,14 @@ PHP 不同的数据在内存中的存储方式不同，主要分为两种：栈�
 
 > 堆(heap)和栈(stack)的区别：堆经典的实现是完全二叉树，栈是一种先进后出的数据结构，所以堆是一种树形结构，栈是一种线性结构。想象一下画面就比较好记了。
 
+### 常见问题
+
+#### syntax error, unexpected 'Dysmsapi' (T_STRING), expecting function (T_FUNCTION) or const (T_CONST)
+
+这个错误通常是因为 PHP 版本过低，导致无法识别 `Dysmsapi` 类，
+
+比如 PHP 7.2 以及之前的版本不支持 `public Dysmsapi $client` 这种写法，需要改成 `public $client;`，然后在构造函数中进行赋值。
+
 ## 命名空间
 
 **命名空间就类似一个文件夹，多个路径的命名空间就类似嵌套的文件夹。**
@@ -1203,6 +1211,40 @@ extension=redis.so
   `--no-install`　不安装依赖
 
   `--no-progress`　不显示进度
+
+### Composer 配置
+
+可以通过 `composer config` 命令来配置 Composer 的全局配置。
+
+比如我希望更改 Composer 的镜像源，可以使用以下命令：
+
+```bash
+composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+```
+
+国内镜像源包括：
+
+- **阿里云**: `https://mirrors.aliyun.com/composer/`
+
+- **华为云**: `https://mirrors.huaweicloud.com/repository/php/`
+
+- **腾讯云**: `https://mirrors.cloud.tencent.com/composer/`
+
+也可以通过修改 `~/.composer/config.json` 文件来配置 Composer 的全局配置。
+
+### Composer 依赖管理
+
+Composer 依赖管理是通过 `composer.json` 文件来实现的。
+
+这个文件中定义了项目的依赖包、版本、作者等信息。
+
+可以通过以下命令来生成 `composer.json` 文件：
+
+```bash
+composer init
+```
+
+这会引导你输入项目的相关信息，并生成一个 `composer.json` 文件。
 
 ### 常见问题
 

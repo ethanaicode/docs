@@ -68,6 +68,19 @@ TP3 中自动加载是通过`ThinkPHP/Library/Think/Think.class.php`文件中的
   namespace One;
   ```
 
+### 接入 PSR-4 命名空间
+
+TP3 默认不支持 PSR-4 命名空间规范，可以在入口文件中引入 Composer autoload 文件来实现 PSR-4 命名空间的自动加载。
+
+只需要修改入口文件 `index.php`，在文件顶部添加以下代码：
+
+```php
+// 引入 Composer 自动加载
+require __DIR__ . '/vendor/autoload.php';
+```
+
+之后就可以用 Composer 的 PSR-4 命名空间规范来组织代码了，也可以使用 Composer 的包管理功能来安装第三方库。
+
 ### 控制器
 
 **跳转与重定向**

@@ -46,6 +46,19 @@ Cloudflare R2 是一个对象存储服务，类似于 AWS S3。它提供了一�
 
 - `Access-Control-Allow-Methods`: GET, POST, PUT, DELETE, OPTIONS
 
+### 短信服务
+
+#### 通过 API 发送短信
+
+这里以 PHP 为例，使用阿里云的短信服务发送短信。
+
+需要使用全局 Composer 安装两个包：
+
+```bash
+composer require alibabacloud/dysmsapi-20170525 4.1.2
+composer require alibabacloud/darabonba-openapi
+```
+
 ## 微信公众号开发
 
 **相关资源**
