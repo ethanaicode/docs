@@ -189,6 +189,12 @@ date: 2024-12-31 17:19:52
 
 - [moments](https://github.com/kingwrcy/moments): 极简朋友圈，支持图片、文字、点赞、评论等功能
 
+- [PaoPao](https://github.com/rocboss/paopao-ce): 一个清新文艺的微社区
+
+  PaoPao 是一个开源的社交网络应用，支持用户注册、登录、发帖、评论、点赞等功能，类似于一个简化版的微博或 Twitter。
+
+  官网：[www.paopao.info](https://www.paopao.info/#/)
+
 - [sink](https://github.com/ccbikai/sink): 链接缩短服务
 
   一个简单快速并支持分析的链接缩短服务，完全运行在 Cloudflare 上

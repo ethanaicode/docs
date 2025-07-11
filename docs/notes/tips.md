@@ -123,6 +123,26 @@ def singleNumber(nums):
 
 - [CrazyGames](https://www.crazygames.com/): 免费在线游戏网站，提供各种类型的 HTML5 游戏。
 
+## 浏览器插件
+
+### 工具类
+
+#### JS 网页注入
+
+- [Tampermonkey（油猴插件）](https://www.tampermonkey.net/): 一个流行的用户脚本管理器，可以在浏览器中运行自定义的 JavaScript 脚本
+
+  可以精准控制在哪些网页注入脚本，支持多个脚本，支持菜单、存储、网络请求等高级功能，通过编写脚本，可以修改网页内容、自动化操作等。
+
+- [Violentmonkey](https://violentmonkey.github.io/): 类似于 Tampermonkey 的开源替代品，界面稍简洁，支持多种浏览器
+
+  支持导入 Greasemonkey / Tampermonkey 脚本。
+
+  官方首页：[violentmonkey.github.io](https://violentmonkey.github.io/)
+
+- [User JavaScript and CSS](https://chromewebstore.google.com/detail/user-javascript-and-css/nbhcbdghjpllgmfilhnhkllmkecfmpld): 一个简单的用户脚本和 CSS 管理器，可以在浏览器中运行自定义的 JavaScript 和 CSS
+
+  适合简单的网页修改和样式调整，支持在特定网站上运行脚本，支持编辑器高亮、自动保存等功能。
+
 ## AI Related
 
 ### 概念
