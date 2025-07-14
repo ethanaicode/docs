@@ -224,9 +224,11 @@ FLUSH PRIVILEGES;
 
 - `SELECT user, host FROM mysql.user;`: 查看所有用户
 
-- `ALTER USER 'username'@'localhost' IDENTIFIED BY 'new password';`: 修改密码
+- `ALTER USER 'username'@'localhost' IDENTIFIED BY 'new password';`: 修改密码（低版本中可能会报错）
 
-  或者 `SET PASSWORD FOR 'username'@'localhost' = PASSWORD('newpassword');` (部分身份验证插件不支持)
+  在 5.7.5 及以下版本 中，ALTER USER 不支持，需使用：
+
+  `SET PASSWORD FOR 'username'@'localhost' = PASSWORD('newpassword');`
 
 - `DROP USER 'username'@'localhost';`: 删除用户
 

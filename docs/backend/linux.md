@@ -482,6 +482,8 @@
 
 - `uname -a`: 显示当前系统的内核版本和其他信息
 
+- `cat /etc/*release`: 显示当前操作系统的版本信息
+
 - `hostname`: 显示主机名
 
 - `uptime`: 显示系统的运行时间、用户数量、负载平均值等
@@ -2103,7 +2105,7 @@ systemd 是一个 init 系统和系统管理守护进程，用于启动、停止
 
 - `/usr/lib/systemd/system/*.service`: 用户服务目录
 
-**创建服务文件**
+#### 创建服务文件
 
 通过创建一个新的 `.service` 文件来创建一个新的服务。
 
@@ -2155,7 +2157,7 @@ WantedBy=multi-user.target
 systemctl daemon-reload
 ```
 
-**systemctl 常用命令**
+#### systemctl 常用命令
 
 - `systemctl start <SERVICE_NAME>`: 启动服务
 
@@ -2203,13 +2205,40 @@ systemctl daemon-reload
 
   `journalctl -u <SERVICE_NAME> -f` 用于查看实时日志。
 
+#### service 命令
+
+在一些较旧的 Linux 发行版中，`systemctl` 命令可能不可用，这时可以使用 `service` 命令来管理服务。
+
+- `service <SERVICE_NAME> start`: 启动服务
+
+- `service <SERVICE_NAME> stop`: 停止服务
+
+- `service <SERVICE_NAME> restart`: 重启服务
+
+- `service <SERVICE_NAME> status`: 查看服务状态
+
+- `service <SERVICE_NAME> reload`: 重新加载服务配置
+
+- `service <SERVICE_NAME> enable`: 启用服务
+
+- `service <SERVICE_NAME> disable`: 禁用服务
+
+#### 确认当前系统使用的服务管理器
+
+可以通过命令 `ps -p 1 -o comm=` 来确认当前系统使用的服务管理器，输出：
+
+- `systemd`：表示系统是使用 systemd（支持 systemctl）
+- `init` 或 `upstart`：表示是老式的 SysVinit / Upstart
+
+#### 常用服务名称
+
 以下是一些常用的 Web 服务以及它对应的服务名称
 
 - Nginx: nginx
 
 - Apache: httpd and apache2
 
-- MySQL: mysqld
+- MySQL: mysqld or mysql
 
 - PHP-FPM: php-fpm
 
