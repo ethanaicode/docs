@@ -188,6 +188,13 @@ export default defineConfig({
         ],
         sidebar: [
           {
+            "text": "本站新增",
+            "collapsed": false,
+            "items": [
+              { "text": "使用技巧", "link": "/easyadmin/base/tips" },
+            ]
+          },
+          {
             "text": "简介",
             "collapsed": false,
             "items": [

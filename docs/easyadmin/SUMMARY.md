@@ -6,6 +6,10 @@ title: EasyAdmin，一款基于 ThinkPHP 6.0+Layui 的快速开发后台管理�
 
 EasyAdmin 是基于 ThinkPHP6.0+Layui 的快速开发的后台管理系统。
 
+## 本站新增
+
+- [使用技巧](./base/tips)
+
 ## 简介
 
 - [项目简介](./base/introduction)
