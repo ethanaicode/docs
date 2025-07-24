@@ -6,9 +6,22 @@ title: MySQL 数据库学习指南，SQL 基础语法、常用函数、高级操
 
 以 MySQL 为例，介绍 SQL 基础语法、常用函数、高级操作等内容。
 
-## SQL 介绍
+## 开始使用
 
-SQL（Structured Query Language）是一种用于管理关系数据库系统的标准化语言。
+### 安装 MySQL
+
+在 Ubuntu 上安装 MySQL，可以使用以下命令：
+
+```bash
+sudo apt update
+sudo apt install mysql-server
+```
+
+在 CentOS 上安装 MySQL，可以使用以下命令：
+
+```bash
+sudo yum install mysql-server
+```
 
 ### 相关文件及目录
 
@@ -56,7 +69,21 @@ expire_logs_days = 10
 skip-log-bin
 ```
 
-## 数据类型
+### server 和 client
+
+MySQL 的安装通常会包含两个主要组件：
+
+- `mysql-server`: MySQL 数据库服务器，负责处理数据库的存储、查询等操作。
+
+- `mysql-client`: MySQL 数据库客户端，提供命令行工具用于连接和管理 MySQL 数据库。
+
+- `server` 提供服务，`client` 提供调试、命令行工具。
+
+  如果是远程连接数据库，则只需要安装 `mysql-client`。
+
+通常安装 `mysql-server` 时会自动安装 `mysql-client`（因为它是依赖项目），所以通常不需要单独安装 `mysql-client`。
+
+### 数据类型
 
 以下是常用的数据类型：
 
@@ -189,6 +216,34 @@ skip-log-bin
 - `mysql -u root -p <databaseName> < <fileName.sql>`: 导入数据库
 
 ### 用户及权限管理
+
+#### 管理用户登录方式
+
+查看用户登录方式可以使用以下命令：
+
+```sql
+SELECT user, host, plugin, authentication_string FROM mysql.user;
+```
+
+- `plugin`: 验证插件，表示登录验证方式。
+
+  - 常见的值有：
+
+    - `mysql_native_password`: 传统的密码验证方式。
+    - `caching_sha2_password`: 使用缓存的 SHA-2 密码验证方式（MySQL 8.0 默认）
+    - `auth_socket`: 使用 Unix 套接字验证方式，不需要密码（通常用于本地连接）
+    - `sha256_password`: 使用 SHA-256 密码验证方式
+
+- `authentication_string`: 加密的密码（如果为空则可能未设置密码）。
+
+**如何切换为密码登录方式**
+
+如果你希望改为通过密码验证，可以使用如下命令：
+
+```sql
+ALTER USER 'username'@'localhost' IDENTIFIED WITH mysql_native_password BY 'new_password';
+FLUSH PRIVILEGES;
+```
 
 #### 创建一个新用户
 

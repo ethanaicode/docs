@@ -4,22 +4,29 @@
 
 以下是我在使用过程中的一些技巧和经验分享，也希望能帮助到大家。
 
+### 使用前
+
+- 确保安装了 `php-gd` 扩展，否则无法显示验证码
+
 ### 新增菜单和功能
 
 如果需要添加新的菜单及功能，需要新增以下文件：
 
-- `project/app/admin/controller/YourNewController.php` 新增控制器
-- `project/app/admin/view/your_new_view.html` 新增视图文件
-- `project/public/static/admin/js/your_new_script.js` 新增 JS 文件
+- 新增控制器 `project/app/admin/controller/YourNewController.php`
+
+- 新增视图文件 `project/app/admin/view/your_new_view.html`
+
+- 新增 JS 文件 `project/public/static/admin/js/your_new_script.js`
+
+最后在菜单中添加对应的菜单项，就可以正确显示了
 
 ### 配置项
 
 - `project/app/common/constants/MenuConstant.php` 定义了首页的 PID，可以通过修改这个来设置默认打开的页面
+
 - `project/public/static/plugs/easy-admin/easy-admin.js` 定义了一些全局的 JS 方法，可以通过修改这个来实现一些全局的功能
 
-- 可以用 searchOp 字段，来指定搜索字段匹配方法，可以直接使用 值`=`
-
-- 请求数据时，是通过 Ajax 方法来判断，是的话就会查数据，否则渲染页面
+- 请求数据时，是通过 `Ajax` 方法来判断，是的话就会查数据，否则渲染页面
 
   测试时，可以通过手动添加头 `X-Requested-With:xmlhttprequest` 来模拟对应的请求方法
 
@@ -31,7 +38,9 @@
 
 - 视图层需要添加权限代码验证来决定是否显示表格按钮
 
-- 控制器中的 CURD 定义了一组基础查询控制的方法，使用它可以不用写代码，就可以实现基础的新增更新删除等操作
+- 控制器中的 `use CURD` 定义了一组基础查询控制的方法，使用它可以不用写代码，就可以实现基础的新增更新删除等操作
+
+- 可以用 `searchOp` 字段，来指定搜索字段匹配方法，可以直接使用值 `=`
 
 ### 功能案例
 

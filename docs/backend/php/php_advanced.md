@@ -36,7 +36,55 @@ title: PHP进阶优化技巧，高效开发Web应用的最佳实践
 
 ### 包管理器安装
 
-**CentOS/RHEL**
+#### Debian/Ubuntu
+
+```bash
+# 确保安装必要的辅助工具
+sudo apt -y install software-properties-common apt-transport-https lsb-release ca-certificates
+# 添加 PHP 仓库
+sudo add-apt-repository ppa:ondrej/php
+# 更新软件包列表
+sudo apt update
+# 安装特定版本的 PHP（例如 PHP 7.4）
+sudo apt install php7.4
+# 安装常用扩展
+sudo apt install php7.4-cli php7.4-fpm php7.4-mysql php7.4-curl php7.4-json php7.4-mbstring php7.4-xml php7.4-zip php7.4-gd
+# 查看 PHP 版本
+php -v
+# 启动 PHP-FPM
+sudo systemctl start php7.4-fpm
+sudo systemctl enable php7.4-fpm
+```
+
+> [!WARNING] php-fpm 服务找不到
+> 可能无法找到 `php-fpm` 服务或者命令，因为不同的 PHP 版本可能会有不同的服务名称，比如 `php7.4-fpm` 或者 `php8.0-fpm` 等。
+
+> [!TIP] PHP 版本
+> Ubuntu 官方源通常只提供当前 LTS 支持的某些 PHP 版本，例如 8.1 或更高。
+> 这个 PPA 是由 Ondřej Surý 维护的，是 Ubuntu 社区最权威的 PHP PPA。它提供多个版本的 PHP。
+
+**切换 PHP 版本**
+
+要管理多个 PHP 版本，你可以使用 update-alternatives 命令。这允许你在不同的 PHP 版本之间切换。
+
+```bash
+# 配置 PHP CLI
+sudo update-alternatives --set php /usr/bin/php7.4
+# 配置 PHP-FPM
+sudo update-alternatives --set php-fpm /usr/sbin/php-fpm7.4
+
+# 查看可用的 PHP 版本
+sudo update-alternatives --config php
+
+# 切换到其他版本（例如 PHP 8.0）
+sudo update-alternatives --set php /usr/bin/php8.0
+sudo update-alternatives --set php-fpm /usr/sbin/php-fpm8.0
+
+# 查看当前使用的 PHP 版本
+php -v
+```
+
+#### CentOS/RHEL
 
 ```bash
 # 安装 EPEL 和 Yum Utils 依赖
@@ -64,15 +112,25 @@ sudo yum remove php*
 
 ### 编译安装 PHP
 
-> 官方版本下载：[PHP 官方下载](https://www.php.net/releases/)
+PHP 的编译安装可以让你根据自己的需求来定制 PHP 的功能和性能。
+
+PHP 的编译安装，通常需要以下步骤：
+
+1. 下载 PHP 源码包并解压
+
+   官方版本下载：[PHP 官方下载](https://www.php.net/releases/)
+
+2. 进入解压后的目录
+
+3. 执行 `./configure` 命令
+
+4. 执行 `make` 和 `make install` 命令
 
 **PHP 的配置选项**
 
-> 官方配置选项指南：[PHP 配置选项](https://www.php.net/manual/zh/configure.about.php)
-
-PHP 的编译安装，需要先下载 PHP 源码，然后解压，进入解压后的目录，执行 `./configure` 命令，然后执行 `make` 和 `make install` 命令。
-
 `./configure` 命令是用来检查系统环境，生成 Makefile 文件，Makefile 文件是用来编译 PHP 的。
+
+具体可以参考官方配置选项指南：[PHP 配置选项](https://www.php.net/manual/zh/configure.about.php)
 
 **常用的配置推荐**
 
@@ -137,6 +195,8 @@ PHP 的编译安装，需要先下载 PHP 源码，然后解压，进入解压�
 ## 进阶知识
 
 ### PHP 配置
+
+#### 配置文件位置
 
 早期 linux 系统中，通常会自带 PHP，它们的配置文件通常在以下位置：
 
@@ -1010,6 +1070,34 @@ try {
 - 在池配置文件中，可以配置 PHP-FPM 的运行模式、进程数、用户组、监听地址、日志文件等。
 
 - 池配置开头的 `[www]` 里面的内容是池的名称，可以有多个池，每个池可以有不同的配置。
+
+### PHP-FPM 通信
+
+PHP-FPM 是 PHP 的 FastCGI 进程管理器，通常与 Nginx 配合使用。
+
+Nginx 通过 FastCGI 协议与 PHP-FPM 进行通信，通常在 Nginx 的配置文件中使用 `fastcgi_pass` 指令来指定 PHP-FPM 的监听地址。
+
+主要有两种方式：
+
+1. Unix Socket（新系统默认方式）
+
+   在 Nginx 的配置文件中，使用 `fastcgi_pass unix:/run/php/php7.4-fpm.sock;` 来指定 PHP-FPM 的 Unix Socket 地址。
+
+   这种方式性能更好更安全，但需要确保 Nginx 和 PHP-FPM 都有权限访问这个 Socket 文件。
+
+2. TCP Socket
+
+   在 Nginx 的配置文件中，使用 `fastcgi_pass 127.0.0.1:9000;` 来指定 PHP-FPM 的 TCP Socket 地址。
+
+   这种方式更通用，可跨主机/容器连接，但性能稍差一些。
+
+**如何查看 PHP-FPM 的监听方式**
+
+可以通过以下命令查看 PHP-FPM 的监听方式：
+
+```bash
+cat /etc/php/7.4/fpm/pool.d/www.conf | grep ^listen
+```
 
 ### 优化 PHP-FPM
 

@@ -2069,11 +2069,7 @@ yum makecache
 
 - `apt update`: 更新软件包列表，以获取最新的软件包信息。
 
-- `apt upgrade`: 升级所有已安装的软件包到最新版本。
-
 - `apt install PACKAGE_NAME`: 安装一个特定的软件包。
-
-- `apt remove PACKAGE_NAME`: 卸载一个特定的软件包。
 
 - `apt search KEYWORD`: 搜索软件包。
 
@@ -2083,11 +2079,62 @@ yum makecache
 
 - `apt list --upgradable`: 列出所有可以升级的软件包。
 
-- `apt autoremove`: 删除不再需要的软件包。
+- `apt purge PACKAGE_NAME`: <u>完全卸载一个软件包</u>，包括其配置文件（比 `remove` 更彻底）。
+
+- `apt autoremove`: 删除那些**曾被自动安装，但现在不再被任何已安装软件依赖**的包。
+
+  通常配合 `apt purge` 使用。
+
+- `apt remove PACKAGE_NAME`: 卸载一个特定的软件包。
+
+  `apt autoremove --dry-run`: 模拟执行自动卸载，查看哪些包会被删除。
+
+  `apt autoremove --purge`: 自动删除不再需要的包，并清除其配置文件。
 
 - `apt clean`: 清理下载的软件包文件。
 
 - `apt autoclean`: 清理过期的软件包文件。
+
+- `apt upgrade`: 升级所有已安装的软件包到最新版本。
+
+- `apt-mark showauto`: 显示所有自动安装的软件包。
+
+### update-alternatives
+
+`update-alternatives` 是一个用于管理系统中多个软件版本的工具。
+
+#### 常用命令
+
+- `update-alternatives --config <name>`: 选择某个软件的默认版本。
+
+- `update-alternatives --set <name> <path>`: 设置某个软件的默认版本。
+
+- `update-alternatives --display <name>`: 显示某个软件的所有可用版本。
+
+- `update-alternatives --install <link> <name> <path> <priority>`: 添加一个新的软件版本。
+
+  - `<link>`: 符号链接的路径。
+
+  - `<name>`: 软件的名称。
+
+  - `<path>`: 软件的实际路径。
+
+  - `<priority>`: 优先级，数字越大优先级越高。
+
+#### 使用示例
+
+```bash
+# 添加 PHP 7.4
+sudo update-alternatives --install /usr/bin/php php /usr/bin/php7.4 74
+# 添加 PHP 8.0
+sudo update-alternatives --install /usr/bin/php php /usr/bin/php8.0 80
+# 列出所有 PHP 版本
+update-alternatives --display php
+# 选择默认的 PHP 版本（会列出所有可用版本，可以选择一个）
+sudo update-alternatives --config php
+# 设置默认的 PHP 版本（假设你想设置 PHP 8.0 为默认版本）
+sudo update-alternatives --set php /usr/bin/php8.0
+```
 
 ## 服务管理
 
