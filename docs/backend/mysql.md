@@ -183,37 +183,43 @@ MySQL 的安装通常会包含两个主要组件：
 
 - `SHOW DATABASES`: 查看所有数据库
 
-- `CREATE DATABASE <databaseName>`: 创建数据库
+- `CREATE DATABASE database_name`: 创建数据库
 
-- `ALTER DATABASE <databaseName>`: 修改数据库
+- `ALTER DATABASE database_name`: 修改数据库
 
 - `USE <database>`: 选择用哪个数据库
 
-- `DROP DATABASE <databaseName>`: 删除数据库
+- `DROP DATABASE database_name`: 删除数据库
 
 - `SHOW TABLES`: 查看所有表
 
-- `CREATE TABLE <tableName> (<column1> <data_type>, <column2> <data_type>, ...);`: 创建表
+- `CREATE TABLE table_name (<column1> <data_type>, <column2> <data_type>, ...);`: 创建表
 
-- `RENAME TABLE <oldTableName> TO <newTableName>`: 重命名表
+- `RENAME TABLE old_table_name TO new_table_name`: 重命名表
 
-- `DESC <tableName>`: 查看表结构
+- `DESC table_name`: 查看表结构
 
-- `ALTER TABLE <tableName> ADD <column> <data_type>;`: 修改表，添加字段
+- `ALTER TABLE table_name ADD <column> <data_type>;`: 修改表，添加字段
 
-- `DROP TABLE <tableName>`: 删除表
+- `DROP TABLE table_name`: 删除表
 
-- `CREATE INDEX <indexName> ON <tableName> (<columnName>);`: 创建索引
+- `CREATE INDEX <indexName> ON table_name (<columnName>);`: 创建索引
 
-- `DROP INDEX <indexName> ON <tableName>;`: 删除索引
+- `DROP INDEX <indexName> ON table_name;`: 删除索引
 
-- `TRUNCATE TABLE <tableName>`: 清空表
+- `TRUNCATE TABLE table_name`: 清空表
 
 ### 导入导出
 
-- `mysqldump -u root -p <databaseName> > <fileName.sql>`: 导出数据库
+- `mysqldump -u root -p database_name > file_name.sql`: 导出数据库
 
-- `mysql -u root -p <databaseName> < <fileName.sql>`: 导入数据库
+- `mysqldump -u root -p --single-transaction database_name > file_name.sql`: 导出大型数据库，使用单个事务以确保数据一致性
+
+- `mysqldump -u root -p -d database_name > file_name.sql`: 导出数据库结构（不包含数据）
+
+- `mysqldump -u root -p database_name table1 table2 > file_name.sql`: 导出指定表
+
+- `mysql -u root -p database_name < file_name.sql`: 导入数据库
 
 ### 用户及权限管理
 
@@ -592,6 +598,22 @@ mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p mysql
 
 ### 导入导出高级操作
 
+#### mysqldump 导出选项
+
+`mysqldump` 是 MySQL 提供的一个命令行工具，用于导出数据库或表的结构和数据。
+
+常用的导出选项包括：
+
+- `-d` 或 `--no-data`: 只导出表结构，不导出数据
+
+- `-t` 或 `--no-create-info`: 只导出数据，不导出表结构
+
+- `--single-transaction`: 在导出大型数据库时，使用单个事务以确保数据一致性
+
+- `--quick`: 在导出大型数据库时，使用快速模式以提高导出效率
+
+- `--ignore-table=database_name.table_name`: 忽略指定的表
+
 #### 高版本导出数据兼容低版本
 
 8.0+ 版本的 MySQL 导出的 SQL 文件可能会包含一些低版本不支持的语法。
@@ -626,17 +648,21 @@ sed -i 's/utf8mb4_0900_ai_ci/utf8mb4_general_ci/g' database_name.sql
 mysqldump -u root -p database_name | gzip > database_name.sql.gz
 ```
 
+如果是导出备份，可以自动加上时间戳，就可以组合成一个完整的备份命令：
+
+```bash
+mysqldump -u root -p database_name | gzip > /path/to/backup/db/$(date +%Y%m%d_%H%M%S)_database_name.sql.gz
+```
+
 导入时也可以不需要解压：
 
 ```bash
 gunzip < database_name.sql.gz | mysql -u root -p
-```
-
-或者配合管道：
-
-```bash
+# 或者用 zcat
 zcat database_name.sql.gz | mysql -u root -p
 ```
+
+**注意**: `gunzip` 后面要加一个 `<` 符号，不然只是简单的解压
 
 ### SQL 性能分析
 

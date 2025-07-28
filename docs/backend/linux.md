@@ -194,7 +194,7 @@
 
   `$(command)` 表示将 command 的输出作为命令执行
 
-  如: `echo $(ls) > filename` 将 ls 命令的输出写入文件
+  如: `echo $(ls) > $(date +%Y%m%d_%H%M%S).txt` 将 ls 的输出（空格分割）写入以当前日期命名的文件中
 
 ### 文本处理
 
@@ -401,6 +401,20 @@
   `-s` 指定用户 shell
 
   `-e` 指定用户过期时间
+
+- **adduser newuser**: 添加新用户（更友好的方式）
+
+  `--disabled-password` 创建用户但不设置密码
+
+  `--gecos "Full Name"` 设置用户全名
+
+  `--home /path/to/home` 指定用户家目录
+
+  `--shell /bin/bash` 指定用户 shell
+
+  `--ingroup groupname` 指定用户所属组
+
+  **注意**: `adduser` 是一个更友好的脚本，通常会自动创建家目录并设置默认 shell，而 `useradd` 则是一个更底层的命令，需要手动指定更多参数。
 
 - **passwd**: 修改密码(不指定用户名则修改当前用户)
 
@@ -3080,6 +3094,53 @@ SSH 客户端可以通过 SSH 协议连接到远程服务器，进行远程登�
 
 - `ssh -p port username@remote_host`: 指定端口连接到远程服务器
 
+- `ssh -i /path/to/private_key username@remote_host`: 使用指定的私钥连接到远程服务器
+
+- `ssh-copy-id username@remote_host`: 将本地的公钥复制到远程服务器的 `authorized_keys` 文件中
+
+### SSH 服务配置
+
+修改配置后需要重启 SSH 服务以使配置生效。
+
+```bash
+systemctl restart sshd
+```
+
+_不同的系统 ssh 服务名称可能不同，可以使用`systemctl list-unit-files --type=service | grep ssh`来查看_
+
+#### 常见配置项
+
+- `PermitRootLogin`: 是否允许 root 用户通过 SSH 登录，默认值为 `prohibit-password`，可以设置为 `yes` 或 `no`。
+
+- `PasswordAuthentication`: 是否允许使用密码进行身份验证，默认值为 `yes`，可以设置为 `no` 来禁用密码登录。
+
+- `PubkeyAuthentication`: 是否允许使用公钥进行身份验证，默认值为 `yes`。
+
+- `ChallengeResponseAuthentication`: 是否启用挑战响应身份验证，默认值为 `yes`。
+
+可以**为不同的用户设置不同的 SSH 配置项**，比如禁止某个用户使用密码登录，只允许使用公钥登录。
+
+```bash
+Match User username
+    PasswordAuthentication no
+    PubkeyAuthentication yes
+```
+
+#### 修改 SSH 端口
+
+默认情况下，SSH 服务使用 22 端口，为了提高安全性，可以修改 SSH 服务的端口。
+
+配置文件通常位于 `/etc/ssh/sshd_config`。
+
+```bash
+# 修改配置文件
+sudo vim /etc/ssh/sshd_config
+
+# 找到以下行并修改端口号
+# Port 22
+Port 2222
+```
+
 ### SSH 连接配置
 
 SSH 配置文件通常位于用户家目录下的 `.ssh` 目录中，文件名为 `config`。
@@ -3153,22 +3214,6 @@ cat ~/.ssh/id_rsa.pub | ssh username@remote_host "mkdir -p ~/.ssh && cat >> ~/.s
 ```bash
 ssh username@remote_host
 ```
-
-### SSH 服务配置
-
-#### 修改 SSH 端口
-
-默认情况下，SSH 服务使用 22 端口，为了提高安全性，可以修改 SSH 服务的端口。
-
-修改的配置文件通常位于 `/etc/ssh/sshd_config`。
-
-修改其中的端口配置项，修改后需要重启 SSH 服务:
-
-```bash
-systemctl restart sshd
-```
-
-_不同的系统 ssh 服务名称可能不同，可以使用`systemctl list-unit-files --type=service | grep ssh`来查看_
 
 ## 防火墙
 

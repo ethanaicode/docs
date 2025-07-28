@@ -285,6 +285,30 @@ git branch -d feature-branch
 
 为了保持提交历史的整洁，可以使用 `rebase` 命令来变基。
 
+#### 合并远程分支到本地分支
+
+通过变基来让本地提交在远程分支的最新提交之后，这样可以保持提交历史的线性。
+
+```bash
+# 拉取远程分支
+git fetch origin
+# 变基到远程主分支
+git rebase origin/master
+# 如果有冲突，解决冲突后继续变基
+git add .
+git rebase --continue
+# 推送到远程分支
+git push origin master --force-with-lease
+```
+
+> [!TIP]
+> `--force-with-lease` 是一种更安全的强制推送方式，避免覆盖其他人的提交，有冲突时会提示
+> 那么你可以先拉取最新的远程分支，解决冲突后再推送
+
+#### 合并开发分支到主分支
+
+如果你在开发分支上完成了工作，并且想要将其合并到主分支，可以使用 `rebase` 命令来保持提交历史的整洁。
+
 ```bash
 git checkout feature-branch
 git rebase master
