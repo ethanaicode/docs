@@ -331,6 +331,13 @@ FLUSH PRIVILEGES;
 
 - `REPLACE(<string>, 'old', 'new')`: 替换字符串
 
+  ```sql
+  -- 例如：替换旧域名为新域名
+  UPDATE database_name.table_name
+  SET field_name = REPLACE(field_name, 'old.example.com', 'new.example.com')
+  WHERE field_name LIKE '%old.example.com%';
+  ```
+
 - `FIND_IN_SET(<string>, <string>)`: 查找字符串在另一个字符串中的位置
 
   示例: `SELECT FIND_IN_SET('b', 'a,b,c,d');` 返回 `2`
