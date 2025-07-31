@@ -2125,6 +2125,12 @@ yum makecache
 
 - `update-alternatives --display <name>`: 显示某个软件的所有可用版本。
 
+- `update-alternatives --query <name>`: 以机器可读格式显示。
+
+- `update-alternatives --list <name>`: 以机器可读格式显示。
+
+- `update-alternatives --remove <name> <path>`: 删除某个软件的某个版本。
+
 - `update-alternatives --install <link> <name> <path> <priority>`: 添加一个新的软件版本。
 
   - `<link>`: 符号链接的路径。
@@ -3104,11 +3110,15 @@ SSH 客户端可以通过 SSH 协议连接到远程服务器，进行远程登�
 
 ```bash
 systemctl restart sshd
+# ubuntu/debian
+systemctl restart ssh
 ```
 
 _不同的系统 ssh 服务名称可能不同，可以使用`systemctl list-unit-files --type=service | grep ssh`来查看_
 
 #### 常见配置项
+
+通过修改 `/etc/ssh/sshd_config` 文件来配置 SSH 服务，可以允许或禁止某些功能。
 
 - `PermitRootLogin`: 是否允许 root 用户通过 SSH 登录，默认值为 `prohibit-password`，可以设置为 `yes` 或 `no`。
 
@@ -3128,9 +3138,7 @@ Match User username
 
 #### 修改 SSH 端口
 
-默认情况下，SSH 服务使用 22 端口，为了提高安全性，可以修改 SSH 服务的端口。
-
-配置文件通常位于 `/etc/ssh/sshd_config`。
+默认情况下，SSH 服务使用 22 端口，为了提高安全性，通过修改 `/etc/ssh/sshd_config` 文件可以修改 SSH 服务的端口。
 
 ```bash
 # 修改配置文件
