@@ -211,6 +211,8 @@ MySQL 的安装通常会包含两个主要组件：
 
 ### 导入导出
 
+> 如果是为了找参考代码，可以直接看 [导入导出高级操作](#导入导出高级操作) 部分
+
 - `mysqldump -u root -p database_name > file_name.sql`: 导出数据库
 
 - `mysqldump -u root -p --single-transaction database_name > file_name.sql`: 导出大型数据库，使用单个事务以确保数据一致性
@@ -621,6 +623,31 @@ mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p mysql
 
 - `--ignore-table=database_name.table_name`: 忽略指定的表
 
+#### 导出时压缩
+
+使用 `mysqldump` 配合管道输出到 `gzip`，将导出的 SQL 文件进行压缩，以节省存储空间。
+
+```bash
+mysqldump -u root -p database_name | gzip > database_name.sql.gz
+```
+
+如果是导出备份，可以自动加上时间戳，就可以组合成一个完整的备份命令：
+
+```bash
+mysqldump -u root -p database_name | gzip > /path/to/backup/db/$(date +%Y%m%d_%H%M%S)_database_name.sql.gz
+```
+
+导入时也可以不需要解压：
+
+```bash
+# 注意要有 < 符号
+gunzip < database_name.sql.gz | mysql -u root -p database_name
+# 或者用 zcat
+zcat database_name.sql.gz | mysql -u root -p database_name
+```
+
+**注意**: `gunzip` 后面要加一个 `<` 符号，不然只是简单的解压
+
 #### 高版本导出数据兼容低版本
 
 8.0+ 版本的 MySQL 导出的 SQL 文件可能会包含一些低版本不支持的语法。
@@ -646,30 +673,6 @@ MySQL 5.7 及以下版本不支持 `utf8mb4_0900_ai_ci`，可以用 sed 快速�
 ```bash
 sed -i 's/utf8mb4_0900_ai_ci/utf8mb4_general_ci/g' database_name.sql
 ```
-
-#### 导出时压缩
-
-使用 `mysqldump` 配合管道输出到 `gzip`，将导出的 SQL 文件进行压缩，以节省存储空间。
-
-```bash
-mysqldump -u root -p database_name | gzip > database_name.sql.gz
-```
-
-如果是导出备份，可以自动加上时间戳，就可以组合成一个完整的备份命令：
-
-```bash
-mysqldump -u root -p database_name | gzip > /path/to/backup/db/$(date +%Y%m%d_%H%M%S)_database_name.sql.gz
-```
-
-导入时也可以不需要解压：
-
-```bash
-gunzip < database_name.sql.gz | mysql -u root -p
-# 或者用 zcat
-zcat database_name.sql.gz | mysql -u root -p
-```
-
-**注意**: `gunzip` 后面要加一个 `<` 符号，不然只是简单的解压
 
 ### SQL 性能分析
 
