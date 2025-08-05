@@ -83,6 +83,10 @@ def singleNumber(nums):
 
   支持免费 SSL 和自定义域名，适合部署简单项目。
 
+#### 访问速度测试
+
+- [站长工具-多地点 ping 测试](https://ping.chinaz.com/example.com): 查询网站访问速度，支持多地区、多线路测试
+
 #### IP 地址
 
 **获取用户设备的 IP 及信息**
@@ -116,6 +120,8 @@ def singleNumber(nums):
 #### DNS 查询
 
 - [www.nslookup.io](https://www.nslookup.io/): 在线查询域名的 DNS 记录
+
+- [dnschecker](https://dnschecker.org/#NS/example.com): 查询域名的 DNS 记录，也可以查询解析记录等
 
 ### 游戏娱乐
 

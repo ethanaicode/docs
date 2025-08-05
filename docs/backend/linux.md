@@ -2490,7 +2490,49 @@ crontab 是用来让使用者在固定时间或固定间隔执行程序之用，
 
 ### 使用 dig 查看域名解析信息
 
-待补充
+`dig` 是一个用于查询 DNS 信息的命令行工具，可以用于查看域名解析、MX 记录、NS 记录、A 记录、CNAME 记录等。
+
+基础语法：`dig [选项] [域名] [记录类型] [@DNS服务器]`
+
+#### 记录类型
+
+- `NS`: 查询域名服务器记录
+
+- `A`: 查询 IPv4 地址
+
+- `AAAA`: 查询 IPv6 地址
+
+- `MX`: 查询邮件交换记录
+
+- `CNAME`: 查询别名记录
+
+- `TXT`: 查询文本记录
+
+- `SOA`: 查询起始授权记录
+
+#### 使用案例
+
+> 可以添加 `+short` 参数来简化输出结果
+
+```bash
+# 查询域名 www.example.com 的 A 记录（主机 IPv4 地址）
+dig www.example.com A +short
+
+# 查询 NS 记录（当前使用的 DNS 服务器）
+dig example.com NS +short
+
+# 查询特定 DNS 服务器的记录
+dig example.com NS @8.8.8.8 +short
+
+# 查看完整响应
+dig example.com ANY
+
+# 或者加 +noall +answer 精简显示答案部分
+dig example.com +noall +answer
+
+# 查看 DNS 解析过程（追踪）
+dig example.com +trace
+```
 
 ### 使用 netstat 查看网络连接信息
 

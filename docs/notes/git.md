@@ -303,6 +303,7 @@ git push origin master --force-with-lease
 
 > [!TIP]
 > `--force-with-lease` 是一种更安全的强制推送方式，避免覆盖其他人的提交，有冲突时会提示
+>
 > 那么你可以先拉取最新的远程分支，解决冲突后再推送
 
 #### 合并开发分支到主分支
@@ -562,6 +563,16 @@ git remote add origin <repository-url>
 ```
 
 可以通过 `git remote -v` 检查关联的远程仓库。
+
+### 查看代码修改记录
+
+`git blame` 命令可以查看文件的每一行是由谁在什么时候提交的。
+
+```bash
+git blame -L 10,20 file.txt
+```
+
+这个命令会显示 `file.txt` 文件的第 10 行到第 20 行的每一行是由谁在什么时候提交的。
 
 ### 查看提交历史
 

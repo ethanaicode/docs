@@ -1061,7 +1061,7 @@ try {
 
 - `PHP-FPM` 配置文件位置（通常情况下）：`/etc/php/{version}/fpm/php-fpm.conf`，如果是自己编译安装的 PHP，那么配置文件位置可能会有所不同。
 
-- `PHP-FPM` 配置分为全局配置和池配置，全局配置文件一般是 `php-fpm.conf`，池配置文件一般是 `www.conf`。
+- `PHP-FPM` 配置分为全局配置和池配置，全局配置文件一般是 `php-fpm.conf`，池配置文件一般是 `pool.d/www.conf`。
 
   _两个配置也可以都放在`php-fpm.conf`，只需要使用 `[www]` 来标识为池配置即可。_
 
@@ -1077,7 +1077,7 @@ PHP-FPM 是 PHP 的 FastCGI 进程管理器，通常与 Nginx 配合使用。
 
 Nginx 通过 FastCGI 协议与 PHP-FPM 进行通信，通常在 Nginx 的配置文件中使用 `fastcgi_pass` 指令来指定 PHP-FPM 的监听地址。
 
-主要有两种方式：
+**主要有两种方式**
 
 1. Unix Socket（新系统默认方式）
 
@@ -1090,6 +1090,13 @@ Nginx 通过 FastCGI 协议与 PHP-FPM 进行通信，通常在 Nginx 的配置�
    在 Nginx 的配置文件中，使用 `fastcgi_pass 127.0.0.1:9000;` 来指定 PHP-FPM 的 TCP Socket 地址。
 
    这种方式更通用，可跨主机/容器连接，但性能稍差一些。
+
+如果需要在 `vim` 中快速替换通信方式，可以用下列命令：
+
+```bash
+# 将 127.0.0.1:9000 替换为 unix:/run/php/php7.4-fpm.sock（使用 # 分隔符避免误替换）
+:%s#127.0.0.1:9000;#unix:/run/php/php7.4-fpm.sock;#g
+```
 
 **如何查看 PHP-FPM 的监听方式**
 
