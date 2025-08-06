@@ -55,6 +55,124 @@ Route53 是 AWS 提供的 DNS 服务，可以用于管理域名和 IP 地址的�
 3. 进入 “Name servers” 区块，点击 “Add or Edit name servers”
 4. 替换为新的 Nameserver，点击 “Save changes”
 
+#### 域名转入推荐流程
+
+1. 打开 AWS Route 53 控制台 → 托管区域 → 添加托管区域 → 输入要转入的域名（获得 4 条 NS 记录）
+2. 在托管区域添加原域名的解析记录（原域名注册商处获取，可以通过导出导入的方式）
+3. 登录原域名注册商 → 找到域名管理 → 修改 Nameserver 为 AWS Route 53 提供的 NS 记录（这样可以保证域名解析总是正常）
+4. [可选] 如果之前的域名存在备案，需要先在原域名注册商处操作备案转移或者注销备案（不然之后注销备案会很麻烦）
+5. 在原域名注册商操作**转出域名**，获得转移码，并在 AWS Route 53 中转入域名
+
+_阿里云可以快速转出域名，在转出流程页面有“快速转出”按钮，这样通常只需要 30 分钟左右就可以完成域名转出，非常丝滑_
+
+### CloudWatch Agent
+
+#### 安装
+
+**步骤一：创建 IAM 角色（仅需一次）**
+
+如果你尚未给 EC2 实例分配 IAM 角色，请先执行此步骤。
+
+1. 创建 IAM 角色并附加权限
+
+- 登录 AWS 控制台，进入 **IAM > 角色**。
+- 创建角色，选择 **EC2** 类型。
+- 附加以下策略：
+  - `AmazonSSMManagedInstanceCore`
+  - `CloudWatchAgentServerPolicy`
+
+2. 将角色附加到你的 EC2 实例
+
+- 进入 EC2 控制台 > 实例 > 操作 > 安全 > 修改 IAM 角色。
+- 将刚创建的角色分配给该实例。
+
+**步骤二：安装 CloudWatch Agent**
+
+1. 登录 EC2 实例
+
+```bash
+ssh -i your-key.pem ubuntu@your-ec2-public-ip
+```
+
+2. 下载并安装 CloudWatch Agent
+
+```bash
+sudo apt update
+sudo apt install -y wget
+wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb
+sudo dpkg -i amazon-cloudwatch-agent.deb
+```
+
+**步骤三：配置 CloudWatch Agent**
+
+1. 创建配置文件
+
+你可以用 Amazon 提供的命令行工具生成配置文件：
+
+```bash
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+```
+
+根据提示选择需要收集的数据（CPU、内存、磁盘等），完成后会生成一个配置文件，例如 `/opt/aws/amazon-cloudwatch-agent/bin/config.json`。
+
+2. 或者使用这个最小配置模板：
+
+创建文件 `/opt/aws/amazon-cloudwatch-agent/bin/config.json`：
+
+```json
+{
+  "metrics": {
+    "metrics_collected": {
+      "mem": {
+        "measurement": ["mem_used_percent"],
+        "metrics_collection_interval": 60
+      },
+      "disk": {
+        "measurement": ["used_percent"],
+        "metrics_collection_interval": 60,
+        "resources": ["*"]
+      }
+    }
+  }
+}
+```
+
+**步骤四：启动 CloudWatch Agent**
+
+```bash
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
+  -a fetch-config \
+  -m ec2 \
+  -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json \
+  -s
+```
+
+**步骤五：在 CloudWatch 控制台查看**
+
+1. 登录 AWS 控制台
+2. 打开 **CloudWatch > Metrics > CWAgent**
+3. 选择你的实例，查看 **内存、磁盘使用率等指标**
+
+#### 常用操作
+
+**查看 Agent 状态**
+
+```bash
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -m ec2 -a status
+```
+
+**重启 Agent**
+
+```bash
+sudo systemctl restart amazon-cloudwatch-agent
+```
+
+**查看日志（Ubuntu 通常如下）**
+
+```bash
+sudo tail -n 50 /opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log
+```
+
 ## 阿里云
 
 ### CDN 服务
