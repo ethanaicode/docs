@@ -11,6 +11,13 @@
   --vp-c-brand-1: #005e99ff;
   --vp-c-brand-2: #007fccff;
   --vp-c-brand-3: #009efd;
+
+  /* 定义 underline 颜色 */
+  --r-c-u-bg: #ffff00;
+}
+
+.dark {
+  --r-c-u-bg: #474114;
 }
 
 /*
@@ -61,7 +68,7 @@ u {
   background: linear-gradient(
     to bottom,
     transparent 50%,
-    #ffff00 50%
+    var(--r-c-u-bg) 50%
   ); /* 下半部分淡黄色背景 */
   color: inherit; /* 保持文字颜色 */
 }

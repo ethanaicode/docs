@@ -634,7 +634,7 @@ mysqldump -u root -p database_name | gzip > database_name.sql.gz
 如果是导出备份，可以自动加上时间戳，就可以组合成一个完整的备份命令：
 
 ```bash
-mysqldump -u root -p database_name | gzip > /path/to/backup/db/$(date +%Y%m%d_%H%M%S)_database_name.sql.gz
+mysqldump -u root -p database_name | gzip > /path/to/backup/db/database_name_$(date +%Y%m%d_%H%M%S).sql.gz
 ```
 
 导入时也可以不需要解压：

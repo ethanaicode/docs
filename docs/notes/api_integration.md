@@ -65,6 +65,22 @@ Route53 是 AWS 提供的 DNS 服务，可以用于管理域名和 IP 地址的�
 
 _阿里云可以快速转出域名，在转出流程页面有“快速转出”按钮，这样通常只需要 30 分钟左右就可以完成域名转出，非常丝滑_
 
+### CloudFront
+
+CloudFront 是 AWS 提供的内容分发网络（CDN），可以用于加速静态和动态内容的分发。
+
+推荐配备，否则服务器的流量会直接打到 EC2 实例上，导致流量费用高且速度慢。
+
+#### 创建 CloudFront 分配
+
+**EC2 实例绑定域名**
+
+1. 在 AWS 控制台打开 **CloudFront** 服务
+2. 点击 **创建分配**
+3. **Get started** 页面填写自定义别名
+4. **Specify origin** 页面中，**Origin Type** 选择 **Other**，填入 **EC2 实例的公有 DNS**（不支持 IP）
+5. 注意**源**中协议的选择，如果源是 HTTPS，这里也选择 HTTPS，否则选择 HTTP Only，不然会导致 502 错误
+
 ### CloudWatch Agent
 
 #### 安装
