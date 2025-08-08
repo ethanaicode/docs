@@ -1473,7 +1473,7 @@ https://www.example.com/wp-content/themes/theme-name/screenshot.png
 
 - 选择**跨境汇款**到香港中银（需要开通手机盾）
 
-  - 详细地址（使用中银香港总部英文地址）：`BANK OF CHINA TOWER, 1 GARDEN ROAD, CENTRAL, HONG KONG`
+  - ~~详细地址（使用中银香港总部英文地址）：`BANK OF CHINA TOWER, 1 GARDEN ROAD, CENTRAL, HONG KONG`~~
 
     实测总部地址已无法使用（没有具体门牌号），可以使用分行地址如：`36 Texaco Rd, Tsuen Wan, Hong Kong`
 
@@ -1504,6 +1504,10 @@ https://www.example.com/wp-content/themes/theme-name/screenshot.png
 - 如果资金在理财中，需要先转出理财，进入理财产品，找到 `赎回`，等待资金转出到账户余额
 
 - 进入 `资产` --> `提现` --> 选择 `USDT` --> 选择 `BSC(BEP20)`，输入接收地址，输入金额，点击 `提现`，等待资金到账
+
+  注意：提现手续费为 1 USDT（BSC 网络下）
+
+- 提现成功后会看到交易 ID（TXID），该值即为哈希值，可以在 [BSCScan（币安智能链浏览器）](https://bscscan.com) 上查询到交易详情
 
 #### ~~工商银行跨境汇款到新加坡 OCBC（不推荐再使用）~~
 
