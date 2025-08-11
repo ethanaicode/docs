@@ -30,13 +30,15 @@ Cloudflare R2 是一个对象存储服务，类似于 AWS S3。它提供了一�
 
 - **Route 53**：Amazon Route 53，亚马逊路由 53，用于管理 DNS 记录
 
-- **EBS**：Elastic Block Store，亚马逊弹性块存储，用于为 EC2 实例提供持久化存储
-
-- **AMIs**：Amazon Machine Images，亚马逊机器镜像，用于创建 EC2 实例的模板
-
 - **CloudFront**：亚马逊的内容分发网络（CDN），用于加速静态和动态内容的分发
 
 - **CloudWatch**：亚马逊的监控服务，用于监控 AWS 资源和应用程序
+
+- **EBS**：Elastic Block Store，亚马逊弹性块存储，用于为 EC2 实例提供持久化存储
+
+- **VPC**：Virtual Private Cloud，亚马逊虚拟私有云，用于创建和管理虚拟网络
+
+- **AMIs**：Amazon Machine Images，亚马逊机器镜像，用于创建 EC2 实例的模板
 
   如果要查看 CloudWatch 的日志，需要先在 IAM 中创建一个具有 `CloudWatchLogsReadOnlyAccess` 权限的用户。
 

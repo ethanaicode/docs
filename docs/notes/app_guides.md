@@ -219,7 +219,19 @@
 
 ### 快捷键
 
+> Mac 上通常把 `Ctrl` 替换为 `Command`
+
+- `Ctrl + D` = 打开“字体”对话框
+
 - `Ctrl + Shift + +` = 上标
+
+#### Mac 独有
+
+- `Command + Shift + X` = 添加或取消删除线
+
+- `Command + Shift + D` = 添加或取消双下划线
+
+- `Opt + Command + M` = 打开“段落”对话框
 
 ### 使用技巧
 
