@@ -31,6 +31,8 @@ sudo yum install mysql-server
 
 配置文件中包含了 MySQL 的配置信息，如端口、数据目录、日志文件等。
 
+注意：配置文件中分 `[mysql]` 和 `[mysqld]`，前者是客户端配置，后者是服务器配置，不可以混用，否则会报错。
+
 #### 数据库目录
 
 数据库文件通常存储在 `/var/lib/mysql` 目录下。
@@ -208,6 +210,10 @@ MySQL 的安装通常会包含两个主要组件：
 - `DROP INDEX <indexName> ON table_name;`: 删除索引
 
 - `TRUNCATE TABLE table_name`: 清空表
+
+- `SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'database_name' AND TABLE_TYPE='VIEW';`: 查看数据库中的所有**视图**
+
+  _这在备份数据库时想要忽略视图时会很有用_
 
 ### 导入导出
 
@@ -523,6 +529,30 @@ GROUP BY COUNTRY
 
 ## 高级操作
 
+### 快速登录 MySQL
+
+登录命令中可以直接指定用户名和密码，而避免手动输入密码：
+
+```bash
+mysql -u root -pYourPassword
+```
+
+注意：这种方式不安全，因为密码会出现在命令历史和 `ps` 进程列表里，其他用户可能看到，不建议在生产环境用这种写法。
+
+或者在配置文件 `~/.my.cnf` 中添加以下内容：
+
+```ini
+[client]
+user=root
+password=YourPassword
+```
+
+并设置文件权限为只读：`chmod 600 ~/.my.cnf`
+
+这样就可以直接使用 `mysql` 命令登录了：
+
+它会自动读取用户名和密码。
+
 ### 查询和设置数据库时区
 
 #### 查询时区
@@ -585,6 +615,60 @@ SELECT NOW(), CURRENT_TIMESTAMP, @@global.time_zone, @@session.time_zone;
 mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p mysql
 ```
 
+### INFORMATION_SCHEMA 系统数据库
+
+`INFORMATION_SCHEMA` 是 MySQL 提供的一个系统数据库，用来存放**元数据（metadata）**——也就是数据库本身的结构信息，而不是业务数据。
+
+它是一个**只读的虚拟数据库**，里面的“表”其实是**视图**，查询时会实时从 MySQL 内部生成结果。
+
+存放的是：
+
+- 库、表、列的定义
+- 索引信息
+- 用户权限
+- 存储过程、视图、触发器等对象信息
+- 运行时统计信息（MySQL 5.7+ 部分转移到了 `performance_schema`）
+
+#### 常见用途
+
+```sql
+-- 查看所有数据库
+SELECT SCHEMA_NAME
+FROM INFORMATION_SCHEMA.SCHEMATA;
+
+-- 查看某个数据库的所有表
+SELECT TABLE_NAME
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_SCHEMA = 'database_name';
+
+-- 查看某个表的所有列
+SELECT COLUMN_NAME, DATA_TYPE, COLUMN_TYPE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_SCHEMA = 'database_name' AND TABLE_NAME = 'table_name';
+
+-- 查看某个表的索引
+SELECT TABLE_NAME, INDEX_NAME, COLUMN_NAME, NON_UNIQUE
+FROM INFORMATION_SCHEMA.STATISTICS
+WHERE TABLE_SCHEMA = 'database_name' AND TABLE_NAME = 'table_name';
+
+--  查存储过程、函数
+SELECT ROUTINE_NAME, ROUTINE_TYPE
+FROM INFORMATION_SCHEMA.ROUTINES
+WHERE ROUTINE_SCHEMA = 'database_name';
+```
+
+#### 用法案例
+
+**找出所有占用空间最大的表**
+
+```sql
+SELECT TABLE_SCHEMA, TABLE_NAME,
+       ROUND((DATA_LENGTH+INDEX_LENGTH)/1024/1024,2) AS MB
+FROM INFORMATION_SCHEMA.TABLES
+ORDER BY MB DESC
+LIMIT 10;
+```
+
 ### 实时查看 MySQL 连接状态
 
 - `SHOW FULL PROCESSLIST;`: 会显示当前<u>所有连接的状态</u>
@@ -617,9 +701,11 @@ mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p mysql
 
 - `-t` 或 `--no-create-info`: 只导出数据，不导出表结构
 
-- `--single-transaction`: 在导出大型数据库时，使用单个事务以确保数据一致性
+- `--single-transaction`: 在导出大型数据库时，使用单个事务可以不锁表，快照一致（仅 InnoDB）
 
-- `--quick`: 在导出大型数据库时，使用快速模式以提高导出效率
+- `--quick`: 在导出大型数据库时，使用快速模式可以边取边写，降低内存占用
+
+- ` --skip-lock-tables`: 避免 LOCK TABLES，导出时不会锁表
 
 - `--ignore-table=database_name.table_name`: 忽略指定的表
 
@@ -631,13 +717,33 @@ mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p mysql
 mysqldump -u root -p database_name | gzip > database_name.sql.gz
 ```
 
-如果是导出备份，可以自动加上时间戳，就可以组合成一个完整的备份命令：
+如果是导出备份，可以添加更多参数和文件名时间戳，就可以组合成一个完整的备份命令：
 
 ```bash
-mysqldump -u root -p database_name | gzip > /path/to/backup/db/database_name_$(date +%Y%m%d_%H%M%S).sql.gz
+mysqldump --single-transaction --quick --skip-lock-tables \
+  -u root -p database_name \
+| gzip > /path/to/backup/db/database_name_$(date +%Y%m%d_%H%M%S).sql.gz
 ```
 
-导入时也可以不需要解压：
+如果是**大型数据库**，还可以设置 CPU & 磁盘调度优先级，，减少对线上影响。
+
+```bash
+nice -n 15 ionice -c2 -n7 \
+mysqldump --single-transaction --quick --skip-lock-tables \
+  -u root -p database_name \
+| pv -q -L 5m \
+| gzip > /path/to/backup/db/database_name_$(date +%Y%m%d_%H%M%S).sql.gz
+```
+
+- `nice -n 15`: 设置 CPU 调度优先级，-20 到 19，-20 优先级最高，19 优先级最低，默认是 0
+
+- `ionice -c2 -n7`: 设置磁盘调度优先级，`-c2` 表示选择**Best Effort 模式**，优先级为 0 到 7，0 优先级最高，7 优先级最低，默认是 0
+
+- `pv -q -L 5m`: 设置限制管道吞吐率，`-q` 表示静默模式（没有这个参数可以看到传输进度），`-L 5m` 表示每分钟传输 5MB 数据
+
+  `pv` 命令在部分系统中可能没有安装，可以先用 `pv --version` 检查是否安装
+
+#### 压缩包导入数据
 
 ```bash
 # 注意要有 < 符号
@@ -893,6 +999,61 @@ update user set host='%' where user='root';
 ```
 
 最后记得使用 `FLUSH PRIVILEGES;` 刷新权限，使其生效。
+
+## 常见错误
+
+### 1055 错误 only_full_group_by
+
+`1055 - Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'database.table.column' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by`
+
+这个错误是因为 MySQL 的 `ONLY_FULL_GROUP_BY` 模式导致的。这个模式要求 `SELECT` 语句中的每个列都必须在 `GROUP BY` 子句中，或者必须被聚合函数包裹。
+
+比如：
+
+```sql
+SELECT id, name, update_time
+FROM table_name
+GROUP BY id;
+```
+
+在 `ONLY_FULL_GROUP_BY` 下，MySQL 会说，你分组的是 `id`，但你查询的 `name` 和 `update_time` 并没有在 `GROUP BY` 子句中，也没有被聚合函数包裹，所以结果是不确定的，必须拒绝执行。
+
+**解决方法 A：改 SQL 语句**（推荐，最规范）
+
+修改 `SELECT` 语句，将所有列都放到 `GROUP BY` 子句中：
+
+```sql
+SELECT id, name, update_time
+FROM table_name
+GROUP BY id, name, update_time;
+```
+
+使用聚合函数包裹所有列：
+
+```sql
+SELECT id, MAX(update_time) AS update_time
+FROM table_name
+GROUP BY id;
+```
+
+**方法 B：关闭 `ONLY_FULL_GROUP_BY`**（会放松规则）
+
+临时修改全局设置：
+
+```sql
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+```
+
+永久修改：
+
+修改 MySQL 配置文件，找到 `[mysqld]` 段落，加入：
+
+```ini
+[mysqld]
+sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+```
+
+**注意**：`ONLY_FULL_GROUP_BY` 是 MySQL 5.7.5 之后默认开启的，如果你使用的是 MySQL 5.7.5 之前的版本，那么这个错误就不会出现。
 
 ## SQLite
 
