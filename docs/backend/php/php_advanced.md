@@ -245,7 +245,7 @@ PHP 的编译安装，通常需要以下步骤：
   例如：
 
   ```php
-  if (!empty($task['status']) && $task['status'] == 1) {
+  if (!empty($task['status']) && $task['status'] == 0) {
     // 执行某些操作
   }
   ```
