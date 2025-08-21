@@ -34,13 +34,43 @@ Cloudflare R2 是一个对象存储服务，类似于 AWS S3。它提供了一�
 
 - **CloudWatch**：亚马逊的监控服务，用于监控 AWS 资源和应用程序
 
+  如果要查看 CloudWatch 的日志，需要先在 IAM 中创建一个具有 `CloudWatchLogsReadOnlyAccess` 权限的用户，并分配给 EC2 实例。
+
 - **EBS**：Elastic Block Store，亚马逊弹性块存储，用于为 EC2 实例提供持久化存储
 
 - **VPC**：Virtual Private Cloud，亚马逊虚拟私有云，用于创建和管理虚拟网络
 
 - **AMIs**：Amazon Machine Images，亚马逊机器镜像，用于创建 EC2 实例的模板
 
-  如果要查看 CloudWatch 的日志，需要先在 IAM 中创建一个具有 `CloudWatchLogsReadOnlyAccess` 权限的用户。
+### EC2
+
+#### 迁移不同区域的实例（镜像实现）
+
+本方案基于 AMI 的镜像复制（适合小规模/允许停机），如果需要迁移大规模实例，建议使用 `AWS Application Migration Service（MGN）`。
+
+1. 在美国的实例上，创建一个 **Amazon Machine Image (AMI)**。
+
+   登录 **AWS 管理控制台**，进入 **EC2 → 实例** 页面。
+
+   找到你要迁移的美国服务器实例，**右键 → 镜像和模板 → 创建映像 (Create Image)**。
+
+   填写映像名称和描述，然后点击 **创建映像**。
+
+2. 在 AWS 控制台或 CLI 中，将该 AMI **复制到东京区域**。
+
+   等待几分钟后，你会在 **AMI 页面**（左边导航栏 → 映像 → AMIs）看到刚生成的镜像。
+
+   **注意**：需要等待镜像状态变为 `available` 后才能复制，否则会提示找不到该镜像。可以在 `快照` 中查看镜像创建进度。
+
+   选中镜像，点击 **操作 → 复制 AMI**，选择目标区域（比如 **Asia Pacific (Tokyo)**），这通常也需要几分钟时间。
+
+3. 在东京区域用这个 AMI 启动新的 EC2 实例。
+
+4. 如果有 EBS 数据卷，也需要分别做 **快照** 并复制到东京区域。
+
+5. 调整安全组、弹性 IP、VPC 子网等配置。
+
+6. 切换 DNS 或者负载均衡指向新实例。
 
 ### Route53
 
