@@ -108,9 +108,13 @@ CloudFront 是 AWS 提供的内容分发网络（CDN），可以用于加速静�
 **EC2 实例绑定域名**
 
 1. 在 AWS 控制台打开 **CloudFront** 服务
+
 2. 点击 **创建分配**
+
 3. **Get started** 页面填写自定义别名
+
 4. **Specify origin** 页面中，**Origin Type** 选择 **Other**，填入 **EC2 实例的公有 DNS**（不支持 IP）
+
 5. 注意**源**中协议的选择，如果源是 HTTPS，这里也选择 HTTPS，否则选择 HTTP Only，不然会导致 502 错误
 
 ### CloudWatch Agent
