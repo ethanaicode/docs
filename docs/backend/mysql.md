@@ -211,6 +211,8 @@ MySQL 的安装通常会包含两个主要组件：
 
 - `TRUNCATE TABLE table_name`: 清空表
 
+  `DELETE FROM table_name` 也可以清空表，但是 `TRUNCATE TABLE` 会重置自增 ID，而且会直接释放数据页，速度更快
+
 - `SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'database_name' AND TABLE_TYPE='VIEW';`: 查看数据库中的所有**视图**
 
   _这在备份数据库时想要忽略视图时会很有用_

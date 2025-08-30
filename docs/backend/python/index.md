@@ -22,6 +22,10 @@ title: Python 文档导航，Python 基础、进阶、库、自动化工具汇�
 
 - [MoviePy](./python_moviepy)
 
+- [Numpy](./python_numpy)
+
+- [Matplotlib](./python_matplotlib)
+
 - [自动化工具](./python_automation)
 
 - [数据可视化](./python_visualization)
