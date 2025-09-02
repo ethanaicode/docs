@@ -674,6 +674,30 @@
 
    也支持参数 `-k` 来寻找相关性高的命令。
 
+### Linux 发行版选择
+
+#### 发行版
+
+- **Debian**：稳定、软件自由度高、更新慢但非常可靠。
+
+- **Ubuntu**：（基于 Debian）用户友好、社区活跃、软件生态丰富。
+
+  **LTS (长期支持版)** 5 年支持，适合服务器。**非 LTS** 更新更快，但支持周期只有 9 个月，适合体验新特性。
+
+  如果用作企业服务器，一定要<u>选择 LTS 版本</u>，因为非 LTS 版本的支持周期太短，可能会导致软件包过时，甚至无法使用。
+
+- **RHEL (Red Hat Enterprise Linux)**：商业版，需要订阅支持，稳定、企业常用。
+
+- **CentOS Stream**：现在已变为 “RHEL 的滚动预览版”，稳定性不如老的 CentOS。
+
+- **Rocky Linux / AlmaLinux**：社区版 RHEL 克隆，免费、和 RHEL 完全兼容。适合企业服务器，尤其是传统上依赖 RHEL 的环境。
+
+- **Arch Linux**：极度自由、滚动更新、最新版软件，但需要自己折腾。适合个人桌面、喜欢 DIY 的开发者。
+
+- **openSUSE**：分为 Leap（稳定版）和 Tumbleweed（滚动版），配置工具 Yast 很强大。用于：桌面或部分企业服务器。
+
+- **Fedora**：Red Hat 社区版，尝鲜快，RHEL 的试验田。
+
 ### 运维最佳实践
 
 1. 不要使用 root 用户登录，可以使用普通用户登录后再切换到 root 用户。
@@ -2089,15 +2113,17 @@ yum makecache
 
 - `apt show PACKAGE_NAME`: 显示软件包的详细信息。
 
-- `apt list --installed`: 列出所有已安装的软件包。
+- `apt list PACKAGE_NAME`: 快速查询包是否存在，是否安装以及版本信息。
 
-- `apt list --upgradable`: 列出所有可以升级的软件包。
+  `apt list --installed`: 列出所有已安装的软件包。
+
+  `apt list --upgradable`: 列出所有可以升级的软件包。
 
 - `apt purge PACKAGE_NAME`: <u>完全卸载一个软件包</u>，包括其配置文件（比 `remove` 更彻底）。
 
 - `apt autoremove`: 删除那些**曾被自动安装，但现在不再被任何已安装软件依赖**的包。
 
-  通常配合 `apt purge` 使用。
+  通常配合 `apt purge` 一起使用。
 
 - `apt remove PACKAGE_NAME`: 卸载一个特定的软件包。
 
@@ -3150,7 +3176,7 @@ SSH 客户端可以通过 SSH 协议连接到远程服务器，进行远程登�
 
 - `ssh-copy-id username@remote_host`: 将本地的公钥复制到远程服务器的 `authorized_keys` 文件中
 
-### SSH 服务配置
+### SSH 服务端配置
 
 修改配置后需要重启 SSH 服务以使配置生效。
 
@@ -3169,6 +3195,8 @@ _不同的系统 ssh 服务名称可能不同，可以使用`systemctl list-unit
 - `PermitRootLogin`: 是否允许 root 用户通过 SSH 登录，默认值为 `prohibit-password`，可以设置为 `yes` 或 `no`。
 
 - `PasswordAuthentication`: 是否允许使用密码进行身份验证，默认值为 `yes`，可以设置为 `no` 来禁用密码登录。
+
+  如果禁用密码登录，那么只能使用公钥登录。
 
 - `PubkeyAuthentication`: 是否允许使用公钥进行身份验证，默认值为 `yes`。
 
@@ -3195,9 +3223,11 @@ sudo vim /etc/ssh/sshd_config
 Port 2222
 ```
 
-### SSH 连接配置
+### SSH 客服端配置
 
-SSH 配置文件通常位于用户家目录下的 `.ssh` 目录中，文件名为 `config`。
+SSH 配置文件通常位于 `~/.ssh/config`，如果不存在，可以手动创建。
+
+#### 基础连接配置
 
 通过修改 SSH 配置文件，可以为不同的主机配置不同的参数，避免每次都输入参数。
 
@@ -3219,15 +3249,23 @@ Host myserver
 
 - `Port`: 指定 SSH 端口。
 
-- `IdentityFile`: 指定私钥文件。
+- `IdentityFile`: 指定私钥文件(可选)。
 
-还可以定义更多配置项：
+  如果是密码登录，这一项可以省略，登录时会提示输入密码。
+
+  如果使用密码登录，要求服务端配置文件中 `PasswordAuthentication` 为 `yes`。
+
+#### 更多配置项
 
 - `logLevel`: 指定日志级别。(QUIET, FATAL, ERROR, INFO, VERBOSE, DEBUG, DEBUG1, DEBUG2, and DEBUG3)
 
 - `Compression`: 指定压缩算法。
 
-现在就可以直接使用 `ssh myserver` 来登录了，如果配置了私钥，就不需要输入密码。
+- `ForwardX11`: 指定是否启用 X11 转发。
+
+- `ForwardX11Trusted`: 指定是否信任 X11 转发的客户端。
+
+- `ForwardAgent`: 指定是否启用 SSH 代理转发。
 
 ### SSH 密钥生成及应用
 
@@ -3279,40 +3317,51 @@ ufw 是 Ubuntu/Debian 系统中的一个简单的防火墙管理工具，可以�
 
 **基础命令**
 
-- ufw status verbose: 查看当前防火墙状态
+- `ufw status verbose`: 查看当前防火墙状态
 
-- ufw app list 查看服务列表
+- `ufw status numbered`: 查看当前规则编号
 
-- ufw status [numbered]: 列出防火墙规则（可以选择加上序号）
+- `ufw delete <编号>`: 有序号后就可以指定删除某条规则
 
-- ufw delete {num}: 有序号后就可以指定删除某条规则
+  也可以直接使用 `ufw delete deny 8080/tcp` 来删除规则
 
-**常用案例**
+- `ufw app list`: 查看服务列表
 
-允许 22 端口的 TCP 请求访问（不加“/tcp”为允许 tcp 和 udp）
+- `ufw reload`: 重新加载防火墙规则
 
-```bash
-ufw allow 22/tcp
-```
-
-拒绝指定端口访问
+**基础使用**
 
 ```bash
-# []表示可选项
-ufw deny 25[/tcp comment 'Block access to smptd by default']
+# 启用防火墙（开启后规则才生效）
+sudo ufw enable
+
+# 关闭防火墙（规则不再生效）
+sudo ufw disable
+
+# 设置默认策略：
+# - 拒绝所有外部访问进入
+# - 允许所有内部请求出去
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+# 允许 22 端口的 TCP 请求访问（常用于 SSH 登录）
+sudo ufw allow 22/tcp
+
+# 允许来自指定 IP 192.168.1.10 的主机访问本机 22 端口
+sudo ufw allow from 192.168.1.10 to any port 22
+
+# 拒绝指定端口（25/TCP），并附加说明
+sudo ufw deny 25/tcp comment 'Block access to smtpd by default'
+
+# 允许所有来源访问指定公网 IP 的 443 端口（HTTPS 服务）
+sudo ufw allow from any to 74.86.26.69 port 443 proto tcp
+
+# 允许子网 192.168.1.0/24 访问 Samba 服务（通过 UFW 应用配置）
+sudo ufw allow from 192.168.1.0/24 to any app Samba
+
+# 查看某个应用配置文件的信息（如 Squid 代理服务）
+sudo ufw app info Squid
 ```
-
-**更多案例**
-
-To allow IP address 192.168.1.10 access to port 22 for all protocols
-`sudo ufw allow from 192.168.1.10 to any port 22`
-Open port 74.86.26.69:443 (SSL 443 nginx/apache/lighttpd server) for all, enter:
-`sudo ufw allow from any to 74.86.26.69 port 443 proto tcp`
-To allows subnet 192.168.1.0/24 to Sabma services, enter:
-`ufw allow from 192.168.1.0/24 to any app Samba`
-
-To get information on Squid profile/app, run:
-`ufw app info Squid`
 
 ## 系统信息管理
 

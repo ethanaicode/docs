@@ -4,24 +4,113 @@ title: MySQL 数据库学习指南，SQL 基础语法、常用函数、高级操
 
 # SQL
 
-以 MySQL 为例，介绍 SQL 基础语法、常用函数、高级操作等内容。
+以 **MySQL** 为例，介绍 SQL 的基础使用，包括安装、常用语法、函数以及高级操作。
 
 ## 开始使用
 
 ### 安装 MySQL
 
-在 Ubuntu 上安装 MySQL，可以使用以下命令：
+MySQL 的安装包通常包含两个主要组件：
+
+- **`mysql-server`**
+  - MySQL 数据库服务器，负责处理数据库的存储、查询、事务等操作。
+  - 适合需要提供数据库服务的场景。
+- **`mysql-client`**
+  - MySQL 客户端工具，提供命令行工具用于连接和管理 MySQL 数据库。
+  - 如果只需要远程连接管理数据库（而不在本机运行服务端），只需安装 `mysql-client`。
+
+注意：
+
+- 安装 `mysql-server` 时通常会自动安装 `mysql-client`（作为依赖）。
+- 一般情况下，不需要单独安装 `mysql-client`。
+
+**安装命令示例**
 
 ```bash
+# Ubuntu/Debian
 sudo apt update
 sudo apt install mysql-server
-```
-
-在 CentOS 上安装 MySQL，可以使用以下命令：
-
-```bash
+# CentOS/RHEL
 sudo yum install mysql-server
 ```
+
+安装完成后，可以通过以下命令检查 MySQL 是否运行：
+
+```bash
+systemctl status mysql
+```
+
+### 用户及权限管理
+
+#### 管理用户登录方式
+
+查看用户登录方式可以使用以下命令：
+
+```sql
+SELECT user, host, plugin, authentication_string FROM mysql.user;
+```
+
+- `plugin`: 验证插件，表示登录验证方式。
+
+  - 常见的值有：
+
+    - `mysql_native_password`: 传统的密码验证方式。
+    - `caching_sha2_password`: 使用缓存的 SHA-2 密码验证方式（MySQL 8.0 默认）
+    - `auth_socket`: 使用 Unix 套接字验证方式，不需要密码（通常用于本地连接）
+    - `sha256_password`: 使用 SHA-256 密码验证方式
+
+- `authentication_string`: 加密的密码（如果为空则可能未设置密码）。
+
+**如何切换为密码登录方式**
+
+如果你希望改为通过密码验证，可以使用如下命令：
+
+```sql
+ALTER USER 'username'@'localhost' IDENTIFIED WITH mysql_native_password BY 'new_password';
+FLUSH PRIVILEGES;
+```
+
+#### 创建一个新用户
+
+```sql
+CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+```
+
+- `CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';`: 创建用户
+
+  `username` 新用户的用户名
+
+  `localhost` 新用户的主机名
+
+  `password` 新用户的密码
+
+- `GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' WITH GRANT OPTION;`: 授权
+
+  `ALL PRIVILEGES` 用户被授予所有权限
+
+  `*.*` 数据库名.表名
+
+  `WITH GRANT OPTION` 允许用户将自己的权限授予其他用户
+
+- `FLUSH PRIVILEGES;`: <u>刷新权限</u>，使权限更改生效
+
+#### 用户及权限管理
+
+- `REVOKE ALL PRIVILEGES ON *.* FROM 'username'@'localhost';`: 撤销权限
+
+- `SHOW GRANTS FOR 'username'@'localhost';`: 查看用户权限
+
+- `SELECT user, host FROM mysql.user;`: 查看所有用户
+
+- `ALTER USER 'username'@'localhost' IDENTIFIED BY 'new password';`: 修改密码（低版本中可能会报错）
+
+  在 5.7.5 及以下版本 中，ALTER USER 不支持，需使用：
+
+  `SET PASSWORD FOR 'username'@'localhost' = PASSWORD('newpassword');`
+
+- `DROP USER 'username'@'localhost';`: 删除用户
 
 ### 相关文件及目录
 
@@ -71,21 +160,7 @@ expire_logs_days = 10
 skip-log-bin
 ```
 
-### server 和 client
-
-MySQL 的安装通常会包含两个主要组件：
-
-- `mysql-server`: MySQL 数据库服务器，负责处理数据库的存储、查询等操作。
-
-- `mysql-client`: MySQL 数据库客户端，提供命令行工具用于连接和管理 MySQL 数据库。
-
-- `server` 提供服务，`client` 提供调试、命令行工具。
-
-  如果是远程连接数据库，则只需要安装 `mysql-client`。
-
-通常安装 `mysql-server` 时会自动安装 `mysql-client`（因为它是依赖项目），所以通常不需要单独安装 `mysql-client`。
-
-### 数据类型
+### 常用数据类型
 
 以下是常用的数据类型：
 
@@ -230,78 +305,6 @@ MySQL 的安装通常会包含两个主要组件：
 - `mysqldump -u root -p database_name table1 table2 > file_name.sql`: 导出指定表
 
 - `mysql -u root -p database_name < file_name.sql`: 导入数据库
-
-### 用户及权限管理
-
-#### 管理用户登录方式
-
-查看用户登录方式可以使用以下命令：
-
-```sql
-SELECT user, host, plugin, authentication_string FROM mysql.user;
-```
-
-- `plugin`: 验证插件，表示登录验证方式。
-
-  - 常见的值有：
-
-    - `mysql_native_password`: 传统的密码验证方式。
-    - `caching_sha2_password`: 使用缓存的 SHA-2 密码验证方式（MySQL 8.0 默认）
-    - `auth_socket`: 使用 Unix 套接字验证方式，不需要密码（通常用于本地连接）
-    - `sha256_password`: 使用 SHA-256 密码验证方式
-
-- `authentication_string`: 加密的密码（如果为空则可能未设置密码）。
-
-**如何切换为密码登录方式**
-
-如果你希望改为通过密码验证，可以使用如下命令：
-
-```sql
-ALTER USER 'username'@'localhost' IDENTIFIED WITH mysql_native_password BY 'new_password';
-FLUSH PRIVILEGES;
-```
-
-#### 创建一个新用户
-
-```sql
-CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-```
-
-- `CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';`: 创建用户
-
-  `username` 新用户的用户名
-
-  `localhost` 新用户的主机名
-
-  `password` 新用户的密码
-
-- `GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' WITH GRANT OPTION;`: 授权
-
-  `ALL PRIVILEGES` 用户被授予所有权限
-
-  `*.*` 数据库名.表名
-
-  `WITH GRANT OPTION` 允许用户将自己的权限授予其他用户
-
-- `FLUSH PRIVILEGES;`: <u>刷新权限</u>，使权限更改生效
-
-#### 用户及权限管理
-
-- `REVOKE ALL PRIVILEGES ON *.* FROM 'username'@'localhost';`: 撤销权限
-
-- `SHOW GRANTS FOR 'username'@'localhost';`: 查看用户权限
-
-- `SELECT user, host FROM mysql.user;`: 查看所有用户
-
-- `ALTER USER 'username'@'localhost' IDENTIFIED BY 'new password';`: 修改密码（低版本中可能会报错）
-
-  在 5.7.5 及以下版本 中，ALTER USER 不支持，需使用：
-
-  `SET PASSWORD FOR 'username'@'localhost' = PASSWORD('newpassword');`
-
-- `DROP USER 'username'@'localhost';`: 删除用户
 
 ### 其它命令
 
@@ -1125,6 +1128,6 @@ SELECT * FROM table_name WHERE column_name = 'value';
 
   _遇到依赖问题会很烦，而且它会默认给你安装一堆依赖，并不推荐_
 
-- 默认路径：`/usr/share/phpmyadmin`
+  - 默认路径：`/usr/share/phpmyadmin`
 
-- 默认配置文件：`/etc/dbconfig-common/phpmyadmin.conf`
+  - 默认配置文件：`/etc/dbconfig-common/phpmyadmin.conf`
