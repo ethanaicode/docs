@@ -78,9 +78,9 @@
 
   `-R` 表示递归，可以同时修改文件夹及子文件夹和文件
 
-- **chwon -R USER:GROUP filename**: 更改文件或者目录的所有者和所属组
+- **chown -R USER:GROUP filename**: 更改文件或者目录的所有者和所属组
 
-  `-R` 表示递归，可以同时修改文件夹及子文件夹和文件
+  `chown -R $USER:$USER filename` 可以快速修改所有者和所属组为当前用户
 
 - **chattr**: 修改文件属性
 
@@ -2767,13 +2767,17 @@ curl [options] [URL]
 
 - `-X` 指定请求方法
 
-- `-f` 如果下载失败，则不创建文件
+- `-f` 等同于 `--fail`，发生错误时，不写文件而是返回非零退出码
+
+  通过添加这个参数可以避免这种“错误内容”被保存。
 
 - `-L` 跟踪重定向，如果请求的 URL 有重定向，会继续请求重定向后的 URL
 
 - `-J` 下载文件时使用文件名中的描述信息
 
-- `-o` 指定保存文件名，如: `curl -o filename http://example.com/file.zip` 下载文件并保存为 filename
+- `-o` 指定保存文件名
+
+  如: `curl -o filename http://example.com/file.zip` 下载文件并保存为 filename
 
 - `-O` 将下载的内容保存到文件，文件名为 URL 的最后部分
 
@@ -2782,6 +2786,8 @@ curl [options] [URL]
 - `-S` 显示错误信息
 
 - `-v` <u>显示详细信息</u>
+
+  会包含 IP 地址、请求头、响应头等信息
 
 - `-k` <u>忽略 SSL 证书验证错误</u>，并继续访问 HTTPS 站点
 
@@ -2795,9 +2801,9 @@ curl [options] [URL]
 
 - `curl -f -SOJL https://example.com/file`: 下载文件并保持原始文件名
 
-- `curl -O https://example.com/file`: 下载文件并保存为 URL 的最后部分
-
 - `curl -I -X POST https://example.com`: 发送 POST 请求并只显示响应头
+
+- `curl -sSf https://example.com`: 快速检查网站是否可用
 
 #### wget 下载文件
 

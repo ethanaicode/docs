@@ -95,6 +95,16 @@ date: 2024-12-31 17:19:52
 
   鸟大的哔哩哔哩下载器，支持下载视频、音频、字幕等
 
+### 视频字幕编辑
+
+- [Aegisub](https://github.com/Aegisub/Aegisub): 一款开源的字幕编辑软件
+
+  官网：[aegisub.org](https://aegisub.org/)
+
+- [Subtitle Edit](https://github.com/SubtitleEdit/subtitleedit): 一款功能强大的开源字幕编辑器
+
+  适用于字幕的提取、编辑、格式转换与翻译等多种场景。它支持多种视频与字幕格式，并内置 OCR 字符识别、语音转写、时间轴同步等实用功能。
+
 ### 其他工具
 
 - [KeePassXC](https://github.com/keepassxreboot/keepassxc): 一款开源的密码管理器
