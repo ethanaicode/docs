@@ -485,7 +485,7 @@ _`r2` 为别名，可以自定义_
 
 - `rclone copy /path/to/file remote:bucket -P` : 上传文件到存储桶
 
-  - `rclone copy /path/to/file remote:bucket/path` 上传文件到存储桶的指定路径
+  - `rclone copy /path/to/file remote:bucket/path -P` 上传文件到存储桶的<u>指定目录</u>（目录不存在会自动创建）
 
   - `-P` 参数可以显示上传进度（可选参数，推荐加上，不然网络慢的话会以为卡了）
 
@@ -504,6 +504,12 @@ _`r2` 为别名，可以自定义_
   - `rclone delete /path/to/directory`: 删除本地目录中的文件
 
   - `rclone delete /path/to/file`: 删除本地目录中的指定文件
+
+- `rclone mkdir remote:bucket/directory`: 手动在存储桶中创建目录（不常用，可以直接上传文件时指定目录）
+
+- ~~`rclone purge remote:bucket`: 清空存储桶中的所有文件~~
+
+  ~~⚠️ 可能也包括桶本身，我宁愿不知道这个命令~~
 
 - `rclone check remote:bucket /path/to/directory`: 检查存储桶和本地目录中的文件是否一致
 

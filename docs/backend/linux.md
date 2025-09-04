@@ -2805,6 +2805,10 @@ curl [options] [URL]
 
 - `curl -sSf https://example.com`: 快速检查网站是否可用
 
+> [!Warning]
+>
+> 如果下载地址中包含参数，`&` 符号会被误解为 shell 的参数分隔符，需要使用引号将整个 URL 包围起来。
+
 #### wget 下载文件
 
 `wget` 是一个用于下载文件的命令行工具，支持 HTTP、HTTPS 和 FTP 协议。
