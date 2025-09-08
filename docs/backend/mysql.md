@@ -1060,6 +1060,37 @@ sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_
 
 **注意**：`ONLY_FULL_GROUP_BY` 是 MySQL 5.7.5 之后默认开启的，如果你使用的是 MySQL 5.7.5 之前的版本，那么这个错误就不会出现。
 
+### 1819 错误 policy requirements
+
+`ERROR 1819 (HY000): Your password does not satisfy the current policy requirements`
+
+这是 MySQL 的**密码校验组件**检测到密码强度不够而触发的拦截（报错 1819）。
+
+可以先查看下当前规则，使用命令：`SHOW VARIABLES LIKE 'validate_password%';`
+
+主要有以下几个参数：
+
+- `validate_password.policy`: 指定密码的强度策略，默认是 `MEDIUM`
+
+- `alidate_password.check_user_name`: 检查密码中是否包含用户名，默认是 `ON`
+
+- `validate_password.length`: 密码的最小长度，默认是 `8`
+
+- `validate_password.mixed_case_count`: 密码中至少要包含的小写字母和大写字母的数量，默认是 `1`
+
+- `validate_password.number_count`: 密码中至少要包含的数字的数量，默认是 `1`
+
+- `validate_password.special_char_count`: 密码中至少要包含的特殊字符的数量，默认是 `1`
+
+按照自己的需求修改这些参数，然后重新设置密码即可，修改可以使用命令：
+
+```sql
+-- 长度放宽到 4
+SET GLOBAL validate_password.length = 4;
+-- SET PERSIST 是确保修改的参数在重启后依然有效
+SET PERSIST validate_password.length = 4;
+```
+
 ## SQLite
 
 ### 字段类型

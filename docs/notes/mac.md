@@ -36,13 +36,19 @@
 
 - **VSCode**: 编辑器
 
-- **Termius**: SSH 连接工具
+- **DBeaver**: 数据库管理工具
 
-- **Gitkraken**: Git 管理工具
+- **Shottr**: 截图工具
 
-- **Dbeaver**: 数据库管理工具
+  以前喜欢用 snipaste，现在用这个，可以完美替代
 
-- **Shottr**: 截图工具（以前喜欢用 snipaste，现在用这个，可以完美替代）
+- ~~**Termius**: SSH 连接工具~~
+
+  可以直接用 iTerm2 的内置 SSH 功能
+
+- ~~**Gitkraken**: Git 管理工具~~
+
+  命令行加上 vscode 插件够用了
 
 ## Mac 快捷键
 
@@ -301,35 +307,73 @@ xattr -cr /path/to/application.app
 
 ## Brew 管理工具
 
-### Basics
+### 配置及目录
 
-- Brew 的应用一般会安装到`/usr/local/Cellar`目录下，
+- **Homebrew Intel Mac（/usr/local）**
 
-- 软件的链接会放在`/usr/local/opt`目录下，你可以在这里看到软件的版本信息，
+  ```bash
+  # 软件目录
+  /usr/local/Cellar
 
-- 如果是命令行工具，会额外在`/usr/local/bin`目录下创建一个软链接，
+  # 软链接目录（通常软链接到 bin 目录）
+  # 可以直接使用该目录下的命令（要区分目录和文件）
+  /usr/local/opt
 
-- Brew 的应用配置一般可以在`/usr/local/etc`目录下找到。
+  # 命令行工具目录
+  /usr/local/bin
 
-- 在新的 macOS 系统中，Brew 会自动安装到`/opt/homebrew`目录下。
+  # 配置目录
+  /usr/local/etc
 
-**Brew 的基本命令**
+  # 日志等目录
+  /usr/local/var
+  ```
+
+- **Homebrew Apple Silicon (M1/M2, /opt/homebrew)**
+
+  ```bash
+  # 软件目录
+  /opt/homebrew/Cellar
+
+  # 软链接目录（通常软链接到 bin 目录）
+  # 可以直接使用该目录下的命令（要区分目录和文件）
+  /opt/homebrew/opt
+
+  # 命令行工具目录
+  /opt/homebrew/bin
+
+  # 配置目录
+  /opt/homebrew/etc
+
+  # 日志等目录
+  /opt/homebrew/var
+  ```
+
+### Brew 命令
+
+#### 基础命令
 
 - **brew list**: 将会显示所有已安装的 Homebrew 软件包
 
-  此外，`brew list --cask` 将提供使用 [Homebrew Cask](https://github.com/Homebrew/homebrew-cask) 安装的项目。
+  `--cask` 列出所有已安装的 cask（GUI 应用）软件包
+
+  `--versions | grep php` 显示版本号，列出所有已安装的 PHP 版本。
+
+  `--full-name` 显示完整的软件包名称。
+
+  `--json=v2` 以 JSON 格式输出，适合进一步处理。
+
+  `-l, --long` 显示完整路径（而不是省略）。
 
 - **brew leaves**: 列出所有顶级包，不包括依赖项的包。
 
 - **brew search TEXT**: 搜索软件，支持`/`的正则匹配
 
-- **brew info PKG_NAME**: 查看 package name 的详细信息
+- **brew info PKG_NAME**: 查看 PKG_NAME 的详细信息
 
 - **brew install PKG_NAME**: 安装软件
 
 - **brew reinstall PKG_NAME**: 重新安装软件
-
-- **brew update**: 更新 Homebrew 库信息
 
 - **brew upgrade PKG_NAME**: 更新软件
 
@@ -343,13 +387,47 @@ xattr -cr /path/to/application.app
 
   删除安装过程中的缓存，会清理掉 Cask 套件
 
-### Services
+#### tap 仓库
+
+- **brew update**: 更新 Homebrew 库信息
+
+- **brew tap REPO_NAME**: 添加第三方仓库
+
+  比如: `brew tap shivammathur/php`，添加 PHP 的第三方仓库，这样就可以安装旧版本的 PHP 了。
+
+  安装时需要加上加上第三方仓库的名称，比如: `brew install shivammathur/php/php@7.4`。
+
+- **brew untap REPO_NAME**: 删除第三方仓库
+
+#### link 软链接
+
+- **brew link PKG_NAME**: 创建软链接
+
+  `brew link` 命令会创建一个软链接，将软件包的安装目录链接到 `/usr/local/opt` 目录下。
+
+  这样，你就可以直接在终端中使用软件包的命令了。
+
+  比如切换 php 版本可以：
+
+  ```bash
+  # 切换到 php@7.4 版本
+  brew unlink php
+  brew link --overwrite --force php@7.4
+
+  # 切换到 php@8.1 版本
+  brew unlink php@7.4
+  brew link --overwrite --force php@8.1
+  ```
+
+- **brew unlink PKG_NAME**: 删除软链接
+
+#### Services
 
 - **brew services list**: 列出所有服务
 
 - **brew services star/stop/restart serviceName**: 启动/停止/重启服务
 
-### Cask
+#### Cask
 
 Cask 是 Homebrew 的扩展，原本的 Homebrew 是管理命令行的，而 Cask 是管理 GUI 桌面软件的部分。
 
@@ -367,7 +445,9 @@ Cask 是 Homebrew 的扩展，原本的 Homebrew 是管理命令行的，而 Cas
 
 - **brew info --cask PKG_NAME**: 查看 package name 的详细信息
 
-### 管理镜像源配置
+### Brew 的使用
+
+#### 管理镜像源配置
 
 **查看当前镜像源**
 
@@ -411,11 +491,100 @@ brew update-reset
 brew update
 ```
 
-### 推荐安装软件
+#### 推荐安装软件
 
 - **neofetch**: 显示系统信息
 
 - **tree**: 以树状图列出目录结构
+
+### Brew 软件使用备注
+
+#### Nginx
+
+- 配置文件在 `/opt/homebrew/etc/nginx/nginx.conf`
+
+- 默认会使用 `8080` 端口
+
+- 推荐开发环境直接用 `nginx` 命令，更轻量，不需要管理服务
+
+  ```bash
+  # 启动
+  nginx
+
+  # 停止
+  nginx -s stop
+
+  # 重启
+  nginx -s reload
+  ```
+
+#### mysql
+
+- 默认情况下不会添加 `mysql` 相关的命令到环境变量中，需要手动添加
+
+  ```bash
+  # Intel Mac
+  export PATH="/usr/local/opt/mysql@8.0/bin:$PATH"
+
+  # Apple Silicon Mac
+  export PATH="/opt/homebrew/opt/mysql@8.0/bin:$PATH"
+
+  # 加载刷新配置
+  source ~/.zshrc
+  ```
+
+- 运行及控制 `mysql` 服务，可以使用以下命令：
+
+  ```bash
+  # 启动（前台运行）
+  mysqld_safe --datadir=/opt/homebrew/var/mysql
+
+  # 后台运行
+  mysql.server start
+
+  # 其它控制（按照需求选择运行，别傻傻的直接使用下列命令）
+  mysql.server stop/restart/reload/status
+  ```
+
+- 安装后默认没有 root 密码，可以运行以下命令去设置：
+
+  ```bash
+  # 先确保启动服务（可选）
+  mysql.server start
+  mysql_secure_installation
+  ```
+
+- 默认情况下，mysql 的数据目录在 `/opt/homebrew/var/mysql`，如果需要更改，可以在 `/opt/homebrew/etc/my.cnf` 中添加 `datadir` 配置。
+
+#### php
+
+- Homebrew 主仓库现在只维护比较新的 PHP 版本，如果要安装旧版本，需要使用第三方仓库。
+
+  社区有人维护历史版本的 PHP，最常见的是 `shivammathur/php tap`，安装方法：
+
+  ```bash
+  brew tap shivammathur/php
+  brew install shivammathur/php/php@7.4
+  # 安装完成后，可以绑定下下 php 的软链接
+  brew link --force shivammathur/php/php@7.4
+  ```
+
+- `php-fpm` 配置文件在 `/opt/homebrew/etc/php/7.4/php-fpm.d/www.conf`
+
+   根据版本不同，路径不同
+
+- 推荐使用 brew 命令来启动管理 `php-fpm` 服务
+
+   ```bash
+   # 启动
+   brew services start php@7.4
+
+   # 停止
+   brew services stop php@7.4
+
+   # 重启
+   brew services restart php@7.4
+   ```
 
 ## 常用软件使用指南
 

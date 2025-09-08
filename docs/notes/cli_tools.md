@@ -73,6 +73,10 @@ ffmpeg -i input.mp4 -ss 00:00:10 -t 00:00:30 -c copy output.mp4
 
 - `-rotate 90`: 旋转图片
 
+- `-flip`: 水平翻转图片
+
+- `-flop`: 垂直翻转图片
+
 - `-quality 80`: 调整图片质量
 
 - `-tile 1x3`: 拼接方式
@@ -114,6 +118,10 @@ _网上很多教程在转换图片时使用的是 `magick convert` 命令，但�
 - `magick input.jpg -resize 800x600 output.jpg`: 调整图片大小（指定尺寸）
 
 - `magick input.jpg -rotate 90 output.jpg`: 旋转图片
+
+- `magick input.jpg -flip output.jpg`: 水平翻转图片
+
+- `magick input.jpg -flop output.jpg`: 垂直翻转图片
 
 - `magick input.jpg -quality 80 output.jpg`: 调整图片质量（0-100）
 

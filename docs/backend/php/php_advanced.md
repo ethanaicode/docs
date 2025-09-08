@@ -26,11 +26,15 @@ title: PHP进阶优化技巧，高效开发Web应用的最佳实践
 
 ### PHP-FPM
 
-- `php-fpm -t`: 检查配置文件是否正确
+- `php-fpm`: 启动 php-fpm（推荐使用 systemctl 启动）
+
+  如果是使用该命令启动的，想要停止，可以使用 `killall php-fpm` 或者 `pkill -o -f "php-fpm: master process"`。
+
+- `php-fpm -/--test`: 检查配置文件是否正确
 
 - `php-fpm -tt`: <u>检查配置文件是否正确</u>，并显示配置文件路径
 
-- `php-fpm -i`: 查看 php-fpm 配置
+- `php-fpm -i/--ini`: 查看 php-fpm 配置
 
 ## PHP 安装
 

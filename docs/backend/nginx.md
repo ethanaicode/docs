@@ -10,6 +10,12 @@ title: Nginx入门指南，轻松搭建高效Web服务器
 
 Nginx 是一个高性能的 HTTP 和反向代理服务器，也是一个 IMAP/POP3/SMTP 代理服务器。
 
+### 安装
+
+通常可以通过包管理器来安装 Nginx，比如在 Ubuntu 上可以使用 `apt` 来安装，这样会自动安装 Nginx 及其依赖项。
+
+我们也可以手动下载源码进行编译安装，具体可以参考[官方文档](http://nginx.org/en/docs/install.html)。
+
 ### 基础命令
 
 - `nginx`: 启动
