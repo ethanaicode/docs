@@ -3317,6 +3317,29 @@ cat ~/.ssh/id_rsa.pub | ssh username@remote_host "mkdir -p ~/.ssh && cat >> ~/.s
 ssh username@remote_host
 ```
 
+**修改 SSH 密钥文件名称**
+
+创建密钥对时，可以输入密钥文件名称，默认为 `id_rsa` 和 `id_rsa.pub`。
+
+如果创建钥匙对时，修改了文件名称，可能会导致部分服务如 `git` 无法使用，因为它们默认使用 `~/.ssh/id_rsa` 作为私钥。
+
+如果需要使用其他名称的私钥，可以在 `~/.ssh/config` 文件中添加以下内容（以 `gitee` 为例）：
+
+```bash
+Host gitee.com
+  HostName gitee.com
+  User git
+  IdentityFile ~/.ssh/gitee_ed25519
+```
+
+### SSH 免密登录
+
+SSH 免密登录是指在登录远程服务器时，不需要输入密码，而是通过公钥和私钥进行身份验证。
+
+#### 生成 SSH 密钥对
+
+```bash
+
 ## 防火墙
 
 ### 使用 ufw 管理防火墙
