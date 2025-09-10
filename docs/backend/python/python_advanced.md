@@ -678,18 +678,18 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 - 创建一个新的虚拟环境:
 
   ```bash
-  python -m venv /path/to/new/virtual/environment
+  python -m venv ./.venv
   ```
 
 - 激活虚拟环境:
 
   ```bash
-  source /path/to/new/virtual/environment/bin/activate
+  source ./.venv/bin/activate
   ```
 
   激活后，命令行提示符会显示虚拟环境的名称。
 
-   `activate` **修改了 `PATH` 变量**，让 shell 知道从 `venv/bin/` 里寻找可执行文件。
+   `activate` **修改了 `PATH` 变量**，让 shell 知道从 `.venv/bin/` 里寻找可执行文件。
 
 - 退出虚拟环境:
 

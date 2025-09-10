@@ -2,49 +2,57 @@
 
 这里收集了一些常用的 Python 模块，以及它们的简单介绍和使用方法。
 
-- **site**: Python 内置的站点配置模块。
+## Python 模块
+
+### 模块索引
+
+- **site**: Python 内置的站点配置模块
 
   可以使用 `python -m site` 命令来查看 Python 的站点配置信息，包括模块搜索路径、用户配置文件等。
 
-- **urllib**: Python 内置的 HTTP 请求库。
+- **urllib**: Python 内置的 HTTP 请求库
 
-- **os**: Python 内置的操作系统接口模块。
+- **os**: Python 内置的操作系统接口模块
 
-- **sys**: Python 内置的系统相关模块。
+- **sys**: Python 内置的系统相关模块
 
-- **platform**: Python 内置的平台信息模块。
+- **platform**: Python 内置的平台信息模块
 
-- **re**: Python 内置的正则表达式模块。
+- **re**: Python 内置的正则表达式模块
 
-- **json**: Python 内置的 JSON 编码和解码模块。
+- **json**: Python 内置的 JSON 编码和解码模块
 
-  `json.dumps` 用于将 Python 对象编码为 JSON 字符串。
+  `json.dumps` 用于将 Python 对象编码为 JSON 字符串
 
-  `json.loads` 用于将 JSON 字符串解码为 Python 对象。
+  `json.loads` 用于将 JSON 字符串解码为 Python 对象
 
-- **subprocess**: Python 内置的子进程模块。
+- **subprocess**: Python 内置的子进程模块
 
-- **threading**: Python 内置的多线程模块。
+- **threading**: Python 内置的多线程模块
 
-- **pdb**: Python 内置的调试器模块。
+- **pdb**: Python 内置的调试器模块
 
-- **gc**: Python 内置的垃圾回收模块。
+- **gc**: Python 内置的垃圾回收模块
 
-- **uuid**: Python 内置的 UUID 生成模块。
+- **uuid**: Python 内置的 UUID 生成模块
 
-- **datetime**: Python 内置的日期和时间模块。
+- **datetime**: Python 内置的日期和时间模块
 
-- **shutil**: Python 内置的文件操作模块。
+- **shutil**: Python 内置的文件操作模块
 
-- **queue**: Python 内置的队列模块。
+- **queue**: Python 内置的队列模块
 
-- **http**: Python 内置的 HTTP 服务器模块。
+- **http**: Python 内置的 HTTP 服务器模块
 
-- **logging**: Python 内置的日志模块。
+- **logging**: Python 内置的日志模块
 
-- **importlib**: Python 内置的模块导入模块。
+- **importlib**: Python 内置的模块导入模块
 
-- **getopt**: Python 内置的命令行参数解析模块。
+- **getopt**: Python 内置的命令行参数解析模块
+
+- **sqlite3**: Python 内置的 SQLite 数据库模块
+
+## 模块使用方法
 
 ### urllib HTTP 请求处理
 
