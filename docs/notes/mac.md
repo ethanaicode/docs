@@ -240,6 +240,10 @@ sudo ln -s ~/bin/lookupwin.sh /usr/local/bin/lookupwin
 chmod +x lookupwin.sh
 ```
 
+### 命令行访问外接硬盘
+
+macOS 会自动把外接硬盘挂载到 `/Volumes` 目录下。你可以先用命令 `ls /Volumes` 查看所有的卷宗。
+
 ### 允许远程电脑访问本机（SSH）
 
 macOS 默认是不开启 SSH 服务的，需要手动开启。开启后可以直接使用 ssh 命令连接。

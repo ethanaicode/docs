@@ -24,6 +24,17 @@ V2 版本为了让 API 更加一致，做了很多破坏性的改动，所以如
 
 ## V2 版本
 
+### V2 版本和 V1 版本命令差异速查
+
+> AI 给的脚本通常是 V1 版本的，所以需要手动修改为 V2 版本
+
+| V1 命令 | V2 命令 | 说明 |
+| --- | --- | --- |
+| `VideoFileClip.subclip` | `VideoFileClip.subclipped` | 加载视频文件 |
+| `VideoFileClip.set_duration` | `VideoFileClip.with_duration` | 设置视频时长 |
+| `ImageClip.set_duration` | `ImageClip.with_duration` | 设置图片时长 |
+| `ImageClip.resize` | `ImageClip.resized` | 设置图片大小 |
+
 ### 快速开始
 
 本节介绍了 MoviePy 适用的场景以及它的工作原理。
