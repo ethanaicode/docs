@@ -7,14 +7,15 @@
 
 | 类别       | 推荐                                                         | 系统    | 费用 | 备注                                                        |
 | ---------- | ------------------------------------------------------------ | ------- | ---- | ----------------------------------------------------------- |
-| 浏览器     | [chrome](https://www.google.cn/chrome/?standalone=1&platform=win64) | Win/Mac | free |                                                             |
-| 视频播放   | [potplay](https://potplayer.daum.net/)                       | Win     | free |                                                             |
-| 图片查看   | [Honeyview · 蜂蜜浏览器](http://cn.bandisoft.com/honeyview/) | Win     |      |                                                             |
+| 浏览器     | [chrome](https://www.google.cn/chrome/?standalone=1&platform=win64) | Win/Mac |      |                                                             |
+| 视频播放   | [potplay](https://potplayer.daum.net/)                       | Win     |      |                                                             |
+| 图片查看   | [Honeyview · 蜂蜜浏览器](http://cn.bandisoft.com/honeyview/) | Win     |      | 现更名为 BandiView，老版本好用                              |
 | 截图工具   | [Snipaste](https://www.snipaste.com/#)                       | Win/Mac |      | [-版本库-](https://bitbucket.org/liule/snipaste/downloads/) |
-| 截图工具   | [Shottr](https://shottr.cc/)                                 | Mac     |      | 功能强大，软件只有 1.7MB                                    |
+| — 截图工具 | [Shottr](https://shottr.cc/)                                 | Mac     |      | 功能强大，软件只有 1.7MB                                    |
 | 压缩解压   | [bandizip](https://www.bandisoft.com/)                       | Win     |      | 6.25+ 收费                                                  |
+| — 压缩解压 | [7-Zip](https://www.7-zip.org/download.html)                 | Win/Mac |      | 多端兼容，支持命令行                                        |
 | 卸载工具   | [Geek Uninstaller](https://geekuninstaller.com/)             | Win     |      |                                                             |
-| 卸载工具   | [AppCleaner](https://freemacsoft.net/appcleaner/)            | Mac     |      |                                                             |
+| — 卸载工具 | [AppCleaner](https://freemacsoft.net/appcleaner/)            | Mac     |      |                                                             |
 | 文本编辑   | [Notepad++](https://notepad-plus-plus.org/downloads/)        | Win     |      |                                                             |
 | MD 编辑器  | [typora](https://www.shejibiji.com/archives/8450)            | Win/Mac |      | 新版本开始收费                                              |
 | 快捷搜索   | [Listary](https://www.listary.com/)                          | Win     |      | 双击 ctrl 搜索右键，方便的右键菜单                          |
@@ -32,7 +33,7 @@
 | 图片上传          | [PicGo](https://github.com/Molunerfinn/PicGo)                | Win/Mac |      |                                                              |
 | 文件对比工具      | [Beyond Compare](https://www.scootersoftware.com/)           | Win     |      |                                                              |
 | 远程控制工具      | [Todesk](https://www.todesk.com/)                            | Win/Mac |      |                                                              |
-| 批量重命名        | [FFRenamePro](http://www.ffhome.com/)                        | Win     |      | [本站介绍](https://www.shejibiji.com/archives/8684)，菲菲更名宝贝 |
+| 批量重命名        | [FFRenamePro](http://www.ffhome.com/)                        | Win     |      | [站内介绍](https://www.shejibiji.com/archives/8684)，菲菲更名宝贝 |
 | GIF 录制编辑      | [ScreenToGif](https://www.screentogif.com/)                  | Win     |      |                                                              |
 | 文件大小分析      | [spacesniffer](http://www.uderzo.it/main_products/space_sniffer/) | Win     |      | 找出硬盘中的大文件                                           |
 | 重复文件搜索工具  | [Duplicate Cleaner](https://www.duplicatecleaner.com/)       | Win     |      |                                                              |
@@ -40,17 +41,17 @@
 | 卡牌学习工具      | [anki](https://anki.link/)                                   | Win/Mac |      |                                                              |
 | 内容组织管理工具  | [mymind](https://mymind.com/)                                | Win/Mac |      | 插件（来自大佬推荐）                                         |
 | 电子书下载-台湾   | [Readmoo](https://readmoo.com/)                              | Win/Mac |      | 网页（来自大佬推荐）                                         |
-| 阅读管理器        | [Readwise Reader](https://readwise.io/read)                  | Win/Mac | free | （来自大佬推荐）                                             |
-| 密码管理器        | [KeePassXC](https://keepassxc.org/)                          | Win/Mac | free | 开源密码管理器，密码存在本地                                 |
+| 阅读管理器        | [Readwise Reader](https://readwise.io/read)                  | Win/Mac |      | （来自大佬推荐）                                             |
+| 密码管理器        | [KeePassXC](https://keepassxc.org/)                          | Win/Mac |      | 开源密码管理器，密码存在本地                                 |
 
 ## 平面设计软件
 
-| 类别         | 推荐                                            | 系统    | 费用 | 备注    |
-| ------------ | ----------------------------------------------- | ------- | ---- | ------- |
-| 矢量图片设计 | [Inkscape](https://inkscape.org/zh-hans/)       | Win/Mac | free | 替代 Ai |
-| 图片处理制作 | [GIMP](https://www.gimp.org/)                   | Win/Mac | free | 替代 PS |
-| 矢量图片设计 | [CorelDRAW](https://www.coreldraw.com/cn/)      | Win/Mac |      |         |
-| 照片管理工具 | [XnViewMP](https://www.xnview.com/en/xnviewmp/) | Win     |      |         |
+| 类别         | 推荐                                            | 系统    | 费用 | 备注              |
+| ------------ | ----------------------------------------------- | ------- | ---- | ----------------- |
+| 矢量图片设计 | [Inkscape](https://inkscape.org/zh-hans/)       | Win/Mac |      | 替代 Ai（并没有） |
+| 图片处理制作 | [GIMP](https://www.gimp.org/)                   | Win/Mac |      | 替代 PS（并没有） |
+| 矢量图片设计 | [CorelDRAW](https://www.coreldraw.com/cn/)      | Win/Mac |      |                   |
+| 照片管理工具 | [XnViewMP](https://www.xnview.com/en/xnviewmp/) | Win     |      |                   |
 
 ## 办公辅助软件
 
@@ -58,7 +59,7 @@
 | ---------- | ---------------------------------------------------------- | ------- | ---- | -------------- |
 | 文档办公   | [Office 365](https://www.office.com/)                      | Win/Mac |      | 年付，可以合买 |
 | ——         | [Office/Win 激活](http://www.yishimei.cn/network/319.html) | Win     |      |                |
-| 办公套件   | [LibreOffice](https://www.libreoffice.org/)                | Win/Mac | free | 替代 Office    |
+| 办公套件   | [LibreOffice](https://www.libreoffice.org/)                | Win/Mac |      | 替代 Office    |
 | 思维导图   | [Xmind](https://www.xmind.net/)                            | Win/Mac |      |                |
 | PDF 阅读器 | [Sumatra PDF](https://www.sumatrapdfreader.org/)           | Win     |      |                |
 | 实时同步   | [坚果云](https://www.jianguoyun.com/)                      | Win/Mac |      |                |
@@ -78,23 +79,23 @@
 
 ## 编程开发工具
 
-| 类别                | 推荐                                                         | 系统    | 费用 | 备注                                                        |
-| ------------------- | ------------------------------------------------------------ | ------- | ---- | ----------------------------------------------------------- |
-| 代码编辑器          | [Visual Studio Code](https://code.visualstudio.com/Download#) | Win/Mac |      |                                                             |
-| Python 环境搭建     | [Python](https://www.python.org/)                            | Win/Mac |      |                                                             |
-| Python 开发工具     | [pycharm](https://www.jetbrains.com/)                        | Win/Mac |      | [[激活]](https://mp.weixin.qq.com/s/aZ4SmMy1IF223-oml8rGJw) |
-| 本地 WEB 开发环境   | [wamp](https://www.wampserver.com/en/)                       | Win     |      | [本站介绍](https://www.shejibiji.com/archives/8523)         |
-| 本地 WEB 开发环境   | [MAMP](https://www.mamp.info/)                               | Mac     |      |                                                             |
-| 数据库 GUI 工具     | ~~[Navicat](https://navicat.com.cn/)~~                       | Win/Mac | 很贵 | [本站介绍](https://www.shejibiji.com/archives/8381)         |
-| 数据库 GUI 工具     | [dbeaver](https://dbeaver.io/)                               | Win/Mac |      | 免费                                                        |
-| 二进制代码反汇编器  | IDA_Pro                                                      | Win     |      |                                                             |
-| JavaScript 环境搭建 | [nodejs](https://nodejs.org/zh-cn/)                          | Win/Mac |      |                                                             |
-| PHP 包管理工具      | [Composer](https://github.com/composer/composer)             | Win/Mac |      |                                                             |
-| 分布式版本控制系统  | GIT                                                          | Win/Mac |      |                                                             |
-| 网络数据包分析器    | [Wireshark](https://www.wireshark.org/)                      | Win/Mac |      |                                                             |
-| 网络数据调试工具    | [Proxyman](https://proxyman.io/)                             | Mac     |      |                                                             |
-| 可执行文件修改器    | [Resource Hacker](https://www.angusj.com/resourcehacker/)    | Win     |      |                                                             |
-| 打包成可执行文件    | [NSIS](https://sourceforge.net/projects/nsis/)               | Win     |      | 可以把软件打包成安装包                                      |
+| 类别                | 推荐                                                         | 系统    | 费用 | 备注                                                         |
+| ------------------- | ------------------------------------------------------------ | ------- | ---- | ------------------------------------------------------------ |
+| 代码编辑器          | [Visual Studio Code](https://code.visualstudio.com/Download#) | Win/Mac |      |                                                              |
+| Python 环境搭建     | [Python](https://www.python.org/)                            | Win/Mac |      |                                                              |
+| Python 开发工具     | [pycharm](https://www.jetbrains.com/)                        | Win/Mac |      | [[激活]](https://mp.weixin.qq.com/s/aZ4SmMy1IF223-oml8rGJw)  |
+| 本地 WEB 开发环境   | [wamp](https://www.wampserver.com/en/)                       | Win     |      | [站内介绍](https://www.shejibiji.com/archives/8523)，可以考虑自己部署，更灵活 |
+| 本地 WEB 开发环境   | [MAMP](https://www.mamp.info/)                               | Mac     |      | 可以考虑自己部署，更灵活                                     |
+| 数据库 GUI 工具     | ~~[Navicat](https://navicat.com.cn/)~~                       | Win/Mac | 很贵 | [站内介绍](https://www.shejibiji.com/archives/8381)          |
+| 数据库 GUI 工具     | [dbeaver](https://dbeaver.io/)                               | Win/Mac |      | 免费                                                         |
+| 二进制代码反汇编器  | IDA_Pro                                                      | Win     |      |                                                              |
+| JavaScript 环境搭建 | [nodejs](https://nodejs.org/zh-cn/)                          | Win/Mac |      |                                                              |
+| PHP 包管理工具      | [Composer](https://github.com/composer/composer)             | Win/Mac |      |                                                              |
+| 分布式版本控制系统  | GIT                                                          | Win/Mac |      |                                                              |
+| 网络数据包分析器    | [Wireshark](https://www.wireshark.org/)                      | Win/Mac |      |                                                              |
+| 网络数据调试工具    | [Proxyman](https://proxyman.io/)                             | Mac     |      |                                                              |
+| 可执行文件修改器    | [Resource Hacker](https://www.angusj.com/resourcehacker/)    | Win     |      |                                                              |
+| 打包成可执行文件    | [NSIS](https://sourceforge.net/projects/nsis/)               | Win     |      | 可以把软件打包成安装包                                       |
 
 ## 系统管理优化
 
@@ -103,7 +104,7 @@
 | 系统清理优化           | ~~[CCleaner](https://www.ccleaner.com/zh-cn)~~               | Win     |      | 226/年/台                        |
 | 硬盘分区及数据恢复软件 | [DiskGenius](https://www.diskgenius.cn/)                     | Win     |      |                                  |
 | 硬盘检测工具           | HD Tune Pro                                                  | Win     |      |                                  |
-| — 硬盘检测工具         | [Victoria](https://hdd.by/victoria/)                         | Win     | free |                                  |
+| — 硬盘检测工具         | [Victoria](https://hdd.by/victoria/)                         | Win     |      |                                  |
 | 多窗口工具             | [Q-Dir](https://www.softwareok.com/?seite=Freeware/Q-Dir)    | Win     |      |                                  |
 | 微软官方系统安装       | [Win11 官方](https://www.microsoft.com/zh-cn/software-download/windows11/) | Win     |      | 创建 Windows 11 安装下载打开即可 |
 | 系统重装维护           | [微 PE 工具箱](https://www.wepe.com.cn/)                     | Win     |      |                                  |
@@ -124,11 +125,11 @@
 
 | 类别               | 推荐                                               | 系统    | 费用 | 备注                  |
 | ------------------ | -------------------------------------------------- | ------- | ---- | --------------------- |
-| 终端工具           | [Xshell](https://www.netsarang.com/en/xshell/)     | Win     | free | 远程登录服务器        |
-| 终端工具           | [Termius](https://termius.com/)                    | Win/Mac | free | 远程登录服务器        |
-| 终端工具           | [iTerm2](https://iterm2.com/)                      | Mac     | free | 开源免费，支持多窗口  |
-| FTP 工具           | [FileZilla](https://filezilla-project.org/)        | Win/Mac | free |                       |
-| SFTP 客户端（Win） | [WinSCP](https://winscp.net/eng/index.php)         | Win     | free | 访问 NAS 目录非常好用 |
+| 终端工具           | [Xshell](https://www.netsarang.com/en/xshell/)     | Win     |      | 远程登录服务器        |
+| — 终端工具         | [Termius](https://termius.com/)                    | Win/Mac |      | 远程登录服务器        |
+| 终端工具           | [iTerm2](https://iterm2.com/)                      | Mac     |      | 开源免费，支持多窗口  |
+| FTP 工具           | [FileZilla](https://filezilla-project.org/)        | Win/Mac |      |                       |
+| SFTP 客户端（Win） | [WinSCP](https://winscp.net/eng/index.php)         | Win     |      | 访问 NAS 目录非常好用 |
 | 本地网络抓包       | [Proxyman](https://proxyman.io/)                   | Mac     |      |                       |
 | 本地抓包工具       | fiddler                                            | Win     |      |                       |
 | 网络诊断工具       | [WinMTR](https://sourceforge.net/projects/winmtr/) | Win     |      | 查看服务器网络情况    |

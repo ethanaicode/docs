@@ -16,6 +16,8 @@
 
 - [Workerman](./php_workerman)
 
+- [WordPress](./php_wordpress)
+
 ## PHP 扩展
 
 - [FPDF](./php_fpdf)

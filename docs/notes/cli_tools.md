@@ -427,19 +427,23 @@ magick input.png -colorspace Gray -fill "#536a49" -tint 100 output.jpg
 
 #### 安装 rclone
 
-如果是 `Linux/macOS/BSD` 系统，可以直接使用脚本安装：
+- 如果是 `Linux/macOS/BSD` 系统，可以直接使用脚本安装：
 
-```bash
-sudo -v ; curl https://rclone.org/install.sh | sudo bash
-```
+  ```bash
+  sudo -v ; curl https://rclone.org/install.sh | sudo bash
+  ```
 
-_执行时会下载 zip 文件（检查脚本可知），速度较慢且没有提示 :(，需要耐心等待下_
+  _执行时会下载 zip 文件（检查脚本可知），速度较慢且没有提示 :(，需要耐心等待下_
 
-如果需要安装 `beta` 版本，可以使用下面的命令：
+- 如果需要安装 `beta` 版本，可以使用下面的命令：
 
-```bash
-sudo -v ; curl https://rclone.org/install.sh | sudo bash -s beta
-```
+  ```bash
+  sudo -v ; curl https://rclone.org/install.sh | sudo bash -s beta
+  ```
+
+- 如果是 `Windows` 系统，可以下载安装包进行安装：
+
+  [rclone downloads](https://rclone.org/downloads/)
 
 #### 配置 rclone
 
@@ -506,6 +510,8 @@ _`r2` 为别名，可以自定义_
   - `rclone sync remote:bucket /path/to/directory`: 同步存储桶到本地目录
 
 - `rclone delete remote:bucket`: 删除存储桶中的文件
+ 
+  - `rclone delete remote:bucket --dry-run`: 查看删除文件列表，不实际删除（强烈推荐）
 
   - `rclone delete remote:bucket/file`: 删除存储桶中的指定文件
 
