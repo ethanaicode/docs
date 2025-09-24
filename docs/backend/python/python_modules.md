@@ -18,6 +18,8 @@
 
 - **platform**: Python 内置的平台信息模块
 
+- **argparse**: Python 内置的命令行参数解析模块
+
 - **re**: Python 内置的正则表达式模块
 
 - **json**: Python 内置的 JSON 编码和解码模块
@@ -92,7 +94,7 @@ print(response.read())
 
   ```python
   from urllib.parse import urlparse, parse_qs
-
+  
   url = 'https://www.example.com/?name=John&age=30'
   # 解析 URL
   parsed_url = urlparse(url)
@@ -205,6 +207,119 @@ Python 内置了一个平台信息模块 `platform`，可以用于获取系统�
 - `platform.win32_ver()`: 获取 Windows 版本信息。
 
   返回一个元组，包含 Windows 版本号、版本名称和服务包信息。如 `('10', '10.0.19041', 'SP0')`.
+
+### argparse 命令行参数解析
+
+`argparse` 是 Python 内置的命令行参数解析库，用于让程序支持命令行调用时传入参数。
+
+它可以自动生成帮助文档 (`-h/--help`)，支持多种参数类型（必选、可选、布尔开关等），自动进行类型检查和错误提示。
+
+**主要方法**
+
+- `argparse.ArgumentParser()`: 创建解析器对象。
+
+- `parser.add_argument()`: <u>添加命令行参数</u>及其选项。
+
+- `parser.parse_args()`: <u>解析命令行参数</u>，返回 `Namespace` 对象。
+
+- `parser.print_help()`: 打印帮助信息。
+
+- `parser.set_defaults()`: 设置参数的默认值。
+
+- `parser.add_subparsers()`: 添加子命令解析器（适合多命令工具，如 git 的子命令）。
+
+- `parser.error()`: 在解析出错时输出自定义错误信息。
+
+**常见参数选项**
+
+在添加命令行参数时，支持多个选项，包括：
+
+- `name or flags`: 参数名称，如 `"input"` 或 `"-i", "--input"`。
+
+- `help`: 参数说明，会显示在 `--help` 中。
+
+- `default`: 设置默认值。
+
+- `required`: 是否必须传入（通常用于可选参数）。
+
+- `type`: 指定参数类型（如 `int`, `float`, `str`）。
+
+- `choices`: 限定参数取值范围。
+
+- `nargs`: 指定参数接收的数量（如 `"?"`, `"*"`, `"+"`, 或整数）。
+
+- `action`: 定义参数行为，常见有：
+  - `store`: 默认，存储值。
+  - `store_true`: 出现参数时为 `True`。
+  - `store_false`: 出现参数时为 `False`。
+  - `append`: 多次使用时将值追加到列表。
+
+**使用案例**
+
+1. 带可选参数
+
+   ```python
+   parser = argparse.ArgumentParser(description="批量处理文件")
+   parser.add_argument("filename", help="要处理的文件")
+   parser.add_argument("-o", "--output", default="result.txt", help="输出文件")
+   args = parser.parse_args()
+   
+   print(f"输入文件: {args.filename}, 输出文件: {args.output}")
+   
+   # python script.py data.txt --output processed.txt
+   ```
+
+2. 使用布尔开关
+
+   ```python
+   parser = argparse.ArgumentParser()
+   parser.add_argument("--debug", action="store_true", help="是否启用调试模式")
+   args = parser.parse_args()
+   
+   if args.debug:
+       print("调试模式已开启")
+       
+   # python script.py --debug
+   ```
+
+3. 多个值 (nargs)
+
+   ```python
+   parser = argparse.ArgumentParser()
+   parser.add_argument("numbers", nargs="+", type=int, help="一组整数")
+   args = parser.parse_args()
+   
+   print(sum(args.numbers))
+   
+   # python script.py 1 2 3 4
+   ```
+
+4. 子命令
+
+   ```python
+   parser = argparse.ArgumentParser()
+   subparsers = parser.add_subparsers(dest="command")
+   
+   # 子命令 add
+   parser_add = subparsers.add_parser("add")
+   parser_add.add_argument("x", type=int)
+   parser_add.add_argument("y", type=int)
+   
+   # 子命令 sub
+   parser_sub = subparsers.add_parser("sub")
+   parser_sub.add_argument("x", type=int)
+   parser_sub.add_argument("y", type=int)
+   
+   args = parser.parse_args()
+   
+   if args.command == "add":
+       print(args.x + args.y)
+   elif args.command == "sub":
+       print(args.x - args.y)
+   
+   # python script.py add 3 5   # 输出 8
+   # python script.py sub 9 4   # 输出 5
+   ```
 
 ### re 正则表达式
 
