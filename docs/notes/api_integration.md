@@ -279,11 +279,13 @@ sudo tail -n 50 /opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.lo
 
 #### 开启跨域资源共享
 
-在 CDN 控制台 --> 域名管理 --> 目标域名 --> 缓存配置 --> 节点 HTTP 相应头 --> 添加:
+在 CDN 控制台 --> 域名管理 --> 选择域名 --> 缓存配置 --> 修改出站响应头 --> 添加:
 
 - `Access-Control-Allow-Origin`: \* (或者指定域名)
 
 - `Access-Control-Allow-Methods`: GET, POST, PUT, DELETE, OPTIONS
+
+即可允许跨域请求。
 
 ### 短信服务
 

@@ -642,6 +642,8 @@ iTerm2 是一个替代 Terminal 的终端工具，功能更加强大。
 
 - **Command + Shift + Enter** = 切换当前窗口全屏
 
+- **Command + Shift + O** = 打开快速搜索
+
 #### 设置
 
 > 参考文档: [iTerm2 官方文档](https://iterm2.com/3.0/documentation-preferences.html)
