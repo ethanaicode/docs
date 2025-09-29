@@ -429,7 +429,11 @@ xattr -cr /path/to/application.app
 
 - **brew services list**: 列出所有服务
 
-- **brew services star/stop/restart serviceName**: 启动/停止/重启服务
+- **brew services start/stop/restart serviceName**: 启动/停止/重启服务
+
+  注意：这里的 `start` 表示运行并设置开机自启，`stop`，则停止并取消开机启动。
+
+- **brew services run serviceName**: 运行服务（仅在当前用户 session 中运行）
 
 #### Cask
 
@@ -509,7 +513,9 @@ brew update
 
 - 默认会使用 `8080` 端口，可以修改配置文件，使用 `80` 端口
 
-- 推荐开发环境直接用 `nginx` 命令，更轻量，不需要管理服务
+- ~~推荐开发环境直接用 `nginx` 命令，更轻量，不需要管理服务~~
+
+  还是 brew 直接管理服务香 :)
 
   ```bash
   # 启动
@@ -575,20 +581,20 @@ brew update
 
 - `php-fpm` 配置文件在 `/opt/homebrew/etc/php/7.4/php-fpm.d/www.conf`
 
-   根据版本不同，路径不同
+  根据版本不同，路径不同
 
 - 推荐使用 brew 命令来启动管理 `php-fpm` 服务
 
-   ```bash
-   # 启动
-   brew services start php@7.4
+  ```bash
+  # 启动
+  brew services start php@7.4
 
-   # 停止
-   brew services stop php@7.4
+  # 停止
+  brew services stop php@7.4
 
-   # 重启
-   brew services restart php@7.4
-   ```
+  # 重启
+  brew services restart php@7.4
+  ```
 
 ## 常用软件使用指南
 
