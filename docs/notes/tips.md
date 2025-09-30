@@ -105,9 +105,9 @@ def singleNumber(nums):
 
   请求 json 数据接口示例：`https://whois.pconline.com.cn/ipJson.jsp?json=true&ip=106.53.15.108`
 
-- [IPinfo](https://ipinfo.io/): 免费版不限次数，只返回简单信息
+- [IPinfo](https://ipinfo.io/): 免费版不限次数，只返回简单信息，<u>在命令行中很实用</u>
 
-  请求数据接口示例：`https://ipinfo.io/8.8.8.8`
+  请求数据接口示例：`curl https://ipinfo.io/8.8.8.8`
 
 - [ip-api](https://ip-api.com/): 免费版不限次数，但有限制（每分钟最多 45 次），返回格式简单
 
