@@ -58,6 +58,12 @@ title: 最常用的Python第三方库包大全，以及它们的简单介绍和�
 
 - **Selenium-Wire**: Selenium 的扩展，用于拦截和修改 HTTP 请求和响应
 
+   安装时遇到问题及解决方法：
+
+   - `No module named pkg_resources`: `pip install setuptools`
+
+   - `No module named 'blinker._saferef'`: `pip install blinker==1.7.0`
+
 - **BeautifulSoup**: 用于解析 HTML 和 XML 的 Python 库 [--> 站内链接](./python_beautifulsoup)
 
 ### 图像视频处理
