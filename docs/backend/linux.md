@@ -1762,6 +1762,8 @@ unzip archive.zip -d /path/to/extract
 
 #### 解压缩命令 7z
 
+MacOS 上可以使用 `brew install p7zip` 安装 7z 工具。
+
 **基本语法**
 
 ```bash
