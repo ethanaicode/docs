@@ -1232,15 +1232,28 @@ Linux example.com 5.4.0-65-generic #73-Ubuntu SMP Mon Jan 18 17:25:17 UTC 2021 x
 
 - `-e`: 多次替换。
 
-#### 示例-批量替换多个文件中的文本
+#### 实用案例
 
 ```bash
-find /path/to/files -type f -name "*.conf" -exec sed -i.bak 's|/www/server/panel/vhost/|/www/vhost/|g' {} +
+# 想先预览不直接修改
+find /path/to/files -type f -name "*.conf" -exec grep -Hn "https://old.example.com/" {} +
+
+# 生成备份文件并替换文本(推荐)
+find /path/to/files -type f -name "*.conf" -exec sed -i.bak 's#https://old.example.com/#https://new.example.com/#g' {} +
+# 这会生成同名的 .bak 备份文件
+# 一键还原 .bak 备份文件
+find /path/to/files -type f -name "*.bak" -exec sh -c 'mv -f "$1" "${1%.bak}"' _ {} \;
 ```
 
-- `exec ... {} +`: 表示将多个文件作为参数传递给 `sed` 命令。
+- `_ {}`: 惯用写法，表示将文件名作为参数传递给命令，`_` 是一个占位符（可以是任意名称），`{}` 是 `find` 当前匹配的文件路径
 
-- `s|old|new|g`: 表示将 `old` 替换为 `new`。
+- `-exec ... {} +`: 表示将多个文件作为参数一次性传给命令
+
+- `-exec ... {} \`: 表示对每个文件执行命令，每找到一次就执行一次
+
+- `'mv -f "$1" "${1%.bak}"'`: 中的 `${变量%模式}` 是 shell 的字符串操作，表示从 **变量的结尾** 开始，删除 **匹配模式** 的最短部分。
+
+  `%%` 表示删除最长的匹配模式，在本案例中，`.bak` 只有一个，则没有区别
 
 ### 使用 awk 处理文本数据
 
