@@ -3329,7 +3329,7 @@ sudo vim /etc/ssh/sshd_config
 Port 2222
 ```
 
-### SSH 客服端配置
+### SSH 客户端配置
 
 SSH 配置文件通常位于 `~/.ssh/config`，如果不存在，可以手动创建。
 
@@ -3357,9 +3357,7 @@ Host myserver
 
 - `IdentityFile`: 指定私钥文件(可选)。
 
-  如果是密码登录，这一项可以省略，登录时会提示输入密码。
-
-  如果使用密码登录，要求服务端配置文件中 `PasswordAuthentication` 为 `yes`。
+  如果是密码登录，这一项可以省略，登录时会提示输入密码。需要注意的是，允许使用密码登录，需要服务端配置文件中 `PasswordAuthentication` 为 `yes`。
 
 #### 更多配置项
 
