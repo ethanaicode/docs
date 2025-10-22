@@ -3624,6 +3624,47 @@ sudo ufw app info Squid
 
 **注意**: 设置时区后，MySQL 等服务不一定会自动更新时区，需要重启服务才能生效。
 
+## GNU gettext 工具集
+
+`gettext` 是 GNU 软件包中的一个工具集，用于处理多语言支持。它包括 `gettext`、`msgfmt`、`msgmerge`、`msginit`、`msgunfmt`、`ngettext`、`xgettext` 等命令。
+
+### gettext
+
+`gettext` 是一个用于处理多语言支持的命令行工具，可以用来提取程序中的字符串，并生成 `.po` 文件。
+
+例如：
+
+```bash
+xgettext -o messages.po myprogram.c
+```
+
+### msgfmt/msgunfmt
+
+`msgfmt` 和 `msgunfmt` 是 GNU gettext 工具集中的两个命令，专门用于处理 `.po` 与 `.mo` 文件，也就是本地化（国际化）翻译文件的格式转换。
+
+例如：
+
+```bash
+# 反编译成可读文本
+msgunfmt redux-framework.mo -o redux-framework.po
+# 重新编译成机器可读格式 
+msgfmt redux-framework.po -o redux-framework.mo
+```
+
+## Apache HTTPD 工具集
+
+`apache2-utils` 是一个包含 Apache HTTPD 服务器工具的软件包，其中包含了一些用于管理 Apache HTTPD 服务器的命令行工具。
+
+### htpasswd
+
+`htpasswd` 是一个用于创建和管理存储用户名和加密密码文件的工具。
+
+- `htpasswd -c /etc/nginx/.htpasswd username`: 创建一个新文件并添加用户
+
+- `htpasswd /etc/nginx/.htpasswd username`: 添加一个新的用户
+
+- `htpasswd -cs /etc/nginx/.htpasswd username`: 创建一个新文件并添加用户（使用 SHA 加密）
+
 ## 第三方工具
 
 ### 网络监控
@@ -3717,15 +3758,3 @@ tcpdump -i lo0 -X 'tcp port 8080'
 - `supervisorctl reread`: 重新读取配置文件
 
 - `supervisorctl update`: 更新配置文件
-
-### 工具集
-
-#### htpasswd
-
-`htpasswd` 是一个用于创建和管理存储用户名和加密密码文件的工具。
-
-- `htpasswd -c /etc/nginx/.htpasswd username`: 创建一个新文件并添加用户
-
-- `htpasswd /etc/nginx/.htpasswd username`: 添加一个新的用户
-
-- `htpasswd -cs /etc/nginx/.htpasswd username`: 创建一个新文件并添加用户（使用 SHA 加密）
