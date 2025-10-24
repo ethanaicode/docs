@@ -21,6 +21,8 @@ date: 2024-12-31 17:19:52
 
   首先生成没有样式的 html 文件，然后利用这个工具把样式添加进去，以方便在公众号或者浏览器中查看使用
 
+  作者也做了一个在线工具：[Markdown to 公众号](https://mp.knb.im/)
+
 - [Wechat Markdown Editor](https://github.com/doocs/md): 一款高度简洁的微信 Markdown 编辑器
 
   主要是方便微信公众号排版，支持一键复制到微信公众号编辑器

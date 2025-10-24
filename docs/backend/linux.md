@@ -22,7 +22,7 @@
 
   - `@` 符号链接文件（symbolic link）
 
-     **注意**：在 MacOS 中，`@` 表示包含额外属性的文件，`*` 表示可执行文件
+    **注意**：在 MacOS 中，`@` 表示包含额外属性的文件，`*` 表示可执行文件
 
   - `*` 可执行文件（executable）
 
@@ -1631,7 +1631,7 @@ _有时候空间并不会立刻释放出来，所以考虑重启服务或者服�
 
 - `gunzip -c`: 查看压缩文件内容（可以不解压直接查看，支持 gzip 压缩）
 
-#### 解压缩命令 tar 
+#### 解压缩命令 tar
 
 **常用参数**
 
@@ -1814,7 +1814,7 @@ MacOS 上可以使用 `brew install p7zip` 安装 7z 工具。
 
 - `-mx=9` 压缩等级（0–9）
 
-   如果设置为0，则不压缩，只归档。
+  如果设置为 0，则不压缩，只归档。
 
 - `-mmt=on` 启用多线程
 
@@ -1866,33 +1866,27 @@ MacOS 上可以使用 `brew install p7zip` 安装 7z 工具。
 7z l archive.7z
 ```
 
-### 查找文件（find, locate）
+### 查找文件并操作（find, locate）
 
-**查找文件/文件夹并进行排序**
-
-可以结合 `find` 和 `sort` 实现
-
-- 通过文件名查找文件并按照名称排序
+#### find 实用案例
 
 ```bash
+# 批量修改文件名
+find ./ -type f -name "*.7z" -exec sh -c 'f="$1"; mv -f "$f" "${f%.7z}.7z1"' _ {} \;
+
+# 查找文件并排序
 find . -name "*.service" -maxdepth 1 -type f | sort
-```
 
-- 查找文件并按照文件大小排序
-
-```bash
+# 查找文件并按照文件大小排序
 find . -type f -exec ls -l {} + | sort -k 5n
-```
-
-这个命令会先使用 `find` 命令找到所有文件，然后通过 `ls -l` 命令获取它们的详细信息，并通过管道将结果传递给 `sort` 命令。`sort -k 5n` 会按照第五列（文件大小）进行数字排序。
-
-你也可以直接在 `find` 命令中使用 `-exec` 选项和 `-printf` 来获取文件的大小信息，然后再排序。例如:
-
-```bash
+# 或者
 find . -type f -printf "%s %p\n" | sort -n
+
+# 查找文件并随机选择一个
+find . -type f | shuf -n 1
 ```
 
-**locate**
+#### locate
 
 它是直接从预先构建好的数据库中进行搜索，而不是像 `find` 命令一样实时遍历文件系统，可以实现更快搜索。
 
@@ -1905,14 +1899,6 @@ find . -type f -printf "%s %p\n" | sort -n
 ```bash
 locate filename
 ```
-
-**查找文件并随机选择一个**
-
-```bash
-find . -type f | shuf -n 1
-```
-
-- `shuf` 命令用于随机排序输入行，`-n 1` 用于显示一个随机行。
 
 ### 远程复制文件（scp）
 
@@ -3426,14 +3412,6 @@ Host gitee.com
   IdentityFile ~/.ssh/gitee_ed25519
 ```
 
-### SSH 免密登录
-
-SSH 免密登录是指在登录远程服务器时，不需要输入密码，而是通过公钥和私钥进行身份验证。
-
-#### 生成 SSH 密钥对
-
-```bash
-
 ## 防火墙
 
 ### 使用 ufw 管理防火墙
@@ -3645,7 +3623,7 @@ xgettext -o messages.po myprogram.c
 ```bash
 # 反编译成可读文本
 msgunfmt redux-framework.mo -o redux-framework.po
-# 重新编译成机器可读格式 
+# 重新编译成机器可读格式
 msgfmt redux-framework.po -o redux-framework.mo
 ```
 
