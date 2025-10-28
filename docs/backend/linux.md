@@ -2879,13 +2879,18 @@ curl [options] [URL]
 
 - `-A "Xenu Link Sleuth/1.3.8"` 设置 User-Agent
 
-下面是使用 `cURL` 下载文件的一些常见用法:
+常见使用案例:
 
-- `curl -f -SOJL https://example.com/file`: 下载文件并保持原始文件名
+```bash
+# 下载文件并保持原始文件名
+curl -f -SOJL https://example.com/file
 
-- `curl -I -X POST https://example.com`: 发送 POST 请求并只显示响应头
+# 发送 POST 请求并只显示响应头
+curl -I -X POST https://example.com
 
-- `curl -sSf https://example.com`: 快速检查网站是否可用
+# 快速检查网站是否可用
+curl -sSf https://example.com
+```
 
 > [!Warning]
 >
@@ -2920,6 +2925,28 @@ wget [options] [URL]
 - `-i`: 从文件中读取下载地址（后面跟文件，里面都是 url，以行分割）
 
 - `-r`: 递归下载
+
+常见使用案例:
+
+```bash
+# 下载文件并指定文件名
+wget -O filename https://example.com/file
+
+# 下载文件并指定保存目录
+wget -P /path/to/dir https://example.com/file
+
+# 下载多个文件
+wget -i filelist.txt
+
+# 完整备份一个网站供离线查看
+wget -r -p -k -np https://example.com
+```
+
+- `-p`（page requisites）下载网页显示所需的所有资源（图片、CSS、JS）
+
+- `-k`（convert links）把网页中的链接改为本地相对路径，使离线浏览更方便
+
+- `-np`（no parent）防止回到上级目录，只下载目标网站内的内容
 
 ### 多线程下载
 
