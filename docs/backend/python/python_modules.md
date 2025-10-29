@@ -250,7 +250,7 @@ Python 内置了一个平台信息模块 `platform`，可以用于获取系统�
 
 - `action`: 定义参数行为，常见有：
   - `store`: 默认，存储值。
-  - `store_true`: 出现参数时为 `True`。
+  - `store_true`: <u>出现参数时为 `True` </u>。
   - `store_false`: 出现参数时为 `False`。
   - `append`: 多次使用时将值追加到列表。
 
