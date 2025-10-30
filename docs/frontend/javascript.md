@@ -362,6 +362,18 @@ _视频号的管理后台 --> 达人广场界面的内容，都是通过 Shadow 
 
 > 完整的列表可以参考：[MDN 文档](https://developer.mozilla.org/en-US/docs/Web/API)
 
+### Event
+
+#### target
+
+`event.target` 属性返回触发事件的元素。
+
+```js
+document.addEventListener("click", (event) => {
+  console.log(event.target); // 输出被点击的元素
+});
+```
+
 ### Window
 
 `Window` 接口代表一个包含 DOM 文档的窗口。document 属性指向窗口中载入的 `Document` 对象。

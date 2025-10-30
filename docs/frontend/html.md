@@ -107,6 +107,56 @@ HTML 标签有语义化的作用，可以让浏览器和搜索引擎更好地理
 
   适用于 DOM 操作的脚本，如事件绑定、元素操作等。
 
+## 元素及属性
+
+### HTML data-* 属性
+
+HTML5 引入了 `data-*` 属性，允许在 HTML 元素中嵌入自定义数据属性。它的作用是——**让你在元素上安全地存储自定义数据**，并能在 JavaScript 里方便读取。
+
+`data-` 后面名字可以自定义，但只能包含小写字母、数字、`-` 。访问时 JS 会自动把 `data-action-type` 转换为 `dataset.actionType`（中划线转驼峰）。
+
+每个元素在 JS 中都可以通过 `.dataset` 访问所有 `data-*` 属性，例如：
+
+```js
+const btn = document.querySelector("button");
+
+console.log(btn.dataset.id);       // "123"
+console.log(btn.dataset.action);   // "download"
+
+// 也可以动态设置
+btn.dataset.action = "share";
+```
+
+为什么推荐使用：
+
+- 不污染 class，用来区分样式；
+- 不依赖 id（避免冲突）；
+- 更语义化、清晰可扩展；
+- 可方便地在 JS 中区分逻辑行为。
+
+示例：
+
+```html
+<button data-action="download">下载</button>
+<button data-action="share">分享</button>
+<button data-action="like">点赞</button>
+```
+
+之后统一监听：
+
+```js
+document.addEventListener("click", (e) => {
+    const el = e.target.closest("[data-action]");
+    if (!el) return;
+
+    switch (el.dataset.action) {
+        case "download": return downloadFile();
+        case "share": return sharePost();
+        case "like": return likePost();
+    }
+});
+```
+
 ## HTML 图形
 
 HTML 有多种方式来绘制图形，包括使用 SVG、Canvas 和 CSS，另外有些 JavaScript 库也可以用来绘制图表，如 D3.js、Chart.js 等。
