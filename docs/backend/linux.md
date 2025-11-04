@@ -2498,27 +2498,32 @@ crontab 是用来让使用者在固定时间或固定间隔执行程序之用，
 
 #### 使用示例
 
-- `* * * * * /path/to/script.sh`: 每分钟执行脚本
-
-- `*/30 * * * * /path/to/script.sh`: 每隔 30 分钟执行脚本
-
-- `0 * * * * /path/to/script.sh`: 每小时执行脚本
-
-- `0 3 * * * /path/to/script.sh`: 每天凌晨 3 点执行脚本
-
-- `0 */3 * * * /path/to/script.sh`: 每隔 3 小时执行脚本
-
-- `0 2 * * 1 /path/to/clean_logs.sh`: 每周一凌晨 2 点执行清理日志脚本
-
-- `0 2 1 * * /path/to/script.sh`: 每月 1 号凌晨 2 点执行脚本
-
-- `30 21 * * 1,3,5 /path/to/script.sh`: 每周一、三、五晚上 9 点 30 分执行脚本
-
-- `0 9-18 * * * /path/to/script.sh`: 从早上 9 点到下午 6 点，凡遇到整点就执行
-
-- `@reboot /path/to/script.sh`: 系统启动时执行脚本
-
-- `@daily /path/to/script.sh`: 每天执行脚本
+```bash
+# 每分钟执行脚本
+* * * * * /path/to/script.sh
+# 每分钟执行脚本，并将输出和错误日志追加到指定文件
+* * * * * /path/to/script.sh >> /var/log/tasks.log 2>&1
+# 每隔 30 分钟执行脚本
+*/30 * * * * /path/to/script.sh
+# 每小时执行脚本
+0 * * * * /path/to/script.sh
+# 每天凌晨 3 点执行脚本
+0 3 * * * /path/to/script.sh
+# 每隔 3 小时执行脚本
+0 */3 * * * /path/to/script.sh
+# 每周一凌晨 2 点执行清理日志脚本
+0 2 * * 1 /path/to/clean_logs.sh
+# 每月 1 号凌晨 2 点执行脚本
+0 2 1 * * /path/to/script.sh
+# 每周一、三、五晚上 9 点 30 分执行脚本
+30 21 * * 1,3,5 /path/to/script.sh
+# 从早上 9 点到下午 6 点，凡遇到整点就执行
+0 9-18 * * * /path/to/script.sh
+# 系统启动时执行脚本
+@reboot /path/to/script.sh
+# 每天执行脚本
+@daily /path/to/script.sh
+```
 
 ### logrotate 日志文件管理
 
@@ -2718,7 +2723,6 @@ awk '{sum += $10} END {
 **统计今日流量消耗前 20 的 IP 地址**
 
 ```bash
-
 awk '{print $1, $10}' /var/log/nginx/access.log | \
 awk '{a[$1]+=$2} END {for (i in a) print i, a[i]}' | \
 sort -nrk2 | head -20 | \
