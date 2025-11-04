@@ -2270,7 +2270,7 @@ systemd 是一个 init 系统和系统管理守护进程，用于启动、停止
 
 `systemctl` 是一个 Linux 系统中用于管理 systemd 服务的命令行工具。
 
-**systemd 服务文件**
+**systemd 服务配置文件**
 
 - `/etc/systemd/system/*.service`: 系统服务目录
 
@@ -2306,7 +2306,19 @@ WantedBy=multi-user.target
 
 - `[Service]` 部分包含了服务的类型、启动命令、重载命令、私有临时目录和 PID 文件。
 
-  - `Type=simple` 表示服务是一个简单的进程。
+  - `Type=simple` 表示服务类型，还可以设置为 `forking`、`oneshot`、`dbus`、`notify` 或 `idle`。
+
+    `simple` 是最常用的类型，表示服务是一个简单的进程
+
+    `forking` 适用于那些会在启动时分叉出子进程的服务，比如传统的守护进程
+
+    `oneshot` 只运行一次的任务，比如初始化脚本
+
+    `dbus` 适用于那些通过 D-Bus 进行通信的服务
+
+    `notify` 适用于那些可以向 systemd 发送通知的服务
+
+    `idle` 适用于那些在空闲时运行的服务
 
   - `ExecStart` 是服务的启动命令。
 
@@ -2366,7 +2378,7 @@ systemctl daemon-reload
 
 - `systemctl list-dependencies <SERVICE_NAME>`: 查看服务的依赖关系
 
-- `systemctl cat <SERVICE_NAME>`: 查看服务的配置文件
+- `systemctl cat <SERVICE_NAME>`: <u>查看服务的配置文件</u>
 
 - `systemctl edit <SERVICE_NAME>`: 编辑服务的配置文件
 
@@ -2419,6 +2431,72 @@ systemctl daemon-reload
 
 - Memcached: memcached
 
+### systemd timer 定时任务单元
+
+`systemd timer` 本质上是 **systemd 的“定时任务单元（unit）”**，和 cron 类似，但功能更强、管理更统一。
+
+每一个定时任务由 **两个文件**组成：
+
+| 类型       | 文件后缀           | 作用                   |
+| ---------- | ------------------ | ---------------------- |
+| `.timer`   | 定义触发时间、频率 | 比如 `certbot.timer`   |
+| `.service` | 定义要执行的动作   | 比如 `certbot.service` |
+
+`timer` 定时触发对应的 `service`。
+ 举例：`certbot.timer` → 启动 `certbot.service`。
+
+**systemd 的配置分为三层（从高优先级到低）**
+
+| 目录路径                                             | 说明                                    |
+| ---------------------------------------------------- | --------------------------------------- |
+| `/etc/systemd/system/`                               | 用户或管理员自定义的 unit（最高优先级） |
+| `/run/systemd/system/`                               | 系统运行时生成的 unit（临时）           |
+| `/usr/lib/systemd/system/` 或 `/lib/systemd/system/` | 软件包默认安装的 unit（原始定义）       |
+
+#### systemctl 常用命令
+
+- `systemctl list-timers`: 列出所有定时任务
+
+- `systemctl cat <SERVICE_NAME>.timer`: 查看定时任务配置文件
+
+#### Certbot 的典型 Timer 定义
+
+```bash
+# /lib/systemd/system/certbot.timer
+[Unit]
+Description=Run certbot twice daily
+
+[Timer]
+OnCalendar=*-*-* 00,12:00:00
+RandomizedDelaySec=43200
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+```
+
+对应的 service：
+
+```bash
+# /lib/systemd/system/certbot.service
+[Unit]
+Description=Certbot
+Documentation=file:///usr/share/doc/python-certbot-doc/html/index.html
+Documentation=https://certbot.eff.org/docs
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/certbot -q renew --no-random-sleep-on-renew
+PrivateTmp=true
+```
+
+启用它：
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable certbot.timer
+sudo systemctl start certbot.timer
+```
+
 ### crontab 定时任务
 
 crontab 是用来让使用者在固定时间或固定间隔执行程序之用，可以用于定期备份文件、清理日志、定时运行脚本等。
@@ -2450,6 +2528,15 @@ crontab 是用来让使用者在固定时间或固定间隔执行程序之用，
   - `systemctl status crond` (CentOS6)
 
   - `systemctl status cron` (CentOS7+)
+
+- 可以使用下面命令来查看所有用户的定时任务（最全）：
+
+  ```bash
+  for user in $(cut -f1 -d: /etc/passwd); do
+      echo "==== user: $u ===="
+      sudo crontab -l -u "$u" 2>/dev/null || echo "(no crontab or no permission)"
+  done
+  ```
 
 #### crontab 基础命令
 
@@ -3205,6 +3292,25 @@ sudo certbot certonly \
 
 - `--quiet`: 静默模式，不输出冗余信息
 
+#### 定时任务自动续期证书
+
+Certbot 安装后<u>通常会自动添加一个 systemd 定时任务</u>，你可以使用以下命令查看：
+
+```bash
+systemctl list-timers | grep certbot
+```
+
+如果希望临时禁止自动更新，可以使用以下命令：
+
+```bash
+# 禁用 systemd timer（阻止自动触发）
+sudo systemctl stop certbot.timer
+sudo systemctl disable certbot.timer
+
+# 或移除 /etc/cron.d 中的 certbot 条目（编辑删除）
+sudo vim /etc/cron.d/certbot
+```
+
 #### 管理证书命令
 
 - `certbot certificates`: <u>查看所有证书</u>，包括证书的域名、有效期等信息
@@ -3223,19 +3329,9 @@ sudo certbot certonly \
 
 - `certbot delete --cert-name example.com`: 删除证书
 
-  _也可以直接删除 `/path/to/live/example.com` 目录和 `/path/to/renewal/example.com.conf` 文件来实现_
+  _也可以直接删除 `/etc/letsencrypt/live/example.com` 目录和 `/etc/letsencrypt/renewal/example.com.conf` 文件来实现_
 
 **注意**: 如果通过 `--config-dir` 指定了配置目录，在管理时需要加上 `--config-dir` 参数来指定配置目录，否则会默认使用 `/etc/letsencrypt` 目录。
-
-#### 定时任务自动续期证书
-
-Certbot 安装后通常会自动添加一个 systemd 定时任务，你可以使用以下命令查看：
-
-```bash
-systemctl list-timers | grep certbot
-```
-
-你可以通过查看服务状态来查看定时任务的执行情况：`systemctl status certbot.timer`
 
 #### 管理账号命令
 
@@ -3263,9 +3359,9 @@ systemctl list-timers | grep certbot
 
 Certbot 会记录详细的错误信息，检查日志可以帮助排查问题，错误日志通常位于 `/var/log/letsencrypt/letsencrypt.log`。
 
-**some challenges have failed.**
+- **some challenges have failed.**
 
-这个错误通常是由于 Let's Encrypt 无法访问到验证文件，可能是访问路径不对，或者是权限问题。
+  这个错误通常是由于 Let's Encrypt 无法访问到验证文件，可能是访问路径不对，或者是权限问题。
 
 ## SSH 连接
 
