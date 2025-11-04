@@ -4,6 +4,10 @@
 >
 > https://github.com/PHPOffice/PHPWord
 
+## 简介
+
+`PHPWord` 是一个 **由 PHP 编写的开源库**，主要用于 **创建、读取和修改 Microsoft Word 文档（.docx、.doc）**。它是 [PHPOffice](https://github.com/PHPOffice) 项目的一部分，和 `PhpSpreadsheet`、`PHPPresentation` 属于同系列文档处理库。
+
 ## IOFactory 工厂
 
 ## HTML
