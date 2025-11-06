@@ -207,12 +207,6 @@ date: 2024-12-31 17:19:52
 
   官网：[www.paopao.info](https://www.paopao.info/#/)
 
-- [sink](https://github.com/ccbikai/sink): 链接缩短服务
-
-  一个简单快速并支持分析的链接缩短服务，完全运行在 Cloudflare 上
-
-  案例：[sink.cool](https://sink.cool/) | [zapro](https://zps.im/)
-
 - [Fake-images-please](https://github.com/Rydgel/Fake-images-please): 生成占位图片的网站
 
   一个生成占位图片的网站，支持自定义图片大小、背景颜色、文字等
@@ -226,6 +220,26 @@ date: 2024-12-31 17:19:52
   案例：[readme-typing-svg](https://readme-typing-svg.demolab.com/demo/)
 
 - [kamiFaka](https://github.com/Baiyuetribe/kamiFaka): 一款基于 VUE3.0 的高颜值卡密发卡系统
+
+#### 短链接
+
+- [sink](https://github.com/ccbikai/sink): CF 短链接服务
+
+  一个简单快速并支持分析的链接缩短服务，完全运行在 Cloudflare 上
+
+  案例：[sink.cool](https://sink.cool/) | [zapro](https://zps.im/)
+
+- [dub](https://github.com/dubinc/dub): Node 短链接服务
+
+  Dub 是现代开源链接溯源平台，提供短链接、转化追踪和联盟营销计划服务。
+
+  官网：[dub.co](https://dub.co/)
+
+- [YOURLS](https://github.com/YOURLS/YOURLS): PHP 短链接服务
+
+  YOURLS 是一套 PHP 脚本，可让您在您的服务器上运行专属的URL缩短服务。
+  
+  您将完全掌控数据、详细统计、分析功能、插件等。本项目免费且开源。
 
 ### 静态博客
 
