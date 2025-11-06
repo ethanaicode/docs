@@ -1085,7 +1085,9 @@ Nginx 通过 FastCGI 协议与 PHP-FPM 进行通信，通常在 Nginx 的配置�
 
    在 Nginx 的配置文件中，使用 `fastcgi_pass unix:/run/php/php7.4-fpm.sock;` 来指定 PHP-FPM 的 Unix Socket 地址。
 
-   这种方式性能更好更安全，但需要确保 Nginx 和 PHP-FPM 都有权限访问这个 Socket 文件。
+   这种方式性能更好更安全，但需要**确保 Nginx 和 PHP-FPM 都有权限**访问这个 Socket 文件。
+
+   _一定要确保有权限，不然会导致启动失败，Mac 上默认不允许在 /run 下创建文件，可以替换为 /tmp_
 
 2. TCP Socket
 

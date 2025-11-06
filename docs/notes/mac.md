@@ -403,28 +403,6 @@ xattr -cr /path/to/application.app
 
 - **brew untap REPO_NAME**: 删除第三方仓库
 
-#### link 软链接
-
-- **brew link PKG_NAME**: 创建软链接
-
-  `brew link` 命令会创建一个软链接，将软件包的安装目录链接到 `/usr/local/opt` 目录下。
-
-  这样，你就可以直接在终端中使用软件包的命令了。
-
-  比如切换 php 版本可以：
-
-  ```bash
-  # 切换到 php@7.4 版本
-  brew unlink php
-  brew link --overwrite --force php@7.4
-
-  # 切换到 php@8.1 版本
-  brew unlink php@7.4
-  brew link --overwrite --force php@8.1
-  ```
-
-- **brew unlink PKG_NAME**: 删除软链接
-
 #### Services
 
 - **brew services list**: 列出所有服务
@@ -454,6 +432,36 @@ Cask 是 Homebrew 的扩展，原本的 Homebrew 是管理命令行的，而 Cas
 - **brew info --cask PKG_NAME**: 查看 package name 的详细信息
 
 ### Brew 的使用
+
+#### 查看服务的日志
+
+如果在启动服务时发生了报错，就需要通过日志来查看报错的原因。
+
+通过命令 `brew services list` 可以看到所有的服务和状态，其中也包含了定义文件，通常为 `.plist` 结尾。
+
+可以通过查看该文件找到服务的日志位置定义。
+
+#### link 软链接
+
+- **brew link PKG_NAME**: 创建软链接
+
+  `brew link` 命令会创建一个软链接，将软件包的安装目录链接到 `/usr/local/opt` 目录下。
+
+  这样，你就可以直接在终端中使用软件包的命令了。
+
+  比如切换 php 版本可以：
+
+  ```bash
+  # 切换到 php@7.4 版本
+  brew unlink php
+  brew link --overwrite --force php@7.4
+
+  # 切换到 php@8.1 版本
+  brew unlink php@7.4
+  brew link --overwrite --force php@8.1
+  ```
+
+- **brew unlink PKG_NAME**: 删除软链接
 
 #### 管理镜像源配置
 
@@ -517,15 +525,34 @@ brew update
 
   还是 brew 直接管理服务香 :)
 
+#### php
+
+- Homebrew 主仓库现在只维护比较新的 PHP 版本，如果要安装旧版本，需要使用第三方仓库。
+
+  社区有人维护历史版本的 PHP，最常见的是 `shivammathur/php tap`，安装方法：
+
+  ```bash
+  brew tap shivammathur/php
+  brew install shivammathur/php/php@7.4
+  # 安装完成后，可以绑定下下 php 的软链接
+  brew link --force shivammathur/php/php@7.4
+  ```
+
+- `php-fpm` 配置文件在 `/opt/homebrew/etc/php/7.4/php-fpm.d/www.conf`
+
+  _根据版本修改路径中的 `7.4`_
+
+- 推荐使用 brew 命令来启动管理 `php-fpm` 服务
+
   ```bash
   # 启动
-  nginx
+  brew services start php@7.4
 
   # 停止
-  nginx -s stop
+  brew services stop php@7.4
 
   # 重启
-  nginx -s reload
+  brew services restart php@7.4
   ```
 
 #### mysql
@@ -565,36 +592,6 @@ brew update
   ```
 
 - 默认情况下，mysql 的数据目录在 `/opt/homebrew/var/mysql`，如果需要更改，可以在 `/opt/homebrew/etc/my.cnf` 中添加 `datadir` 配置。
-
-#### php
-
-- Homebrew 主仓库现在只维护比较新的 PHP 版本，如果要安装旧版本，需要使用第三方仓库。
-
-  社区有人维护历史版本的 PHP，最常见的是 `shivammathur/php tap`，安装方法：
-
-  ```bash
-  brew tap shivammathur/php
-  brew install shivammathur/php/php@7.4
-  # 安装完成后，可以绑定下下 php 的软链接
-  brew link --force shivammathur/php/php@7.4
-  ```
-
-- `php-fpm` 配置文件在 `/opt/homebrew/etc/php/7.4/php-fpm.d/www.conf`
-
-  根据版本不同，路径不同
-
-- 推荐使用 brew 命令来启动管理 `php-fpm` 服务
-
-  ```bash
-  # 启动
-  brew services start php@7.4
-
-  # 停止
-  brew services stop php@7.4
-
-  # 重启
-  brew services restart php@7.4
-  ```
 
 ## 常用软件使用指南
 
