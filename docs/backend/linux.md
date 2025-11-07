@@ -3154,7 +3154,7 @@ time curl -I http://yourpage.com
 
   `apt install iputils-ping`: Ubuntu/Debian
 
-### 禁止 PING 命令
+### 禁止 PING 命令请求
 
 **通过修改 sysctl 配置**
 
@@ -3262,7 +3262,9 @@ openssl rsa -in private_key.txt -out privkey.pem
 cat certificate.txt certificate_chain.txt > fullchain.pem
 ```
 
-#### 将 `.pfx` / `.p12` 转换为 Nginx 可用格式
+#### 将 .pfx \/ .p12 转换为 Nginx 可用格式
+
+`.pfx` 文件是一个打包容器文件，可以把私钥、服务器证书和中间证书打包成为一个二进制文件，还能设置访问密码。
 
 ```bash
 # 提取私钥
@@ -3279,6 +3281,23 @@ openssl pkcs12 -in cert.pfx -cacerts -nokeys -out ca_bundle.crt
 
 # 合并证书链
 cat certificate.crt ca_bundle.crt > fullchain.pem
+```
+
+#### 转换 PEM 与 DER 格式
+
+PEM 是 Base64 文本格式，常见于 `Linux` 服务器，DER 是二进制格式，常见于 `Windows / Java`，两者代表同样的证书内容，只是存储方式不同，可以互相转换：
+
+```bash
+# PEM → DER
+openssl x509 -outform der -in cert.pem -out cert.der
+# DER → PEM
+openssl x509 -inform der -in cert.der -out cert.pem
+
+# 对于私钥文件同理
+# PEM → DER
+openssl rsa -in private.pem -outform der -out private.der
+# DER → PEM
+openssl rsa -inform der -in private.der -out private.pem
 ```
 
 ### openssl 创建自签名证书
@@ -3320,12 +3339,6 @@ openssl x509 -enddate -noout -in fullchain.pem
 
 # 生成随机密码
 openssl rand -base64 16
-
-# 转换 DER 与 PEM 格式
-# DER → PEM
-openssl x509 -inform der -in cert.der -out cert.pem
-# PEM → DER
-openssl x509 -outform der -in cert.pem -out cert.der
 ```
 
 ### 使用 certbot 申请证书
