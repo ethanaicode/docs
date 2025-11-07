@@ -225,6 +225,56 @@ sudo systemctl restart amazon-cloudwatch-agent
 sudo tail -n 50 /opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log
 ```
 
+### AWS Certificate Manager (ACM)
+
+申请不可导出的证书是免费的，但是如果是可导出的证书，需要支付一定费用。
+
+可导出完全限定域名的 SSL 证书 15 美元/个，通配符证书 149 美元/个。
+
+#### 申请可以导出的证书
+
+1. 登录 AWS 控制台，进入 **Certificate Manager**。
+
+2. 点击 **请求证书**。
+
+3. 选择 **公有证书**，点击 **下一步**。
+
+4. 输入要申请的域名，点击 **下一步**。
+   如果是通配符的证书，域名前加 `*.`，例如 `*.example.com`。
+
+5. 选择 **DNS 验证**，点击 **下一步**。
+
+6. 点击 **创建记录**，根据提示在 DNS 服务商处添加 CNAME 记录。
+
+7. 等待验证通过，证书状态变为 **已颁发**。
+
+#### 导出并使用证书文件
+
+在颁发后，可以导出证书文件，这个时候需要输入一个密码，用于保护私钥。
+
+下载后会得到三个文件：
+
+```bash
+certificate.txt
+certificate_chain.txt
+private_key.txt
+```
+
+如果是nginx服务器，可以用命令将它们修改为需要的文件：
+
+```bash
+cat certificate.txt certificate_chain.txt > fullchain.pem
+cp private_key.txt privkey.pem
+```
+
+通常亚马逊下载的密钥文件开头为 `-----BEGIN ENCRYPTED PRIVATE KEY-----`，
+
+直接使用会在每次读取时，要求输入密码，我们也可以提前移除密码保护，生成不带密码的私钥文件：
+
+```bash
+openssl rsa -in private_key.txt -out privkey.pem
+```
+
 ## Vultr
 
 ### Cloud Storage

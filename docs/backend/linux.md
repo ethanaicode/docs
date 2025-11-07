@@ -1188,7 +1188,24 @@ Linux example.com 5.4.0-65-generic #73-Ubuntu SMP Mon Jan 18 17:25:17 UTC 2021 x
 
   其中 `link currently points to` 后面的就是当前默认编辑器
 
-### 使用 cat 处理文本文件
+### 清空文件文本内容
+
+如果目标只是清空文件，可以用：
+
+```bash
+sudo truncate -s 0 example.file
+```
+
+也可以用 `echo` 或者 `tee`，使用 `echo` 要注意权限传递的问题，否则即使用了 `sudo` 可能也会遇到权限问题：
+
+```bash
+# 用 > /dev/null 是为了隐藏 tee 的输出
+echo '' | sudo tee example.file > /dev/null
+# 用 echo 需要包裹着整个命令
+sudo sh -c "echo '' > example.file"
+```
+
+### 使用 cat 处理文本文件内容
 
 - `cat file1 file2 > target_file`: 将多个文件**合并**到目标文件中
 
@@ -3149,9 +3166,11 @@ echo "net.ipv4.icmp_echo_ignore_all = 1" >> /etc/sysctl.conf
 sysctl -p
 ```
 
+## SSL 证书
+
 ### 查看网站 SSL 证书信息
 
-#### openssl 查看
+#### 查看网站证书详情
 
 可以使用`openssl`来模拟请求，查看证书详细信息:
 
@@ -3159,35 +3178,35 @@ sysctl -p
 echo | openssl s_client -connect example.com:443 -servername example.com 2>/dev/null
 ```
 
-- `echo` 命令用于向管道发送空字符串，给 `openssl` 命令提供输入
+- `echo` 命令用于向管道发送空字符串，给 `openssl` 命令提供输入，避免命令等待挂起
 
   默认情况下 `openssl s_client` 命令会等待用户输入，否则连接会挂起，通过 `echo` 命令可以避免这种情况
 
 - `-connect` 要访问的目标地址和<u>端口</u>，如果是远程的话，需要替换为远程地址，可以为域名或者 IP 地址
 
-- `-servername` 告知服务器要访问的域名，**可以省略**（如果访问 localhost，则需要指定）
+- `-servername` 指定 SNI（访问的域名），**可以省略**，用于多域名证书场景
 
-也可以继续把输出信息交给`openssl`来**只显示证书有效期**:
+**常用扩展：仅查看有效期**
 
 ```bash
 echo | openssl s_client -connect localhost:443 -servername your_domain.com 2>/dev/null | openssl x509 -noout -dates
 ```
 
-**返回信息**
+返回结果包括：
 
-- `notBefore` 表示证书的生效日期
+- `notBefore` 证书的生效日期
 
-- `notAfter` 表示证书的过期日期
+- `notAfter` 证书的过期日期
 
-- `subject` 表示证书的主题
+- `subject` 证书签发对象（CN 为主域名）
 
   `CN` 表示证书的主要域名，如果是通配符证书，会显示 `*.domain.com`
 
-- `subjectAltName` 表示证书的子域名信息
+- `subjectAltName` 证书覆盖的子域名
 
-#### openssl 查看本地证书
+#### 查看本地证书文件信息
 
-如果是本地的证书，可以直接查看证书文件，主要通过以下命令:
+如果是本地证书，可以直接查看证书信息：
 
 ```bash
 openssl x509 -in /path/to/cert.crt -noout -dates
@@ -3199,19 +3218,72 @@ openssl x509 -in /path/to/cert.crt -noout -dates
 
 - `-noout` 不显示证书信息
 
-- `-dates` 只显示证书的有效期
+- `-dates` 查看证书有效期
 
   还支持其它参数：
 
-  - `-issuer` 显示颁发者信息
+  `-issuer` 显示颁发者信息
 
-  - `-subject` 显示证书的签发对象（Common Name, CN）
+  `-subject` 显示证书的签发对象（Common Name, CN）
 
-  - `-text` 显示证书的详细信息
+  `-text` 显示证书的详细信息
+
+**查看 CSR（证书请求）内容**
+
+可验证 CSR 中的域名和组织信息是否正确：
+
+```bash
+openssl req -in server.csr -noout -text
+```
+
+### 管理与处理证书文件
+
+#### 去除私钥密码保护（解密私钥）
+
+如果私钥文件开头是：
+
+```bash
+-----BEGIN ENCRYPTED PRIVATE KEY-----
+```
+
+说明私钥被密码保护，Nginx 启动时会要求输入密码。
+ 可以用以下命令解密：
+
+```bash
+openssl rsa -in private_key.txt -out privkey.pem
+```
+
+#### 合并证书链生成 `fullchain.pem`
+
+如果证书由多个文件组成（主证书 + 中间证书）：
+
+```bash
+# 顺序必须正确：主证书在前，中间证书在后
+cat certificate.txt certificate_chain.txt > fullchain.pem
+```
+
+#### 将 `.pfx` / `.p12` 转换为 Nginx 可用格式
+
+```bash
+# 提取私钥
+openssl pkcs12 -in cert.pfx -nocerts -out private_encrypted.key
+
+# 去除密码保护
+openssl rsa -in private_encrypted.key -out privkey.pem
+
+# 提取证书
+openssl pkcs12 -in cert.pfx -clcerts -nokeys -out certificate.crt
+
+# 提取中间证书链
+openssl pkcs12 -in cert.pfx -cacerts -nokeys -out ca_bundle.crt
+
+# 合并证书链
+cat certificate.crt ca_bundle.crt > fullchain.pem
+```
 
 ### openssl 创建自签名证书
 
-如果你想要在本地搭建一个 HTTPS 服务器，可以使用 openssl 来创建自签名证书。
+如果你想要在本地搭建一个 HTTPS 服务器，可以使用 openssl 来创建自签名证书，适合在本地测试或内部 HTTPS 环境使用：
 
 ```bash
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
@@ -3220,23 +3292,43 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -subj "/CN=localhost"
 ```
 
-- `req`: 生成证书请求。
+- `req` 请求生成证书
 
-- `-x509`: 生成自签名证书。
+- `-x509` 生成自签名证书
 
-- `-nodes`: 生成无密码证书。
+- `-nodes` 生成无密码证书
 
-- `-days 365`: 证书有效期。
+- `-days 365` 证书有效期
 
-- `-newkey rsa:2048`: 生成 2048 位的 RSA 密钥。
+- `-newkey rsa:2048` 生成 2048 位的 RSA 密钥
 
-- `-keyout`: 指定私钥文件。
+- `-keyout` 指定私钥文件
 
-- `-out`: 指定证书文件。
+- `-out` 指定证书文件
 
-- `-subj`: 指定证书的主题，这里指定为 localhost。
+- `-subj` 指定证书的主题，这里指定为 localhost
 
-### 使用 certbot 申请 Let's Encrypt 证书
+### 其它常见 OpenSSL 用法
+
+```bash
+# 检查证书与私钥是否匹配，两个 MD5 结果相同表示匹配
+openssl x509 -noout -modulus -in fullchain.pem | openssl md5
+openssl rsa  -noout -modulus -in privkey.pem   | openssl md5
+
+# 检查证书过期时间
+openssl x509 -enddate -noout -in fullchain.pem
+
+# 生成随机密码
+openssl rand -base64 16
+
+# 转换 DER 与 PEM 格式
+# DER → PEM
+openssl x509 -inform der -in cert.der -out cert.pem
+# PEM → DER
+openssl x509 -outform der -in cert.pem -out cert.der
+```
+
+### 使用 certbot 申请证书
 
 > 官方文档: [Certbot documentation](https://eff-certbot.readthedocs.io/en/stable/)
 
@@ -3250,7 +3342,9 @@ Let's Encrypt 提供了多种验证方法，以下是最常用的两种：
 
 - **DNS-01 验证**: 你需要在域名的 DNS 管理系统中添加特定的 TXT 记录，这种方式适合没有 HTTP 服务或自动化时。
 
-#### 命令行方式申请管理证书
+#### 申请证书
+
+> 我写了个脚本用于自动申请证书，具体可看：[auto_get_ssl_cert.sh](https://github.com/ethanaicode/debian-ubuntu-webserver-setup/blob/main/script/auto_get_ssl_cert.sh)
 
 通过简单的一条命令就可以申请证书:
 
@@ -3270,7 +3364,7 @@ sudo certbot certonly --webroot -w /var/www/html -d example.com -d www.example.c
 
   <u>可以同时为多个域名申请证书，</u>只需要在 `-d` 参数后面添加域名即可，会生成一个包含所有域名的证书。
 
-**自动化证书管理**
+**自动化证书申请**
 
 如果希望通过脚本来自动化证书管理，可以使用 `--non-interactive` 参数，它会自动应答所有问题。
 
@@ -3294,6 +3388,8 @@ sudo certbot certonly \
 
 #### 定时任务自动续期证书
 
+> 我写了个脚本用于自动处理续期证书并同步，具体可看：[auto_certbot_sync.sh](https://github.com/ethanaicode/debian-ubuntu-webserver-setup/blob/main/script/auto_certbot_sync.sh)
+
 Certbot 安装后<u>通常会自动添加一个 systemd 定时任务</u>，你可以使用以下命令查看：
 
 ```bash
@@ -3303,11 +3399,11 @@ systemctl list-timers | grep certbot
 如果希望临时禁止自动更新，可以使用以下命令：
 
 ```bash
-# 禁用 systemd timer（阻止自动触发）
+# 禁用 systemd timer（阻止自动触发，现在新系统一般都是这种方式）
 sudo systemctl stop certbot.timer
 sudo systemctl disable certbot.timer
 
-# 或移除 /etc/cron.d 中的 certbot 条目（编辑删除）
+# 或移除 /etc/cron.d 中的 certbot 条目（编辑删除，旧系统可能会用这种方式）
 sudo vim /etc/cron.d/certbot
 ```
 
