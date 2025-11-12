@@ -1829,9 +1829,11 @@ MacOS 上可以使用 `brew install p7zip` 安装 7z 工具。
 
 - `-t7z` 指定压缩格式（7z 格式）
 
+  如果不指定会根据压缩包名称自动识别格式
+
 - `-mx=9` 压缩等级（0–9）
 
-  如果设置为 0，则不压缩，只归档。
+  默认为 5，如果设置为 0，则不压缩，只归档。
 
 - `-mmt=on` 启用多线程
 
@@ -1867,7 +1869,9 @@ MacOS 上可以使用 `brew install p7zip` 安装 7z 工具。
 # 文件夹压缩
 7z a -t7z -mx=5 backup.7z ./Documents
 
-# 带密码+加密文件名
+# 带密码+加密文件名（需要输入密码）
+7z a -t7z -mx=7 -p -mhe=on secure.7z ./data
+# 带密码（密码为 shejibiji.com）
 7z a -t7z -mx=7 -p'shejibiji.com' -mhe=on secure.7z ./data
 
 # 分卷压缩（每卷 2GB）
@@ -2460,7 +2464,7 @@ systemctl daemon-reload
 | `.service` | 定义要执行的动作   | 比如 `certbot.service` |
 
 `timer` 定时触发对应的 `service`。
- 举例：`certbot.timer` → 启动 `certbot.service`。
+举例：`certbot.timer` → 启动 `certbot.service`。
 
 **systemd 的配置分为三层（从高优先级到低）**
 
@@ -3247,7 +3251,7 @@ openssl req -in server.csr -noout -text
 ```
 
 说明私钥被密码保护，Nginx 启动时会要求输入密码。
- 可以用以下命令解密：
+可以用以下命令解密：
 
 ```bash
 openssl rsa -in private_key.txt -out privkey.pem
