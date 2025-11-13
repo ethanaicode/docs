@@ -2371,7 +2371,11 @@ systemctl daemon-reload
 
 - `systemctl restart <SERVICE_NAME>`: 重启服务
 
-- `systemctl daemon-reload`: 重新加载 systemd
+- `systemctl daemon-reexec`: 重新执行 systemd
+
+  重新启动 systemd 进程本身，通常用于更新 systemd 二进制文件后
+
+- `systemctl daemon-reload`:<u> 重新加载 systemd</u>
 
   更新内部配置缓存，不会重新启动或者加载服务
 
@@ -2387,6 +2391,14 @@ systemctl daemon-reload
 
 - `systemctl is-enabled <SERVICE_NAME>`: 查看服务是否启用
 
+- `systemctl cat <SERVICE_NAME>`: <u>查看服务的配置文件</u>
+
+- `systemctl edit <SERVICE_NAME>`: 编辑服务的配置文件(会在 `/etc/systemd/system/` 下创建一个覆盖文件)
+
+- `systemctl mask <SERVICE_NAME>`: 禁用并屏蔽服务，防止被启动
+
+- `systemctl unmask <SERVICE_NAME>`: 取消屏蔽服务
+
 - `systemctl list-unit-files --type=service | grep enabled`: 查看所有已启用的服务
 
 - `systemctl list-unit-files --type=service | grep disabled`: 查看所有已禁用的服务
@@ -2398,10 +2410,6 @@ systemctl daemon-reload
 - `systemctl list-units --type=service --state=running`: 列出所有正在运行的服务
 
 - `systemctl list-dependencies <SERVICE_NAME>`: 查看服务的依赖关系
-
-- `systemctl cat <SERVICE_NAME>`: <u>查看服务的配置文件</u>
-
-- `systemctl edit <SERVICE_NAME>`: 编辑服务的配置文件
 
 - `journalctl -u <SERVICE_NAME>`: 查看服务的日志
 
@@ -3554,6 +3562,34 @@ sudo vim /etc/ssh/sshd_config
 # Port 22
 Port 2222
 ```
+
+**ssh.socket**
+
+在有些最小化系统中， `sshd` 不是直接由 `ssh.service` 启动的，而是通过 **`ssh.socket`** 来按需启动（这意味着 `sshd` 是 socket 激活的子进程）。
+
+_当你发现没有sshd服务时可能就是这种情况_
+
+这个时候单独改 `sshd_config` 的 Port是没有用的，还需要改 `ssh.socket` 的监听端口。
+
+你可以用 `systemctl status ssh.socket` 查看该套接字状态，也可以看到该套接字位置。
+
+正确修改端口方式（socket 模式）：
+
+```bash
+# 使用命令可以创建一个 override 文件
+sudo systemctl edit ssh.socket
+# 在打开的文件中输入以下内容（第一行 ListenStream= 是清空旧配置，第二行是新端口）
+[Socket]
+ListenStream=
+ListenStream=22222
+# 重新加载 systemd 配置
+sudo systemctl daemon-reexec
+sudo systemctl daemon-reload
+# 重启 socket 服务
+sudo systemctl restart ssh.socket
+```
+
+
 
 ### SSH 客户端配置
 
