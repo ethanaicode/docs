@@ -251,14 +251,16 @@ gunicorn -w 4 -b 0.0.0.0:8000 app:app
 
 这样就可以完成简单的部署了。
 
-当然，之后还需要配置 Nginx 反向代理，并使用 Systemd 让 Gunicorn 作为服务在后台运行。
+当然，之后还需要使用 Systemd 让 Gunicorn 作为服务在后台运行，并配置 Nginx 反向代理。
 
-**Systemd 服务文件**可以参考这个（暂未实验）：
+#### Systemd 服务文件
+
+我们可以为我们的 Flask 应用创建一个 Systemd 服务文件，以实现开机自启动和后台运行。
 
 ```ini
 # /etc/systemd/system/flaskapp.service
 [Unit]
-Description=Gunicorn instance to serve Flask app
+Description=Gunicorn instance for Flask app
 After=network.target
 
 [Service]
@@ -266,6 +268,7 @@ User=root
 Group=www-data
 WorkingDirectory=/var/www/flaskapp
 Environment="PATH=/var/www/flaskapp/venv/bin"
+Environment="FLASK_ENV=production"
 ExecStart=/var/www/flaskapp/venv/bin/gunicorn -w 4 -b 0.0.0.0:8000 app:app
 
 [Install]
@@ -273,7 +276,48 @@ WantedBy=multi-user.target
 ```
 
 - `Environment` 变量让 `systemd` 知道应该在哪个环境中运行程序
+
 - `ExecStart` 直接使用了 venv 里的 Gunicorn，因此它会自动使用该虚拟环境的 Python 解释器和库
+
+之后就可以用类似下面的命令来管理服务：
+
+```bash
+sudo systemctl start flaskapp
+sudo systemctl enable flaskapp
+sudo systemctl status flaskapp
+sudo journalctl -u flaskapp
+```
+
+#### nginx 反向代理配置
+
+这里用 certbot 申请的免费 SSL 证书为例，配置 Nginx 反向代理：
+
+```nginx
+server {
+    listen 80;
+    # listen 443 ssl http2;
+    server_name www.example.com;
+
+    # SSL 证书配置
+    # ssl_certificate     /etc/letsencrypt/live/www.example.com/fullchain.pem;
+    # ssl_certificate_key /etc/letsencrypt/live/www.example.com/privkey.pem;
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # 让 ACME 验证直通，不走跳转（需要通过本地申请证书时使用）
+    # location ^~ /.well-known/acme-challenge/ {
+    #     root /var/www/_letsencrypt;
+    #     default_type "text/plain";
+    #     try_files $uri =404;        # 可选：防止目录遍历
+    # }
+}
+```
 
 ### uvicorn
 
@@ -307,6 +351,8 @@ pip install uvicorn[standard]
 
   工作进程数可以根据 CPU 核心数来调整，通常设置为 CPU 核心数的 2 倍
 
-- `--reload` → 开启热重载（可选，默认是 False，它会在代码修改时自动重启服务器）
+- `--reload` → 开启热重载
+
+  可选，默认是 False，它会在代码修改时自动重启服务器
 
 - `--reload-dir` → 指定需要监控的目录（可选，默认是当前目录）
