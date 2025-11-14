@@ -203,6 +203,21 @@ def read_item(item_id: int, q: Union[str, None] = None):
 
 ## 部署
 
+### 部署前准备
+
+首先需要准备好**服务器环境**，推荐使用 Linux 服务器（如 Ubuntu、CentOS 等），下面以 Ubuntu 为例（CentOS 也几乎一样）：
+
+```bash
+sudo apt update
+sudo apt install python3 python3-venv python3-pip nginx -y
+```
+
+之后把代码上传到服务器，并创建虚拟环境和依赖，就可以开始测试了。
+
+可以先直接用 python 命令测试，通过后，再安装 gunicorn 并测试。
+
+没问题了，再创建服务并配置 nginx 反向代理，最终上线。
+
 ### WSGI 服务器
 
 **WSGI（Web Server Gateway Interface）** 是 Python Web 框架（如 Flask、Django）与 Web 服务器（如 Nginx、Apache）之间的**标准接口**。WSGI 使得 Web 服务器能够与 Python 应用通信。
