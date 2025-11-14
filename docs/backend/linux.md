@@ -3414,6 +3414,8 @@ sudo certbot certonly \
 #### 定时任务自动续期证书
 
 > 我写了个脚本用于自动处理续期证书并同步，具体可看：[auto_certbot_sync.sh](https://github.com/ethanaicode/debian-ubuntu-webserver-setup/blob/main/script/auto_certbot_sync.sh)
+>
+> 不推荐！！请使用官方推荐的 `systemd` 定时任务方式，并使用 `--deploy-hook` 参数来处理续期后的操作
 
 Certbot 安装后<u>通常会自动添加一个 systemd 定时任务</u>，你可以使用以下命令查看：
 
@@ -3421,7 +3423,7 @@ Certbot 安装后<u>通常会自动添加一个 systemd 定时任务</u>，你�
 systemctl list-timers | grep certbot
 ```
 
-如果希望临时禁止自动更新，可以使用以下命令：
+如果希望临时禁止自动更新（不推荐），可以使用以下命令：
 
 ```bash
 # 禁用 systemd timer（阻止自动触发，现在新系统一般都是这种方式）
@@ -3432,15 +3434,50 @@ sudo systemctl disable certbot.timer
 sudo vim /etc/cron.d/certbot
 ```
 
+#### 续期后自动重启 nginx 服务
+
+Certbot 的续期配置文件里支持加入钩子脚本，我们可以利用 `deploy_hook`，在证书续期成功后重启 Nginx 服务：
+
+```bash
+# 打开全局配置文件
+/etc/letsencrypt/cli.ini
+# 写入下面内容
+# Reload nginx to apply new certificate after renewal
+deploy_hook = systemctl reload nginx
+```
+
+这样所有的 certbot 续期操作成功后，都会自动重载 Nginx 服务，使新的证书生效。
+
+可以用下面命令来检测是否生效：
+
+```bash
+sudo certbot renew --cert-name example.com --deploy-hook 'nginx -s reload' --dry-run
+# 之后就可以通过查看日志来确认是否执行了 reload 操作
+# 会出现语句类似：skipping deploy hook command: nginx -s reload
+tail -n 50 /var/log/letsencrypt/letsencrypt.log
+```
+
+**不想全局生效的话**
+
+也可以在申请证书时通过 `--deploy-hook` 参数来设置。
+
+如果已经申请过证书，可以通过强制续期指定证书时，添加 `--deploy-hook` 参数来实现。
+
+_ai 可能会告诉你，通过修改 `/etc/letsencrypt/renewal/www.example.com.conf` 来实现，实测是不行的，这个文件是 certbot 自动生成的，当续期时都会重新生成并覆盖_
+
+**注意**：在 `/etc/letsencrypt/renewal/www.example.com.conf` 文件中，即使你使用的是 `--deploy-hook` 参数，也会被记录为 `renew_hook =`，官方解释是因为 Certbot 历史上只有 `renew_hook`，为了保持旧版本兼容性而保留的行为。
+
 #### 管理证书命令
 
 - `certbot certificates`: <u>查看所有证书</u>，包括证书的域名、有效期等信息
 
-  _留意下方注意内容，如果使用了 `--config-dir` 参数，需要加上 `--config-dir` 参数来指定配置目录_
-
 - `certbot renew`: 续期证书
 
-  它会自动检查证书是否快过期，如果快过期就会自动续期，否则会直接跳过
+  它会自动检查证书是否快过期，如果快过期就会自动续期，否则会直接跳过（默认在证书到期前 30 天内续期，不需要手动操作）
+
+- `certbot renew --cert-name example.com  --force-renewal --deploy-hook 'nginx -s reload'`: 强制续期指定证书
+
+  用于测试续期证书是否正常，或者需要提前续期证书时使用
 
 - `certbot renew --dry-run`: 模拟续期证书
 
@@ -3451,8 +3488,6 @@ sudo vim /etc/cron.d/certbot
 - `certbot delete --cert-name example.com`: 删除证书
 
   _也可以直接删除 `/etc/letsencrypt/live/example.com` 目录和 `/etc/letsencrypt/renewal/example.com.conf` 文件来实现_
-
-**注意**: 如果通过 `--config-dir` 指定了配置目录，在管理时需要加上 `--config-dir` 参数来指定配置目录，否则会默认使用 `/etc/letsencrypt` 目录。
 
 #### 管理账号命令
 
@@ -3468,7 +3503,9 @@ sudo vim /etc/cron.d/certbot
 
 列出部分参数，更多参数请参考[官方文档](https://eff-certbot.readthedocs.io/en/latest/using.html#certbot-command-line-options)
 
-- `--config-dir`: <u>指定配置目录，</u>默认为 `/etc/letsencrypt`
+- `--config-dir`: 指定配置目录，默认为 `/etc/letsencrypt/live`
+
+   不推荐修改，不然之后的续期等操作也都要加上这个参数
 
 - `--expand`: 允许扩展现有证书
 
@@ -3567,9 +3604,9 @@ Port 2222
 
 在有些最小化系统中， `sshd` 不是直接由 `ssh.service` 启动的，而是通过 **`ssh.socket`** 来按需启动（这意味着 `sshd` 是 socket 激活的子进程）。
 
-_当你发现没有sshd服务时可能就是这种情况_
+_当你发现没有 sshd 服务时可能就是这种情况_
 
-这个时候单独改 `sshd_config` 的 Port是没有用的，还需要改 `ssh.socket` 的监听端口。
+这个时候单独改 `sshd_config` 的 Port 是没有用的，还需要改 `ssh.socket` 的监听端口。
 
 你可以用 `systemctl status ssh.socket` 查看该套接字状态，也可以看到该套接字位置。
 
@@ -3588,8 +3625,6 @@ sudo systemctl daemon-reload
 # 重启 socket 服务
 sudo systemctl restart ssh.socket
 ```
-
-
 
 ### SSH 客户端配置
 
