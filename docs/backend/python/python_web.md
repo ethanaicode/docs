@@ -268,6 +268,37 @@ gunicorn -w 4 -b 0.0.0.0:8000 app:app
 
 当然，之后还需要使用 Systemd 让 Gunicorn 作为服务在后台运行，并配置 Nginx 反向代理。
 
+#### gunicorn 配置文件
+
+如果 `gunicorn` 命令行参数过多，可以使用配置文件来简化命令行参数。
+
+创建一个 `gunicorn_config.py` 文件：
+
+```python
+# 绑定地址与端口
+bind = "127.0.0.1:8000"
+
+# 工作进程数量
+workers = 4
+
+# 允许的最大请求体（文件上传）
+max_request_body_size = 20 * 1024 * 1024  # 20 MB
+
+# (可选) 超时设置（5分钟）
+timeout = 300
+
+# (可选) 日志
+accesslog = "/var/log/gunicorn_flaskapp_access.log"
+errorlog  = "/var/log/gunicorn_flaskapp_error.log"
+loglevel  = "info"
+```
+
+然后就可以使用以下命令来启动 Gunicorn：
+
+```bash
+gunicorn -c gunicorn_config.py app:app
+```
+
 #### Systemd 服务文件
 
 我们可以为我们的 Flask 应用创建一个 Systemd 服务文件，以实现开机自启动和后台运行。
