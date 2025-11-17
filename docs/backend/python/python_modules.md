@@ -62,21 +62,21 @@ Python 内置了一个 HTTP 请求处理模块 `urllib`，可以用于发送 HTT
 
 **主要类**
 
-- `urllib.request.Request`: HTTP 请求类。
+- `urllib.request.Request`: HTTP 请求类
 
-- `urllib.request.urlopen()`: 发送 HTTP 请求。
+- `urllib.request.urlopen()`: 发送 HTTP 请求
 
-- `urllib.parse.urlencode()`: 编码 URL 参数。
+- `urllib.parse.urlencode()`: 编码 URL 参数
 
-- `urllib.parse.urlparse()`: 解析 URL。
+- `urllib.parse.urlparse()`: 解析 URL
 
-- `urlib.parse.parse_qs()`: 解析 URL 参数。
+- `urlib.parse.parse_qs()`: 解析 URL 参数
 
-- `urllib.parse.quote()`: 编码 URL。
+- `urllib.parse.quote()`: <u>编码 URL</u>，URL包含中文字符或者空格时，记得编码
 
-  遵从 RFC 3986 标准，将 URL 中的特殊字符转换为 `%xx` 格式。
+  遵从 RFC 3986 标准，将 URL 中的特殊字符转换为 `%xx` 格式
 
-- `urllib.parse.unquote()`: 解码 URL。
+- `urllib.parse.unquote()`: 解码 URL
 
 **使用方法**
 
