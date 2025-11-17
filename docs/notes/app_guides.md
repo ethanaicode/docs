@@ -859,6 +859,25 @@ _优点是可以保留皮肤的纹理，缺点是比较繁琐，效率非常慢_
 
 - **Alt + 向右键** = 前进
 
+### 内部指令
+
+Chrome 浏览器地址栏支持很多 内部指令（Chrome 内置页面），格式类似 `chrome://xxxx/`，这些不是普通网页，而是 浏览器内置功能页面。
+
+常用 Chrome 指令（强烈推荐记住）：
+
+```bash
+# 查看版本
+chrome://version/
+# 管理扩展程序
+chrome://extensions/
+# 查看或重置 DNS 缓存
+chrome://net-internals/#dns
+# Service Workers 管理
+chrome://serviceworker-internals/
+# 查看 WebRTC 连接详情（可以看到所有的长连接）
+chrome://webrtc-internals/
+```
+
 ## Youtube
 
 ### 快捷键 Hotkeys
