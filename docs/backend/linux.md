@@ -118,6 +118,8 @@
 
   `unalias ll` 取消别名
 
+  默认只在当前 shell 会话中生效，想要全局生效可以修改 `~/.bashrc` 或者 `~/.zshrc` 文件
+
 - **ldd**: 查看动态链接库依赖
 
   `ldd redis.so` 查看 redis.so 的依赖库
