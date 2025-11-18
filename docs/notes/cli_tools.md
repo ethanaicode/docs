@@ -530,3 +530,41 @@ _`r2` 为别名，可以自定义_
 - `rclone size remote:bucket`: 查看存储桶的大小
 
 - `rclone size /path/to/directory`: 查看本地目录的大小
+
+## ossutil
+
+ossutil2.0 是阿里云OSS命令行工具，支持多种操作，如上传、下载、删除、同步等。它提供了丰富的参数选项，可以满足不同场景的需求。同时，ossutil还支持多线程并发操作，提高了效率。使用ossutil可以方便地管理阿里云OSS中的文件和目录。
+
+### 注意事项
+
+- ossutil 执行时，默认会在当前目录创建 `ossutil_output` 目录，如果你是在一个不可创建目录的位置执行 `ossutil` 命令，会产生报错：`Error: mkdir ossutil_output: operation not permitted`
+
+  这个错误不容易从文档中发现，联系官方技术才得知，可以通过命令 `--output-dir` 来指定其它目录。
+
+### 配置文件
+
+默认配置文件位置。为：`~/.ossutilconfig`
+
+下面是一个最基础的配置文件：
+
+```
+[default]
+accessKeyID="your-access-key-id"
+accessKeySecret="your-access-key-secret"
+region=cn-shanghai
+endpoint=https://oss-cn-shanghai.aliyuncs.com
+```
+
+### 常用命令
+
+```bash
+# 列出所有 bucket
+ossutil ls
+# 列出 bucket 下的某个目录
+ossutil ls oss://bucket/path/to/directory
+# 上传文件
+ossutil cp /path/to/file oss://bucket[/path/to/directory/]
+# 递归上传整个目录中的所有文件（-f 不询问是否覆盖）
+ossutil cp -rf /path/to/LocalFolder oss://bucket[/path/to/directory/]
+# 递归上传整个目录中的所有文件（排除部分文件）
+ossutil cp -rf /path/to/LocalFolder oss://bucket[/path/to/directory/] -exclude '.DS_Store'
