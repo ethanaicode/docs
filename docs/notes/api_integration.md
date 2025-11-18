@@ -329,7 +329,7 @@ openssl rsa -in private_key.txt -out privkey.pem
 
 #### 开启跨域资源共享
 
-在 CDN 控制台 --> 域名管理 --> 选择域名 --> 缓存配置 --> 修改出站响应头 --> 添加:
+在 CDN 控制台 --> 域名管理 --> 选择域名 --> <u>缓存</u>配置 --> 修改出站响应头 --> 添加:
 
 - `Access-Control-Allow-Origin`: \* (或者指定域名)
 
