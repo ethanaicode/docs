@@ -4,7 +4,7 @@
 >
 > 这里包含常用的知识，更多内容可以结合使用需求及公司场景进行学习和使用。
 
-## Linux 命令
+## Linux 命令速查表
 
 ### 基础命令
 
@@ -1126,47 +1126,26 @@ Linux example.com 5.4.0-65-generic #73-Ubuntu SMP Mon Jan 18 17:25:17 UTC 2021 x
 
 **一般步骤**
 
-1. 下载源代码
+```bash
+# 1. 下载源代码
+wget http://example.com/package.tar.gz
 
-   ```bash
-   wget http://example.com/package.tar.gz
-   ```
+# 2. 解压源代码
+tar -xzvf package.tar.gz
 
-2. 解压源代码
+# 3. 进入源代码目录
+cd package
 
-   ```bash
-   tar -xzvf package.tar.gz
-   ```
+# 4. 配置
+# 如果需要指定安装目录，可以使用`--prefix`参数
+./configure --prefix=/usr/local
 
-3. 进入源代码目录
+# 5. 编译
+make
 
-   ```bash
-   cd package
-   ```
-
-4. 配置
-
-   ```bash
-   ./configure
-   ```
-
-   如果需要指定安装目录，可以使用`--prefix`参数
-
-   ```bash
-   ./configure --prefix=/usr/local
-   ```
-
-5. 编译
-
-   ```bash
-   make
-   ```
-
-6. 安装
-
-   ```bash
-   make install
-   ```
+# 6. 安装
+make install
+```
 
 **编译安装后，撤销安装**
 
@@ -2026,6 +2005,106 @@ sudo -l -U username
 - `-l` 参数用于列出用户的 sudo 权限。
 
 - `-U` 参数用于指定用户。
+
+## 系统信息管理
+
+### 查看及修改主机信息
+
+> 主机的名称是服务器的标识，可以通过主机名来访问服务器，配置文件在 /etc/hostname
+
+- `hostname`: 查看主机名
+
+  `hostname newname` 修改主机名（临时）
+
+  `hostnamectl set-hostname newname` 修改主机名
+
+  `hostnamectl set-hostname newname --static` 修改静态主机名
+
+  `hostnamectl set-hostname newname --pretty` 修改主机名的美观名称
+
+  `hostnamectl set-hostname newname --transient` 修改临时主机名
+
+如果要查看系统信息，也可以安装一个`neofetch`工具，它可以显示系统信息。
+
+### 查看系统的芯片和其他硬件信息
+
+- `lscpu`: 查看 CPU 信息
+
+  显示有关 CPU 架构的信息，包括其类型、核心数、架构等。
+
+- `cat /proc/cpuinfo`: 查看 CPU 信息
+
+  `cat /proc/cpuinfo | grep 'processor' | wc -l` 可以查看 CPU 的核心数
+
+- `free -h`: 查看内存使用情况
+
+- `cat /proc/meminfo`: 查看内存信息
+
+  `cat /proc/meminfo | grep 'MemTotal'` 可以查看总内存大小
+
+- `lsblk`: 查看块设备信息(列出所有存储设备也就是磁盘的大小)
+
+   从设备名（磁盘名）可以看出磁盘类型：
+
+   - `nvme0n1` NVMe
+   - `sda` SATA SSD
+   - `sdb` HDD
+
+- `df -h --total`: 查看磁盘使用情况(关注已挂载分区的使用情况)
+
+- `fdisk -l`: 查看磁盘分区信息
+
+- `lshw`: 查看硬件信息
+
+  显示有关系统硬件的详细信息，包括 CPU、内存、磁盘、网络适配器等。
+
+- `lspci`: 查看 PCI 设备信息
+
+- `sudo dmidecode`: 查看硬件信息(用于从系统的 BIOS 中提取硬件信息。=)
+
+  你可以使用具体的选项来查看特定的硬件信息:
+
+  `sudo dmidecode -t processor` 查看处理器信息
+
+  `sudo dmidecode -t memory` 查看内存信息
+
+  `sudo dmidecode -t bios` 查看 BIOS 信息
+
+## 存储磁盘与内存管理
+
+### Swap 交换分区
+
+Swap（交换分区/交换文件）是 Linux 的“虚拟内存”，当内存不够用时，把一部分不活跃的数据临时放到磁盘上，避免进程因为内存不足被系统直接杀掉（OOM Kill）。
+
+#### 查看及管理
+
+```bash
+# 查看内存
+free -h
+# 或查看 swap 文件或分区 
+swapon --show
+# 关闭并删除 Swap（假设 swap 是 /swapfile）
+sudo swapoff /swapfile
+sudo rm /swapfile
+```
+
+#### 创建 swap 空间
+
+```bash
+# 创建一个 1024MB（1GB）的新 swapfile
+sudo dd if=/dev/zero of=/swapfile bs=1M count=1024
+# 设置权限（必须，否则无法启用）：
+sudo chmod 600 /swapfile
+# 格式化为 swap
+sudo mkswap /swapfile
+# 启用 swap
+sudo swapon /swapfile
+
+# 确保开机自动挂载（非常重要）
+sudo vim /etc/fstab
+# 添加这一行（如果原来有 swapfile，要删掉旧的换成新的）
+/swapfile swap swap defaults 0 0
+```
 
 ## 系统及进程
 
@@ -3803,64 +3882,6 @@ sudo ufw allow from 192.168.1.0/24 to any app Samba
 # 查看某个应用配置文件的信息（如 Squid 代理服务）
 sudo ufw app info Squid
 ```
-
-## 系统信息管理
-
-### 查看及修改主机信息
-
-> 主机的名称是服务器的标识，可以通过主机名来访问服务器，配置文件在 /etc/hostname
-
-- `hostname`: 查看主机名
-
-  `hostname newname` 修改主机名（临时）
-
-  `hostnamectl set-hostname newname` 修改主机名
-
-  `hostnamectl set-hostname newname --static` 修改静态主机名
-
-  `hostnamectl set-hostname newname --pretty` 修改主机名的美观名称
-
-  `hostnamectl set-hostname newname --transient` 修改临时主机名
-
-如果要查看系统信息，也可以安装一个`neofetch`工具，它可以显示系统信息。
-
-### 查看系统的芯片和其他硬件信息
-
-- `lscpu`: 查看 CPU 信息
-
-  显示有关 CPU 架构的信息，包括其类型、核心数、架构等。
-
-- `cat /proc/cpuinfo`: 查看 CPU 信息
-
-  `cat /proc/cpuinfo | grep 'processor' | wc -l` 可以查看 CPU 的核心数
-
-- `free -h`: 查看内存使用情况
-
-- `cat /proc/meminfo`: 查看内存信息
-
-  `cat /proc/meminfo | grep 'MemTotal'` 可以查看总内存大小
-
-- `lsblk`: 查看块设备信息(列出所有存储设备的大小)
-
-- `df -h --total`: 查看磁盘使用情况(关注已挂载分区的使用情况)
-
-- `fdisk -l`: 查看磁盘分区信息
-
-- `lshw`: 查看硬件信息
-
-  显示有关系统硬件的详细信息，包括 CPU、内存、磁盘、网络适配器等。
-
-- `lspci`: 查看 PCI 设备信息
-
-- `sudo dmidecode`: 查看硬件信息(用于从系统的 BIOS 中提取硬件信息。=)
-
-  你可以使用具体的选项来查看特定的硬件信息:
-
-  `sudo dmidecode -t processor` 查看处理器信息
-
-  `sudo dmidecode -t memory` 查看内存信息
-
-  `sudo dmidecode -t bios` 查看 BIOS 信息
 
 ## 日期和时间
 
