@@ -2649,31 +2649,50 @@ crontab 是用来让使用者在固定时间或固定间隔执行程序之用，
 
 配置文件通常位于 `/etc/logrotate.conf` 和 `/etc/logrotate.d/` 目录中，系统管理员可以在这些配置文件中定义具体的日志轮换策略。
 
-简单的 `logrotate` 配置示例如下:
+#### 日志目录的权限设置
+
+确保日志目录和日志文件的权限正确，以便 `logrotate` 能够访问和修改它们，如果权限太宽，`logrotate` 可能会拒绝操作。
+
+**推荐权限设置**:
+
+假设 nginx 运行用户是 **www-data**：
 
 ```bash
-/var/log/syslog {
+chown root:www-data /www/wwwlogs
+chmod 750 /www/wwwlogs
+```
+
+#### 标准的 `nginx` 日志轮换配置示例
+
+```bash
+/www/wwwlogs/*.log {
     daily
     missingok
-    rotate 7
+    rotate 14
     compress
     delaycompress
     notifempty
-    create 0640 root utmp
+    dateext
+    dateformat -%Y%m%d
+    create 0640 www-data adm
     sharedscripts
     postrotate
-        /usr/lib/rsyslog/rsyslog-rotate
+        # check if nginx pid file exists
+        if [ -f /run/nginx.pid ]; then
+            # gracefully reload nginx to close old log files and reopen new ones
+            kill -USR1 $(cat /run/nginx.pid)
+        fi
     endscript
 }
 ```
 
-这个配置对 `/var/log/syslog` 日志文件进行如下操作:
+这个配置对 `/www/wwwlogs` 目录下的日志文件进行如下操作:
 
 - `daily`: 每天轮换一次日志文件。
 
 - `missingok`: 如果日志文件不存在，不会报错继续执行。
 
-- `rotate 7`: 保留最近的 7 个日志文件，超出部分将被删除。
+- `rotate 14`: 保留最近的 14 个日志文件，超出部分将被删除。
 
 - `compress`: 轮换后的日志文件进行压缩。
 
@@ -2681,13 +2700,17 @@ crontab 是用来让使用者在固定时间或固定间隔执行程序之用，
 
 - `notifempty`: 如果日志文件为空，不进行轮换。
 
-- `create 0640 root utmp`: 创建新日志文件，权限设置为 0640，所有者为 root，所属组为 utmp。
+- `dateext`: 使用日期作为轮换文件的扩展名。
+
+- `dateformat -%Y%m%d`: 指定日期格式为 `-YYYYMMDD`。
+
+- `create 0640 www-data adm`: 创建新日志文件，权限设置为 0640，所有者为 www-data，所属组为 adm。
 
 - `sharedscripts`: 在日志文件轮换前后执行脚本。
 
-- `postrotate` 到 `endscript`: 在日志文件轮换后执行 `/usr/lib/rsyslog/rsyslog-rotate` 脚本。
+- `postrotate` 到 `endscript`: 在日志文件轮换后执行的脚本，这里是重新加载 `nginx` 服务以使其使用新的日志文件。
 
-另外 logrotate 还有一些命令来**检查配置文件和手动执行轮换操作**，如：
+#### 手动测试和执行 logrotate
 
 - `logrotate -d /etc/logrotate.d/nginx`: 手动测试 logrotate 配置
 
