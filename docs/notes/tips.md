@@ -75,7 +75,9 @@ def singleNumber(nums):
 
 #### 占位图片生成
 
-- [placehold.co](https://placehold.co/):  生成占位图片的网站，可以自定义图片大小、背景色、文字颜色等参数。
+- [placehold.co](https://placehold.co/): 生成占位图片的网站，可以自定义图片大小、背景色、文字颜色等参数。
+
+- [DummyImage.com](https://dummyimage.com/): 老牌生成占位图片的网站，最终生成的是PNG图片，可以更方便复制
 
 #### 网站托管平台
 
