@@ -73,6 +73,10 @@ def singleNumber(nums):
 
 ### 开发工具
 
+#### 占位图片生成
+
+- [placehold.co](https://placehold.co/):  生成占位图片的网站，可以自定义图片大小、背景色、文字颜色等参数。
+
 #### 网站托管平台
 
 - [netlify.com](https://www.netlify.com/): 免费的静态网站托管平台，支持自定义域名、HTTPS 等
