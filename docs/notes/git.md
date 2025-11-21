@@ -985,12 +985,6 @@ wget https://raw.githubusercontent.com/<username>/<repository>/<branch>/<path-to
 wget https://raw.githubusercontent.com/ethanaicode/debian-ubuntu-webserver-setup/main/script/auto_get_ssl_cert.sh
 ```
 
-**注意**：如果文件刚提交，拉取的文件可能因为缓存没有立刻更新，那么就可以加上参数来保证请求到最新文件，不过此时应该用 `-O` 来指定输出文件名，以避免文件名中包含了请求参数：
-
-```bash
-wget -O auto_get_ssl_cert.sh https://raw.githubusercontent.com/ethanaicode/debian-ubuntu-webserver-setup/main/script/auto_get_ssl_cert.sh?nocache=$(date +%s)
-```
-
 ### Access Token
 
 #### 生成 Access Token
