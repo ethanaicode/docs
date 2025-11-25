@@ -253,6 +253,10 @@ date: 2024-12-31 17:19:52
 
 ### 网页开发工具
 
+- [PakePlus](https://github.com/Sjj1024/PakePlus): 基于 Tauri2 和 Github 的打包工具
+
+  轻松将任意网站/Vue/React等项目构建为轻量级(小于5M)多端桌面应用和手机应用仅需几分钟.
+
 - [Pannellum](https://github.com/mpetroff/pannellum): 一款轻量免费的网页全景图展示工具
 
 ## 软件工具
