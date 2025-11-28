@@ -38,3 +38,7 @@ php think migrate:run
    修改文件 `vendor/zoujingli/think-library/src/extend/ImageVerify.php` 和 `vendor/zoujingli/think-library/src/service/CaptchaService.php` 
 
    去掉 `imagedestroy($img)` 代码行
+
+## 经验和技巧
+
+- 创建新的菜单后，需要创建对应的控制器和视图文件
