@@ -1420,33 +1420,41 @@ watch -n 1 'ls -l'
 
 ### 使用 grep 查找文本
 
-`grep` 命令用于查找文本。`grep` 可以查找文件中的文本，也可以查找命令的输出。
+`grep` 可以查找文件中的文本，也可以查找命令的输出。
 
 下面是一些常用的 `grep` 命令示例:
 
-- `grep -rl "example.com" /path/to/directory`: 查找目录下包含 `example.com` 的文件，并显示文件名
-
-- `grep -Er "example.com" /path/to/directory`: 递归查找目录下包含 `example.com` 的文件，并显示文件名和行号
-
-- `grep -H "example.com" filename`: 查找文件中包含 `example.com` 的行，并显示文件名(显示文件名和行内容)
-
-  `-H` 用于显示文件名，`--with-filename` 的简写，对单个文件时有效，多个文件时默认都会显示文件名
-
-- `grep -n "example.com" filename`: 查找文件中包含 `example.com` 的行，并显示行号
-
-- `grep -a "text" filename`: 以文本方式查看二进制文件
-
-- `grep -a "sc[0-9]*" filename`: 查找以 `sc` 开头的数字
+```bash
+# 查找文件中包含 "example.com" 的行
+grep "example.com" filename
+# 递归查找目录下包含 "example.com" 的文件
+grep -r "example.com" /path/to/directory
+# 递归查找目录下包含 "example.com" 的文件，并显示文件名和行内容，启用扩展正则表达式
+grep -Er "example.com" /path/to/directory
+# 递归查找目录下包含 "example.com" 的文件，并显示文件名和行内容，忽略大小写
+grep -ri "example.com" /path/to/directory
+# 递归查找目录下包含 "example.com" 的文件，并显示文件名和行内容，并显示行号
+grep -rn "example.com" filename
+# 递归查找目录下包含 "example.com" 的文件，并只显示文件名（默认显示文件名和行内容）
+grep -rl "example.com" /path/to/directory
+# 以文本方式查看二进制文件
+grep -a "text" filename
+# 查找以 "sc" 开头的数字
+grep -a "sc[0-9]*" filename
+```
 
 还可以结合 `find` 命令限定文件格式，例如:
 
-- `find /etc/nginx/vhost -type f -name "*.conf" -exec grep -H "example.com" {} +`: 查找 Nginx 配置文件中包含 `example.com` 的文件
+```bash
+# 查找 Nginx 配置文件中包含 "example.com" 的文件
+find /etc/nginx/vhost -type f -name "*.conf" -exec grep -H "example.com" {} +
+```
 
 ### 使用 grep 比较文件内容
 
 如果想要比较两个文件的内容，也可以使用 `grep` 命令。
 
-**比较文件内容相关的参数有:**
+**相关参数**
 
 - `v`: 反转匹配（仅显示 不匹配 模式的行）
 
@@ -1460,15 +1468,16 @@ watch -n 1 'ls -l'
 
 - `i`: 忽略大小写
 
-**示例**
+**常用示例**
 
-- `grep -xFf file1 file2`: 比较两个文件的内容，只显示两个文件中相同的行
-
-- `grep -vxFf file1 file2`: 比较两个文件的内容，只显示 file2 中不在 file1 中的行
-
-  这对于查找两个文件的差异非常有用，可以用于查找新增的行或者删除的行。
-
-- `grep -vxFf file2 file1 >> diff.txt`: 将 file1 中不在 file2 中的行追加到 diff.txt 文件中
+```bash
+# 比较两个文件的内容，只显示两个文件中相同的行
+grep -xFf file1 file2
+# 比较两个文件的内容，只显示 file2 中不在 file1 中的行(可以用于查找新增的行或者删除的行)
+grep -vxFf file1 file2
+# 将 file1 中不在 file2 中的行追加到 diff.txt 文件中
+grep -vxFf file2 file1 >> diff.txt
+```
 
 ## 文件和目录
 
@@ -2044,11 +2053,11 @@ sudo -l -U username
 
 - `lsblk`: 查看块设备信息(列出所有存储设备也就是磁盘的大小)
 
-   从设备名（磁盘名）可以看出磁盘类型：
+  从设备名（磁盘名）可以看出磁盘类型：
 
-   - `nvme0n1` NVMe
-   - `sda` SATA SSD
-   - `sdb` HDD
+  - `nvme0n1` NVMe
+  - `sda` SATA SSD
+  - `sdb` HDD
 
 - `df -h --total`: 查看磁盘使用情况(关注已挂载分区的使用情况)
 
@@ -2081,7 +2090,7 @@ Swap（交换分区/交换文件）是 Linux 的“虚拟内存”，当内存�
 ```bash
 # 查看内存
 free -h
-# 或查看 swap 文件或分区 
+# 或查看 swap 文件或分区
 swapon --show
 # 关闭并删除 Swap（假设 swap 是 /swapfile）
 sudo swapoff /swapfile
@@ -3609,7 +3618,7 @@ _ai 可能会告诉你，通过修改 `/etc/letsencrypt/renewal/www.example.com.
 
 - `--config-dir`: 指定配置目录，默认为 `/etc/letsencrypt/live`
 
-   不推荐修改，不然之后的续期等操作也都要加上这个参数
+  不推荐修改，不然之后的续期等操作也都要加上这个参数
 
 - `--expand`: 允许扩展现有证书
 

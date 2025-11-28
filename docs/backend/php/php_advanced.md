@@ -251,8 +251,6 @@ PHP 的编译安装，通常需要以下步骤：
   }
   ```
 
-  
-
 - 使用 `empty($var)` 函数是要注意如果参数为 `" "` 空格时，会被认为是非空的，如果客户端无值时，给一个默认值空格时，判断就失效了。_别问我为什么能想到这个 :(_
 
 - `strpos(string $haystack, string $needle, int $offset = 0)` 函数在 8.0 之前的版本中，如果传入的 `$needle` 为 `int`，则会返回 `false`，而导致不期待的结果
@@ -1312,6 +1310,16 @@ extension=redis.so
 
   `--no-progress`　不显示进度
 
+### 使用经验及技巧
+
+- `Composer` 不会被某个 PHP 版本绑定，运行 `composer install` 命令时，实际执行的是 `php composer.phar install`。
+
+   所以 `Composer` 可以在多个 PHP 版本中使用，例如有一个 PHP 版本为 `php85` ，那我们就可以使用下列命令来指定 `composer` 使用的 PHP 版本：
+   
+   ```bash
+   php85 /usr/local/bin/composer install
+   ```
+
 ### Composer 配置
 
 可以通过 `composer config` 命令来配置 Composer 的全局配置。
@@ -1364,7 +1372,7 @@ composer init
 {
   "config": {
     "platform": {
-      "php": "7.2.34"
+      "php": "7.4.3"
     }
   }
 }

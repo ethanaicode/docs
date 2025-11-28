@@ -337,7 +337,7 @@ xattr -cr /path/to/application.app
 - **Homebrew Intel Mac（/usr/local）**
 
   ```bash
-  # 软件目录
+  # 软件目录(真实安装目录)
   /usr/local/Cellar
 
   # 软链接目录（通常软链接到 bin 目录）
@@ -357,7 +357,7 @@ xattr -cr /path/to/application.app
 - **Homebrew Apple Silicon (M1/M2, /opt/homebrew)**
 
   ```bash
-  # 软件目录
+  # 软件目录(真实安装目录)
   /opt/homebrew/Cellar
 
   # 软链接目录（通常软链接到 bin 目录）
