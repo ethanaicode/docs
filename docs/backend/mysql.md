@@ -1111,6 +1111,34 @@ SQLite 的字段类型是动态类型的，字段类型并不严格。
 
 其它的类型虽然支持，但 SQLite 采用 **类型亲和性** 的方式来处理这些类型，如 `VARCHAR`、`CHAR`、`DATE`、`DATETIME` 等会被转换为 `TEXT` 类型。
 
+### SQLite 命令行
+
+#### 安装
+
+要使用 SQLite 命令行工具，需要先在服务器上安装 SQLite，ubuntu 和 debian 系统可以使用以下命令安装：
+
+```bash
+sudo apt-get install sqlite3
+```
+
+#### 基础使用
+
+```bash
+# 进入
+sqlite3 database_name.db
+# 查看所有表
+.tables
+# 查看表结构
+.schema table_name
+# 格式化输出
+.mode column
+.headers on
+# 执行 sql 文件
+.read file_name.sql
+# 退出
+.exit
+```
+
 ### 连表查询
 
 要注意，SQLite 是不支持全连接，但是可以通过左连接和右连接来实现。

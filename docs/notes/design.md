@@ -58,7 +58,13 @@
 
 - [思源黑体](https://github.com/adobe-fonts/source-han-sans)
 
+- [思源宋体](https://github.com/adobe-fonts/source-han-serif)
+
   Adobe 出品的开源字体，支持简体中文、繁体中文、日文、韩文
+
+- [梦源字体](https://github.com/Pal3love/dream-han-cjk?tab=readme-ov-file)
+
+  源自思源黑体和思源宋体的多语言字体家族
 
 - [阿里巴巴普惠体](https://www.alibabafonts.com/#/font/normal)
 
