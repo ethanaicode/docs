@@ -597,7 +597,7 @@ Python 内置了一个 UUID 生成模块 `uuid`，可以用于生成 UUID（Univ
 
 - `uuid.uuid3(namespace, name)`: 基于名字的 MD5 散列值生成 UUID。
 
-- `uuid.uuid4()`: 随机生成 UUID。
+- `uuid.uuid4()`: <u>随机生成 UUID</u>。
 
 - `uuid.uuid5(namespace, name)`: 基于名字的 SHA-1 散列值生成 UUID。
 
