@@ -261,6 +261,28 @@ date: 2024-12-31 17:19:52
 
 ## 软件工具
 
+### 播放器
+
+- [mpv](https://github.com/mpv-player/mpv): 一个开源的跨平台媒体播放器，支持多种视频和音频格式，具有丰富的功能和高性能
+
+  官网：[mpv.io](https://mpv.io/)
+
+- [vlc](https://github.com/videolan/vlc): VLC media player
+
+  跨平台，几乎支持所有格式，功能丰富（字幕下载、视频下载、流媒体、格式转换等）
+
+  官网：[videolan.org](https://www.videolan.org/)
+
+- [IINA](https://github.com/iina/iina): 专为 macOS 打造的现代 mpv 前端
+
+  支持触控栏、暗黑模式、PIP 等 macOS 特性
+
+  官网：[iina.io](https://iina.io/)
+
+- [Kodi](https://github.com/xbmc/xbmc): 开源媒体中心，支持插件生态，可当播放器使用
+
+  官网：[kodi.tv](https://kodi.tv/)
+
 ### 网络工具
 
 - [Wiredoor](https://github.com/wiredoor/wiredoor): 内网穿透 VPN 服务
