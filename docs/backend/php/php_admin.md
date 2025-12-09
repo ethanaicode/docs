@@ -1,14 +1,16 @@
-# ThinkAdmin 框架使用指南
+# PHP 后台管理框架 - ThinkAdmin/FastAdmin/EasyAdmin
+
+## ThinkAdmin
 
 > 官方首页：[https://thinkadmin.top/](https://thinkadmin.top/)
 
 **ThinkAdmin** 是一个基于 **ThinkPHP 6 & 8** 开发的强大后台管理框架，专为简化后台管理流程而设计。后台用户界面基于 LayUI 和 RequireJS 构建。
 
-## 安装使用
+### 安装使用
 
 安装框架前，请确保您的服务器已经安装了 **PHP 8.1+**(虽然官方说还支持 PHP7，但由于 composer 的安全机制，已经不支持了) 和 **Composer**。
 
-### 通过 Composer 安装
+#### 通过 Composer 安装
 
 推荐方式，默认只安装 **admin** 模块
 
@@ -25,7 +27,7 @@ cd thinkadmin
 php think migrate:run
 ```
 
-### 新版本 PHP 兼容性解决
+#### 新版本 PHP 兼容性解决
 
 实测使用 PHP8.5 安装该框架后，会出现兼容性报错：
 
@@ -39,17 +41,17 @@ php think migrate:run
 
    去掉 `imagedestroy($img)` 代码行
 
-## 经验和技巧
+### 经验技巧
 
 - 创建新的菜单后，需要创建对应的控制器和视图文件
 
-## 开发文档
+### 开发文档
 
-### 权限配置
+#### 权限配置
 
 创建权限后，需要为权限配置可访问的功能节点。例如，若权限`A`仅允许访问特定的功能节点，您需要在配置中勾选这些节点。
 
-#### 配置应用名称
+**配置应用名称**
 
 在配置授权时，若需展示应用名称，请前往 `config/app.php` 文件设置 `app_names` 的应用名称。
 
@@ -73,7 +75,7 @@ return [
 - 确保在不同语言环境下均能正确显示
 - 如果应用名称未配置，将显示应用代码（如 `admin`）
 
-#### 忽略权限检查
+**忽略权限检查**
 
 若您不希望某个应用受到后台权限控制，可以通过配置 `rbac_ignore` 选项来实现。
 
@@ -99,9 +101,9 @@ return [
 - 所有用户都可以访问被忽略的应用
 - 建议只忽略确实不需要权限控制的应用
 
-## 数据助手
+### 数据助手
 
-### 表单助手
+#### 表单助手
 
 > → [相关文档](https://thinkadmin.top/system/helper-form.html)
 
@@ -124,3 +126,11 @@ protected function _form_result(bool $result, array $data)
     // 处理保存结果
 }
 ```
+
+## FastAdmin
+
+> 官方首页：[https://www.fastadmin.net/](https://www.fastadmin.net/)
+>
+> 开源地址：[GitHub](https://github.com/karsonzhang/fastadmin) | [Gitee](https://gitee.com/fastadminnet/fastadmin)
+>
+> 最新版下载：[FastAdmin 开源框架完整包](https://www.fastadmin.net/download/full.html?ref=docs)

@@ -12,7 +12,7 @@
 
 - [ThinkPHP](./php_thinkphp)
 
-- [ThinkAdmin](./php_thinkadmin)
+- [后台管理框架](./php_admin)
 
 - [Workerman](./php_workerman)
 

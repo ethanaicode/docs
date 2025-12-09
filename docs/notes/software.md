@@ -95,7 +95,8 @@
 | 网络数据包分析器    | [Wireshark](https://www.wireshark.org/)                      | Win/Mac |      |                                                              |
 | 网络数据调试工具    | [Proxyman](https://proxyman.io/)                             | Mac     |      |                                                              |
 | 可执行文件修改器    | [Resource Hacker](https://www.angusj.com/resourcehacker/)    | Win     |      |                                                              |
-| 打包成可执行文件    | [NSIS](https://sourceforge.net/projects/nsis/)               | Win     |      | 可以把软件打包成安装包                                       |
+| 可执行文件构建      | [NSIS](https://sourceforge.net/projects/nsis/)               | Win     |      | 可以把软件打包成安装包                                       |
+| 可执行文件构建      | [Inno Setup](https://jrsoftware.org/isinfo.php)              | Win     |      | 同上，正版需要许可证                                         |
 
 ## 系统管理优化
 
