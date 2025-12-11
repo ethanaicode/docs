@@ -261,6 +261,14 @@ date: 2024-12-31 17:19:52
 
 ## 软件工具
 
+### Mac 工具
+
+- [Maccy](https://github.com/p0deje/Maccy): Mac 剪贴板管理工具
+
+  Maccy 是一个开源的 Mac 剪贴板管理工具，支持快捷键、搜索、同步等功能
+
+  官网：[maccy.app](https://maccy.app/)
+
 ### 播放器
 
 - [mpv](https://github.com/mpv-player/mpv): 一个开源的跨平台媒体播放器，支持多种视频和音频格式，具有丰富的功能和高性能
