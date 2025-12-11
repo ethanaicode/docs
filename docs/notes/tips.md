@@ -77,7 +77,7 @@ def singleNumber(nums):
 
 - [placehold.co](https://placehold.co/): 生成占位图片的网站，可以自定义图片大小、背景色、文字颜色等参数。
 
-- [DummyImage.com](https://dummyimage.com/): 老牌生成占位图片的网站，最终生成的是PNG图片，可以更方便复制
+- [DummyImage.com](https://dummyimage.com/): 老牌生成占位图片的网站，最终生成的是 PNG 图片，可以更方便复制
 
 #### 网站托管平台
 
@@ -1671,6 +1671,27 @@ https://www.example.com/wp-content/themes/theme-name/screenshot.png
 
   - 跨境汇款 --> 汇款记录 --> 查看汇款状态
 
+#### 工商银行跨境汇款到新加坡 OCBC
+
+> 2024-12-12 更新：OCBC 开始清理中国大陆用户，之后 OCBC 账户将无法入帐
+>
+> 2025-05-13 更新：OCBC 没有对账户进行封禁，可以继续使用
+
+1. 工商银行购汇（选择新加坡）
+
+   - 购汇标志选: `汇`
+
+   - 购汇用途选: `因私旅游`
+
+2. 选择跨境汇款到新加坡银行
+
+   - 收款行 SWIFT 代码: `OCBCSGSGXXXX`
+
+   - 收款行地址: `63 CHULIA STREET 10-00, OCBC CENTRE EAST, SINGAPORE, 049514`
+
+> [!NOTE]
+> 币种一定要选择 SGD，才可以走“工银速汇”，否则会有非常夸张的电汇费用
+
 #### 币安出金到 Bybit
 
 - Bybit 选择 `充值`
@@ -1693,29 +1714,9 @@ https://www.example.com/wp-content/themes/theme-name/screenshot.png
 
 - 提现成功后会看到交易 ID（TXID），该值即为哈希值，可以在 [BSCScan（币安智能链浏览器）](https://bscscan.com) 上查询到交易详情
 
-#### ~~工商银行跨境汇款到新加坡 OCBC（不推荐再使用）~~
-
-> 2024-12-12 更新：OCBC 开始清理中国大陆用户，之后 OCBC 账户将无法入帐
->
-> 2025-05-13 更新：OCBC 没有对账户进行封禁，但由于无法再相信，不推荐再使用
-
-1. 工商银行购汇（选择新加坡）
-
-   - 购汇标志选: `汇`
-
-   - 购汇用途选: `因私旅游`
-
-2. 选择跨境汇款到新加坡银行
-
-   - 收款行 SWIFT 代码: `OCBCSGSG`
-
-   - 收款行地址: `63 CHULIA STREET 10-00, OCBC CENTRE EAST, SINGAPORE, 049514`
-
 ### 投资账户入金
 
-#### ~~新加坡 Tiger Brokers 账户入金（不推荐再使用）~~
-
-_OCBC 清理大陆用户，未来不安全，建议使用香港银行入金_
+#### 新加坡 Tiger Brokers 账户入金
 
 1. 选择入金方式
 
