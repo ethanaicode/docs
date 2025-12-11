@@ -726,7 +726,7 @@ MAMP 的服务及应用都放在目录`/Applications/MAMP/bin`下，
 
 ## 命令行工具
 
-### systemsetup
+### systemsetup 系统设置
 
 `systemsetup` 是 macOS 系统中的一个命令行工具，用于配置系统的一些设置。
 
@@ -740,11 +740,54 @@ MAMP 的服务及应用都放在目录`/Applications/MAMP/bin`下，
 
 - `systemsetup -listtimezones`: 列出所有时区
 
-### networksetup
+### networksetup 网络设置
 
 `networksetup` 是 macOS 系统中的一个命令行工具，用于配置网络设置。
 
-### defaults
+### diskutil 磁盘工具
+
+`diskutil` 是 macOS 系统中的一个命令行工具，用于管理磁盘和卷宗。
+
+**常用命令**
+
+```bash
+# ======== 基础命令 ========
+# 列出所有磁盘和卷宗
+diskutil list
+# 检查磁盘
+diskutil verifyDisk disk2
+# 修复磁盘
+diskutil repairDisk disk2
+# 挂载磁盘（GUID 分区表）
+diskutil mountDisk disk2
+# 挂载磁盘容器
+diskutil mount disk3s1
+# 卸载磁盘
+diskutil unmountDisk disk2
+# 卸载磁盘容器
+diskutil unmount disk3s1
+# 弹出磁盘
+diskutil eject disk2
+# 强制弹出磁盘（先尝试弹出，不行可以考虑强制卸载）
+diskutil unmountDisk force disk2
+
+# ======== 高级命令 ========
+# 验证卷宗
+diskutil verifyVolume disk7s1
+
+# ======== APFS 相关命令 ========
+# 查看磁盘列表信息（能看到磁盘名，磁盘用户，状态等）
+diskutil apfs list
+# 查看磁盘列表信息（源数据信息）
+diskutil apfs list -plist
+# 查看到磁盘用户（包含提示，如果有）
+diskutil apfs listUsers disk5s1
+# 解锁磁盘（磁盘用户和和磁盘名可以从信息中看到）
+diskutil apfs decryptVolume disk5s1
+diskutil apfs unlockVolume disk5s1 -user 5CFA83B8-D643-4C9D-B28E-87D09A67EE78
+```
+
+### defaults 偏好设置
 
 `defaults` 是 macOS 系统中的一个命令行工具，用于管理用户的偏好设置。
 
@@ -752,7 +795,7 @@ MAMP 的服务及应用都放在目录`/Applications/MAMP/bin`下，
 
 - `defaults read`: 读取用户的偏好设置
 
-### smbutil
+### smbutil SMB 共享工具
 
 `smbutil` 是 macOS 系统中的一个命令行工具，用于与 SMB（Server Message Block）共享进行交互。它可以用于管理网络共享、查看共享的状态以及获取有关 SMB 连接的信息。
 
@@ -770,7 +813,7 @@ MAMP 的服务及应用都放在目录`/Applications/MAMP/bin`下，
 
 - `smbutil unmount /Volumes/share`: 卸载共享
 
-### shasum
+### shasum 校验和工具
 
 `shasum` 是一个计算文件 SHA-1 校验和的命令行工具。如果不传递参数，`shasum` 将读取标准输入并计算 SHA-1 校验和。
 
