@@ -3982,31 +3982,72 @@ sudo ufw app info Squid
 
 **注意**: 设置时区后，MySQL 等服务不一定会自动更新时区，需要重启服务才能生效。
 
-## GNU gettext 工具集
+## GNU gettext 多语言
 
 `gettext` 是 GNU 软件包中的一个工具集，用于处理多语言支持。它包括 `gettext`、`msgfmt`、`msgmerge`、`msginit`、`msgunfmt`、`ngettext`、`xgettext` 等命令。
 
-### gettext
+### 多语言文件及与语法
 
-`gettext` 是一个用于处理多语言支持的命令行工具，可以用来提取程序中的字符串，并生成 `.po` 文件。
+多语言文件通常以 `.po` 和 `.mo` 为后缀名，`.po` 文件是可读的文本文件，包含了原始字符串和翻译后的字符串，而 `.mo` 文件是编译后的二进制文件，供程序使用。
 
-例如：
+`.pot` 文件是模板文件，包含了所有需要翻译的字符串，可以用来生成 `.po` 文件。
+
+它的基础语法格式如下：
 
 ```bash
-xgettext -o messages.po myprogram.c
+# 原始文本及翻译文本
+msgid "Original string"
+msgstr "Translated string"
+# 带有上下文的翻译
+msgctxt "Context"
+msgid "Original string"
+msgstr "Translated string"
+# 带有复数形式的翻译
+msgid "Singular string"
+msgid_plural "Plural string"
+msgstr[0] "Translated singular string"
+msgstr[1] "Translated plural string"
 ```
 
-### msgfmt/msgunfmt
-
-`msgfmt` 和 `msgunfmt` 是 GNU gettext 工具集中的两个命令，专门用于处理 `.po` 与 `.mo` 文件，也就是本地化（国际化）翻译文件的格式转换。
-
-例如：
+元数据字段，通常出现在 `.po` 文件的开头，用于描述翻译文件的信息：
 
 ```bash
-# 反编译成可读文本
-msgunfmt redux-framework.mo -o redux-framework.po
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2024-06-01 12:00+
+" "Language-Team: LANGUAGE <
+" "MIME-Version: 1.0\n"
+" "Content-Type: text/plain; charset=UTF-8\n"
+" "Content-Transfer-Encoding: 8bit\n" 
+" "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+```
+
+另外还有一些常用的特殊字段：
+
+- `#`： 翻译说明，普通注释
+
+- `#.`: 翻译注释
+
+- `#: `: 代码位置注释
+
+- `#, `: 标志注释
+
+- `#~ `: 已删除的翻译条目（标识和翻译文本需要成对出现，不然会报错）
+
+### 常用工具
+
+```bash
+# 从源码中提取需要翻译的字符串
+xgettext -o messages.pot *.c
+# 基于 .pot 创建某种语言的 .po 文件
+msginit -l zh_CN -i messages.pot
+# 当源码更新后，同步旧翻译
+msgmerge zh_CN.po messages.pot
 # 重新编译成机器可读格式
-msgfmt redux-framework.po -o redux-framework.mo
+msgfmt zh_CN.po -o zh_CN.mo
+# 反编译成可读文本
+msgunfmt zh_CN.mo -o zh_CN.po
 ```
 
 ## Apache HTTPD 工具集

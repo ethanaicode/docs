@@ -1091,6 +1091,12 @@ SET GLOBAL validate_password.length = 4;
 SET PERSIST validate_password.length = 4;
 ```
 
+## PostgreSQL
+
+> 官网: https://www.postgresql.org/
+
+相较于 MySQL，PostgreSQL 更加符合 SQL 标准，功能也更强大一些。
+
 ## SQLite
 
 ### 字段类型

@@ -253,6 +253,12 @@ date: 2024-12-31 17:19:52
 
 ### 网页开发工具
 
+- [Umami](https://github.com/umami-software/umami): 简洁的开源网页分析工具
+
+  Umami 是一个开源的网页分析工具，提供了简单易用的界面和强大的功能，可以帮助你了解网站的访问情况和用户行为。
+
+  官网：[umami.is](https://umami.is/)
+
 - [PakePlus](https://github.com/Sjj1024/PakePlus): 基于 Tauri2 和 Github 的打包工具
 
   轻松将任意网站/Vue/React等项目构建为轻量级(小于5M)多端桌面应用和手机应用仅需几分钟.

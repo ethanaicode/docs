@@ -336,7 +336,9 @@ Heredoc 和 Nowdoc 都是 PHP 中的字符串定义方式。
 
 - `uniqid(prefix?, more_entropy?)`: 生成一个唯一 ID
 
-- `hexdec(hex_string)`: 十六进制转十进制
+- `hexdec(hex_string)`: <u>十六进制转十进制</u>
+
+   就可以把 md5 或 sha1 生成的字符串转换为数字，用于生成唯一 ID，或者进行数字比较
 
 - `dechex(number)`: 十进制转十六进制
 

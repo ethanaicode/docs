@@ -502,6 +502,10 @@ URL 编码是一种将 URL 中的特殊字符转换为 `%` 加上十六进制数
 
 MD5（Message Digest Algorithm 5）是一种常用的哈希函数，生成 128 位的哈希值。
 
+hash 值是不可逆的，无法从哈希值还原出原始数据。
+
+hash 值只有 0-9、a-f **共 16 个字符**组成。
+
 #### SHA
 
 SHA（Secure Hash Algorithm）是一系列哈希函数的统称，包括 SHA-1、SHA-256、SHA-512 等。
