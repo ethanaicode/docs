@@ -4050,6 +4050,24 @@ msgfmt zh_CN.po -o zh_CN.mo
 msgunfmt zh_CN.mo -o zh_CN.po
 ```
 
+### 实用案例
+
+#### wordpress 多语言提取
+
+```bash
+xgettext \
+  --language=PHP \
+  --from-code=UTF-8 \
+  --keyword=__ \
+  --keyword=_e \
+  --keyword=_x:1,2c \
+  --keyword=_ex:1,2c \
+  --keyword=_n:1,2 \
+  --keyword=_nx:1,2,4c \
+  -o messages.pot \
+  $(find . -name "*.php")
+```
+
 ## Apache HTTPD 工具集
 
 `apache2-utils` 是一个包含 Apache HTTPD 服务器工具的软件包，其中包含了一些用于管理 Apache HTTPD 服务器的命令行工具。
