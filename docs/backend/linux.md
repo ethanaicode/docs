@@ -3716,6 +3716,27 @@ Match User username
     PubkeyAuthentication yes
 ```
 
+#### 设置用户允许访问的目录
+
+可以通过 `ChrootDirectory` 指定用户登录后只能访问的目录。
+
+```bash
+# 可以创建一个不允许登录 Shell 的用户
+sudo useradd -m ftpuser -s /usr/sbin/nologin
+# 设置该用户的密码
+sudo passwd ftpuser
+# 把用户 home 指向目标目录
+sudo usermod -d /www ftpuser
+# 修改 sshd 配置文件  /etc/ssh/sshd_config
+Match User ftpuser
+    ChrootDirectory /www
+    ForceCommand internal-sftp
+    AllowTcpForwarding no
+    X11Forwarding no
+# 记得重启 ssh 服务
+systemctl restart sshd
+```
+
 #### 修改 SSH 端口
 
 默认情况下，SSH 服务使用 22 端口，为了提高安全性，通过修改 `/etc/ssh/sshd_config` 文件可以修改 SSH 服务的端口。
