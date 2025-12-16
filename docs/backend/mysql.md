@@ -755,6 +755,10 @@ mysqldump --single-transaction --quick --skip-lock-tables \
 gunzip < database_name.sql.gz | mysql -u root -p database_name
 # 或者用 zcat
 zcat database_name.sql.gz | mysql -u root -p database_name
+# 8.0+ 版本导入时如果报错，可以用 sed 替换字符集
+gunzip < database_name.sql.gz \
+| sed 's/utf8mb4_0900_ai_ci/utf8mb4_unicode_ci/g' \
+| mysql -u root -p database_name
 ```
 
 **注意**: `gunzip` 后面要加一个 `<` 符号，不然只是简单的解压

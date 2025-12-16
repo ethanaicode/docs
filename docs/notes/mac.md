@@ -475,6 +475,9 @@ Cask 是 Homebrew 的扩展，原本的 Homebrew 是管理命令行的，而 Cas
   ```bash
   # 切换到 php@7.4 版本
   brew unlink php
+  # 没找到链接的话可能就需要指定版本号，如
+  brew unlink php@8.1
+  # 再绑定 php@7.4
   brew link --overwrite --force php@7.4
 
   # 切换到 php@8.1 版本
@@ -547,6 +550,8 @@ brew update
   还是 brew 直接管理服务香 :)
 
 #### php
+
+- 切换 php 版本参考上面的 `brew link` 和 `brew unlink` 命令
 
 - Homebrew 主仓库现在只维护比较新的 PHP 版本，如果要安装旧版本，需要使用第三方仓库。
 
