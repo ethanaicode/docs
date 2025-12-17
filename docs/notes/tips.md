@@ -1928,6 +1928,14 @@ https://www.example.com/wp-content/themes/theme-name/screenshot.png
 
 - **APY**：Annual Percentage Yield，复利计算的年化收益率，即每月或每天把收益再投入本金计算
 
+#### 基金A类与C类
+
+- **A类基金**：前端收费，购买时支付一定比例的费用，适合长期持有的投资者。
+
+- **C类基金**：后端收费，赎回时支付一定比例的费用，适合短期持有的投资者。
+
+   一般 1 年以内持有 C 类基金更划算，超过 1 年则 A 类更划算。
+
 #### DeFi 及相关概念
 
 去中心化金融（Decentralized Finance，简称 DeFi）是指基于区块链技术的金融服务，旨在通过智能合约和去中心化应用程序（DApps）来提供金融服务。

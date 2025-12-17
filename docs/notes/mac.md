@@ -304,6 +304,34 @@ macOS 默认是不开启 VNC 服务的，需要手动开启。开启后可以使
 
   要注意的是，在电源设置中，需要打开 `唤醒以供网络访问`，这样才可以远程唤醒 Mac mini（默认应该是开启的）。
 
+### 命令行管理登录项
+
+登录项是指在用户登录时自动启动的应用程序或者脚本，主要在以下目录：
+
+- `/Library/LaunchAgents/`：系统范围内的登录项，适用于所有用户。
+- `/Library/LaunchDaemons/`：系统范围内的守护进程，适用于所有用户，通常用于后台服务。
+- `~/Library/LaunchAgents/`：当前用户的登录项。
+
+我们可以使用 `launchctl` 命令来管理登录项。
+
+```bash
+# 列出所有登录项
+launchctl list
+# 加载登录项
+launchctl load /path/to/launchd.plist
+# 卸载登录项
+launchctl unload /path/to/launchd.plist
+```
+
+macOS 13+ 引入了新的后台项目机制。可以使用新的命令 `sfltool` 来管理后台项目。
+
+```bash
+# 查看后台项数据库
+sfltool dumpbtm
+# 查找定位软件相关文件
+mdfind appname
+```
+
 ## 常见问题解决
 
 ### App is damaged and can't be opened
@@ -792,6 +820,26 @@ diskutil apfs decryptVolume disk5s1
 diskutil apfs unlockVolume disk5s1 -user 5CFA83B8-D643-4C9D-B28E-87D09A67EE78
 ```
 
+### hdiutil 磁盘映像工具
+
+`hdiutil` 是 macOS 系统中的一个命令行工具，用于创建、转换、挂载和管理磁盘映像文件（.dmg 文件）。
+
+**常用命令**
+
+```bash
+# 创建磁盘映像
+hdiutil create -size 100m -fs HFS+ -volname "MyDisk" mydisk.dmg
+# 挂载磁盘映像
+hdiutil attach mydisk.dmg
+# 卸载磁盘映像
+hdiutil detach /Volumes/MyDisk
+# 转换磁盘映像格式
+hdiutil convert mydisk.dmg -format UDZO -o mydisk_converted.dmg
+# 验证磁盘映像
+hdiutil verify mydisk.dmg
+# 识别是否为磁盘映像
+hdiutil imageinfo mydisk.dmg
+```
 ### defaults 偏好设置
 
 `defaults` 是 macOS 系统中的一个命令行工具，用于管理用户的偏好设置。

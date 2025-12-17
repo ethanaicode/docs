@@ -392,6 +392,21 @@ do
 done
 ```
 
+可以结合find命令来快速对文件进行批量处理：
+
+```bash
+# 比如现在有一组 .gz 文件，无法确定是否位 tar 包，可以用命令来快速筛选
+mkdir -p tar_gz
+
+find . -type f -name "*.gz" ! -path "./tar_gz/*" -print0 |
+while IFS= read -r -d '' f; do
+  if tar -tzf "$f" >/dev/null 2>&1; then
+    echo "TAR.GZ -> $f"
+    mv "$f" tar_gz/
+  fi
+done
+```
+
 ## 文件操作
 
 ### 输入输出重定向
