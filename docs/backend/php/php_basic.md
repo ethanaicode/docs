@@ -134,6 +134,8 @@ Heredoc 和 Nowdoc 都是 PHP 中的字符串定义方式。
 
 - `parse_str(string, array?)`: 把查询字符串解析到变量中
 
+  把类似 `name=John&age=25` 的查询字符串解析为变量，或者存入数组
+
 - `strtr(string, from, to)`: 转换字符串中特定字符
 
 - `preg_match(pattern, subject, matches, flags?, offset?)`: 正则匹配，返回匹配次数
@@ -286,7 +288,9 @@ Heredoc 和 Nowdoc 都是 PHP 中的字符串定义方式。
 
   比如 `rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/')` 可以获取当前页面的路径
 
-- `http_build_query(array)`: 生成 URL-encode 之后的请求字符串，`array` 为要转换的数组，通常是键值对
+- `http_build_query(array)`: <u>生成 URL-encode 之后的请求字符串</u>，`array` 为要转换的数组，通常是键值对
+
+  GET 请求时，可以把参数数组用这个方法转换为查询字符串，然后拼接到 URL 后面
 
 - `urlencode(string)`: 对 URL 字符串进行编码
 

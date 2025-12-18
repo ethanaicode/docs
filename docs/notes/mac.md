@@ -797,7 +797,7 @@ diskutil mountDisk disk2
 diskutil mount disk3s1
 # 卸载磁盘
 diskutil unmountDisk disk2
-# 卸载磁盘容器
+# 卸载磁盘容器（可以实现一键卸载）
 diskutil unmount disk3s1
 # 弹出磁盘
 diskutil eject disk2
@@ -815,9 +815,10 @@ diskutil apfs list
 diskutil apfs list -plist
 # 查看到磁盘用户（包含提示，如果有）
 diskutil apfs listUsers disk5s1
-# 解锁磁盘（磁盘用户和和磁盘名可以从信息中看到）
+# 临时解锁磁盘（可以实现一键解锁并挂载）
+diskutil apfs unlockVolume disk5s1
+# 永久解锁磁盘（永久取消解锁）
 diskutil apfs decryptVolume disk5s1
-diskutil apfs unlockVolume disk5s1 -user 5CFA83B8-D643-4C9D-B28E-87D09A67EE78
 ```
 
 ### hdiutil 磁盘映像工具
