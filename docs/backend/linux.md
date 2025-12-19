@@ -937,25 +937,25 @@ which command
 
 - **Ctrl + ← (Left)** = 光标向<u>前移动</u>一个单词
 
-  _MacOS 下测试不可用_
+  _MacOS 下测试不可用，可使用下面的 B/F 快捷键_
 
 - **Ctrl + → (Right)** = 光标向<u>后移动</u>一个单词
 
-  _MacOS 下测试不可用_
+  _MacOS 下测试不可用，可使用下面的 B/F 快捷键_
 
 - **Ctrl + B** = 光标向后移动（左移）
 
-  MacOS 下需要使用 `Esc` 键代替 `Ctrl` 键
+  _MacOS 下使用 `Esc` 键代替 `Ctrl` 键_
 
 - **Ctrl + F** = 光标向前移动（右移）
 
-  MacOS 下需要使用 `Esc` 键代替 `Ctrl` 键
+  _MacOS 下使用 `Esc` 键代替 `Ctrl` 键_
 
 - **Ctrl + W** = 删除<u>光标前的一个单词</u>
 
 - **Alt + D** = 删除光标后的一个单词
 
-  MacOS 下需要使用 `Esc` 键代替 `Alt` 键
+  _MacOS 下使用 `Esc` 键代替 `Alt` 键_
 
 - **Ctrl + U** = 删除光标前的内容
 
