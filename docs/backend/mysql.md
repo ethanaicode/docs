@@ -714,6 +714,19 @@ LIMIT 10;
 
 - `--ignore-table=database_name.table_name`: 忽略指定的表
 
+#### 导出参考案例
+
+```bash
+# 导出所有数据
+mysqldump -u root -p database_name > database_name_$(date +%Y%m%d_%H%M%S).sql
+
+# 仅导出数据结构
+mysqldump -u root -p -d database_name > database_name_$(date +%Y%m%d_%H%M%S).sql
+
+# 导出部分表
+mysqldump -u root -p database_name table1 table2 > database_name_$(date +%Y%m%d_%H%M%S).sql
+```
+
 #### 导出时压缩
 
 使用 `mysqldump` 配合管道输出到 `gzip`，将导出的 SQL 文件进行压缩，以节省存储空间。
