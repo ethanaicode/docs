@@ -379,7 +379,7 @@ xattr -cr /path/to/application.app
   /usr/local/etc
 
   # 日志等目录
-  /usr/local/var
+  /usr/local/var/log
   ```
 
 - **Homebrew Apple Silicon (M1/M2, /opt/homebrew)**
@@ -399,7 +399,7 @@ xattr -cr /path/to/application.app
   /opt/homebrew/etc
 
   # 日志等目录
-  /opt/homebrew/var
+  /opt/homebrew/var/log
   ```
 
 ### Brew 命令

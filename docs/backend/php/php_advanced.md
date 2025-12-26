@@ -12,7 +12,11 @@ title: PHP进阶优化技巧，高效开发Web应用的最佳实践
 
 - `php -v`: 查看版本
 
-- `php -S localhost:8000`: 启动一个简单的服务器
+- `php -S localhost:8000`: <u>启动一个简单的服务器</u>
+
+  `php -S localhost:8000 -t public`: 指定根目录为 public
+
+  `php -S 0.0.0.0:8000 router.php`: 指定入口文件为 router.php（0.0.0.0 表示监听所有地址，支持局域网访问） 
 
 - `php -a`: 进入交互模式
 

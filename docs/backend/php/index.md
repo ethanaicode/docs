@@ -4,15 +4,21 @@
 
 - [PHP Basic](./php_basic)
 
+  PHP 基础概念，函数列表。
+
 - [PHP Advanced](./php_advanced)
 
-## PHP 框架
+  PHP 安装、使用、配置，`php-fpm`，`composer` 等。
 
-- [Laravel](./php_laravel)
+## PHP 框架
 
 - [ThinkPHP](./php_thinkphp)
 
 - [后台管理框架](./php_admin)
+
+  ThinkAdmin、FastAdmin、Phinx-Migrations 等。
+
+- [Laravel](./php_laravel)
 
 - [Workerman](./php_workerman)
 
