@@ -202,6 +202,16 @@ skip-log-bin
 
 - `mysql -u root -p database_name`: 登录指定数据库
 
+- `mysql -uroot -pMyPassword database_name -e "SQL_statement"`: 直接执行一条 SQL 语句并退出（适合脚本中使用）
+
+  `SQL_statement` 要执行的 SQL 语句
+
+- `mysql -u root -p database_name -h host_address -P port_number`: 远程登录数据库（需要开启远程访问权限）
+
+  `host_address` 远程主机地址
+
+  `port_number` 远程端口号，默认是 `3306`
+
 - `exit`: 退出数据库
 
 ### 基础语法
