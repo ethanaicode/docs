@@ -85,6 +85,22 @@ Nginx 的配置主要分为三大块，全局块，events 块，以及 http 块�
 
   http 块中可以包含多个 `server` 块，每个 `server` 块定义了一个虚拟主机。
 
+### 可用变量
+
+Nginx 提供了许多内置变量，可以在配置文件中使用这些变量来动态获取请求和响应的信息。
+
+```bash
+$remote_addr        # 客户端的 IP 地址
+$server_name       # 服务器的域名
+$scheme            # 请求的协议（http 或 https）
+$request_uri       # 请求的 URI
+$http_user_agent   # 客户端的 User-Agent 头部信息
+$http_referer      # 请求的来源 URL（Referer 头部信息）
+$status           # 响应的状态码
+$body_bytes_sent  # 发送给客户端的字节数
+$time_local       # 访问的本地时间和日期
+```
+
 ### events 配置
 
 这一块主要用来定义与网络事件处理相关的设置
