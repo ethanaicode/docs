@@ -1187,6 +1187,18 @@ cat /etc/php/7.4/fpm/pool.d/www.conf | grep ^listen
 
   _系统通常默认最多只能打开 1024 个文件，如果要设置更高的值，需要修改系统的 `ulimit` 设置_
 
+- 配置参考:
+
+  ```ini
+  # 4G 内存服务器推荐配置
+  pm = dynamic
+  pm.max_children = 160
+  pm.start_servers = 20
+  pm.min_spare_servers = 16
+  pm.max_spare_servers = 32
+  pm.max_requests = 1000
+  ```
+
 **修改后记得重启 PHP-FPM**:
 
 ```bash
