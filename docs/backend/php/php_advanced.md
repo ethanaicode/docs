@@ -44,7 +44,7 @@ title: PHP进阶优化技巧，高效开发Web应用的最佳实践
 
 ### 包管理器安装
 
-#### Debian/Ubuntu
+#### Ubuntu
 
 ```bash
 # 确保安装必要的辅助工具
@@ -88,6 +88,26 @@ sudo update-alternatives --set php-fpm /usr/sbin/php-fpm8.0
 
 # 查看当前使用的 PHP 版本
 php -v
+```
+
+#### Debian
+
+```bash
+# 确保安装必要的辅助工具
+sudo apt install -y ca-certificates apt-transport-https lsb-release curl gnupg
+# 导入 GPG Key
+curl -fsSL https://packages.sury.org/php/apt.gpg | sudo gpg --dearmor -o /usr/share/keyrings/sury-php.gpg
+# 添加 Debian 源
+echo "deb [signed-by=/usr/share/keyrings/sury-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/sury-php.list
+# 更新软件包列表
+sudo apt update
+# 安装特定版本的 PHP 及常用扩展
+sudo apt install -y php7.4-cli php7.4-fpm php7.4-mysql php7.4-curl php7.4-json php7.4-mbstring php7.4-xml php7.4-zip php7.4-gd
+# 查看 PHP 版本
+php -v
+# 启动 PHP-FPM（通常不需要操作，默认已启动并自动重启）
+sudo systemctl start php7.4-fpm
+sudo systemctl enable php7.4-fpm
 ```
 
 #### CentOS/RHEL
