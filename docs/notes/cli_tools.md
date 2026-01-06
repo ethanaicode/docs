@@ -53,6 +53,47 @@ ffmpeg -i input.mp4 output.mkv
 ffmpeg -i input.mp4 -ss 00:00:10 -t 00:00:30 -c copy output.mp4
 ```
 
+## mpv
+
+> 官方文档: [mpv Manual](https://mpv.io/manual/stable/)
+
+mpv 是一个开源的跨平台多媒体播放器，支持多种音频和视频格式。它基于 MPlayer 和 mplayer2，提供了更现代化的用户界面和更多的功能。
+mpv 支持硬件加速、字幕渲染、脚本扩展等功能，适合用于播放本地媒体文件以及流媒体内容。
+
+### 常用命令
+
+```bash
+# 播放本地视频文件
+mpv /path/to/video.mp4
+# 播放在线视频
+mpv https://example.com/video.mp4
+# 旋转视频
+mpv --video-rotate=90 /path/to/video.mp4
+# 指定字幕文件
+mpv --sub-file=/path/to/subtitles.srt /path/to/video.mp4
+# 调整音量
+mpv --volume=50 /path/to/video.mp4
+# 全屏播放
+mpv --fullscreen /path/to/video.mp4
+# 循环播放
+mpv --loop /path/to/video.mp4
+```
+
+### 快捷键
+
+在播放视频时，可以使用以下快捷键进行操作：
+
+- `Space`: 播放/暂停
+- `[/]`: 减少/增加播放速度
+- `BACKSPACE`: 恢复正常播放速度
+- `Left/Right Arrow`: 快退/快进 5 秒
+- `Up/Down Arrow`: 快退/快进 1 分钟
+- `./,`: 前进/后退步骤帧
+- `//*`: 提高/降低音量
+- `F`: 切换全屏模式
+- `S`: 截图当前帧，没有字幕
+- `Q`: 退出播放器
+
 ## imagemagick
 
 > v7 使用说明： [ImageMagick Version 7](https://usage.imagemagick.org/)
