@@ -243,6 +243,14 @@ date: 2024-12-31 17:19:52
   
   您将完全掌控数据、详细统计、分析功能、插件等。本项目免费且开源。
 
+### 在线游戏
+
+- [EmulatorJS](https://github.com/EmulatorJS/EmulatorJS): 一款开源的网页游戏模拟器
+
+  支持多种游戏机模拟器，比如 NES、SNES、Genesis、 Game Boy Advance、PlayStation 等。
+
+  案例：[老游戏在线玩](https://zaixianwan.app/)
+
 ### 静态博客
 
 - [HUGO](https://github.com/gohugoio/hugo): 静态网站博客构建生成器
