@@ -508,6 +508,8 @@
 
 - `cat /etc/*release`: 显示当前操作系统的版本信息
 
+  `lsb_release -a` 也可以显示操作系统的版本信息（可能需要安装 `lsb-release` 包）
+
 - `hostname`: 显示主机名
 
 - `uptime`: 显示系统的运行时间、用户数量、负载平均值等
@@ -2624,7 +2626,7 @@ Documentation=file:///usr/share/doc/python-certbot-doc/html/index.html
 Documentation=https://certbot.eff.org/docs
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/certbot -q renew --no-random-sleep-on-renew
+ExecStart=/usr/bin/certbot -q renew --no-random-sleep-on-renew --deploy-hook "nginx -s reload"
 PrivateTmp=true
 ```
 
@@ -3500,7 +3502,7 @@ Let's Encrypt 提供了多种验证方法，以下是最常用的两种：
 
 - **DNS-01 验证**: 你需要在域名的 DNS 管理系统中添加特定的 TXT 记录，这种方式适合没有 HTTP 服务或自动化时。
 
-#### 申请证书
+#### 使用 HTTP-01 验证方式申请证书
 
 > 我写了个脚本用于自动申请证书，具体可看：[auto_get_ssl_cert.sh](https://github.com/ethanaicode/debian-ubuntu-webserver-setup/blob/main/script/auto_get_ssl_cert.sh)
 
@@ -3543,6 +3545,58 @@ sudo certbot certonly \
 - `--agree-tos`: 同意 Let's Encrypt 的服务条款
 
 - `--quiet`: 静默模式，不输出冗余信息
+
+#### 使用 DNS-01 验证方式申请证书
+
+如果无法通过 HTTP-01 验证方式申请证书，可以使用 DNS-01 验证方式，可以避免对服务器的要求。
+
+```bash
+sudo certbot certonly --manual \
+    --preferred-challenges dns \
+    -d example.com -d www.example.com
+```
+
+- `--manual`: 手动验证方式
+
+- `--preferred-challenges dns`: 指定使用 DNS-01 验证方式
+
+- `--manual-public-ip-logging-ok`: 允许记录公共 IP 地址
+
+申请过程中，Certbot 会提示你添加一个 TXT 记录到你的 DNS 配置中，你需要登录到你的域名管理系统，添加该 TXT 记录，然后等待 DNS 记录生效后，按回车继续。
+
+**自动化证书申请**
+
+可以结合插件，通过自动设置 DNS 记录来实现自动化申请证书。
+
+这里以 Aliyun DNS 插件为例：
+
+```bash
+# 如果之前通过 apt 安装 certbot，推荐先卸载，
+# 因为插件是通过 pip 安装的，certbot 也需要通过 pip 安装
+
+# 安装 python3-pip 和 pipx
+sudo apt install python3-pip pipx -y
+sudo pipx ensurepath
+# 通过 pipx 安装 certbot 和 aliyun dns 插件
+pipx install certbot-dns-aliyun
+# 验证插件是否安装成功（确认可以看到 dns-aliyun）
+certbot plugins
+# 创建阿里云 API 配置文件
+sudo mkdir -p /etc/letsencrypt
+sudo vim /etc/letsencrypt/aliyun.ini
+# 写入下面内容
+dns_aliyun_access_key = your_access_key_id
+dns_aliyun_secret_key = your_access_key_secret
+sudo chmod 600 /etc/letsencrypt/aliyun.ini
+# 申请证书(支持通配符)
+sudo certbot certonly \
+  --authenticator dns-aliyun \
+  --dns-aliyun-credentials /etc/letsencrypt/aliyun.ini \
+  -d example.com \
+  -d "*.example.com"
+```
+
+之后可以修改对应的定时任务来实现自动续期，并重启 Nginx 服务（参考[Systemd Timer 定时任务单元](#systemd-timer-定时任务单元)部分的案例）。
 
 #### 定时任务自动续期证书
 
