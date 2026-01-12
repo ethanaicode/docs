@@ -13,24 +13,26 @@ Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境，可以让 
 ```bash
 # Download and install nvm:
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-
-# in lieu of restarting the shell
-\. "$HOME/.nvm/nvm.sh"
+source ~/.bashrc
 
 # Download and install Node.js:
 nvm install 23
+nvm use 23
+nvm alias default 23
 
 # Verify the Node.js version:
-node -v # Should print "v23.11.0".
-nvm current # Should print "v23.11.0".
+node -v
+nvm current
 
 # Verify npm version:
-npm -v # Should print "10.9.2".
+npm -v
 ```
 
 - **nvm** 是 Node.js 版本管理工具，可以方便地安装和切换不同版本的 Node.js。
 
-- `\. "$HOME/.nvm/nvm.sh"` 是加载 nvm 的配置文件，确保 nvm 命令可用，`\.` 是 `source` 命令的别名。
+- `nvm use <version>`: 切换到指定版本的 Node.js
+
+- `nvm alias default <version>`: 设置默认版本的 Node.js
 
 **注意**：如果你使用的是 `nvm` 安装的 Node.js，那么 `npm` 也会随之安装。
 
