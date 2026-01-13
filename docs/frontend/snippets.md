@@ -418,6 +418,83 @@ cols: [[
 >
 > [Element UI 组件库](https://element-plus.gitee.io/zh-CN/guide/design.html)
 
+## Tauri
+
+> [Tauri 官网](https://tauri.app/)
+>
+> [Tauri 中文文档](https://tauri.app/zh-cn/)
+
+### 最小化 Tauri 项目
+
+#### 环境准备
+
+```bash
+# Node >= 18
+node -v
+
+# Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Tauri CLI
+cargo install tauri-cli
+```
+
+macOS 需要：
+
+```bash
+xcode-select --install
+```
+
+#### 创建项目
+
+```bash
+npm create tauri-app@latest tauri-min
+cd tauri-min
+
+# 交互选择
+# app name: tauri-min
+# frontend: vanilla
+# bundler: vite
+# language: TypeScript
+# package manager: npm
+
+# 安装依赖
+npm install
+# 运行开发服务器
+npm run tauri dev
+# 构建生产版本
+# 构建完成后在 src-tauri/target/release/bundle 目录下
+npm run tauri build
+```
+
+## NeutralinoJs
+
+> [NeutralinoJs 官网](https://neutralino.js.org/)
+
+Neutralinojs 是一个轻量级的跨平台桌面应用开发框架，类似于 Electron，但体积更小，性能更好。它本质上是一个本地服务器，使用 Web 技术（HTML、CSS、JavaScript）来构建用户界面。
+
+### 常用命令
+
+```bash
+# 安装 Neutralinojs CLI 工具
+npm install -g @neutralinojs/neu
+# 创建一个新的 Neutralinojs 项目
+neu create myapp
+# 进入项目目录并启动开发服务器
+cd myapp
+neu run
+# 构建生产版本
+neu build --release
+```
+
+### 快速笔记
+
+- `Neutralino.init()`: 初始化 Neutralinojs 应用
+
+- `Neutralino.window.create()`: 创建新窗口
+
+- `Neutralino.os.execCommand()`: 执行系统命令
+
 ## Naive UI
 
 > [Naive UI 官方文档](https://www.naiveui.com/zh-CN/os-theme/docs/introduction)
