@@ -3145,6 +3145,12 @@ curl -I -X POST https://example.com
 
 # 快速检查网站是否可用
 curl -sSf https://example.com
+
+# 自定义请求头
+curl \
+  -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" \
+  -H "Referer: https://example.com/" \
+  "https://target.com/resource.jpg?t=1234567890"
 ```
 
 > [!Warning]
