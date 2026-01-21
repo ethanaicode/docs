@@ -136,7 +136,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 **重要配置参考**
 
-- `trigger_sql`：开启后会记录 SQL 调试信息，默认是 `true`，不想记录 SQL 调试信息可以设置为 `false`。
+- `trigger_sql`：<u>开启后会记录 SQL 调试信息，默认是 `true`</u>，不想记录 SQL 调试信息可以设置为 `false`。
 
 #### 数据库原生查询
 
