@@ -114,6 +114,36 @@ require __DIR__ . '/vendor/autoload.php';
 
 - 输出多个模版变量时可以用数组，比如：`$this->assign(array('name1'=>$value1,'name2'=>$value2));`
 
+**使用函数**
+
+- 需要对模板输出使用函数进行过滤或其它处理的时候，可以使用：
+
+  ```
+  {$data.name|md5} 
+  ```
+
+  编译后的结果是：
+
+  ```
+  <?php echo htmlentities(md5($data['name'])); ?>
+  ```
+
+  其中`htmlentities`方法是系统默认添加的（无需手动指定）。
+
+- 如果你不需要转义（例如你需要输出html表格等内容），可以使用：
+
+  ```
+  {$data.name|raw}
+  ```
+
+- 如果你觉得这样写起来比较麻烦，也可以<u>直接这样写</u>：
+
+  ```
+  {:substr(strtoupper(md5($name)),0,3)}
+  ```
+  
+  使用该方法输出的值**不会使用默认的过滤方法进行转义**。
+
 ## TP6 使用经验总结
 
 ### 注意事项
