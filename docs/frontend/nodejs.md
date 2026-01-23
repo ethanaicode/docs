@@ -12,13 +12,17 @@ Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境，可以让 
 
 ```bash
 # Download and install nvm:
+# If you are Mainland China user, maybe you need to try more times or use proxy.
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 source ~/.bashrc
 
+# List available Node.js versions:
+nvm ls-remote
+
 # Download and install Node.js:
-nvm install 23
-nvm use 23
-nvm alias default 23
+nvm install 24
+nvm use 24
+nvm alias default 24
 
 # Verify the Node.js version:
 node -v
@@ -64,6 +68,10 @@ npm 包是一个包含 JavaScript 代码的文件夹，通常包含一个 `packa
   `-y` 跳过询问，直接生成默认配置文件
 
   示例：`npm init vite@latest project-name --template vanilla`
+
+- **npm ci**: 根据 `package-lock.json` 文件安装依赖
+
+  <u>CI / 构建 / 发布 环境下</u>推荐使用，因为它会删除 `node_modules` 目录并重新安装所有依赖，确保安装的依赖版本与 `package-lock.json` 文件中的版本一致。
 
 - **npm install**: 安装依赖
 
