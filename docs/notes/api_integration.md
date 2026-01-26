@@ -325,11 +325,75 @@ openssl rsa -in private_key.txt -out privkey.pem
 
 ## 阿里云
 
+### OSS 对象存储
+
+#### 允许网页项目通过AccessKey上传访问OSS
+
+思路概括：保持 OSS Bucket 或文件为私有权限，通过设置 RAM 用户的权限策略，允许通过 AccessKey 进行上传和访问。
+
+    如果需要网页项目也支持通过 AccessKey 上传和访问 OSS 文件，还需要设置 CORS 跨域资源共享。
+
+1. 配置 OSS 跨域（CORS）规则
+
+在 OSS 控制台 --> 选择 Bucket --> 数据安全 --> 跨域设置，添加如下规则：
+
+```bash
+# 允许指定域名访问
+测试时可临时填 *，正式环境请填写你的网页域名，如 https://www.example.com
+# 允许的方法
+GET, PUT, POST, DELETE, HEAD
+```
+
+2. 创建 RAM 用户并分配权限
+
+在 RAM 控制台 --> 用户管理 --> 创建用户，创建一个新的 RAM 用户。
+
+然后为该用户分配权限策略，可以使用如下的自定义策略：
+
+```json
+{
+  "Version": "1",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["oss:ListObjects", "oss:GetBucketInfo"],
+      "Resource": "acs:oss:oss-{$regionId}:{#accountId}:{$bucketName}"
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["oss:GetObject", "oss:PutObject"],
+      "Resource": "acs:oss:oss-{$regionId}:{#accountId}:{$bucketName}/*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "oss:ListBuckets",
+      "Resource": "acs:oss:oss-{$regionId}:{#accountId}:*"
+    }
+  ]
+}
+```
+
+替换 `{$regionId}`、`{#accountId}`、`{$bucketName}` 为你的实际值，这样就设置了允许该用户列出 Bucket、获取 Bucket 信息、上传和下载对象的权限。
+
 ### CDN 服务
+
+#### 允许CDN域名访问OSS文件，不受到阻止公共访问的影响
+
+思路概括：保持 OSS Bucket 或文件为私有权限，通过 CDN 的私有 Bucket 回源功能实现访问，同时配置CDN的防盗链策略防止外部恶意访问。
+
+1. 首先需要启用 CDN 加速访问 OSS 的功能：
+
+在 CDN 控制台 --> 选择域名 --> 基础配置 --> 源站类型 选择 OSS Bucket，确保 CDN 能够以私有方式访问 OSS Bucket。
+
+2. 启用 OSS 私有 Bucket 回源功能
+
+在 CDN 控制台 --> 选择域名 --> 回源配置 --> 开启**阿里云OSS私有Bucket回源**”\*\*选项。
+
+这样就可以通过该CDN域名访问 OSS 文件，而不会受到 OSS 阻止公共访问的影响。
 
 #### 开启跨域资源共享
 
-在 CDN 控制台 --> 域名管理 --> 选择域名 --> <u>缓存</u>配置 --> 修改出站响应头 --> 添加:
+在 CDN 控制台 --> 选择域名 --> <u>缓存</u>配置 --> 修改出站响应头 --> 添加:
 
 - `Access-Control-Allow-Origin`: \* (或者指定域名)
 
