@@ -221,7 +221,21 @@ date: 2024-12-31 17:19:52
 
 - [kamiFaka](https://github.com/Baiyuetribe/kamiFaka): 一款基于 VUE3.0 的高颜值卡密发卡系统
 
-#### 短链接
+### 商城支付
+
+- [独角数卡](https://github.com/assimon/dujiaoka): 自动发卡开源式站长自动化售货系统
+
+  支持数字商品、虚拟商品的自动发货，支持多种支付方式
+
+  案例：[IOIOX Shop](https://shop.ioiox.com/)
+
+- [Epusdt](https://github.com/assimon/epusdt): Usdt支付中间件
+
+  由Go语言编写的私有化部署Usdt支付中间件(Trc20网络)，站长或开发者可通过 Epusdt 提供的 `http api` 集成至您的任何系统。
+
+  案例：[IOIOX Shop](https://shop.ioiox.com/)
+
+### 短链接
 
 - [sink](https://github.com/ccbikai/sink): CF 短链接服务
 
@@ -240,7 +254,7 @@ date: 2024-12-31 17:19:52
 - [YOURLS](https://github.com/YOURLS/YOURLS): PHP 短链接服务
 
   YOURLS 是一套 PHP 脚本，可让您在您的服务器上运行专属的URL缩短服务。
-  
+
   您将完全掌控数据、详细统计、分析功能、插件等。本项目免费且开源。
 
 ### 在线游戏
@@ -256,7 +270,6 @@ date: 2024-12-31 17:19:52
 - [HUGO](https://github.com/gohugoio/hugo): 静态网站博客构建生成器
 
 - [Hexo](https://github.com/hexojs/hexo): 快速、简洁且高效的博客框架
-
   - [hexo-theme-stellar](https://github.com/xaoxuu/hexo-theme-stellar/): 内置文档系统的简约商务风 Hexo 主题，支持大量的标签组件和动态数据组件
 
 ### 网页开发工具

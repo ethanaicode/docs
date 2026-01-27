@@ -2594,6 +2594,9 @@ systemctl daemon-reload
 | `/run/systemd/system/`                               | 系统运行时生成的 unit（临时）           |
 | `/usr/lib/systemd/system/` 或 `/lib/systemd/system/` | 软件包默认安装的 unit（原始定义）       |
 
+> [!TIP]
+> 如果 Service 中没有指定 `User=`，默认就是 root 用户运行。
+
 #### systemctl 常用命令
 
 - `systemctl list-timers`: 列出所有定时任务
@@ -3577,27 +3580,42 @@ sudo certbot certonly --manual \
 这里以 Aliyun DNS 插件为例：
 
 ```bash
-# 如果之前通过 apt 安装 certbot，推荐先卸载，
-# 因为插件是通过 pip 安装的，certbot 也需要通过 pip 安装
+# 如果之前通过 apt 安装过 certbot，建议先卸载，避免混用
+sudo apt purge certbot -y
 
-# 安装 python3-pip 和 pipx
+# 安装 pipx（系统级）
+sudo apt update
 sudo apt install python3-pip pipx -y
-sudo pipx ensurepath
-# 通过 pipx 安装 certbot 和 aliyun dns 插件
-pipx install certbot-dns-aliyun
+
+# 使用系统级 pipx 目录，用 pipx 的「全局路径」安装 certbot
+sudo PIPX_HOME=/opt/pipx \
+     PIPX_BIN_DIR=/usr/local/bin \
+     pipx install certbot
+
+# 注入阿里云 DNS 插件（重点）
+sudo PIPX_HOME=/opt/pipx \
+     PIPX_BIN_DIR=/usr/local/bin \
+     pipx inject certbot certbot-dns-aliyun
+
 # 验证插件是否安装成功（确认可以看到 dns-aliyun）
-certbot plugins
+sudo certbot plugins
+
 # 创建阿里云 API 配置文件
 sudo mkdir -p /etc/letsencrypt
 sudo vim /etc/letsencrypt/aliyun.ini
 # 写入下面内容
 dns_aliyun_access_key = your_access_key_id
-dns_aliyun_secret_key = your_access_key_secret
+dns_aliyun_access_key_secret = your_access_key_secret
+# 保存后修改权限，防止被其他用户读取
 sudo chmod 600 /etc/letsencrypt/aliyun.ini
+
 # 申请证书(支持通配符)
 sudo certbot certonly \
   --authenticator dns-aliyun \
   --dns-aliyun-credentials /etc/letsencrypt/aliyun.ini \
+  --email admin@example.com \
+  --agree-tos \
+  --no-eff-email \
   -d example.com \
   -d "*.example.com"
 ```
