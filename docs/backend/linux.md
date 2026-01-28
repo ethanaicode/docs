@@ -3366,6 +3366,8 @@ echo | openssl s_client -connect localhost:443 -servername your_domain.com 2>/de
 
 ```bash
 openssl x509 -in /path/to/cert.crt -noout -dates
+# 或者
+openssl x509 -in /path/to/fullchain.pem -noout -dates
 ```
 
 - `x509` 表示查看证书信息
