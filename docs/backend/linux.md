@@ -3555,7 +3555,7 @@ sudo certbot certonly \
 
 - `--agree-tos`: 同意 Let's Encrypt 的服务条款
 
-- `--quiet`: 静默模式，不输出冗余信息
+- `--quiet`: 静默模式，不输出冗余信息，**别用，否则啥消息也没有，除非在脚本中使用**
 
 #### 使用 DNS-01 验证方式申请证书
 

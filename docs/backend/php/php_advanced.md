@@ -1084,17 +1084,54 @@ try {
 
 ### 配置 PHP-FPM
 
-- `PHP-FPM` 配置文件位置（通常情况下）：`/etc/php/{version}/fpm/php-fpm.conf`，如果是自己编译安装的 PHP，那么配置文件位置可能会有所不同。
+#### 配置文件位置
 
-- `PHP-FPM` 配置分为全局配置和池配置，全局配置文件一般是 `php-fpm.conf`，池配置文件一般是 `pool.d/www.conf`。
+- `/etc/php/{version}/fpm/php-fpm.conf`: PHP-FPM 的主配置文件，用于配置 PHP-FPM 的全局设置，如监听方式、pid文件位置、日志文件位置等。
 
-  _两个配置也可以都放在`php-fpm.conf`，只需要使用 `[www]` 来标识为池配置即可。_
+- `/etc/php/{version}/fpm/php.ini`: PHP 代码执行的配置文件，用于配置 PHP 的运行环境，如错误日志、扩展配置等。
+
+- `/etc/php/{version}/fpm/pool.d/`: 目录下存放 PHP-FPM 的池配置文件，每个池配置文件对应一个网站或者应用，可以配置不同的运行模式、进程数、用户组等。
 
 - PHP-FPM 的配置文件中，可以使用 `;` 来注释掉一行配置，也可以使用 `include` 来引入其它配置文件。
 
-- 在池配置文件中，可以配置 PHP-FPM 的运行模式、进程数、用户组、监听地址、日志文件等。
-
 - 池配置开头的 `[www]` 里面的内容是池的名称，可以有多个池，每个池可以有不同的配置。
+
+#### php.ini 配置
+
+```bash
+# ========== 错误日志的配置 ==========
+error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT
+log_errors = On
+error_log = /var/log/php_errors.log
+display_errors = Off
+# 错误日志文件需要自己创建
+touch /var/log/php_errors.log
+chown www-data:www-data /var/log/php_errors.log
+chmod 664 /var/log/php_errors.log
+# ========== opcache 的配置 ==========
+# 确认是否包含扩展可以用命令
+#     php -m | grep opcache
+# 或者
+#     <?php
+#     $status = opcache_get_status(false);
+#     var_dump($status);
+[opcache]
+# 通常不需要手动加载 opcache 扩展，默认已经启用
+;zend_extension=opcache.so
+opcache.enable=1
+opcache.enable_cli=0
+opcache.memory_consumption=128
+opcache.max_accelerated_files=20000
+opcache.interned_strings_buffer=16
+
+opcache.validate_timestamps=1
+# 设置为 0 表示文件有修改就立即重新验证，适合开发环境
+# 生产环境建议设置为较大的值，比如 60 或 120，减少文件系统的 I/O 负载
+opcache.revalidate_freq=0
+
+opcache.fast_shutdown=1
+opcache.save_comments=1
+```
 
 ### PHP-FPM 通信
 
