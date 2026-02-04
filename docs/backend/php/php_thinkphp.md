@@ -158,6 +158,13 @@ require __DIR__ . '/vendor/autoload.php';
 
   可以使用 `(new YouTableModel())->getTableFields()` 方法来获取当前模型对应的数据表字段，检查是否有新增的字段。
 
+### 安装
+
+```bash
+# 安装最后一个TP6.x稳定版
+composer create-project topthink/think=6.1.x-dev tp6
+```
+
 ### 数据库及模型
 
 #### 数据库连接及调试

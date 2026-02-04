@@ -257,6 +257,18 @@ date: 2024-12-31 17:19:52
 
   您将完全掌控数据、详细统计、分析功能、插件等。本项目免费且开源。
 
+- [短链接生成](https://github.com/isecret/short): 短链接服务
+
+  又一个基于 PHP 简单实现的短链接在线生成工具，简单配置，快速搭建
+
+  案例：[0x64.cn](https://0x64.cn/)
+
+- [PHP轻量短链接](https://github.com/ellermister/shorturl/): 轻量级短链接系统
+
+  PHP写的轻量级短链接系统（不包含后台管理）
+
+  案例：[x007.in](https://x007.in/)
+
 ### 在线游戏
 
 - [EmulatorJS](https://github.com/EmulatorJS/EmulatorJS): 一款开源的网页游戏模拟器
