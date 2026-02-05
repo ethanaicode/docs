@@ -276,6 +276,12 @@ Db::transaction(function () use ($ids) {
 
 ### 命令行
 
+#### 自动生成应用目录
+
+```bash
+php think build demo
+```
+
 #### 自定义指令
 
 因为网页中执行的代码会受到很多限制，所以有时候需要在命令行中执行一些操作，这个时候可以直接使用 ThinkPHP 的命令行工具。
@@ -317,6 +323,8 @@ php think make:command Hello hello
 - `halt`: 变量调试输出并中断执行
 
 - `root_path`: 获取项目根目录（可以用这个来拼接路径）
+
+- `app_path`: 获取应用目录（当前应用目录如 `app/home/`）
 
 - `public_path`: 获取公共目录
 
