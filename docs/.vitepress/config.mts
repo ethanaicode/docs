@@ -9,6 +9,43 @@ export default defineConfig({
   title: "设计笔记",  // 网站标题
   titleTemplate: ':title - 小白基础开发技术文档指南', // 网站标题模板（默认是网站标题）
   description: "设计笔记的文档集合",
+  
+  // Vite 构建优化配置
+  vite: {
+    build: {
+      chunkSizeWarningLimit: 2000, // 提高警告阈值到 2000 kB
+      rollupOptions: {
+        output: {
+          // 手动分块策略 - 使用函数形式动态分块
+          manualChunks(id) {
+            // 将 node_modules 中的依赖按包名分块
+            if (id.includes('node_modules')) {
+              // 将 Vue 相关库单独分块
+              if (id.includes('@vue') || id.includes('vue/')) {
+                return 'vue-vendor';
+              }
+              // VitePress 相关
+              if (id.includes('vitepress')) {
+                return 'vitepress-vendor';
+              }
+              // 将搜索相关库单独分块
+              if (id.includes('mark.js') || id.includes('minisearch')) {
+                return 'search-vendor';
+              }
+              // 其他较大的第三方库
+              return 'vendor';
+            }
+          },
+        },
+      },
+    },
+    resolve: {
+      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
+    },
+    ssr: {
+      noExternal: ['mark.js'],
+    },
+  },
   head: [
     ["link", { rel: "icon", href: "/logo.png" }],
     ["meta", { name: "author", content: "Ethan" }],
