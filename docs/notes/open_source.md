@@ -223,6 +223,14 @@ date: 2024-12-31 17:19:52
 
 ### 商城支付
 
+- [yansongda/pay](https://github.com/yansongda/pay): PHP 支付 SDK 扩展包
+
+  100% 兼容 支付宝/微信/银联 所有功能（包括服务商功能），只需通过「插件机制」引入即可。
+
+  文档：[pay.yansongda.cn](https://pay.yansongda.cn/)
+
+  案例：[FASTADMIN微信支付宝整合插件](https://www.fastadmin.net/store/epay.html)
+
 - [独角数卡](https://github.com/assimon/dujiaoka): 自动发卡开源式站长自动化售货系统
 
   支持数字商品、虚拟商品的自动发货，支持多种支付方式
