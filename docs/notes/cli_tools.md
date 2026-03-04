@@ -462,6 +462,47 @@ magick input.png -colorspace Gray -fill "#536a49" -tint 100 output.jpg
 
 - 比 50% 灰度更亮的区域会显得更亮，比 50% 灰度更暗的区域会显得更暗。
 
+## yt-dlp
+
+> 官方文档: [yt-dlp Documentation](https://github.com/yt-dlp/yt-dlp)
+
+yt-dlp 是一个命令行工具，用于从 YouTube 和其他视频平台下载视频和音频。它是 youtube-dl 的一个分支，提供了更多的功能和更好的性能。 yt-dlp 支持下载高清视频、提取音频、下载字幕等功能。它还支持多线程下载和断点续传，可以提高下载速度和稳定性。使用 yt-dlp 可以方便地下载和管理视频内容。
+
+### 常用命令
+
+#### 下载视频和提取信息
+```bash
+# 下载视频
+yt-dlp https://www.youtube.com/watch?v=VIDEO_ID
+# 下载视频并指定输出文件名
+yt-dlp -o "output.mp4" https://www.youtube.com/watch?v=VIDEO_ID
+# 下载视频并指定输出目录
+yt-dlp -o "/path/to/directory/%(title)s.%(ext)s" https://www.youtube.com/watch?v=VIDEO_ID
+# 下载视频并指定格式（如 mp4）
+yt-dlp -f mp4 https://www.youtube.com/watch?v=VIDEO_ID
+# 下载视频并提取音频
+yt-dlp -x --audio-format mp3 https://www.youtube.com/watch?v=VIDEO_ID
+# 下载视频并提取字幕
+yt-dlp --write-sub --sub-lang en https://www.youtube.com/watch?v=VIDEO_ID
+# 下载视频并提取自动生成的字幕
+yt-dlp --write-auto-sub --sub-lang en https://www.youtube.com/watch?v=VIDEO_ID
+# 下载视频并提取所有字幕
+yt-dlp --write-sub --all-subs https://www.youtube.com/watch?v=VIDEO_ID
+# 下载视频并提取描述信息
+yt-dlp --write-description https://www.youtube.com/watch?v=VIDEO_ID
+# 下载视频并提取缩略图
+yt-dlp --write-thumbnail https://www.youtube.com/watch?v=VIDEO_ID
+```
+
+#### 下载需要登录才能访问的视频
+
+```bash
+# 需要 cookies 时可以先使用浏览器插件（如 Get cookies.txt）导出 cookies.txt 文件，然后使用 yt-dlp 下载视频
+yt-dlp --cookies cookies.txt https://www.youtube.com/watch?v=VIDEO_ID
+# 也可以直接用浏览器的信息（支持 chrome、firefox、edge 等主流浏览器）
+yt-dlp --cookies-from-browser chrome https://www.youtube.com/watch?v=VIDEO_ID
+```
+
 ## Rclone
 
 ### 开始使用
