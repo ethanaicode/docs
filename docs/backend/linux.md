@@ -3541,7 +3541,7 @@ sudo certbot certonly --webroot -w /var/www/html -d example.com -d www.example.c
 
 ```bash
 sudo certbot certonly \
-    --webroot -w /var/www/html \
+    --webroot -w /var/www/_letsencrypt \
     -d example.com -d www.example.com \
     -m 'you_name@email.com' \
     -n \
