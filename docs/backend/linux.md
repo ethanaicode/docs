@@ -1937,6 +1937,9 @@ locate filename
 scp username@remote_host:/path/to/remote/file /path/to/local/destination
 # 本地文件复制到远程服务器（指定远程服务器端口）
 scp -P 22 /path/to/local/file username@remote_host:/path/to/remote/destination
+# 支持同时复制多个文件（支持通配符）
+scp /path/to/local/file1 /path/to/local/file2 username@remote_host:/path/to/remote/destination
+scp *.tar.gz username@remote_host:/path/to/remote/destination
 ```
 
 还可以添加参数:
