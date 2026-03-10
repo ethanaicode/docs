@@ -1197,7 +1197,7 @@ make install
 sudo truncate -s 0 example.file
 ```
 
-也可以用 `echo` 或者 `tee`，使用 `echo` 要注意权限传递的问题，否则即使用了 `sudo` 可能也会遇到权限问题：
+也可以用 `echo` 或者 `tee`，使用 `echo` 要注意权限传递的问题，否则即使使用的是 `sudo` 可能也会遇到权限问题：
 
 ```bash
 # 用 > /dev/null 是为了隐藏 tee 的输出
@@ -1210,7 +1210,7 @@ sudo sh -c "echo '' > example.file"
 
 - `cat file1 file2 > target_file`: 将多个文件**合并**到目标文件中
 
-- `cat file1 file2 >> target_file`: 将几个文件**住家**到目标文件中
+- `cat file1 file2 >> target_file`: 将几个文件**追加**到目标文件中
 
 - `cat file1 file2 | sort | uniq > target_file`: 将多个文件**合并**并排序去重后写入目标文件
 
