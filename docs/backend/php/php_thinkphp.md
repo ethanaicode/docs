@@ -165,6 +165,8 @@ require __DIR__ . '/vendor/autoload.php';
 
 - `5.0.1`开始增加了扩展配置目录的概念，在应用配置目录或者模块配置目录下面增加`extra`子目录，下面的配置文件都会自动加载，无需任何配置。
 
+- 配置的读取仅支持二级配置，也就是 `config('database')` 或者 `config('index.config')`，不支持三级配置 `config('index.config.database')`。
+
 ## TP6 使用经验总结
 
 ### 注意事项
