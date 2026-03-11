@@ -144,6 +144,27 @@ require __DIR__ . '/vendor/autoload.php';
   
   使用该方法输出的值**不会使用默认的过滤方法进行转义**。
 
+## TP5 使用经验总结
+
+### 配置
+
+- 系统默认的配置文件目录就是应用目录（`APP_PATH`），也就是默认的`application`下面。
+
+  配置目录下面的结构类似如下：
+
+  ```
+  ├─application         应用目录
+  ├─config              配置目录
+  │  ├─config.php       应用配置文件
+  │  ├─database.php     数据库配置文件
+  │  ├─route.php        路由配置文件
+  │  ├─index            index模块配置文件目录
+  │  │  ├─config.php    index模块配置文件
+  │  │  └─database.php  index模块数据库配置文件
+  ```
+
+- `5.0.1`开始增加了扩展配置目录的概念，在应用配置目录或者模块配置目录下面增加`extra`子目录，下面的配置文件都会自动加载，无需任何配置。
+
 ## TP6 使用经验总结
 
 ### 注意事项
