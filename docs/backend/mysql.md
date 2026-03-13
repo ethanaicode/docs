@@ -714,7 +714,11 @@ LIMIT 10;
 
 - `-d` 或 `--no-data`: 只导出表结构，不导出数据
 
-- `-t` 或 `--no-create-info`: 只导出数据，不导出表结构
+- `-t` 或 `--no-create-info`: 只导出数据，不导出表结构（只包含了 `INSERT` 语句）
+
+- `--skip-add-drop-table`: 导出时不添加 `DROP TABLE` 语句，避免覆盖现有表
+
+  如果目标数据库已经存在这个表，导入时仍然会报错，不过 MySQL 默认会继续执行后面的 SQL 语句（除非 `--force` 关闭）。
 
 - `--single-transaction`: 在导出大型数据库时，使用单个事务可以不锁表，快照一致（仅 InnoDB）
 
