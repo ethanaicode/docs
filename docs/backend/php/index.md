@@ -14,13 +14,13 @@
 
 - [ThinkPHP](./php_thinkphp)
 
-- [后台管理框架](./php_admin)
-
-  ThinkAdmin、FastAdmin、Phinx-Migrations 等。
-
 - [Laravel](./php_laravel)
 
 - [Workerman](./php_workerman)
+
+- [后台管理框架](./php_admin)
+
+  ThinkAdmin、FastAdmin、Phinx-Migrations 等。
 
 - [WordPress](./php_wordpress)
 

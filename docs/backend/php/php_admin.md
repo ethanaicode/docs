@@ -179,14 +179,14 @@ protected function _form_result(bool $result, array $data)
 
   ```php
   use Phinx\Migration\AbstractMigration;
-
+  
   class CreateUsersTable extends AbstractMigration
   {
       public function change()
       {
           $this->_createUsersTable();
       }
-
+  
       protected function _createUsersTable()
           // 创建 users 表
           $table = $this->table('users', [
@@ -210,3 +210,94 @@ protected function _form_result(bool $result, array $data)
 > 开源地址：[GitHub](https://github.com/karsonzhang/fastadmin) | [Gitee](https://gitee.com/fastadminnet/fastadmin)
 >
 > 最新版下载：[FastAdmin 开源框架完整包](https://www.fastadmin.net/download/full.html?ref=docs)
+
+### 扩展
+
+#### 检测IP是否允许 check_ip_allowed
+
+检测IP是否允许访问，如果检测到IP在`常规管理`->`系统配置`中配置的`禁止IP`中，将会输出`403`响应
+
+**参数**
+
+| 参数名 | 描述                                 | 默认值 | 必选 |
+| :----- | :----------------------------------- | :----- | :--- |
+| $ip    | IP地址，不传时将使用当前请求用户的IP | null   | 否   |
+
+**返回值**
+无，如果检测到IP不允许，将会输出403响应
+
+**示例**
+
+```php
+check_ip_allowed();
+//如果检测到IP不允许，将会输出403响应复制
+```
+
+#### 日期时间处理类
+
+```bash
+//获取两个时区间相差的秒数
+$seconds = \fast\Date::offset('America/Chicago', 'GMT');
+
+//计算两个数值之间相差的时间
+$span = \fast\Date::span(60, 182, 'minutes,seconds'); // array('minutes' => 2, 'seconds' => 2)
+$span = \fast\Date::span(60, 182, 'minutes'); // 2，如果第三个参数只需返回一个数据时，此时直接返回值，不返回数组。
+//第三个参数支持years,months,weeks,days,hours,minutes,seconds
+
+//格式化时间戳为易读的字符串
+$text = \fast\Date::human(time()-10); //10 seconds ago
+$text = \fast\Date::human(time()+10); //10 seconds after
+$text = \fast\Date::human(time()-70); //1 minute ago
+$text = \fast\Date::human(time()+70); //1 minute ago
+
+//获取一个基于时间偏移的Unix时间戳，常用于统计功能筛选日期时间的计算
+$timestamp = \fast\Date::unixtime('day'); // 返回今天0点0分0秒的时间戳
+$timestamp = \fast\Date::unixtime('day', -1); //返回昨天0点0分0秒的时间戳
+$timestamp = \fast\Date::unixtime('day', -1, 'end'); //返回昨天23点59分59秒的时间戳
+$timestamp = \fast\Date::unixtime('week'); // 返回本周一0点0分0秒的时间戳
+$timestamp = \fast\Date::unixtime('week', -1); //返回上周一0点0分0秒的时间戳
+$timestamp = \fast\Date::unixtime('week', -1, 'end'); //返回上周日23点59分59秒的时间戳
+//\fast\Date::unixtime($type = 'day', $offset = 0, $type = 'begin');
+//$type：默认为day，支持minute,hour,day,week,month,quarter,year
+//$offset：默认为0，正数表示当前$type之后，负数表示当前$type之前
+//$type：默认为begin，时间的开始或结束，可选前(begin,start,first,front)，end
+```
+
+#### Http请求处理类
+
+```bash
+//发送一个POST请求并获取返回结果
+$result = \fast\Http::post("http://www.example.com", ['name'=>'张三', 'age'=>20]);
+//发送一个POST请求并设置Content-Type并获取返回结果
+$result = \fast\Http::post("http://www.example.com", ['name'=>'张三', 'age'=>20], [CURLOPT_TIMEOUT => 30, CURLOPT_HTTPHEADER => ['Content-Type: text/plain', 'Authorization: abcdefg']]);
+
+//发送一个GET请求并获取返回结果，此时返回$result=['ret'=>true, 'msg'=>'返回结果'];
+$result = \fast\Http::sendRequest("http://www.example.com", ['name'=>'张三', 'age'=>20], [CURLOPT_HTTPHEADER => ['Content-Type: text/plain']]);
+
+//发送一个无需获取返回结果的请求
+\fast\Http::sendAsyncRequest("http://www.example.com", ['name'=>'张三', 'age'=>20]);
+
+//发送输出一个临时文件到浏览器端下载，并删除该文件
+\fast\Http::sendToBrowser("你的临时文件绝对路径");
+```
+
+#### 随机字符处理类
+
+```bash
+//生成一个包含数字和字母的6位随机字符串，默认为6位
+$result = \fast\Random::alnum();
+//生成一个包含数字和字母的15位随机字符串
+$result = \fast\Random::alnum(15);
+
+//生成一个仅包含字母的15位随机字符串
+$result = \fast\Random::alpha(15);
+
+//生成一个仅包含数字的15位随机数字
+$result = \fast\Random::numeric(15);
+//生成一个仅包含数字且不包含0的15位随机数字
+$result = \fast\Random::nozero(15);
+
+//生成全球唯一标识
+$result = \fast\Random::uuid();
+```
+
