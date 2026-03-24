@@ -344,6 +344,12 @@ date: 2024-12-31 17:19:52
 
   可以暴露本地服务到公网
 
+### 其它
+
+- [PM3](https://github.com/RfidResearchGroup/proxmark3): RFID 研究工具
+
+  Proxmark3 是一个开源的 RFID 研究工具，支持多种 RFID 协议，可以用于 RFID 安全研究和开发。
+
 ## AI 开发
 
 ### AI 客户端
