@@ -183,6 +183,22 @@ npm 使用语义化版本号（Semantic Versioning）规范来管理包的版本
 
 - **~1.2.3**: 允许更新到 1.2.x 的最新版本
 
+### pnpm 等其它包管理器
+
+除了 npm 以外，还有一些其他的包管理器，例如 nrm、pnpm 和 yarn。
+
+他们的使用方法和 npm 类似，但在性能和功能上有所不同。
+
+- **nrm**: npm registry manager，可以方便地切换 npm 源地址
+
+- **pnpm**: performant npm，性能更好，安装速度更快，占用空间更小
+
+- **yarn**: Facebook 开发的包管理器，性能更好，安装速度更快，占用空间更小
+
+- **cnpm**: 淘宝 npm 镜像，提供了一个国内的 npm 镜像源，可以加速 npm 安装
+
+  但不推荐使用，因为它可能存在安全风险，宁愿用npm+设置镜像源实现
+
 ### 常见问题
 
 - **npm ERR! code EACCES**: 权限不足

@@ -143,6 +143,10 @@ date: 2024-12-31 17:19:52
 
   一个 Python 版的 Telegram Bot API 库，支持异步和同步两种方式，如果需要开发 Telegram Bot，可以使用这个库。
 
+- [Plasmo Framework](https://github.com/PlasmoHQ/plasmo): Plasmo Framework
+
+  Plasmo 框架是一款黑客为黑客打造的功能强大的浏览器扩展程序软件开发工具包（SDK）。使用 Plasmo 来构建你的浏览器扩展程序，不需要操心扩展的配置文件和构建时的一些奇怪特性。
+
 ### 后台管理
 
 - [Vue Vben Admin](https://github.com/vbenjs/vue-vben-admin): 超火的 Vue3 + Vite + TypeScript 后台管理框架，功能特别全
