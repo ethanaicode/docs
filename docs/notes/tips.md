@@ -141,7 +141,7 @@ def singleNumber(nums):
 
 - [GameJolt](https://gamejolt.com/): 游戏社区，提供各种类型的游戏，包括独立游戏、多人游戏等。
 
-## 浏览器插件
+## 浏览器插件收藏
 
 ### 工具类
 
@@ -160,6 +160,45 @@ def singleNumber(nums):
 - [User JavaScript and CSS](https://chromewebstore.google.com/detail/user-javascript-and-css/nbhcbdghjpllgmfilhnhkllmkecfmpld): 一个简单的用户脚本和 CSS 管理器，可以在浏览器中运行自定义的 JavaScript 和 CSS
 
   适合简单的网页修改和样式调整，支持在特定网站上运行脚本，支持编辑器高亮、自动保存等功能。
+
+## 浏览器插件开发
+
+### 目录
+
+```bash
+# MV2（旧版）
+extension/
+├── manifest.json        # 核心配置
+├── background.js        # 常驻后台脚本（持久运行）
+├── content.js           # 注入页面脚本
+├── popup.html           # 插件弹窗
+├── popup.js
+├── options.html         # 设置页（可选）
+├── icons/
+└── assets/
+
+# MV3（新版）
+extension/
+├── manifest.json
+├── service-worker.js    # 替代 background.js（事件驱动）
+├── content.js
+├── popup.html
+├── popup.js
+├── options.html
+├── icons/
+└── assets/
+```
+
+### MV2 和 MV3 的区别
+
+- MV2 为常驻后台服务，MV3 则是事件驱动的 Service Worker，只有在需要时才会启动，完成任务后自动关闭。
+
+- 文件目录上，主要是没有 `background.js` 了，而是被 `service-worker.js` 替代。
+
+- 最本质的区别是 `background.js` 是常驻内存的，而 `service-worker.js` 是由事件驱动的，所以会被浏览器随时销毁，无法长期运行，也不支持 setInterval 持久任务。
+
+- 网络请求上，MV2几乎没有限制，而 MV3 必须配合 `host_permissions` 来声明需要访问的域名，并且只能在 `service-worker.js` 中发起跨域请求，content script 只能访问当前页面的域名。
+MV3 还引入了 `declarativeNetRequest` API 来替代 MV2 中的 `webRequest` API，被限制了修改请求的能力，无法动态添加或修改规则。
 
 ## AI Related
 
