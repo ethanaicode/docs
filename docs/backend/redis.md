@@ -342,6 +342,46 @@ EXPIRE site 60
 TTL site
 ```
 
+## 在 PHP 中使用 Redis
+
+可以使用 `phpredis` 扩展来连接和操作 Redis。以下是一个简单的示例：
+
+```php
+<?php
+$redis = new Redis();
+$redis->connect('127.0.0.1', 6379);
+$redis->set('site', 'redis.io');
+echo $redis->get('site'); // 输出: redis.io
+?>
+```
+
+### 实用案例
+
+#### 一次性获取并删除列表中的所有元素
+
+只拿“脚本执行瞬间队列里已有的”，脚本之后新进来的不会被删，会留在队列里等下一轮。可以使用 Lua 脚本来实现原子操作：
+
+```php
+<?php
+$queue = 'myqueue';
+
+$lua = <<<LUA
+local key = KEYS[1]
+local items = redis.call('LRANGE', key, 0, -1)
+if #items > 0 then
+  redis.call('DEL', key)
+end
+return items
+LUA;
+
+$items = $redis->eval($lua, [$queue], 1); // 返回数组，每个元素是一个 list item 字符串
+
+// 你的一次性处理逻辑
+foreach ($items as $payload) {
+    // handle($payload);
+}
+```
+
 ## 持久化机制
 
 ### RDB 和 AOF 的区别
