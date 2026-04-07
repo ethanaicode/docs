@@ -26,6 +26,56 @@ JavaScript 是基于 `ECMAScript` 规范的编程语言，**所有现代 JavaScr
 
 3. **`async/await`（ES8，2017）** → 语法更简洁，读起来像同步代码
 
+#### Promise 的基本用法
+
+```js
+// 创建一个 Promise
+const myPromise = new Promise((resolve, reject) => {
+  // 异步操作
+  setTimeout(() => {
+    const success = true; // 模拟成功或失败
+    if (success) {
+      resolve("操作成功");
+    } else {
+      reject("操作失败");
+    }
+  }, 1000);
+});
+
+// 使用 Promise
+myPromise
+  .then((result) => {
+    console.log(result); // 输出: 操作成功
+  })
+  .catch((error) => {
+    console.error(error); // 输出: 操作失败
+  });
+```
+
+#### `async/await` 
+
+`async/await` 是 JavaScript 里 **用“同步写法”来写“异步代码”** 的一套语法糖（本质还是基于 Promise）。
+
+- `async`：声明“这个函数返回 Promise，并且里面可以用 await”
+- `await`：在 async 函数里“等 Promise 出结果”，把异步写成看起来按顺序的代码
+- `await` 的等待：只会让当前这个 async 函数的后续代码先暂停，把控制权还给事件循环，**不会阻塞整个线程**
+- `await` 把 `.then(...)` 链式写法“摊平了”，让代码更简洁、更易读，同时也更方便地进行错误处理（可以直接用 try/catch）。
+- 本质：Promise 的语法糖，主要改善可读性与错误处理
+
+```js
+async function fetchData() {
+  try {
+    const response = await fetch("https://api.example.com/data");
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+fetchData();
+```
+
 ### 模块化
 
 `ES6` 引入了模块化的概念，可以使用 `import` 和 `export` 关键字导入和导出模块。
@@ -139,7 +189,7 @@ JavaScript 是基于 `ECMAScript` 规范的编程语言，**所有现代 JavaScr
   ```javascript
   // index.js
   const { add } = await import("./math.js");
-
+  
   console.log(add(1, 2));
   ```
 
