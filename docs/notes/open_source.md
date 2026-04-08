@@ -47,6 +47,14 @@ date: 2024-12-31 17:19:52
 
   案例：[veitool 开发文档](https://www.veitool.com/doc/veitool/1)
 
+- [Ace](https://github.com/ajaxorg/ace): 一款开源的代码文本编辑器
+
+  Ace 是一个开源的代码编辑器，支持多种编程语言和主题，可以嵌入到网页中使用。
+
+  宝塔面板中的在线编辑器就是基于 Ace 开发的。
+
+  官网：[ace.c9.io](https://ace.c9.io/) | [在线编辑器](https://ace.c9.io/build/kitchen-sink.html)
+
 ### 编辑器插件主题
 
 - [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes): iTerm2 配色方案
