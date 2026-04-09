@@ -468,13 +468,23 @@ Heredoc 和 Nowdoc 都是 PHP 中的字符串定义方式。
 
 - `imagecopymerge(dst_image, src_image, dst_x, dst_y, src_x, src_y, src_w, src_h, pct)`: 拷贝并合并图像的一部分
 
-### PHP 选项
+### PHP 选项及信息
 
 - `ini_get(option)`: 获取 PHP 配置选项的值
 
 - `extension_loaded(extension)`: 检查指定的扩展是否已加载
 
 - `get_loaded_extensions()`: 返回已加载的扩展列表
+
+- `memory_get_usage(real_usage?)`: 获取当前分配的内存量
+
+  `real_usage` 参数为 `true` 时，返回系统分配的内存总量，包括未使用的内存；为 `false` 时，返回 PHP 实际使用的内存量（默认值）
+
+- `memory_get_peak_usage(real_usage?)`: 获取内存使用峰值
+
+- `memory_reset_peak_usage()`: 重置内存使用峰值(从 PHP 8.0.0 开始)
+
+  清空“历史最高内存记录”，从当前重新开始统计峰值
 
 ### 其它
 

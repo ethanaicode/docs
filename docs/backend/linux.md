@@ -1053,7 +1053,7 @@ which command
 root:x:0:0:root:/root:/bin/bash
 ```
 
-每个字段的含义如下:
+**每个字段的含义如下**
 
 1. 用户名: 用户的登录名。
 
@@ -1079,7 +1079,11 @@ root:x:0:0:root:/root:/bin/bash
 root ALL=(ALL:ALL) ALL
 ```
 
-每个字段的含义如下:
+> [!WARNING]
+>
+> 修改 `/etc/sudoers` 文件需要使用 `visudo` 命令来编辑，以避免语法错误导致系统无法正常使用。
+
+**每个字段的含义如下**
 
 1. 用户名: 用户名或者用户组名。
 
@@ -1096,6 +1100,13 @@ root ALL=(ALL:ALL) ALL
 5. ALL: 表示允许执行的命令。
 
    如果不需要用户输入密码，可以在命令前面加上 `NOPASSWD:`。
+
+**常用案例**
+
+```bash
+# 允许用户 www-data 在所有主机上以任何用户身份执行 nginx -t 和 nginx -s reload 命令，并且不需要输入密码
+www-data ALL=(ALL) NOPASSWD: /usr/sbin/nginx -t, /usr/sbin/nginx -s reload
+```
 
 ### service 和 systemctl 的区别
 
