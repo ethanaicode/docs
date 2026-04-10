@@ -2004,21 +2004,28 @@ rsync -avz username@remote_host:/path/to/remote/file /path/to/local/destination
 
 - 用户的密码文件一般在`/etc/shadow`
 
-### 允许用户使用 sudo 命令
+### 创建新用户并添加到 sudo 组
 
-> **/etc/sudoers** 文件比较敏感，通常不允许直接用编辑器修改，
->
-> 可以用 `visudo` 命令来编辑，该命令会在保存前检查文件的语法错误
+```bash
+# 创建一个新用户
+useradd -m -s /bin/bash username
+# 设置用户密码
+passwd username
+# 添加到 sudo 组（CentOS/RHEL 系统中是 wheel 组，如果是 Debian/Ubuntu 系统中是 sudo 组）
+usermod -aG wheel username
+```
+
+### 修改用户权限
+
+#### 允许用户使用 sudo 命令
 
 允许用户使用 `sudo` 命令，可以将用户添加到 `sudo` 组中（Debian/Ubuntu 系统）。
 
 不同的 linux 系统中，`sudo` 组可能不同，可以通过 `/etc/sudoers` 文件查看。
 
-_在 CentOS 或 RHEL，默认的管理组是 `wheel` 组_
-
-```bash
-usermod -aG wheel username
-```
+> [!WARNING]
+>
+> 修改 `/etc/sudoers` 文件需要使用 `visudo` 命令来编辑，以避免语法错误导致系统无法正常使用。
 
 或者修改 `/etc/sudoers` 文件，添加如下内容，也可以实现相同的效果。
 
@@ -2026,15 +2033,15 @@ usermod -aG wheel username
 username ALL=(ALL) ALL
 ```
 
-**配置无密码 sudo 权限**
+#### 配置无密码 sudo 权限
 
-如果想要允许用户在执行`sudo`命令时不需要输入密码，可以在`/etc/sudoers`文件中添加如下内容。
+如果想要允许用户在执行`sudo`命令时不需要输入密码，可以在 `/etc/sudoers` 文件中添加如下内容：
 
 ```bash
 username ALL=(ALL) NOPASSWD: ALL
 ```
 
-**确认用户的 sudo 权限**
+#### 确认用户的 sudo 权限
 
 ```bash
 sudo -l -U username

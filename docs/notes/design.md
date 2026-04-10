@@ -48,7 +48,7 @@
 
   代码字体，支持等宽显示
 
-### 中文字体
+### 中文-黑体
 
 - [得意黑](https://github.com/atelier-anchor/smiley-sans)
 
@@ -78,12 +78,6 @@
 
   - `阿里妈妈东方大楷体` 中文字体
 
-- [Zpix (最像素)](https://zpix.vercel.app/)
-
-  开源免费像素字体，支持简体中文、繁体中文、日文
-
-  开源地址: [Github](https://github.com/SolidZORO/zpix-pixel-font)
-
 - [HarmonyOS Sans](https://developer.huawei.com/consumer/en/doc/design-guides-V1/font-0000001157868583-V1)
 
   华为
@@ -92,13 +86,27 @@
 
   小米
 
-#### 宋体
+### 中文-宋体
 
 - [思源宋体](https://github.com/adobe-fonts/source-han-serif)
 
   Adobe 出品的开源字体，支持简体中文、繁体中文、日文、韩文
 
   相关页面：[思源宋体](https://source.typekit.com/source-han-serif/cn/#get-the-fonts)
+
+### 中文-圆体
+
+- [Chill-Round 寒蝉圆体系列](https://github.com/Warren2060/ChillRound)
+
+  包括：寒蝉全圆体 ChillRoundF 和 寒蝉半圆体 ChillRoundM
+
+### 其它字体
+
+- [Zpix (最像素)](https://zpix.vercel.app/)
+
+  开源免费像素字体，支持简体中文、繁体中文、日文
+
+  开源地址: [Github](https://github.com/SolidZORO/zpix-pixel-font)
 
 ## 在线设计工具
 
