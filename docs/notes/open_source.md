@@ -231,7 +231,15 @@ date: 2024-12-31 17:19:52
 
   案例：[readme-typing-svg](https://readme-typing-svg.demolab.com/demo/)
 
-- [kamiFaka](https://github.com/Baiyuetribe/kamiFaka): 一款基于 VUE3.0 的高颜值卡密发卡系统
+- [HomeBox](https://github.com/sysadminsmedia/homebox): HomeBox 是专为家庭用户打造的物品清点与整理系统！
+
+  定位：家庭物品清单 + 位置/标签管理（非常适合“电脑、鼠标在什么位置”等）
+
+  官网：[HomeBox](https://homebox.software/en/)
+
+- [Wallos](https://github.com/ellite/wallos): 个人订阅/周期性支出跟踪（Netflix、网盘、会员、API 等）
+
+  官网：[Wallos](https://wallosapp.com/)
 
 ### 商城支付
 
@@ -248,6 +256,8 @@ date: 2024-12-31 17:19:52
   支持数字商品、虚拟商品的自动发货，支持多种支付方式
 
   案例：[IOIOX Shop](https://shop.ioiox.com/)
+
+- [kamiFaka](https://github.com/Baiyuetribe/kamiFaka): 一款基于 VUE3.0 的高颜值卡密发卡系统
 
 - [Epusdt](https://github.com/assimon/epusdt): Usdt支付中间件
 
