@@ -71,6 +71,10 @@ def singleNumber(nums):
 
 ## 网址收藏夹
 
+### 查询工具
+
+- [号段归属地查询](https://www.qqzeng.com/phone/) 手机号码归属地查询，提供 API 接口，适合国内使用
+
 ### 开发工具
 
 #### 占位图片生成

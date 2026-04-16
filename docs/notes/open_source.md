@@ -193,6 +193,12 @@ date: 2024-12-31 17:19:52
 
   不仅提供了丰富的设计资源，还允许用户查看每个案例的源码和实时效果。
 
+- [phone_location.sql](https://github.com/dannyhu926/phone_location): 手机号码归属地数据库。PHP 版本的查询工具
+
+- [手机号码库](https://github.com/ls0f/phone): Python 版本的手机号码归属地库
+
+  [Go 版本的手机号码库](https://github.com/xluohome/phonedata) | [另一个 GO 号码库](https://github.com/yzchan/phone-number-locate)
+
 ## 服务器运维
 
 ### 运维工具
