@@ -209,7 +209,19 @@ protected function _form_result(bool $result, array $data)
 >
 > 开源地址：[GitHub](https://github.com/karsonzhang/fastadmin) | [Gitee](https://gitee.com/fastadminnet/fastadmin)
 >
-> 最新版下载：[FastAdmin 开源框架完整包](https://www.fastadmin.net/download/full.html?ref=docs)
+> 最新版下载：[FastAdmin 开源框架完整包](https://www.fastadmin.net/download.html)
+
+### 安装
+
+```bash
+# 下载压缩包后解压到网站目录
+unzip /path/to/fastadmin_1.6.2.20260323.zip -d /path/to/your/webroot/
+# 设置网站根目录为解压后的 public 目录，并且伪静态设置为 ThinkPHP 的伪静态规则
+# 访问网站，按照安装向导完成安装访问你的站点域名进行安装
+#     https://www.example.com/install.php
+# 安装完成后即可进入后台，比如： 
+#     https://www.example.com/奇怪的文件名.php （奇怪的文件名.php 是后台安全入口）
+```
 
 ### 扩展
 
