@@ -41,3 +41,9 @@
 - [PHPWord](./php_phpword)
 
   用于生成和操作 Word 文档的 PHP 类库。
+
+- [PHPSpreadsheet](./php_phpspreadsheet)
+
+  用于生成和操作 Excel 文件的 PHP 类库。
+
+  FastAdmin 内置了 `PhpSpreadsheet`，可以直接使用，无需额外安装。
