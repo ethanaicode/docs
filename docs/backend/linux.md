@@ -1715,7 +1715,7 @@ tar -czvf archive_$(date +'%Y%m%d_%H%M%S').tar.gz file1 file2 file3
 # 压缩目录
 tar -czvf archive_$(date +'%Y%m%d_%H%M%S').tar.gz /path/to/directory
 # 压缩目录并排除某些文件（多个文件添加多个 --exclude 参数）
-tar -czvf archive_$(date +'%Y%m%d_%H%M%S').tar.gz --exclude='*.log' --exclude='runtime/temp/*' /path/to/directory
+tar -czvf archive_$(date +'%Y%m%d_%H%M%S').tar.gz --exclude='*.log' --exclude='runtime/temp/*' --exclude='.git' /path/to/directory
 ```
 
 - `--exclude` 参数需要在目标目录之前使用。

@@ -24,7 +24,11 @@
 
 - [WordPress](./php_wordpress)
 
-## PHP 扩展
+## PHP 扩展及类库
+
+- [Guzzle](./php_guzzle)
+
+  PHP HTTP 客户端，支持发送 HTTP 请求。
 
 - [Twig](./php_twig)
 
