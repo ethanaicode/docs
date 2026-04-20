@@ -133,6 +133,12 @@ def singleNumber(nums):
 
 - [dnschecker](https://dnschecker.org/#NS/example.com): 查询域名的 DNS 记录，也可以查询解析记录等
 
+### 聊天应用
+
+- [Signal](https://signal.org/#signal-groups) Signal 群组，安全加密的聊天工具，适合隐私保护需求较高的用户
+
+  [GitHub](https://github.com/signalapp) 上的开源项目，支持 Android、iOS、桌面端。
+
 ### 游戏娱乐
 
 #### 游戏平台

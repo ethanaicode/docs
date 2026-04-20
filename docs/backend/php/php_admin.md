@@ -223,6 +223,38 @@ unzip /path/to/fastadmin_1.6.2.20260323.zip -d /path/to/your/webroot/
 #     https://www.example.com/奇怪的文件名.php （奇怪的文件名.php 是后台安全入口）
 ```
 
+### 个人使用笔记
+
+#### 标签状态 tab 切换不生效
+
+FastAdmin 的标签页筛选机制是这样工作的：
+
+用户点击标签页（HTML 中已正确配置 data-field="status"）
+
+--> 框架自动捕获点击事件
+
+--> 在 commonSearch 表单中查找 name="status" 的字段并设置值
+
+--> 刷新表格时携带该参数
+
+所以这就要求，标签页的字段一定要可以被搜索。所以如果你把标签页的字段设置为了这样：
+
+```js
+{
+  field: "status",
+  title: __("Status"),
+  searchList: statusListData,
+  operate: false,  // ← 这导致 commonSearch 表单中不生成该字段！
+  formatter: Table.api.formatter.status,
+},
+```
+
+再点击标签页时，框架会尝试在 commonSearch 表单中找到 name="status" 的字段并设置值，但由于 operate: false 导致该字段没有被生成，所以无法找到并设置值，最终导致标签页切换没有任何效果。
+
+所以如果遇到点击标签页没有数据变化时，可以检查确认下是否存在类似问题：
+
+![1776683100732.png](https://pic.shejibiji.com/i/2026/04/20/69e6085da6ed2.png)
+
 ### 命令行
 
 #### 快速生成CRUD和菜单

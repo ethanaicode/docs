@@ -2537,17 +2537,17 @@ systemctl daemon-reload
 
 - `systemctl list-dependencies <SERVICE_NAME>`: 查看服务的依赖关系
 
+- `journalctl -u <SERVICE_NAME> -f` <u>用于查看实时日志</u>
+
+  `journalctl -u <SERVICE_NAME> --lines=100` 用于查看最近 100 行日志
+
 - `journalctl -u <SERVICE_NAME>`: 查看服务的日志
 
-  `journalctl` 命令用于查看系统日志，`-u` 参数用于指定服务名称。
-
-  `journalctl -u <SERVICE_NAME> --lines=100` 用于查看最近 100 行日志。
-
-  `journalctl -u <SERVICE_NAME> -f` 用于查看实时日志。
+  `journalctl` 命令用于查看系统日志，`-u` 参数用于指定服务名称
 
 #### service 命令
 
-在一些较旧的 Linux 发行版中，`systemctl` 命令可能不可用，这时可以使用 `service` 命令来管理服务。
+在一些较旧的 Linux 发行版中，`systemctl` 命令可能不可用，这时可以使用 `service` 命令来管理服务
 
 - `service <SERVICE_NAME> start`: 启动服务
 
