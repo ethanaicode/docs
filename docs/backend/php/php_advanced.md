@@ -28,6 +28,10 @@ title: PHP进阶优化技巧，高效开发Web应用的最佳实践
 
 - `php --ini`: 查看 php.ini 文件路径
 
+- `php -l file.php`: 检查语法错误
+
+  只检查语法，不检查逻辑错误，运行时错误以及变量未定义等错误。
+
 ### PHP-FPM
 
 - `php-fpm`: 启动 php-fpm（推荐使用 systemctl 启动）
