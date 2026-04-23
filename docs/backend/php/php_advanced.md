@@ -64,6 +64,8 @@ php -v
 # 启动 PHP-FPM（通常不需要操作，默认已启动并自动重启）
 sudo systemctl start php7.4-fpm
 sudo systemctl enable php7.4-fpm
+# 查看 PHP-FPM 状态
+sudo systemctl status php7.4-fpm
 ```
 
 > [!WARNING] php-fpm 服务找不到

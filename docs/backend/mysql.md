@@ -42,6 +42,50 @@ systemctl status mysql
 
 ### 用户及权限管理
 
+#### 用户管理常用命令操作
+
+```bash
+# ================== 创建一个新用户 ==================
+CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+# 授权用户访问指定数据库
+GRANT ALL PRIVILEGES ON database_name.* TO 'username'@'localhost';
+# 授权用户访问所有数据库
+GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+# ================== 修改用户密码 ==================
+ALTER USER 'username'@'localhost' IDENTIFIED BY 'new_password';
+# 5.7.5 及以下版本修改密码
+SET PASSWORD FOR 'username'@'localhost' = PASSWORD('new_password');
+# ================== 删除用户 ==================
+DROP USER 'username'@'localhost';
+```
+
+#### 创建用户命令详解
+
+```sql
+CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+```
+
+- `CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';`: 创建用户
+
+  `username` 新用户的用户名
+
+  `localhost` 新用户的主机名
+
+  `password` 新用户的密码
+
+- `GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' WITH GRANT OPTION;`: 授权
+
+  `ALL PRIVILEGES` 用户被授予所有权限
+
+  `*.*` 数据库名.表名
+
+  `WITH GRANT OPTION` 允许用户将自己的权限授予其他用户
+
+- `FLUSH PRIVILEGES;`: <u>刷新权限</u>，使权限更改生效
+
 #### 管理用户登录方式
 
 查看用户登录方式可以使用以下命令：
@@ -70,32 +114,6 @@ ALTER USER 'username'@'localhost' IDENTIFIED WITH mysql_native_password BY 'new_
 FLUSH PRIVILEGES;
 ```
 
-#### 创建一个新用户
-
-```sql
-CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-```
-
-- `CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';`: 创建用户
-
-  `username` 新用户的用户名
-
-  `localhost` 新用户的主机名
-
-  `password` 新用户的密码
-
-- `GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' WITH GRANT OPTION;`: 授权
-
-  `ALL PRIVILEGES` 用户被授予所有权限
-
-  `*.*` 数据库名.表名
-
-  `WITH GRANT OPTION` 允许用户将自己的权限授予其他用户
-
-- `FLUSH PRIVILEGES;`: <u>刷新权限</u>，使权限更改生效
-
 #### 用户及权限管理
 
 - `REVOKE ALL PRIVILEGES ON *.* FROM 'username'@'localhost';`: 撤销权限
@@ -103,14 +121,6 @@ FLUSH PRIVILEGES;
 - `SHOW GRANTS FOR 'username'@'localhost';`: 查看用户权限
 
 - `SELECT user, host FROM mysql.user;`: 查看所有用户
-
-- `ALTER USER 'username'@'localhost' IDENTIFIED BY 'new password';`: 修改密码（低版本中可能会报错）
-
-  在 5.7.5 及以下版本 中，ALTER USER 不支持，需使用：
-
-  `SET PASSWORD FOR 'username'@'localhost' = PASSWORD('newpassword');`
-
-- `DROP USER 'username'@'localhost';`: 删除用户
 
 ### 相关文件及目录
 
