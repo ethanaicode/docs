@@ -1,4 +1,204 @@
-# PHP 后台管理框架 - ThinkAdmin/FastAdmin/EasyAdmin
+# PHP 后台管理框架 - FastAdmin/ThinkAdmin/Phinx-Migrations
+
+## FastAdmin
+
+> 官方首页：[https://www.fastadmin.net/](https://www.fastadmin.net/)
+>
+> 开源地址：[GitHub](https://github.com/karsonzhang/fastadmin) | [Gitee](https://gitee.com/fastadminnet/fastadmin)
+>
+> 最新版下载：[FastAdmin 开源框架完整包](https://www.fastadmin.net/download.html)
+>
+> 文档地址：[FastAdmin开发文档中心](https://doc.fastadmin.net/)
+
+### 安装
+
+```bash
+# 下载压缩包后解压到网站目录
+unzip /path/to/fastadmin_1.6.2.20260323.zip -d /path/to/your/webroot/
+# 设置网站根目录为解压后的 public 目录，并且伪静态设置为 ThinkPHP 的伪静态规则
+# 访问网站，按照安装向导完成安装访问你的站点域名进行安装
+#     https://www.example.com/install.php
+# 安装完成后即可进入后台，比如： 
+#     https://www.example.com/奇怪的文件名.php （奇怪的文件名.php 是后台安全入口）
+```
+
+### 个人使用笔记
+
+#### 标签状态 tab 切换不生效
+
+FastAdmin 的标签页筛选机制是这样工作的：
+
+用户点击标签页（HTML 中已正确配置 data-field="status"）
+
+--> 框架自动捕获点击事件
+
+--> 在 commonSearch 表单中查找 name="status" 的字段并设置值
+
+--> 刷新表格时携带该参数
+
+所以这就要求，标签页的字段一定要可以被搜索。所以如果你把标签页的字段设置为了这样：
+
+```js
+{
+  field: "status",
+  title: __("Status"),
+  searchList: statusListData,
+  operate: false,  // ← 这导致 commonSearch 表单中不生成该字段！
+  formatter: Table.api.formatter.status,
+},
+```
+
+再点击标签页时，框架会尝试在 commonSearch 表单中找到 name="status" 的字段并设置值，但由于 operate: false 导致该字段没有被生成，所以无法找到并设置值，最终导致标签页切换没有任何效果。
+
+所以如果遇到点击标签页没有数据变化时，可以检查确认下是否存在类似问题：
+
+![1776683100732.png](https://pic.shejibiji.com/i/2026/04/20/69e6085da6ed2.png)
+
+### 命令行
+
+#### 快速生成CRUD和菜单
+
+FastAdmin在生成CRUD时会根据`字段属性`、`字段注释`、`表注释`自动生成语言包、组件和排版，所以注释要稍微讲究点。
+
+```php
+//生成fa_test表的CRUD且控制器生成在二级目录下且一键生成菜单
+//     推荐使用，否则如果表名带下划线，会生成多级目录
+php think crud -t test -c mydir/test -u 1
+
+//生成fa_test表的CRUD且对应的模型名为testmodel
+php think crud -t test -m testmodel
+
+//生成fa_test表的CRUD且所有以list或data结尾的字段都生成复选框
+php think crud -t test --setcheckboxsuffix=list --setcheckboxsuffix=data
+//生成fa_test表的CRUD且所有以image和img结尾的字段都生成图片上传组件
+php think crud -t test --imagefield=image --imagefield=img
+
+//一键生成mydir/test控制器的权限菜单
+php think menu -c mydir/test
+```
+
+### 多语言
+
+#### 加载方式
+
+框架会自动按照当前请求的控制器进行加载对应的语言包。
+
+例如访问 `https://demo.fastadmin.net/admin/dashboard/index` 时，框架会自动加载：
+
+```bash
+application/admin/lang/zh-cn.php
+application/admin/lang/zh-cn/Dashboard.php
+```
+
+FastAdmin会默认加载 `zh-cn.php `这个全局语言包。
+
+### 扩展函数及辅助类
+
+#### 检测IP是否允许 check_ip_allowed
+
+检测IP是否允许访问，如果检测到IP在`常规管理`->`系统配置`中配置的`禁止IP`中，将会输出`403`响应
+
+**参数**
+
+| 参数名 | 描述                                 | 默认值 | 必选 |
+| :----- | :----------------------------------- | :----- | :--- |
+| $ip    | IP地址，不传时将使用当前请求用户的IP | null   | 否   |
+
+**返回值**
+无，如果检测到IP不允许，将会输出403响应
+
+**示例**
+
+```php
+check_ip_allowed();
+//如果检测到IP不允许，将会输出403响应复制
+```
+
+#### 日期时间处理类
+
+```php
+//获取两个时区间相差的秒数
+$seconds = \fast\Date::offset('America/Chicago', 'GMT');
+
+//计算两个数值之间相差的时间
+$span = \fast\Date::span(60, 182, 'minutes,seconds'); // array('minutes' => 2, 'seconds' => 2)
+$span = \fast\Date::span(60, 182, 'minutes'); // 2，如果第三个参数只需返回一个数据时，此时直接返回值，不返回数组。
+//第三个参数支持years,months,weeks,days,hours,minutes,seconds
+
+//格式化时间戳为易读的字符串
+$text = \fast\Date::human(time()-10); //10 seconds ago
+$text = \fast\Date::human(time()+10); //10 seconds after
+$text = \fast\Date::human(time()-70); //1 minute ago
+$text = \fast\Date::human(time()+70); //1 minute ago
+
+//获取一个基于时间偏移的Unix时间戳，常用于统计功能筛选日期时间的计算
+$timestamp = \fast\Date::unixtime('day'); // 返回今天0点0分0秒的时间戳
+$timestamp = \fast\Date::unixtime('day', -1); //返回昨天0点0分0秒的时间戳
+$timestamp = \fast\Date::unixtime('day', -1, 'end'); //返回昨天23点59分59秒的时间戳
+$timestamp = \fast\Date::unixtime('week'); // 返回本周一0点0分0秒的时间戳
+$timestamp = \fast\Date::unixtime('week', -1); //返回上周一0点0分0秒的时间戳
+$timestamp = \fast\Date::unixtime('week', -1, 'end'); //返回上周日23点59分59秒的时间戳
+//\fast\Date::unixtime($type = 'day', $offset = 0, $type = 'begin');
+//$type：默认为day，支持minute,hour,day,week,month,quarter,year
+//$offset：默认为0，正数表示当前$type之后，负数表示当前$type之前
+//$type：默认为begin，时间的开始或结束，可选前(begin,start,first,front)，end
+```
+
+#### Http请求处理类
+
+```php
+//发送一个POST请求并获取返回结果
+$result = \fast\Http::post("http://www.example.com", ['name'=>'张三', 'age'=>20]);
+//发送一个POST请求并设置Content-Type并获取返回结果
+$result = \fast\Http::post("http://www.example.com", ['name'=>'张三', 'age'=>20], [CURLOPT_TIMEOUT => 30, CURLOPT_HTTPHEADER => ['Content-Type: text/plain', 'Authorization: abcdefg']]);
+
+//发送一个GET请求并获取返回结果，此时返回$result=['ret'=>true, 'msg'=>'返回结果'];
+$result = \fast\Http::sendRequest("http://www.example.com", ['name'=>'张三', 'age'=>20], [CURLOPT_HTTPHEADER => ['Content-Type: text/plain']]);
+
+//发送一个无需获取返回结果的请求
+\fast\Http::sendAsyncRequest("http://www.example.com", ['name'=>'张三', 'age'=>20]);
+
+//发送输出一个临时文件到浏览器端下载，并删除该文件
+\fast\Http::sendToBrowser("你的临时文件绝对路径");
+```
+
+#### 随机字符处理类
+
+```php
+//生成一个包含数字和字母的6位随机字符串，默认为6位
+$result = \fast\Random::alnum();
+//生成一个包含数字和字母的15位随机字符串
+$result = \fast\Random::alnum(15);
+
+//生成一个仅包含字母的15位随机字符串
+$result = \fast\Random::alpha(15);
+
+//生成一个仅包含数字的15位随机数字
+$result = \fast\Random::numeric(15);
+//生成一个仅包含数字且不包含0的15位随机数字
+$result = \fast\Random::nozero(15);
+
+//生成全球唯一标识
+$result = \fast\Random::uuid();
+```
+
+#### 中文转拼音处理类
+
+```php
+//中文转拼音全拼
+$result = \fast\Pinyin::get("中文"); //返回zhongwen
+//中文转拼音首字母
+$result = \fast\Pinyin::get("中文", true); //返回zw
+//中文转拼音使用-进行连接
+$result = \fast\Pinyin::get("中文", false, '-'); //zhong-wen
+//中文转拼音使用-进行连接并首字母大写
+$result = \fast\Pinyin::get("中文", false, '-', true); //Zhong-Wen
+//\fast\Pinyin::get($chinese, $onlyfirst = false, $delimiter = '', $ucfirst = false);
+//$chinese：中文字符，必选
+//$onlyfirst：是否只返回拼音首字母，默认为false
+//$delimiter：拼音间分隔符，默认为空
+//$ucfirst：是否拼音首字母大小，默认为false
+```
 
 ## ThinkAdmin
 
@@ -202,201 +402,3 @@ protected function _form_result(bool $result, array $data)
       }
   }
   ```
-
-## FastAdmin
-
-> 官方首页：[https://www.fastadmin.net/](https://www.fastadmin.net/)
->
-> 开源地址：[GitHub](https://github.com/karsonzhang/fastadmin) | [Gitee](https://gitee.com/fastadminnet/fastadmin)
->
-> 最新版下载：[FastAdmin 开源框架完整包](https://www.fastadmin.net/download.html)
-
-### 安装
-
-```bash
-# 下载压缩包后解压到网站目录
-unzip /path/to/fastadmin_1.6.2.20260323.zip -d /path/to/your/webroot/
-# 设置网站根目录为解压后的 public 目录，并且伪静态设置为 ThinkPHP 的伪静态规则
-# 访问网站，按照安装向导完成安装访问你的站点域名进行安装
-#     https://www.example.com/install.php
-# 安装完成后即可进入后台，比如： 
-#     https://www.example.com/奇怪的文件名.php （奇怪的文件名.php 是后台安全入口）
-```
-
-### 个人使用笔记
-
-#### 标签状态 tab 切换不生效
-
-FastAdmin 的标签页筛选机制是这样工作的：
-
-用户点击标签页（HTML 中已正确配置 data-field="status"）
-
---> 框架自动捕获点击事件
-
---> 在 commonSearch 表单中查找 name="status" 的字段并设置值
-
---> 刷新表格时携带该参数
-
-所以这就要求，标签页的字段一定要可以被搜索。所以如果你把标签页的字段设置为了这样：
-
-```js
-{
-  field: "status",
-  title: __("Status"),
-  searchList: statusListData,
-  operate: false,  // ← 这导致 commonSearch 表单中不生成该字段！
-  formatter: Table.api.formatter.status,
-},
-```
-
-再点击标签页时，框架会尝试在 commonSearch 表单中找到 name="status" 的字段并设置值，但由于 operate: false 导致该字段没有被生成，所以无法找到并设置值，最终导致标签页切换没有任何效果。
-
-所以如果遇到点击标签页没有数据变化时，可以检查确认下是否存在类似问题：
-
-![1776683100732.png](https://pic.shejibiji.com/i/2026/04/20/69e6085da6ed2.png)
-
-### 命令行
-
-#### 快速生成CRUD和菜单
-
-FastAdmin在生成CRUD时会根据`字段属性`、`字段注释`、`表注释`自动生成语言包、组件和排版，所以注释要稍微讲究点。
-
-```php
-//生成fa_test表的CRUD且控制器生成在二级目录下且一键生成菜单
-//     推荐使用，否则如果表名带下划线，会生成多级目录
-php think crud -t test -c mydir/test -u 1
-
-//生成fa_test表的CRUD且对应的模型名为testmodel
-php think crud -t test -m testmodel
-
-//生成fa_test表的CRUD且所有以list或data结尾的字段都生成复选框
-php think crud -t test --setcheckboxsuffix=list --setcheckboxsuffix=data
-//生成fa_test表的CRUD且所有以image和img结尾的字段都生成图片上传组件
-php think crud -t test --imagefield=image --imagefield=img
-
-//一键生成mydir/test控制器的权限菜单
-php think menu -c mydir/test
-```
-
-### 多语言
-
-#### 加载方式
-
-框架会自动按照当前请求的控制器进行加载对应的语言包。
-
-例如访问 `https://demo.fastadmin.net/admin/dashboard/index` 时，框架会自动加载：
-
-```bash
-application/admin/lang/zh-cn.php
-application/admin/lang/zh-cn/Dashboard.php
-```
-
-FastAdmin会默认加载 `zh-cn.php `这个全局语言包。
-
-### 扩展函数及辅助类
-
-#### 检测IP是否允许 check_ip_allowed
-
-检测IP是否允许访问，如果检测到IP在`常规管理`->`系统配置`中配置的`禁止IP`中，将会输出`403`响应
-
-**参数**
-
-| 参数名 | 描述                                 | 默认值 | 必选 |
-| :----- | :----------------------------------- | :----- | :--- |
-| $ip    | IP地址，不传时将使用当前请求用户的IP | null   | 否   |
-
-**返回值**
-无，如果检测到IP不允许，将会输出403响应
-
-**示例**
-
-```php
-check_ip_allowed();
-//如果检测到IP不允许，将会输出403响应复制
-```
-
-#### 日期时间处理类
-
-```php
-//获取两个时区间相差的秒数
-$seconds = \fast\Date::offset('America/Chicago', 'GMT');
-
-//计算两个数值之间相差的时间
-$span = \fast\Date::span(60, 182, 'minutes,seconds'); // array('minutes' => 2, 'seconds' => 2)
-$span = \fast\Date::span(60, 182, 'minutes'); // 2，如果第三个参数只需返回一个数据时，此时直接返回值，不返回数组。
-//第三个参数支持years,months,weeks,days,hours,minutes,seconds
-
-//格式化时间戳为易读的字符串
-$text = \fast\Date::human(time()-10); //10 seconds ago
-$text = \fast\Date::human(time()+10); //10 seconds after
-$text = \fast\Date::human(time()-70); //1 minute ago
-$text = \fast\Date::human(time()+70); //1 minute ago
-
-//获取一个基于时间偏移的Unix时间戳，常用于统计功能筛选日期时间的计算
-$timestamp = \fast\Date::unixtime('day'); // 返回今天0点0分0秒的时间戳
-$timestamp = \fast\Date::unixtime('day', -1); //返回昨天0点0分0秒的时间戳
-$timestamp = \fast\Date::unixtime('day', -1, 'end'); //返回昨天23点59分59秒的时间戳
-$timestamp = \fast\Date::unixtime('week'); // 返回本周一0点0分0秒的时间戳
-$timestamp = \fast\Date::unixtime('week', -1); //返回上周一0点0分0秒的时间戳
-$timestamp = \fast\Date::unixtime('week', -1, 'end'); //返回上周日23点59分59秒的时间戳
-//\fast\Date::unixtime($type = 'day', $offset = 0, $type = 'begin');
-//$type：默认为day，支持minute,hour,day,week,month,quarter,year
-//$offset：默认为0，正数表示当前$type之后，负数表示当前$type之前
-//$type：默认为begin，时间的开始或结束，可选前(begin,start,first,front)，end
-```
-
-#### Http请求处理类
-
-```php
-//发送一个POST请求并获取返回结果
-$result = \fast\Http::post("http://www.example.com", ['name'=>'张三', 'age'=>20]);
-//发送一个POST请求并设置Content-Type并获取返回结果
-$result = \fast\Http::post("http://www.example.com", ['name'=>'张三', 'age'=>20], [CURLOPT_TIMEOUT => 30, CURLOPT_HTTPHEADER => ['Content-Type: text/plain', 'Authorization: abcdefg']]);
-
-//发送一个GET请求并获取返回结果，此时返回$result=['ret'=>true, 'msg'=>'返回结果'];
-$result = \fast\Http::sendRequest("http://www.example.com", ['name'=>'张三', 'age'=>20], [CURLOPT_HTTPHEADER => ['Content-Type: text/plain']]);
-
-//发送一个无需获取返回结果的请求
-\fast\Http::sendAsyncRequest("http://www.example.com", ['name'=>'张三', 'age'=>20]);
-
-//发送输出一个临时文件到浏览器端下载，并删除该文件
-\fast\Http::sendToBrowser("你的临时文件绝对路径");
-```
-
-#### 随机字符处理类
-
-```php
-//生成一个包含数字和字母的6位随机字符串，默认为6位
-$result = \fast\Random::alnum();
-//生成一个包含数字和字母的15位随机字符串
-$result = \fast\Random::alnum(15);
-
-//生成一个仅包含字母的15位随机字符串
-$result = \fast\Random::alpha(15);
-
-//生成一个仅包含数字的15位随机数字
-$result = \fast\Random::numeric(15);
-//生成一个仅包含数字且不包含0的15位随机数字
-$result = \fast\Random::nozero(15);
-
-//生成全球唯一标识
-$result = \fast\Random::uuid();
-```
-
-#### 中文转拼音处理类
-
-```php
-//中文转拼音全拼
-$result = \fast\Pinyin::get("中文"); //返回zhongwen
-//中文转拼音首字母
-$result = \fast\Pinyin::get("中文", true); //返回zw
-//中文转拼音使用-进行连接
-$result = \fast\Pinyin::get("中文", false, '-'); //zhong-wen
-//中文转拼音使用-进行连接并首字母大写
-$result = \fast\Pinyin::get("中文", false, '-', true); //Zhong-Wen
-//\fast\Pinyin::get($chinese, $onlyfirst = false, $delimiter = '', $ucfirst = false);
-//$chinese：中文字符，必选
-//$onlyfirst：是否只返回拼音首字母，默认为false
-//$delimiter：拼音间分隔符，默认为空
-//$ucfirst：是否拼音首字母大小，默认为false
-```

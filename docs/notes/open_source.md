@@ -334,6 +334,10 @@ date: 2024-12-31 17:19:52
 
 - [Pannellum](https://github.com/mpetroff/pannellum): 一款轻量免费的网页全景图展示工具
 
+- [Dummy Image](https://github.com/kingkool68/dummyimage): 一个生成占位图片的 PHP 脚本
+
+  官网：[dummyimage.com](https://dummyimage.com/)
+
 ## 软件工具
 
 ### Mac 工具
