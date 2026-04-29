@@ -191,6 +191,46 @@ axios({
 
 - `Network`: 查看网络请求，里面还可以设置网络条件，比如网络速度设置为 `Slow 3G`
 
+### 调试 JavaScript
+
+> [Chrome DevTools 官方文档](https://developer.chrome.com/docs/devtools/javascript?hl=zh-cn)
+
+#### Sources 基础
+
+打开开发者工具，然后前往 `Sources` 面板。
+
+来源面板包含三个部分：
+
+<div align="center">
+
+![source 面板](https://developer.chrome.com/static/docs/devtools/javascript/image/the-3-parts-the-sources_856.png?hl=zh-cn)
+
+</div>
+
+区域 1 显示文件树的 `Page` 标签页。此处列出了该网页请求的每个文件。
+
+可以在这里找到 JavaScript 文件，点击文件名就可以查看文件内容。
+
+通过设置断点，可以在代码执行到某一行时暂停，此时控制按钮会生效：
+
+- `Step over`: 执行下一行代码，如果下一行代码是一个函数调用，则会直接执行完这个函数，不会进入函数内部。 
+- `Step into`: 如果下一行代码是一个函数调用，则会进入函数内部，逐行调试函数的代码。
+- `Step out`: 赶紧运行完当前的函数方法，回到调用这个函数的地方继续调试。
+
+在调试过程中，如果你想查看某个变量的值，可以在 `Scope` 面板中查看当前作用域内的变量。
+
+也可以在 `Watch` 面板中添加你想要监视的变量或者表达式，这样每次执行到断点时，都会显示这些变量的值。
+
+#### 查看元素相关事件
+
+如果想查看某个元素绑定了哪些事件，以及事件对应的函数及调用栈，可以在 `Elements` 面板中选中该元素，然后在右侧的 `Event Listeners` 标签页中查看：
+
+<div align="center">
+
+![1777461931581.png](https://pic.shejibiji.com/i/2026/04/29/69f1eaac81832.png)
+
+</div>
+
 ### 脚本书签
 
 脚本书签是一种非常实用的 Chrome 开发者工具，我们可以把一段 JS 代码保存为书签，然后在需要的时候直接运行。

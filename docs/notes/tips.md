@@ -173,6 +173,8 @@ def singleNumber(nums):
 
 ## 浏览器插件开发
 
+> 谷歌官方调试文档：[调试 Chrome 扩展程序](https://developer.chrome.com/docs/extensions/get-started/tutorial/debug?hl=zh-cn)
+
 ### 目录
 
 ```bash

@@ -979,7 +979,23 @@ git fetch origin
 
 ## Github 远程仓库
 
-### 下载原始单文件
+### API 使用
+
+#### 获取资源信息
+
+GitHub 提供了丰富的 API，可以用来管理仓库、用户、组织等资源。
+
+```bash
+# 获取用户信息（提供详细的用户信息，包括用户名、ID、头像 URL、个人简介、位置、邮箱等）
+curl https://api.github.com/users/ethanaicode
+
+# 获取仓库信息（提供详细的仓库信息，包括仓库名称、描述、语言、星标数量、分叉数量等）
+curl https://api.github.com/repos/ethanaicode/Adobe-Block-Hosts-List
+# 获取仓库的提交历史（提供仓库的提交历史记录，包括每次提交的哈希、作者、日期和提交信息等）
+curl https://api.github.com/repos/ethanaicode/Adobe-Block-Hosts-List/commits
+```
+
+#### 下载原始单文件
 
 GitHub 上的文件来自 `raw.githubusercontent.com`，它们存储在可访问的位置，因此如果您知道用户名、存储库和文件路径，则可以像这样下载任何分支上的任何文件：
 
