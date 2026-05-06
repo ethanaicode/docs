@@ -1965,6 +1965,10 @@ https://www.example.com/wp-content/themes/theme-name/screenshot.png
 
 #### 常见名词
 
+- **Margin Investment**：保证金投资
+
+  指投资者使用借入的资金进行投资，以期获得更高的收益。
+
 - **CDM**：交换票据
 
 - **cheque**：支票
