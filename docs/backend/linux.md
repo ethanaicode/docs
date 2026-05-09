@@ -1519,25 +1519,19 @@ grep -vxFf file2 file1 >> diff.txt
 我们可以利用 `find` 来实现一个简单的文件树形结构。
 
 ```bash
-find /path/to/directory -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+find . | sed -e 's|[^/]*/|│   |g' -e 's|│   \([^│]\)|├── \1|'
 ```
 
 - `sed` 命令用于对文本进行替换操作。
 
-  `s;[^/]*/;|____;g` 用于将目录替换为 `|____`。
+  `s|[^/]*/|│   |g` 表示将每个目录层级替换为 `│   `，以形成树形结构。
+  `s|│   \([^│]\)|├── \1|` 表示将最后一级目录替换为 `├── `，以突出显示文件或目录的名称。
 
-  `s;____|; |;g` 用于将 `|____` 替换为 `|`，用于进一步调整格式。
-
-如果文件不多，我们可以优化下输出格式（让层级更加明显）。
-
-```bash
-find . -print | sed -e 's;[^/]*/;|--;g;s;--|;   |;g'
-```
 
 每次输入很麻烦，想快速查看目录结构，可以通过建立一个别名来实现。
 
 ```bash
-alias tree="find . -print | sed -e 's;[^/]*/;|--;g;s;--|;   |;g'"
+alias tree="find . | sed -e 's|[^/]*/|│   |g' -e 's|│   \([^│]\)|├── \1|'"
 ```
 
 如果你希望这个别名长期生效，可以将其添加到 `~/.bashrc` 文件中。
@@ -1636,7 +1630,7 @@ ls -l | grep "^-" | wc -l
 
 ### 快速创建多个文件或者目录
 
-可以使用`{1,2,3}`这种方式来创建多个文件或者目录
+可以使用`{1,2,3}`这种方式来创建多个文件或者目录F
 
 ```bash
 mkdir newDir{1,2,3}
@@ -1716,6 +1710,8 @@ tar -czvf archive_$(date +'%Y%m%d_%H%M%S').tar.gz file1 file2 file3
 tar -czvf archive_$(date +'%Y%m%d_%H%M%S').tar.gz /path/to/directory
 # 压缩目录并排除某些文件（多个文件添加多个 --exclude 参数）
 tar -czvf archive_$(date +'%Y%m%d_%H%M%S').tar.gz --exclude='*.log' --exclude='runtime/temp/*' --exclude='.git' /path/to/directory
+# 压缩目录并排除某些文件（使用 --exclude-from 参数从文件中读取要排除的文件列表）
+tar -czvf archive_$(date +'%Y%m%d_%H%M%S').tar.gz --exclude-from=exclude.txt /path/to/directory
 ```
 
 - `--exclude` 参数需要在目标目录之前使用。
@@ -2087,7 +2083,7 @@ sudo -l -U username
 
   `cat /proc/meminfo | grep 'MemTotal'` 可以查看总内存大小
 
-- `lsblk`: 查看块设备信息(列出所有存储设备也就是磁盘的大小)
+- `lsblk`: <u>查看块设备信息(列出所有存储设备也就是磁盘的大小)</u>
 
   从设备名（磁盘名）可以看出磁盘类型：
 
@@ -2116,6 +2112,22 @@ sudo -l -U username
   `sudo dmidecode -t bios` 查看 BIOS 信息
 
 ## 存储磁盘与内存管理
+
+### 磁盘分区和挂载
+
+磁盘分区和挂载是 Linux 系统中管理存储设备的基本操作。分区是将一个物理磁盘划分为多个逻辑部分，每个部分可以独立使用和管理。挂载是将一个分区或设备连接到文件系统中，使其成为系统的一部分。
+
+```bash
+# 查看块设备信息
+lsblk
+# 列出磁盘ID等信息
+blkid
+# 查看磁盘分区信息
+fdisk -l
+
+# TODO
+https://chatgpt.com/c/69fb1012-ea48-8324-b29f-ae270e35f35f
+```
 
 ### Swap 交换分区
 

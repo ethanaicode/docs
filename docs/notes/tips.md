@@ -212,6 +212,30 @@ extension/
 - 网络请求上，MV2几乎没有限制，而 MV3 必须配合 `host_permissions` 来声明需要访问的域名，并且只能在 `service-worker.js` 中发起跨域请求，content script 只能访问当前页面的域名。
 MV3 还引入了 `declarativeNetRequest` API 来替代 MV2 中的 `webRequest` API，被限制了修改请求的能力，无法动态添加或修改规则。
 
+## 宝塔面板
+
+[宝塔面板](https://www.bt.cn/new/index.html)是国内流行的服务器管理面板，提供图形化界面来管理服务器和网站。
+
+### 目录结构
+
+仅列举了与网站相关的目录，实际目录结构可能会根据安装和配置有所不同：
+
+```bash
+/www
+├── wwwroot/              # 网站根目录
+├── wwwlogs/              # 日志目录(访问日志、错误日志等)
+├── backup/               # 备份目录
+├── server/               # 所有服务目录
+│   ├── nginx/            # Nginx 配置目录
+│   │   └── conf/         # Nginx 主配置目录 
+│   ├── php/              # PHP 应用目录
+│   │   └── {version}/    # PHP 版本目录
+│   └── panel/            # 面板配置目录
+│       └── vhost/        # 虚拟主机配置目录
+│           └── nginx/    # Nginx 虚拟主机配置目录
+└── swap                  # 交换分区文件
+```
+
 ## AI Related
 
 ### 概念
