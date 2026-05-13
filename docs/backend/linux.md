@@ -368,11 +368,11 @@
 
   `-n` 按数字排序
 
+  `-h` 人性化排序（如: 1K < 1M < 1G）
+
   `-k` 指定列排序
 
   `-r` 逆序
-
-  `-h` 人性化排序
 
   常用组合: `sort -nrk2 filename` 按第二列数字逆序排序
 
@@ -3044,6 +3044,9 @@ awk '{
 
 ```bash
 awk '{print $1}' /var/log/nginx/access.log | sort | uniq | wc -l
+# 统计每个 IP 请求了多少次
+awk '{a[$1]++} END {for (i in a) print i, a[i]}' /var/log/nginx/access.log | \
+sort -nrk2 | head
 ```
 
 _统计的是不同 IP 地址的访问量，如果要统计行数，可以去掉 `sort` 和 `uniq`，直接使用 `wc -l`_
@@ -3052,6 +3055,56 @@ _统计的是不同 IP 地址的访问量，如果要统计行数，可以去掉
 
 ```bash
 awk '{print $7}' /var/log/nginx/access.log | sort | uniq -c | sort -nr | head -n 10
+```
+
+**统计访问路径、UV、流量**（输出字段依次为：`URL 访问次数 UV 流量`）
+
+```bash
+# 统计路径、UV、流量
+awk '
+{
+    uri=$7
+    ip=$1
+    bytes=$10
+
+    count[uri]++
+    traffic[uri]+=bytes
+
+    if (!seen[uri,ip]++) {
+        uv[uri]++
+    }
+}
+END {
+    for (u in count) {
+        printf "%s %d %d %d\n",
+            u,
+            count[u],
+            uv[u],
+            traffic[u]
+    }
+}' /var/log/nginx/access.log | sort -nrk4 | head -n 20
+
+# 如果需要格式化，还可以再加一层 awk 来格式化流量单位
+{original code} | \ 
+awk '
+function human(x) {
+    if (x >= 1073741824)
+        return sprintf("%.2f GB", x/1073741824)
+    else if (x >= 1048576)
+        return sprintf("%.2f MB", x/1048576)
+    else if (x >= 1024)
+        return sprintf("%.2f KB", x/1024)
+    else
+        return sprintf("%.2f B", x)
+}
+
+{
+    printf "%-50s PV=%-8d UV=%-8d Traffic=%s\n",
+        $1,
+        $2,
+        $3,
+        human($4)
+}'
 ```
 
 #### 耗时统计及分析
