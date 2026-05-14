@@ -305,6 +305,14 @@ date: 2024-12-31 17:19:52
 
   案例：[x007.in](https://x007.in/)
 
+### 邮箱服务
+
+- [Cloudflare 临时邮箱](https://github.com/dreamhunter2333/cloudflare_temp_email): 功能完整的临时邮箱服务
+
+  基于 Cloudflare 免费服务构建，零成本运行，响应式设计，支持多语言，操作简便，支持为邮箱地址设置独立密码，增强安全性。
+
+  案例：[mail.awsl.uk](https://mail.awsl.uk/)
+
 ### 在线游戏
 
 - [EmulatorJS](https://github.com/EmulatorJS/EmulatorJS): 一款开源的网页游戏模拟器
