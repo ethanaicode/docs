@@ -1,5 +1,209 @@
 # JavaScript
 
+## 常用对象的原型方法速查表
+
+### 字符串对象
+
+```js
+// 获取字符串长度
+string.length
+
+// 获取指定位置的字符
+string.charAt(index)
+
+// 将字符串拆分为数组
+string.split(separator, limit)
+
+// 返回子串第一次出现的位置，未找到返回 -1
+string.indexOf(searchValue)
+
+// 判断是否包含某个子串，返回 boolean
+string.includes(searchString)
+
+// 截取字符串片段（支持负索引）
+string.slice(start, end)
+
+// 替换匹配的字符串
+string.replace(searchValue, newValue)
+
+// 转换为大写 / 小写
+string.toUpperCase()
+string.toLowerCase()
+
+// 去除首尾空白字符
+string.trim()
+
+// 判断是否以某个字符串开头 / 结尾
+string.startsWith(searchString)
+string.endsWith(searchString)
+
+// 重复字符串 n 次
+string.repeat(count)
+
+// 用指定字符串填充至目标长度（头部 / 尾部）
+string.padStart(targetLength, padString)
+string.padEnd(targetLength, padString)
+```
+
+### 数字对象
+
+```js
+// 格式化为指定小数位数的字符串
+number.toFixed(digits)
+  // 例1：保留两位小数
+  let num = 3.14159;
+  console.log(num.toFixed(2)); // 输出 "3.14"
+
+// 转换为字符串（可指定进制）
+number.toString(radix)
+
+// 判断是否为 NaN
+Number.isNaN(value)
+
+// 判断是否为有限数
+Number.isFinite(value)
+
+// 判断是否为整数
+Number.isInteger(value)
+
+// 将字符串解析为整数
+Number.parseInt(string, radix)
+
+// 将字符串解析为浮点数
+Number.parseFloat(string)
+```
+
+### 数组对象
+
+```js
+// 将数组转换为字符串
+array.join(separator)
+
+// 删除并返回最后一个元素
+array.pop()
+
+// 向末尾添加元素，返回新长度
+array.push(item1, item2, ..., itemX)
+
+// 删除并返回第一个元素
+array.shift()
+
+// 向开头添加元素，返回新长度
+array.unshift(item1, item2, ..., itemX)
+
+// 反转数组顺序（修改原数组）
+array.reverse()
+
+// 对每个元素执行函数，无返回值
+array.forEach(function(currentValue, index, arr))
+  // 例1：打印数组索引及值
+  const array1 = ['a', 'b', 'c'];
+  array1.forEach((element, index) => {
+    console.log(`Index: ${index}, Value: ${element}`);
+  });
+
+// 对每个元素执行函数，返回新数组
+array.map(function(currentValue, index, arr))
+
+// 过滤元素，返回满足条件的新数组
+array.filter(function(currentValue, index, arr))
+
+// 返回第一个满足条件的元素
+array.find(function(currentValue, index, arr))
+
+// 返回第一个满足条件元素的索引
+array.findIndex(function(currentValue, index, arr))
+
+// 累加器，将数组归并为单一值
+array.reduce(function(accumulator, currentValue, index, arr), initialValue)
+
+// 判断是否所有元素满足条件
+array.every(function(currentValue, index, arr))
+
+// 判断是否存在满足条件的元素
+array.some(function(currentValue, index, arr))
+
+// 判断数组是否包含某个值
+array.includes(value)
+
+// 返回指定值第一次出现的索引，未找到返回 -1
+array.indexOf(searchElement)
+
+// 截取数组片段，返回新数组
+array.slice(start, end)
+
+// 删除/替换/插入元素，直接修改原数组
+array.splice(start, deleteCount, item1, item2)
+
+// 合并数组，返回新数组
+array.concat(array2)
+
+// 将多维数组展平
+array.flat(depth)
+
+// 排序（默认按字符串 Unicode 排序）
+array.sort(compareFunction)
+```
+
+### 对象
+
+```js
+// 返回对象自身可枚举属性名数组
+Object.keys(obj)
+
+// 返回对象自身可枚举属性值数组
+Object.values(obj)
+
+// 返回对象自身可枚举 [key, value] 对数组
+Object.entries(obj)
+
+// 浅拷贝一个或多个对象到目标对象
+Object.assign(target, ...sources)
+
+// 冻结对象，防止修改
+Object.freeze(obj)
+
+// 判断对象是否拥有指定属性（不含原型链）
+obj.hasOwnProperty(prop)
+```
+
+## JavaScript 基础
+
+### 数据类型
+
+JavaScript 共有 **8 种数据类型**，分为两大类：
+
+**原始类型（Primitive）**——值直接存储在栈内存中，共 7 种：
+
+| 类型 | 说明 | 示例 |
+| --- | --- | --- |
+| `undefined` | 声明了变量但未赋值 | `let a;` |
+| `null` | 表示"空值"，需显式赋值 | `let a = null;` |
+| `boolean` | 布尔值 | `true` / `false` |
+| `number` | 整数与浮点数（含 `NaN`、`Infinity`）| `42`、`3.14` |
+| `string` | 字符串 | `"hello"` |
+| `symbol` | 唯一且不可变的值（ES6） | `Symbol('id')` |
+| `bigint` | 任意精度整数（ES2020） | `9007199254740991n` |
+
+**引用类型（Reference）**——值存储在堆内存中，变量保存的是指针，共 1 种大类：
+
+| 类型 | 说明 | 示例 |
+| --- | --- | --- |
+| `object` | 普通对象、数组、函数、日期等均属于此类 | `{}`、`[]`、`function(){}` |
+
+> `typeof null === 'object'` 是 JS 历史遗留 bug，`null` 实际是原始类型。
+> 可用 `Array.isArray()` 区分数组与普通对象。
+
+### 表达式和参考符
+
+**typeof**
+
+用于判断变量的类型
+
+```js
+typeof "John"; // Returns string
+```
+
 ## ECMAScript
 
 `ECMAScript`（简称 `ES`）是 JavaScript 的**核心标准**，由 **ECMA 国际组织** 维护和制定（官方组织是 **TC39**）。
@@ -200,29 +404,7 @@ fetchData();
   }
   ```
 
-## 常用对象的原型方法速查表
-
-### 字符串对象
-
-- `string.split(separator, limit)`: 将字符串拆分为数组。
-
-### 数组对象
-
-- `array.join(separator)`: 将数组转换为字符串。
-
-- `array.pop()`: 删除并返回数组的最后一个元素。
-
-- `array.push(item1, item2, ..., itemX)`: 向数组的末尾添加一个或多个元素，并返回新的长度。
-
-- `array.shift()`: 删除并返回数组的第一个元素。
-
-- `array.reverse()`: 反转数组中元素的顺序，直接修改原数组。
-
-- `array.forEach(function(currentValue, index, arr), thisValue)`: 用于调用数组的每个元素，并将元素传递给回调函数。
-
-- `array.map(function(currentValue, index, arr), thisValue)`: 用于调用数组的每个元素，并将元素传递给回调函数，返回新的数组。
-
-## 基础概念
+## 常见面试题
 
 ### 原型方法是什么？和原型链有什么关系？
 
@@ -233,44 +415,6 @@ fetchData();
 原型方法依赖于原型链, 通过原型链的方式实现了对象的继承，如果对象本身没有这个方法，会沿着原型链向上查找，直到找到为止。
 
 原型链是原型方法的实现基础，原型链保证了对象实例可以继承 `prototype` 上的属性和方法。
-
-## JavaScript 基础
-
-### 表达式和参考符
-
-**typeof**
-
-用于判断变量的类型
-
-```js
-typeof "John"; // Returns string
-```
-
-### 内置对象-数组
-
-#### [Array.prototype.map()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
-
-`map()` 方法创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。
-
-```js
-const array1 = [1, 4, 9, 16];
-
-// Pass a function to map
-const map1 = array1.map((x) => x * 2);
-
-console.log(map1);
-// Expected output: Array [2, 8, 18, 32]
-```
-
-#### [Array.prototype.forEach()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
-
-`forEach()` 方法对数组的每个元素执行一次提供的函数。
-
-```js
-document.querySelectorAll(".check-content").forEach((element) => {
-  element.style.display = "";
-});
-```
 
 ## Window
 
@@ -344,7 +488,33 @@ element.addEventListener("click", () => {
 
 ## 内置对象 (Built-in Objects)
 
-### 静态对象 (Static objects)
+### Array 数组
+
+#### [Array.prototype.map()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+
+`map()` 方法创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。
+
+```js
+const array1 = [1, 4, 9, 16];
+
+// Pass a function to map
+const map1 = array1.map((x) => x * 2);
+
+console.log(map1);
+// Expected output: Array [2, 8, 18, 32]
+```
+
+#### [Array.prototype.forEach()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+
+`forEach()` 方法对数组的每个元素执行一次提供的函数。
+
+```js
+document.querySelectorAll(".check-content").forEach((element) => {
+  element.style.display = "";
+});
+```
+
+### Static objects 静态对象
 
 #### Object.defineProperty()
 
