@@ -2525,6 +2525,8 @@ systemctl daemon-reload
 
 - `systemctl enable <SERVICE_NAME>`: 启用服务
 
+  `systemctl enable --now <SERVICE_NAME>` <u>启用并立即启动服务</u>（无需再执行一次 `start` 命令）
+
 - `systemctl disable <SERVICE_NAME>`: 禁用服务
 
 - `systemctl is-enabled <SERVICE_NAME>`: 查看服务是否启用
@@ -2665,6 +2667,12 @@ PrivateTmp=true
 sudo systemctl daemon-reload
 sudo systemctl enable certbot.timer
 sudo systemctl start certbot.timer
+
+# 也可以立即执行服务
+sudo systemctl start certbot.service
+sudo systemctl status certbot.service
+    # OR
+    sudo journalctl -u certbot.service -f
 ```
 
 ### crontab 定时任务
