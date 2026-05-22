@@ -265,6 +265,7 @@ myPromise
 - `await` 的等待：只会让当前这个 async 函数的后续代码先暂停，把控制权还给事件循环，**不会阻塞整个线程**
 - `await` 把 `.then(...)` 链式写法“摊平了”，让代码更简洁、更易读，同时也更方便地进行错误处理（可以直接用 try/catch）。
 - 本质：Promise 的语法糖，主要改善可读性与错误处理
+  因为Promise链式调用如果任务变多就会有长长的`.then().then().then()`链条，如果里面还夹杂着判断逻辑`（if/else）`或错误处理`（try/catch）`，代码会变得非常难读。
 
 ```js
 async function fetchData() {

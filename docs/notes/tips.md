@@ -2003,6 +2003,8 @@ https://www.example.com/wp-content/themes/theme-name/screenshot.png
 
 - **withdrawal**：取款
 
+- **AER**：Annual Equivalent Rate，年利率，考虑了复利因素的年化收益率
+
 - **APR**：Annual Percentage Rate，年利率
 
 - **APY**：Annual Percentage Yield，复利计算的年化收益率，即每月或每天把收益再投入本金计算
