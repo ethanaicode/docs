@@ -799,6 +799,8 @@ diskutil mount disk3s1
 diskutil unmountDisk disk2
 # 卸载磁盘容器（可以实现一键卸载）
 diskutil unmount disk3s1
+    #✅ 由于挂载节点（Identifier） 是动态的，所以可以结合磁盘名来实现准确的一键卸载
+    diskutil unmount $(diskutil list | grep "MyDisk" | awk "{print \$NF}")
 # 弹出磁盘
 diskutil eject disk2
 # 强制弹出磁盘（先尝试弹出，不行可以考虑强制卸载）
@@ -817,6 +819,8 @@ diskutil apfs list -plist
 diskutil apfs listUsers disk5s1
 # 临时解锁磁盘（可以实现一键解锁并挂载）
 diskutil apfs unlockVolume disk5s1
+    #✅ 由于挂载节点（Identifier） 是动态的，所以可以结合磁盘名来实现准确的一键解锁并挂载
+    diskutil apfs unlockVolume $(diskutil list | grep "MyDisk" | awk "{print \$NF}")
 # 永久解锁磁盘（永久取消解锁）
 diskutil apfs decryptVolume disk5s1
 ```
