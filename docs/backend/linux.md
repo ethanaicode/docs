@@ -426,7 +426,11 @@
 
   **注意**: `adduser` 是一个更友好的脚本，通常会自动创建家目录并设置默认 shell，而 `useradd` 则是一个更底层的命令，需要手动指定更多参数。
 
-- **passwd**: 修改密码(不指定用户名则修改当前用户)
+- **passwd**: 修改密码(不指定用户名则修改当前用户，root密码修改也可以使用这个命令)
+
+  `-d` 删除用户密码（用户无法登录）
+
+  `-e` 过期用户密码（用户必须在下次登录时修改密码）
 
 - **userdel**: 删除用户
 
@@ -3713,6 +3717,8 @@ sudo certbot certonly \
 
 #### 定时任务自动续期证书
 
+> 官方自动续期参考教程：[https://certbot.org/renewal-setup](https://certbot.org/renewal-setup)
+>
 > 我写了个脚本用于自动处理续期证书并同步，具体可看：[auto_certbot_sync.sh](https://github.com/ethanaicode/debian-ubuntu-webserver-setup/blob/main/script/auto_certbot_sync.sh)
 >
 > 不推荐！！请使用官方推荐的 `systemd` 定时任务方式，并使用 `--deploy-hook` 参数来处理续期后的操作
