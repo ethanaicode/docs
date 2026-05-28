@@ -3871,25 +3871,30 @@ systemctl restart ssh
 
 _不同的系统 ssh 服务名称可能不同，可以使用`systemctl list-unit-files --type=service | grep ssh`来查看_
 
-#### 常见配置项
+#### 配置 SSH 登录方式
 
 通过修改 `/etc/ssh/sshd_config` 文件来配置 SSH 服务，可以允许或禁止某些功能。
 
-- `PermitRootLogin`: 是否允许 root 用户通过 SSH 登录，默认值为 `prohibit-password`，可以设置为 `yes` 或 `no`。
+```bash
+# 是否允许使用公钥进行身份验证，默认值为 `yes`
+#PubkeyAuthentication yes
 
-- `PasswordAuthentication`: 是否允许使用密码进行身份验证，默认值为 `yes`，可以设置为 `no` 来禁用密码登录。
+# 是否启用挑战响应身份验证，默认值为 `yes`，其实就是问答式认证，比如验证码或者动态口令（如 Google Authenticator）
+#ChallengeResponseAuthentication yes
+ChallengeResponseAuthentication no
 
-  如果禁用密码登录，那么只能使用公钥登录。
+# 是否允许 root 用户通过 SSH 登录,默认值为 `prohibit-password`，可以设置为 `yes` 或 `no`
+PermitRootLogin yes
+# 是否允许使用密码进行身份验证，默认值为 `yes`，可以设置为 `no` 来禁用密码登录
+PasswordAuthentication no
+```
 
-- `PubkeyAuthentication`: 是否允许使用公钥进行身份验证，默认值为 `yes`。
-
-- `ChallengeResponseAuthentication`: 是否启用挑战响应身份验证，默认值为 `yes`。
-
-可以**为不同的用户设置不同的 SSH 配置项**，比如禁止某个用户使用密码登录，只允许使用公钥登录。
+还可以**为不同的用户设置不同的 SSH 配置项**，比如禁止某个用户使用密码登录，只允许使用公钥登录。
 
 ```bash
 Match User username
     PasswordAuthentication no
+    # 可以省略下面这行，因为默认就是允许使用公钥登录的
     PubkeyAuthentication yes
 ```
 
