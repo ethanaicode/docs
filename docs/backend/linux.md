@@ -1646,7 +1646,7 @@ mkdir newDir{1,2,3}
 mkdir -p newDir/{subDir1,subDir2}
 ```
 
-### 保留日志最后 N 行，减小日志文件大小
+### 保留日志最后 N 行
 
 有时日志文件会变得非常大，可以使用`tail`命令保留日志文件的最后 N 行，来实现减小日志文件大小的目的。
 
@@ -1655,7 +1655,76 @@ tail -n 1000 logfile > logfile.new
 mv logfile.new logfile
 ```
 
-_有时候空间并不会立刻释放出来，所以考虑重启服务或者服务器来立即释放空间。_
+_有时候空间并不会立刻释放出来，可以考虑重启服务或者服务器来立即释放空间。_
+
+### 查找文件并操作（find, locate）
+
+#### find 实用案例
+
+```bash
+# 批量修改文件名
+find ./ -type f -name "*.7z" -exec sh -c 'f="$1"; mv -f "$f" "${f%.7z}.7z1"' _ {} \;
+
+# 查找文件并排序
+find . -name "*.service" -maxdepth 1 -type f | sort
+
+# 查找文件并按照文件大小排序
+find . -type f -exec ls -l {} + | sort -k 5n
+# 或者
+find . -type f -printf "%s %p\n" | sort -n
+
+# 查找文件并随机选择一个
+find . -type f | shuf -n 1
+```
+
+#### locate
+
+它是直接从预先构建好的数据库中进行搜索，而不是像 `find` 命令一样实时遍历文件系统，可以实现更快搜索。
+
+> 安装: yum install mlocate
+
+- `updatedb`: 更新文件及目录索引数据库（第一次使用可能需要执行这条命令）
+
+之后就可以使用`locate`命令来查找文件了。
+
+```bash
+locate filename
+```
+
+### 修改文件及目录时间
+
+文件的自带时间戳主要有三种，除了改变时间（ctime）不能被直接手动修改（它是系统自动记录的）以外，访问时间（atime）和修改时间（mtime）都可以任意修改。
+
+```bash
+# ============================================
+# 修改访问时间和修改时间（不包括创建时间）
+# ============================================
+# 修改目录下所有文件及目录的访问时间和修改时间为当前时间
+find /path/to/directory -exec touch {} +
+
+# 快速将当前目录及所有子目录下的文件时间全部修改
+find . -exec touch -d "2026-05-01 12:00:00" {} +
+# Or
+find . -exec touch -d "2 days ago" {} +
+# Or
+find . -exec touch -d "next正午" {} +
+
+# 让当前目录下的所有文件的时间戳，完美复制 index.php 的时间
+find . -exec touch --reference=index.php {} +
+
+# ============================================
+# 修改包括创建时间在内的所有时间戳（通过修改系统时间来实现）
+#     注意：修改系统时间可能会对系统和应用程序产生影响，请谨慎操作
+# ============================================
+# 断开网络时间同步（防止系统自动把时间校准回来）
+sudo timedatectl set-ntp false
+# 将系统时间修改为你想要的“过去的时间”
+sudo date -s "2026-05-01 12:00:00"
+# 去对文件进行操作
+find . -exec touch {} +
+# 恢复正常的系统时间
+sudo timedatectl set-ntp true
+```
 
 ### 解压缩文件(tar,zip,7z)
 
@@ -1901,40 +1970,6 @@ MacOS 上可以使用 `brew install p7zip` 安装 7z 工具。
 
 # 列出压缩包内容
 7z l archive.7z
-```
-
-### 查找文件并操作（find, locate）
-
-#### find 实用案例
-
-```bash
-# 批量修改文件名
-find ./ -type f -name "*.7z" -exec sh -c 'f="$1"; mv -f "$f" "${f%.7z}.7z1"' _ {} \;
-
-# 查找文件并排序
-find . -name "*.service" -maxdepth 1 -type f | sort
-
-# 查找文件并按照文件大小排序
-find . -type f -exec ls -l {} + | sort -k 5n
-# 或者
-find . -type f -printf "%s %p\n" | sort -n
-
-# 查找文件并随机选择一个
-find . -type f | shuf -n 1
-```
-
-#### locate
-
-它是直接从预先构建好的数据库中进行搜索，而不是像 `find` 命令一样实时遍历文件系统，可以实现更快搜索。
-
-> 安装: yum install mlocate
-
-- `updatedb`: 更新文件及目录索引数据库（第一次使用可能需要执行这条命令）
-
-之后就可以使用`locate`命令来查找文件了。
-
-```bash
-locate filename
 ```
 
 ### 远程复制文件（scp）
