@@ -636,17 +636,21 @@
 
   如果用作企业服务器，一定要<u>选择 LTS 版本</u>，因为非 LTS 版本的支持周期太短，可能会导致软件包过时，甚至无法使用。
 
-- **RHEL (Red Hat Enterprise Linux)**：商业版，需要订阅支持，稳定、企业常用。
+- **Red Hat**
 
-- **CentOS Stream**：现在已变为 “RHEL 的滚动预览版”，稳定性不如老的 CentOS。
+  - **CentOS**：曾经是 RHEL 的免费克隆版，稳定、企业常用。但在 2020 年底宣布将不再提供 CentOS Linux 8 的更新支持，转而专注于 CentOS Stream。
 
-- **Rocky Linux / AlmaLinux**：社区版 RHEL 克隆，免费、和 RHEL 完全兼容。适合企业服务器，尤其是传统上依赖 RHEL 的环境。
+  - **CentOS Stream**：现在已变为 “RHEL 的滚动预览版”，也就是说先发布在 CentOS Stream 上测试，之后才会发布到 RHEL 上。
+
+  - **Rocky Linux / AlmaLinux**：社区版 RHEL 克隆，免费、和 RHEL 完全兼容。承接了 CentOS 的用户群体。
+
+  - **RHEL (Red Hat Enterprise Linux)**：商业版，需要订阅支持，稳定、企业常用。适合企业服务器，提供商业支持和认证。
+
+  - **Fedora**：Red Hat 社区版，激进实验性，更新快，适合开发者和桌面用户。
 
 - **Arch Linux**：极度自由、滚动更新、最新版软件，但需要自己折腾。适合个人桌面、喜欢 DIY 的开发者。
 
 - **openSUSE**：分为 Leap（稳定版）和 Tumbleweed（滚动版），配置工具 Yast 很强大。用于：桌面或部分企业服务器。
-
-- **Fedora**：Red Hat 社区版，尝鲜快，RHEL 的试验田。
 
 ### 运维最佳实践
 
@@ -2696,7 +2700,7 @@ Documentation=file:///usr/share/doc/python-certbot-doc/html/index.html
 Documentation=https://certbot.eff.org/docs
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/certbot -q renew --no-random-sleep-on-renew --deploy-hook "nginx -s reload"
+ExecStart=/usr/bin/certbot -q renew --no-random-sleep-on-renew --deploy-hook "/usr/sbin/nginx -s reload"
 PrivateTmp=true
 ```
 
