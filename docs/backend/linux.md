@@ -2193,6 +2193,9 @@ sudo rm /swapfile
 ```bash
 # 创建一个 1024MB（1GB）的新 swapfile
 sudo dd if=/dev/zero of=/swapfile bs=1M count=1024
+# 瞬间分配 1G 空间（代替上面 dd 命令，效率更高，但不兼容某些旧系统）
+sudo fallocate -l 1G /swapfile
+
 # 设置权限（必须，否则无法启用）：
 sudo chmod 600 /swapfile
 # 格式化为 swap
@@ -2205,6 +2208,10 @@ sudo vim /etc/fstab
 # 添加这一行（如果原来有 swapfile，要删掉旧的换成新的）
 /swapfile swap swap defaults 0 0
 ```
+
+> [!TIP]调整 swap 大小
+> 想要调整 swap 大小，可以先关闭并删除旧的 swap 文件，然后按照上面的步骤创建新的 swap 文件。
+
 
 ## 系统及进程
 
