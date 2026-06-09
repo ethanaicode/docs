@@ -321,6 +321,22 @@ date: 2024-12-31 17:19:52
 
   案例：[老游戏在线玩](https://zaixianwan.app/)
 
+### 论坛社区
+
+- [Flarum](https://github.com/flarum/flarum): 一款现代化的论坛软件
+
+  Flarum 是一个现代化的论坛软件，支持插件、主题等功能，界面简洁美观。
+
+  官网：[flarum.org](https://flarum.org/) | 案例：[应用技术支持](https://support.wwxgo.com/)
+
+- [Xiuno BBS 4.0](https://github.com/aiminet/xiunobbs4.0): 一款轻量级的 PHP 论坛程序
+
+  自适应手机、平板、PC，有着非常方便的插件机制，不仅仅是一个轻论坛，还是一个良好的二次开发平台。
+
+  首页：[xiuno.org](https://www.xiuno.org/)（不一定为官网） | 案例：[Xiuno BBS](https://bbs.xiuno.org/)
+
+  主题：[此间社区论坛主题](https://www.kehua.me/cijian.html)
+
 ### 静态博客
 
 - [HUGO](https://github.com/gohugoio/hugo): 静态网站博客构建生成器
