@@ -845,19 +845,25 @@ _优点是可以保留皮肤的纹理，缺点是比较繁琐，效率非常慢_
 
 - **Ctrl + Shift + I** = 打开开发者工具(Inspect)
 
-  Mac 版使用 `Command + Option + I`
-
 - **Ctrl + Shift + J** = 打开控制台(Console)
 
 - **Ctrl + F5** = 强制刷新
 
-  Mac 版使用 `Command + Shift + R`
+- **Alt + 向左/向右键** = 后退/前进
 
-- **Alt + 向左键** = 后退
+### Mac 快捷键 Hotkeys
 
-  Mac 版使用 `Command + 向左键`
+- **Command + Option + I** = 打开开发者工具(Inspect)
 
-- **Alt + 向右键** = 前进
+- **Command + Shift + R** = 强制刷新
+
+- **Command + Alt + 向左/向右键** =　左/右切换标签页
+
+- **Command + Alt + B** = 打开书签管理
+
+- **Command + Alt + N** = 在右半视图打开新的标签页
+
+- **Command + 向左/向右键** = 后退/前进
 
 ### 内部指令
 
