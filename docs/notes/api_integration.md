@@ -337,6 +337,12 @@ openssl rsa -in private_key.txt -out privkey.pem
 
 ## 阿里云
 
+### 平台使用
+
+#### 如何查看IP登陆操作日志
+
+`操作审计` --> `事件查询` 就可以看到所有的操作日志了，可以通过筛选 `事件名称` 来查看登录相关的日志，例如 `ConsoleSignin` 等。
+
 ### OSS 对象存储
 
 #### 允许网页项目通过AccessKey上传访问OSS
