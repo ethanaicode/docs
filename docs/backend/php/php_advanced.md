@@ -58,7 +58,10 @@ sudo add-apt-repository ppa:ondrej/php
 # 更新软件包列表
 sudo apt update
 # 安装特定版本的 PHP 及常用扩展
-sudo apt install php7.4-cli php7.4-fpm php7.4-mysql php7.4-curl php7.4-json php7.4-mbstring php7.4-xml php7.4-zip php7.4-gd php7.4-bcmath
+sudo apt install php7.4-cli php7.4-fpm php7.4-mysql php7.4-curl php7.4-json php7.4-mbstring php7.4-xml php7.4-zip
+    # 豪华版安装（包含更多常用扩展）
+    sudo apt install php7.4-cli php7.4-fpm php7.4-mysql php7.4-curl php7.4-json php7.4-mbstring php7.4-xml php7.4-zip \
+php7.4-gd php7.4-bcmath php7.4-redis php7.4-intl php7.4-gettext php7.4-ldap php7.4-soap php7.4-fileinfo php7.4-opcache
 # 查看 PHP 版本
 php -v
 # 启动 PHP-FPM（通常不需要操作，默认已启动并自动重启）
