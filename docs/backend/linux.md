@@ -3720,16 +3720,23 @@ sudo certbot certonly \
 ```bash
 sudo certbot certonly --manual \
     --preferred-challenges dns \
-    -d example.com -d www.example.com
+    -d example.com \
+    -d "*.example.com"
 ```
 
 - `--manual`: 手动验证方式
 
 - `--preferred-challenges dns`: 指定使用 DNS-01 验证方式
 
-- `--manual-public-ip-logging-ok`: 允许记录公共 IP 地址
-
 申请过程中，Certbot 会提示你添加一个 TXT 记录到你的 DNS 配置中，你需要登录到你的域名管理系统，添加该 TXT 记录，然后等待 DNS 记录生效后，按回车继续。
+
+不要急着在 Certbot 界面按回车，宁愿多等一会儿，以确保生效。
+
+如果想要验证是否已经生效，可以使用在线工具来查看结果，例如：
+
+```bash
+https://toolbox.googleapps.com/apps/dig/#TXT/_acme-challenge.example.com
+```
 
 **自动化证书申请**
 
