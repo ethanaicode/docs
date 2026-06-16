@@ -25,6 +25,27 @@ ffmpeg -i input.mp4 -vn -acodec aac output.aac
 ffmpeg -i input.mp4 -vn -acodec mp3 output.mp3
 ```
 
+#### 压缩 MP4 视频
+
+```bash
+# 极致平衡推荐（H.264 + CRF）
+ffmpeg -i input.mp4 -vcodec libx264 -crf 23 -preset medium -acodec aac -b:a 128k output_compressed.mp4
+```
+
+- `-i input.mp4`：输入视频文件。
+
+- `-vcodec libx264`：视频编码器采用 H.264。
+
+- `-crf 23`：**核心控噪参数**。范围是 0~51，数值越小质量越好、体积越大。
+
+  - `18 - 20`：高画质（几乎无损，适合对画质有追求的视频）。
+  - `23`：**默认均衡值**（肉眼几乎看不出画质损失，体积大幅减小）。
+  - `26 - 28`：低画质（体积非常小，适合对画质要求不高的网络传输）。
+
+- `-preset medium`：编码速度预设。速度越慢，压缩率越高（相同体积下画质更好）。通常用 `medium` 或 `fast`，追求极致压缩可用 `slow`。
+
+- `-acodec aac -b:a 128k`：音频编码采用 AAC，比特率设置为 128k（既省空间又保证音质）。
+
 #### 修改 MP4 视频的分辨率
 
 ```bash
@@ -589,7 +610,7 @@ _`r2` 为别名，可以自定义_
   - `rclone sync remote:bucket /path/to/directory`: 同步存储桶到本地目录
 
 - `rclone delete remote:bucket`: 删除存储桶中的文件
- 
+
   - `rclone delete remote:bucket --dry-run`: 查看删除文件列表，不实际删除（强烈推荐）
 
   - `rclone delete remote:bucket/file`: 删除存储桶中的指定文件
