@@ -32,6 +32,10 @@
 
 ### 安装软件
 
+- **Stats**: 系统监控工具
+
+  开源地址: [Github](https://github.com/exelban/stats)
+
 - **iTerm2**: 终端工具
 
 - **VSCode**: 编辑器
@@ -77,20 +81,14 @@ alias venv="source ./.venv/bin/activate"
 
 > [MAC 键盘快捷键大全](https://support.apple.com/zh-cn/102650)
 
-::: info 按键符号说明
-
-- Command (or Cmd) ⌘
-
-- Shift ⇧
-
-- Option (or Alt) ⌥
-
-- Control (or Ctrl) ⌃
-
-- Caps Lock ⇪
-
-- Fn (Function)
-  :::
+> [!NOTE] 按键符号说明
+>
+> - Command (or Cmd) ⌘
+> - Shift ⇧
+> - Option (or Alt) ⌥
+> - Control (or Ctrl) ⌃
+> - Caps Lock ⇪
+> - Fn (Function)
 
 - **Command + Tab** = <u>在不同应用之间切换</u>
 
@@ -180,15 +178,19 @@ alias venv="source ./.venv/bin/activate"
 
 ## Mac 操作技巧
 
+### 省流量技巧
+
+可以开启 macOS 的“低数据模式”，这能从根本上防止系统和软件在后台暗中“偷跑”大额流量（例如自动下载系统更新、同步庞大的 iCloud 照片等）。
+
+开启步骤：
+
 ### 切换输入法
 
 使用输入法菜单: **点按菜单栏中的输入法菜单，然后选取一种输入法**。
 
-你还可以按下 **Control + 空格键** 选择上一个输入法，
+如果打开了 **输入法切换快捷键**，你还可以按下 **Control + 空格键** 选择上一个输入法，
 
-或按下 **Option + Control + 空格键** 在输入法菜单中选择下一个输入法。
-
-还可以 **按住 Control + 空格键** 可在多个已安装的输入法间切换。
+或按下 **Option + Control + 空格键** 在输入法菜单中选择下一个输入法，还可以 **按住 Control + 空格键** 可在多个已安装的输入法间切换。
 
 ### 获取本机的 IP
 
@@ -205,7 +207,6 @@ ipconfig getifaddr en0
 在局域网内，通常会使用 DHCP 自动获取 IP 地址，如果需要设置静态 IP，也就是固定 IP，可以通过以下设置来实现：
 
 - **系统偏好设置** --> **网络** --> 选择对应的网络接口（比如 Wi-Fi） --> **详细信息...** --> 左侧菜单中选择**TCP/IP** --> 配置 IPv4 --> 手动，填写以下信息：
-
   - IPv4 地址：输入你想固定的 IP 地址，通常在局域网内的范围内，比如 `192.168.1.x`，其中 `x` 是你想要的数字，如 `192.168.1.188`。
 
   - 子网掩码：通常是 `255.255.255.0`，表示局域网内的设备可以互相通信。
@@ -857,6 +858,7 @@ hdiutil verify mydisk.dmg
 # 识别是否为磁盘映像
 hdiutil imageinfo mydisk.dmg
 ```
+
 ### defaults 偏好设置
 
 `defaults` 是 macOS 系统中的一个命令行工具，用于管理用户的偏好设置。
