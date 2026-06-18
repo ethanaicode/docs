@@ -2759,8 +2759,8 @@ crontab 是用来让使用者在固定时间或固定间隔执行程序之用，
 
   ```bash
   for user in $(cut -f1 -d: /etc/passwd); do
-      echo "==== user: $u ===="
-      sudo crontab -l -u "$u" 2>/dev/null || echo "(no crontab or no permission)"
+    echo "==== user: $user ===="
+    sudo crontab -l -u "$user" 2>/dev/null || echo "(no crontab or no permission)"
   done
   ```
 
