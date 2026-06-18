@@ -345,6 +345,19 @@ openssl rsa -in private_key.txt -out privkey.pem
 
 ### OSS 对象存储
 
+#### 复制所有对象到另一个 Bucket
+
+支持跨区域复制或者同区域复制，如果是**跨账号复制**，还需要在目标账号授权RAM角色：
+
+> [!INFO] 授权 RAM 角色写入目标 Bucket
+> Bucket列表 --> 单击目标Bucket --> 左侧导航栏 --> 权限控制 --> Bucket 授权策略 --> 按图形策略添加 --> 接收复制对象 --> 在弹出的面板中可以选择手动配置：
+>
+> - 源端UID: 复制对象的源账号 UID
+> - 复制RAM角色名称: AliyunOSSRole（如果你有自定义的角色名称，可以替换成你的角色名称，注意这是角色名称）
+> - 授权用途: 选择“跨账号区域复制”
+>
+> --> 单击生成Policy，然后单击保存。
+
 #### 允许网页项目通过AccessKey上传访问OSS
 
 思路概括：保持 OSS Bucket 或文件为私有权限，通过设置 RAM 用户的权限策略，允许通过 AccessKey 进行上传和访问。
@@ -442,30 +455,30 @@ composer require alibabacloud/darabonba-openapi
 
 ```sql
 -- 查询每天每个 topic 的独立 IP 数量
-* | SELECT 
+* | SELECT
   substr(date_min, 1, 10) AS date,
   __topic__ AS topic,
   COUNT(DISTINCT ip) AS ip_count
 FROM log
 GROUP BY __topic__, substr(date_min, 1, 10)
 ORDER BY date DESC, topic
-LIMIT 100 
+LIMIT 100
 
 -- 查询每天每个 type 的独立 IP 数量，并将 type 中的 foo 除以 10
-*| SELECT 
+*| SELECT
   substr(date_min, 1, 10) AS date_day,
-  CASE 
+  CASE
   	WHEN type = 'foo' THEN 'foo ÷ 10'
   	ELSE type
   END AS data_type,
-  CASE 
+  CASE
     WHEN type = 'foo' THEN CAST(COUNT(DISTINCT ip) / 10.0 AS BIGINT)
     ELSE COUNT(DISTINCT ip)
   END AS ip_count
 FROM log
 GROUP BY type, substr(date_min, 1, 10)
 ORDER BY date_day DESC, data_type
-LIMIT 100 
+LIMIT 100
 ```
 
 ## 微信公众号开发
