@@ -365,17 +365,19 @@ skip-log-bin
 - `REPLACE(<string>, 'old', 'new')`: 替换字符串
 
   ```sql
-  -- 例如：替换旧域名为新域名
-  UPDATE `database_name`.`table_name`
-  SET `field_name` = REPLACE(`field_name`, 'old.example.com', 'new.example.com')
-  WHERE `field_name` LIKE '%old.example.com%';
-  -- 不确定结果的话还可以先 SELECT 出来看看
+  -- 先预览下替换的结果
   SELECT 
       `id`, 
       `field_name` AS old_field_name,
       REPLACE(`field_name`, 'old.example.com', 'new.example.com') AS new_field_name
   FROM `database_name`.`table_name`
   WHERE `field_name` LIKE '%old.example.com%';
+
+  -- 再执行替换
+  UPDATE `database_name`.`table_name`
+  SET `field_name` = REPLACE(`field_name`, 'old.example.com', 'new.example.com')
+  WHERE `field_name` LIKE '%old.example.com%';
+
   ```
 
 - `FIND_IN_SET(<string>, <string>)`: 查找字符串在另一个字符串中的位置
