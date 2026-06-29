@@ -2708,7 +2708,7 @@ Documentation=file:///usr/share/doc/python-certbot-doc/html/index.html
 Documentation=https://certbot.eff.org/docs
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/certbot -q renew --no-random-sleep-on-renew --deploy-hook "/usr/sbin/nginx -s reload"
+ExecStart=/usr/bin/certbot -q renew --no-random-sleep-on-renew --deploy-hook "systemctl reload nginx"
 PrivateTmp=true
 ```
 
@@ -3812,9 +3812,9 @@ deploy_hook = systemctl reload nginx
 可以用下面命令来检测是否生效：
 
 ```bash
-sudo certbot renew --cert-name example.com --deploy-hook 'nginx -s reload' --dry-run
+sudo certbot renew --cert-name example.com --deploy-hook 'systemctl reload nginx' --dry-run
 # 之后就可以通过查看日志来确认是否执行了 reload 操作
-# 会出现语句类似：skipping deploy hook command: nginx -s reload
+# 会出现语句类似：skipping deploy hook command: systemctl reload nginx
 tail -n 50 /var/log/letsencrypt/letsencrypt.log
 ```
 
@@ -3836,7 +3836,7 @@ _ai 可能会告诉你，通过修改 `/etc/letsencrypt/renewal/www.example.com.
 
   它会自动检查证书是否快过期，如果快过期就会自动续期，否则会直接跳过（默认在证书到期前 30 天内续期，不需要手动操作）
 
-- `certbot renew --cert-name example.com  --force-renewal --deploy-hook 'nginx -s reload'`: 强制续期指定证书
+- `certbot renew --cert-name example.com  --force-renewal --deploy-hook 'systemctl reload nginx'`: 强制续期指定证书
 
   用于测试续期证书是否正常，或者需要提前续期证书时使用
 
@@ -4097,11 +4097,13 @@ ssh username@remote_host
 
 **修改 SSH 密钥文件名称**
 
-创建密钥对时，可以输入密钥文件名称，默认为 `id_rsa` 和 `id_rsa.pub`。
+创建密钥对时，会询问是否使用默认名称，此时可以手动输入想要的名称，默认名称类似 `id_rsa` 和 `id_rsa.pub`。
 
-如果创建钥匙对时，修改了文件名称，可能会导致部分服务如 `git` 无法使用，因为它们默认使用 `~/.ssh/id_rsa` 作为私钥。
+_或者添加参数 `-f` 来指定文件路径及名称，如 `ssh-keygen -t rsa -b 4096 -C "comment" -f ~/.ssh/my_custom_key`_
 
-如果需要使用其他名称的私钥，可以在 `~/.ssh/config` 文件中添加以下内容（以 `gitee` 为例）：
+如果创建钥匙对时，修改了文件名称，可能会导致部分服务如 `git` 无法使用，因为它们只会寻找默认名称文件如 `~/.ssh/id_rsa` 作为私钥。
+
+如果需要使用自定义名称的私钥，可以在 `~/.ssh/config` 文件中添加以下内容（以 `gitee` 为例）：
 
 ```bash
 Host gitee.com
