@@ -2192,6 +2192,27 @@ sudo swapoff /swapfile
 sudo rm /swapfile
 ```
 
+#### swappiness
+
+Linux 有一个控制 Swap 使用积极性的内核参数叫 `swappiness`，取值范围是 0 到 100，0 表示尽量不使用 Swap，100 表示尽量使用 Swap。
+
+所以你必须先查看当前系统的 swappiness 值，如果是 `0` 的话，即使配置了 swap 文件，也不会被使用。
+
+```bash
+# 查看积极性的内核参数 swappiness
+cat /proc/sys/vm/swappiness
+
+# 临时生效
+# 直接把值写入当前运行的内核内存中，执行后会立即生效
+sudo sysctl -w vm.swappiness=30
+
+# 永久生效
+# 修改 /etc/sysctl.conf 文件，添加或修改下行
+vm.swappiness = 30
+# 如果是是先修改了 /etc/sysctl.conf 文件，可以再执行下面的命令让配置立即生效
+sudo sysctl -p
+```
+
 #### 创建 swap 空间
 
 ```bash
