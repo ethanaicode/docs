@@ -182,8 +182,6 @@ alias venv="source ./.venv/bin/activate"
 
 可以开启 macOS 的“低数据模式”，这能从根本上防止系统和软件在后台暗中“偷跑”大额流量（例如自动下载系统更新、同步庞大的 iCloud 照片等）。
 
-开启步骤：
-
 ### 切换输入法
 
 使用输入法菜单: **点按菜单栏中的输入法菜单，然后选取一种输入法**。
@@ -601,7 +599,7 @@ brew update
   ```bash
   brew tap shivammathur/php
   brew install shivammathur/php/php@7.4
-  # 安装完成后，可以绑定下下 php 的软链接
+  # 安装完成后，可以绑定下 php 的软链接
   brew link --force shivammathur/php/php@7.4
   ```
 
