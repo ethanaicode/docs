@@ -1011,9 +1011,31 @@ git clone repo.bundle
 git pull repo.bundle <branch>
 ```
 
-**注意**: 这个时候是不需要指定<远程主机名>的，因为这个是本地的快照文件。
+**注意**: 这个时候是不需要指定 `<远程主机名>` 的，因为这个是本地的快照文件。
 
 ## 常见问题
+
+### fatal: Need to specify how to reconcile divergent branches.
+
+这个错误通常出现在使用 `git pull` 时，本地分支和远程分支都有新的提交，Git 不知道应该如何合并这些分支。可以通过以下方式解决：
+
+```bash
+# 使用变基策略（提交历史更干净）
+git pull --rebase
+
+  # 或者使用合并策略（新手推荐）
+  git pull --no-rebase
+```
+
+如果你希望以后每次 `git pull` 都默认用某种方式，可以运行：
+
+```bash
+# 默认使用变基策略
+git config --global pull.rebase true
+
+# 默认使用合并策略
+git config --global pull.rebase false
+```
 
 ### ahead of 'origin/master' by 1 commit
 
