@@ -898,6 +898,56 @@ git checkout --ours file.txt
 
   适用于本地配置文件，不希望提交到远程仓库。
 
+### PR 流程
+
+开源世界中，PR（Pull Request）是一个非常重要的概念，它是指向项目的贡献者提交代码变更请求的过程。
+
+#### 向上游提交 PR 修改
+
+标准步骤：
+
+```bash
+# 1. Fork 仓库到自己的账户（创建一个镜像副本，可以在自己的账户下进行修改和提交）
+
+# 2. Clone Fork 的仓库到本地
+git clone <forked-repo-url>
+cd <repo-directory>
+
+# 3. 关联原始仓库作为上游（upstream）远程仓库
+  # 可选，目的是为了方便拉取上游的更新，保持 Fork 的仓库与上游仓库同步
+git remote add upstream <original-repo-url>
+# 可以通过 git remote -v 查看远程仓库列表，确认关联成功
+
+# 4. 创建一个新的分支用于开发新功能或修复 bug
+git checkout -b feature-branch
+
+# 5. 在新分支上进行开发，完成后提交代码
+git add .
+git commit -m "Add new feature"
+
+# 6. 将本地分支推送到 Fork 的远程仓库
+git push origin feature-branch
+
+# 7. 在 GitHub 上创建 Pull Request，选择原始仓库的主分支作为目标分支，提交 PR 请求
+  # 回到 GitHub 页面，就会看到醒目提示 “Compare & pull request”，点击即可创建 PR
+```
+
+如果上游（upstream）有了新的更新，你可以在本地拉取上游的更新，并将其合并到你的分支中：
+
+```bash
+# 拉取上游的更新
+git fetch upstream
+# 切换到你的分支
+git checkout feature-branch
+# 合并上游的更新到你的分支（推荐变基 rebase，保持提交历史整洁）
+git rebase upstream/main
+# 解决冲突后，继续变基
+```
+
+#### 上游合并 PR 流程
+
+通常可以直接在网页中查看 PR 的内容，进行代码审查和讨论，然后决定是否合并 PR。
+
 ### Git 区分文件名大小写
 
 可以通过修改配置来决定是否区分文件名的大小写：
