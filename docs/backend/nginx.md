@@ -26,6 +26,8 @@ Nginx 是一个高性能的 HTTP 和反向代理服务器，也是一个 IMAP/PO
 
 - `nginx -t`: <u>检查配置信息（有错误会有提示）</u>
 
+  `nginx -t -g "more_clear_headers 'Server';"` 可以在命令行中直接指定配置参数，测试是否正确
+
 - `nginx -s [SIGNAL]`: 控制
 
   `quit` 优雅停止
@@ -497,6 +499,71 @@ location / {
 
 - `if ($request_method = 'OPTIONS')`: 如果是 OPTIONS 请求，返回 204
 
+## 模块
+
+### http
+
+#### ngx_http_core_module
+
+> 参考文档: [ngx_http_core_module](https://nginx.org/en/docs/http/ngx_http_core_module.html)
+
+`ngx_http_core_module` 模块是 Nginx 的核心模块，它提供了一些基本的配置指令，比如`listen`、`server_name`、`root`、`index`等。
+
+以下是一些常用的配置项：
+
+- `client_max_body_size`: 设置请求体的最大长度，默认为 1M
+
+  如果转发时报错 `413 Request Entity Too Large`，可以尝试增大这个值。
+
+- `client_body_buffer_size`: 设置请求体的缓冲区大小，默认为 8K
+
+  如果请求体较大，可以适当增大这个值，缓存更大的请求，减少磁盘 I/O。
+
+- `client_body_timeout`: 设置请求体的超时时间，默认为 60s
+
+  如果请求体较大，可以适当增大这个值，避免超时。
+
+#### ngx_http_stub_status_module
+
+`ngx_http_stub_status_module` 模块提供了一个简单的状态页面，可以查看 Nginx 的运行状态。
+
+这不是一个默认安装的模块，需要在编译时添加`--with-http_stub_status_module`参数。
+
+```nginx
+server {
+    listen 80;
+    server_name 127.0.0.1;
+    allow 127.0.0.1;
+    location /nginx_status {
+        stub_status on;
+        access_log off;
+    }
+}
+```
+
+这将会在`http://127.0.0.1/nginx_status`上显示 Nginx 的状态信息。
+
+```bash
+Active connections: 291
+server accepts handled requests
+ 16630948 16630948 31070465
+Reading: 6 Writing: 179 Waiting: 106
+```
+
+- `Active connections`: 当前活跃连接数（包括正在读取、写入、等待中的连接）
+
+- `server accepts handled requests`: 总共处理的连接数(总接收、总处理、总请求)
+
+- `Reading`: 读取请求的连接数（Nginx 正在从客户端读取请求头的连接数）
+
+- `Writing`: 响应请求的连接数（Nginx 正在向客户端发送响应数据的连接数）
+
+- `Waiting`: 等待连接的连接数（连接空闲，等待新请求（HTTP Keep-Alive））
+
+  Nginx 正在等待下一个请求的**空闲连接数**，也叫 `keep-alive` 状态
+
+## 请求限速
+
 ### 请求限速
 
 可以使用`limit_req`指令来限制请求速率。
@@ -516,7 +583,6 @@ http {
 - `limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s`: 定义一个名为 `one` 的限速区域，使用客户端的 IP 地址作为键，限制速率为每秒 1 个请求。
 
 - `limit_req zone=one burst=5 nodelay`: 在 `one` 区域内，允许突发请求数为 5 个，并且不延迟处理。
-
   - `burst`: 突发请求数，表示在短时间内允许超过限制的请求数。
 
   - `nodelay`: 不延迟处理突发请求，直接处理，如果去掉，则会延迟处理突发请求。
@@ -615,9 +681,23 @@ upstream backend {
 }
 ```
 
-### 安全配置
+## 安全配置
 
-#### 密码保护
+### 隐藏服务器信息
+
+可以通过修改 Nginx 的 `server_tokens` 指令来隐藏服务器版本信息：
+
+```nginx
+http {
+    # 关闭服务器版本信息的显示，如 "Server: nginx/1.24.0 (Ubuntu)"
+    server_tokens off;
+
+    # 隐藏 X-Powered-By 头部信息，这通常为后端应用返回的框架版本等信息
+    # proxy_hide_header X-Powered-By;
+}
+```
+
+### 密码保护
 
 可以使用`auth_basic`指令来设置密码保护，比如下面的配置：
 
@@ -636,7 +716,7 @@ server {
 
 - `auth_basic_user_file`: 设置密码文件的路径（可以使用`htpasswd`命令生成）
 
-#### 防盗链
+### 防盗链
 
 可以使用`valid_referers`和`invalid_referer`来设置防盗链。
 
@@ -706,70 +786,171 @@ server {
 }
 ```
 
-### 负载配置
+## 调优
 
-## 模块
+Nginx 的性能调优主要包括两个方面：调整 Nginx 配置和调整系统内核参数。
 
-### http
+### 调整 Nginx 配置
 
-#### ngx_http_core_module
+- 调整 worker_processes 和 worker_connections
 
-> 参考文档: [ngx_http_core_module](https://nginx.org/en/docs/http/ngx_http_core_module.html)
+  `worker_processes` 是 Nginx 的工作进程数，可以设置为 CPU 核心数或者 `auto`，表示自动检测 CPU 核心数。
 
-`ngx_http_core_module` 模块是 Nginx 的核心模块，它提供了一些基本的配置指令，比如`listen`、`server_name`、`root`、`index`等。
+  `worker_connections` 是每个 worker 的并发连接数，一般设置为 1024 ~ 8192。每个连接都占用内存和文件描述符，也会给 CPU 调度带来一定的压力，并不一定越高越好，所以需要根据实际情况来设置。
 
-以下是一些常用的配置项：
+  **总最大连接数** = `worker_processes` \* `worker_connections`。
 
-- `client_max_body_size`: 设置请求体的最大长度，默认为 1M
+  如果每个连接时间都很短，`worker_connections` 可以设置低一点，这样在不占用太多资源的情况下也可以处理更多的并发请求。
 
-  如果转发时报错 `413 Request Entity Too Large`，可以尝试增大这个值。
+  如果每个连接时间都很长，比如存在长连接的情况，`worker_connections` 可以设置高一点，这样可以处理更多的并发请求。
 
-- `client_body_buffer_size`: 设置请求体的缓冲区大小，默认为 8K
+  原则都是**在尽可能不占用太多资源的情况下，尽可能提高并发处理能力**。
 
-  如果请求体较大，可以适当增大这个值，缓存更大的请求，减少磁盘 I/O。
+- 调整 keepalive_timeout
 
-- `client_body_timeout`: 设置请求体的超时时间，默认为 60s
+  `keepalive_timeout` 是客户端连接的超时时间，一般设置为 60 秒。
 
-  如果请求体较大，可以适当增大这个值，避免超时。
+- 调整 sendfile
 
-#### ngx_http_stub_status_module
+  `sendfile` 是 Nginx 的文件传输模块，可以提高文件传输的性能。
 
-`ngx_http_stub_status_module` 模块提供了一个简单的状态页面，可以查看 Nginx 的运行状态。
+  `sendfile on` 表示开启 sendfile，`sendfile off` 表示关闭 sendfile。
 
-这不是一个默认安装的模块，需要在编译时添加`--with-http_stub_status_module`参数。
+- 调整 tcp_nodelay 和 tcp_nopush
 
-```nginx
-server {
-    listen 80;
-    server_name 127.0.0.1;
-    allow 127.0.0.1;
-    location /nginx_status {
-        stub_status on;
-        access_log off;
-    }
-}
-```
+  `tcp_nodelay` 表示开启 TCP_NODELAY，可以提高网络传输的实时性。
 
-这将会在`http://127.0.0.1/nginx_status`上显示 Nginx 的状态信息。
+  `tcp_nopush` 表示开启 TCP_NOPUSH，可以提高网络传输的效率。
+
+- 调整 gzip 压缩
+
+  `gzip on` 表示开启 gzip 压缩，可以减少网络传输的数据量。
+
+  `gzip_comp_level` 表示压缩级别，一般设置为 6。
+
+  `gzip_types` 表示压缩类型，一般设置为 text/html、text/css、text/javascript 等。
+
+- 调整日志级别
+
+  `error_log` 的级别可以设置为 `error`、`warn`、`info` 等。
+
+  `access_log` 的级别可以设置为 `main`、`combined` 等。
+
+- 调整缓存配置
+
+  可以使用`proxy_cache`、`fastcgi_cache`、`uwsgi_cache`等指令来配置缓存。
+
+  `proxy_cache_path` 表示缓存路径，`proxy_cache_key` 表示缓存键。
+
+- 调整连接超时
+
+  `client_body_timeout` 表示客户端请求体的超时时间。
+
+  `client_header_timeout` 表示客户端请求头的超时时间。
+
+  `keepalive_timeout` 表示客户端连接的超时时间。
+
+- 调整缓冲区大小
+
+  `client_body_buffer_size` 表示客户端请求体的缓冲区大小。
+
+  `client_header_buffer_size` 表示客户端请求头的缓冲区大小。
+
+  `large_client_header_buffers` 表示客户端请求头的缓冲区大小。
+
+- 调整 SSL 配置
+
+  `ssl_protocols` 表示 SSL 协议的版本，一般设置为 TLSv1.2。
+
+  `ssl_ciphers` 表示 SSL 加密算法，一般设置为 HIGH:!aNULL:!MD5。
+
+  `ssl_prefer_server_ciphers` 表示优先使用服务器端的加密算法。
+
+### 调整系统内核参数
+
+`/etc/security/limits.conf` 文件用于设置用户的资源限制，包括文件描述符、内存、进程数等。
+
+- 调整文件描述符
+
+  `ulimit -n` 表示文件描述符的数量，可以通过修改`/etc/security/limits.conf`来调整。
+
+  默认情况下，Linux 系统的文件描述符数量是 1024，可以通过修改`/etc/security/limits.conf`来调整。
+
+  ```bash
+  * soft nofile 65535
+  * hard nofile 65535
+  ```
+
+  `*` 表示所有用户，`soft` 表示软限制，`hard` 表示硬限制。
+
+  也可以单独为 nginx 用户设置文件描述符数量：
+
+  ```bash
+  www-data soft nofile 65535
+  www-data hard nofile 65535
+  ```
+
+  **注意**: www-data 是 Nginx 的默认用户，如果使用其他用户，请替换为对应的用户名。
+
+另外一个调整系统内核参数的文件为 `/etc/sysctl.conf`。
+
+调整后如果希望生效，可以使用以下命令：
 
 ```bash
-Active connections: 291
-server accepts handled requests
- 16630948 16630948 31070465
-Reading: 6 Writing: 179 Waiting: 106
+sysctl -p
 ```
 
-- `Active connections`: 当前活跃连接数（包括正在读取、写入、等待中的连接）
+- 调整文件句柄数
 
-- `server accepts handled requests`: 总共处理的连接数(总接收、总处理、总请求)
+  `fs.file-max` 表示<u>系统允许的最大文件句柄数</u>，也就是系统允许的最大“打开文件数”。
 
-- `Reading`: 读取请求的连接数（Nginx 正在从客户端读取请求头的连接数）
+  ```bash
+  fs.file-max = 100000
+  ```
 
-- `Writing`: 响应请求的连接数（Nginx 正在向客户端发送响应数据的连接数）
+  `vfs_cache_pressure` 表示虚拟文件系统缓存的压力，默认值为 100，可以设置为 50 ~ 75，减少文件系统缓存的压力。
 
-- `Waiting`: 等待连接的连接数（连接空闲，等待新请求（HTTP Keep-Alive））
+  50 表示减少一半的压力，表示**更倾向于保留目录/文件名结构缓存**（即访问过的路径、文件结构保留更久）。
 
-  Nginx 正在等待下一个请求的**空闲连接数**，也叫 `keep-alive` 状态
+- 调整 TCP 参数
+
+  `net.ipv4.tcp_syncookies` 表示开启 SYN Cookies，可以防止 SYN 攻击。
+
+  `net.ipv4.tcp_tw_reuse` 表示开启 TIME-WAIT 重用，可以减少 TIME-WAIT 连接。
+
+  `net.ipv4.tcp_tw_recycle` 表示开启 TIME-WAIT 回收，可以减少 TIME-WAIT 连接。
+
+- 调整内存参数
+
+  `vm.overcommit_memory` 表示内存过量分配，可以减少内存分配失败。
+
+  `vm.swappiness` 表示<u>内存交换分区</u>，默认为 60，可以设置为 10 ~ 20，减少内存交换。
+
+  `vm.dirty_ratio` 表示脏页比例，可以减少脏页写入。
+
+- 调整网络参数
+
+  `net.core.somaxconn` 表示最大连接数，可以提高网络连接数。
+
+  `net.core.netdev_max_backlog` 表示网络接收队列，可以提高网络接收队列。
+
+  `ip_local_port_range` 表示本地端口范围，可以扩大本地端口范围。
+
+  `net.ipv4.tcp_max_syn_backlog` 表示 SYN 队列，可以提高 SYN 队列。
+
+- 调整调度算法
+
+  `kernel.sched_migration_cost_ns` 表示迁移成本，可以减少 CPU 迁移。
+
+  `kernel.sched_autogroup_enabled` 表示自动分组，可以减少 CPU 调度。
+
+  `kernel.sched_min_granularity_ns` 表示最小粒度，可以减少 CPU 调度。
+
+### 使用高性能的网络模型
+
+- 使用 epoll 模型
+
+  `use epoll` 表示使用 epoll 模型，可以提高网络处理能力。
 
 ## 进阶
 
@@ -866,175 +1047,9 @@ server {
 
   通过 `arg_xxx` 可以获取请求参数的值，这里的 `xxx` 是参数名。
 
-### 调优
+## 错误排查
 
-Nginx 的性能调优主要包括两个方面：调整 Nginx 配置和调整系统内核参数。
-
-#### 调整 Nginx 配置
-
-- 调整 worker_processes 和 worker_connections
-
-  `worker_processes` 是 Nginx 的工作进程数，可以设置为 CPU 核心数或者 `auto`，表示自动检测 CPU 核心数。
-
-  `worker_connections` 是每个 worker 的并发连接数，一般设置为 1024 ~ 8192。每个连接都占用内存和文件描述符，也会给 CPU 调度带来一定的压力，并不一定越高越好，所以需要根据实际情况来设置。
-
-  **总最大连接数** = `worker_processes` \* `worker_connections`。
-
-  如果每个连接时间都很短，`worker_connections` 可以设置低一点，这样在不占用太多资源的情况下也可以处理更多的并发请求。
-
-  如果每个连接时间都很长，比如存在长连接的情况，`worker_connections` 可以设置高一点，这样可以处理更多的并发请求。
-
-  原则都是**在尽可能不占用太多资源的情况下，尽可能提高并发处理能力**。
-
-- 调整 keepalive_timeout
-
-  `keepalive_timeout` 是客户端连接的超时时间，一般设置为 60 秒。
-
-- 调整 sendfile
-
-  `sendfile` 是 Nginx 的文件传输模块，可以提高文件传输的性能。
-
-  `sendfile on` 表示开启 sendfile，`sendfile off` 表示关闭 sendfile。
-
-- 调整 tcp_nodelay 和 tcp_nopush
-
-  `tcp_nodelay` 表示开启 TCP_NODELAY，可以提高网络传输的实时性。
-
-  `tcp_nopush` 表示开启 TCP_NOPUSH，可以提高网络传输的效率。
-
-- 调整 gzip 压缩
-
-  `gzip on` 表示开启 gzip 压缩，可以减少网络传输的数据量。
-
-  `gzip_comp_level` 表示压缩级别，一般设置为 6。
-
-  `gzip_types` 表示压缩类型，一般设置为 text/html、text/css、text/javascript 等。
-
-- 调整日志级别
-
-  `error_log` 的级别可以设置为 `error`、`warn`、`info` 等。
-
-  `access_log` 的级别可以设置为 `main`、`combined` 等。
-
-- 调整缓存配置
-
-  可以使用`proxy_cache`、`fastcgi_cache`、`uwsgi_cache`等指令来配置缓存。
-
-  `proxy_cache_path` 表示缓存路径，`proxy_cache_key` 表示缓存键。
-
-- 调整连接超时
-
-  `client_body_timeout` 表示客户端请求体的超时时间。
-
-  `client_header_timeout` 表示客户端请求头的超时时间。
-
-  `keepalive_timeout` 表示客户端连接的超时时间。
-
-- 调整缓冲区大小
-
-  `client_body_buffer_size` 表示客户端请求体的缓冲区大小。
-
-  `client_header_buffer_size` 表示客户端请求头的缓冲区大小。
-
-  `large_client_header_buffers` 表示客户端请求头的缓冲区大小。
-
-- 调整 SSL 配置
-
-  `ssl_protocols` 表示 SSL 协议的版本，一般设置为 TLSv1.2。
-
-  `ssl_ciphers` 表示 SSL 加密算法，一般设置为 HIGH:!aNULL:!MD5。
-
-  `ssl_prefer_server_ciphers` 表示优先使用服务器端的加密算法。
-
-#### 调整系统内核参数
-
-`/etc/security/limits.conf` 文件用于设置用户的资源限制，包括文件描述符、内存、进程数等。
-
-- 调整文件描述符
-
-  `ulimit -n` 表示文件描述符的数量，可以通过修改`/etc/security/limits.conf`来调整。
-
-  默认情况下，Linux 系统的文件描述符数量是 1024，可以通过修改`/etc/security/limits.conf`来调整。
-
-  ```bash
-  * soft nofile 65535
-  * hard nofile 65535
-  ```
-
-  `*` 表示所有用户，`soft` 表示软限制，`hard` 表示硬限制。
-
-  也可以单独为 nginx 用户设置文件描述符数量：
-
-  ```bash
-  www-data soft nofile 65535
-  www-data hard nofile 65535
-  ```
-
-  **注意**: www-data 是 Nginx 的默认用户，如果使用其他用户，请替换为对应的用户名。
-
-另外一个调整系统内核参数的文件为 `/etc/sysctl.conf`。
-
-调整后如果希望生效，可以使用以下命令：
-
-```bash
-sysctl -p
-```
-
-- 调整文件句柄数
-
-  `fs.file-max` 表示<u>系统允许的最大文件句柄数</u>，也就是系统允许的最大“打开文件数”。
-
-  ```bash
-  fs.file-max = 100000
-  ```
-
-  `vfs_cache_pressure` 表示虚拟文件系统缓存的压力，默认值为 100，可以设置为 50 ~ 75，减少文件系统缓存的压力。
-
-  50 表示减少一半的压力，表示**更倾向于保留目录/文件名结构缓存**（即访问过的路径、文件结构保留更久）。
-
-- 调整 TCP 参数
-
-  `net.ipv4.tcp_syncookies` 表示开启 SYN Cookies，可以防止 SYN 攻击。
-
-  `net.ipv4.tcp_tw_reuse` 表示开启 TIME-WAIT 重用，可以减少 TIME-WAIT 连接。
-
-  `net.ipv4.tcp_tw_recycle` 表示开启 TIME-WAIT 回收，可以减少 TIME-WAIT 连接。
-
-- 调整内存参数
-
-  `vm.overcommit_memory` 表示内存过量分配，可以减少内存分配失败。
-
-  `vm.swappiness` 表示<u>内存交换分区</u>，默认为 60，可以设置为 10 ~ 20，减少内存交换。
-
-  `vm.dirty_ratio` 表示脏页比例，可以减少脏页写入。
-
-- 调整网络参数
-
-  `net.core.somaxconn` 表示最大连接数，可以提高网络连接数。
-
-  `net.core.netdev_max_backlog` 表示网络接收队列，可以提高网络接收队列。
-
-  `ip_local_port_range` 表示本地端口范围，可以扩大本地端口范围。
-
-  `net.ipv4.tcp_max_syn_backlog` 表示 SYN 队列，可以提高 SYN 队列。
-
-- 调整调度算法
-
-  `kernel.sched_migration_cost_ns` 表示迁移成本，可以减少 CPU 迁移。
-
-  `kernel.sched_autogroup_enabled` 表示自动分组，可以减少 CPU 调度。
-
-  `kernel.sched_min_granularity_ns` 表示最小粒度，可以减少 CPU 调度。
-
-#### 使用高性能的网络模型
-
-- 使用 epoll 模型
-
-  `use epoll` 表示使用 epoll 模型，可以提高网络处理能力。
-
-### 错误排查
-
-#### 502 Bad Gateway
+### 502 Bad Gateway
 
 Nginx 报错 “502 Bad Gateway” 是一种常见的反向代理错误，意思是：Nginx 作为网关或代理服务器时，尝试将请求转发给后端服务器（如 PHP-FPM、Node.js、FastCGI 等）时没有收到有效响应，或响应无效。
 
