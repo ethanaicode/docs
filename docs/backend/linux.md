@@ -623,6 +623,19 @@ history -w
 > ~/.bash_history
 ```
 
+如果是 `zsh`，历史命令文件是 `~/.zsh_history`，而且不支持 `history -c` 命令清空历史记录，需要手动清空文件：
+
+```bash
+# 清空历史命令文件
+echo > ~/.zsh_history
+
+# zsh 更多历史命令
+  # 清空当前 Shell 的内存历史
+  fc -p
+  # 查看当前历史数量
+  fc -l
+```
+
 > [!TIP]如何让单条命令不被记录
 > 在命令前面加上空格，前提是 HISTCONTROL 环境变量包含了 `ignorespace` 或者 `ignoreboth`（默认情况下是包含的）。这样以空格开头的命令就不会被记录到历史中。
 
