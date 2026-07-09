@@ -792,7 +792,7 @@ MAMP 的服务及应用都放在目录`/Applications/MAMP/bin`下，
 
 `diskutil` 是 macOS 系统中的一个命令行工具，用于管理磁盘和卷宗。
 
-**常用命令**
+#### 常用命令
 
 ```bash
 # ======== 基础命令 ========
@@ -834,6 +834,21 @@ diskutil apfs unlockVolume disk5s1
     diskutil apfs unlockVolume $(diskutil list | grep "MyDisk" | awk "{print \$NF}")
 # 永久解锁磁盘（永久取消解锁）
 diskutil apfs decryptVolume disk5s1
+```
+
+#### 不自动挂载指定磁盘
+
+```bash
+# 查看磁盘信息，获取磁盘名或者 UUID，
+  # 要注意确认 Type 是 apfs
+diskutil info "/Volumes/MyDisk"
+  # 或者使用 diskutil list | grep "MyDisk" 来获取 UUID 和磁盘类型
+
+# 编辑 `/etc/fstab` 文件，添加以下内容：
+UUID=<UUID> none apfs ro,noauto
+
+  # 或者（其中 MyDisk 是磁盘名），未测试
+  LABEL=MyDisk none apfs ro,noauto
 ```
 
 ### hdiutil 磁盘映像工具
