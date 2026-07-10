@@ -459,6 +459,18 @@ ALTER TABLE tablename
 AUTO_INCREMENT = value;
 ```
 
+#### DELETE 删除行
+
+```sql
+-- 删除前最好先选择预览下
+SELECT * FROM tablename
+WHERE condition;
+
+-- 删除数据
+DELETE FROM tablename
+WHERE condition;
+```
+
 #### GROUP_CONCAT 聚合函数
 
 ```sql
