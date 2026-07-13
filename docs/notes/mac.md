@@ -845,10 +845,12 @@ diskutil info "/Volumes/MyDisk"
   # 或者使用 diskutil list | grep "MyDisk" 来获取 UUID 和磁盘类型
 
 # 编辑 `/etc/fstab` 文件，添加以下内容：
-UUID=<UUID> none apfs ro,noauto
+  # 其中 none 表示挂载点，apfs 表示磁盘类型，rw,noauto 表示不自动挂载但挂载后可以读写
+  # 如果是 `ro`，则表示只读挂载
+UUID=<UUID> none apfs rw,noauto
 
   # 或者（其中 MyDisk 是磁盘名），未测试
-  LABEL=MyDisk none apfs ro,noauto
+  LABEL=MyDisk none apfs rw,noauto
 ```
 
 ### hdiutil 磁盘映像工具
