@@ -3737,8 +3737,9 @@ sudo certbot certonly \
 ```bash
 sudo certbot certonly --manual \
     --preferred-challenges dns \
-    -d example.com \
-    -d "*.example.com"
+    -d example.com -d "*.example.com" \
+    -m "you_name@email.com" \
+    --agree-tos
 ```
 
 - `--manual`: 手动验证方式
