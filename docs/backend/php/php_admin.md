@@ -352,6 +352,12 @@ protected function _form_result(bool $result, array $data)
 }
 ```
 
+## CodeIgniter
+
+> 官方首页：[CodeIgniter 中国](https://codeigniter.org.cn/)
+
+CodeIgniter 是一个小巧但功能强大的 PHP 框架，作为一个简单而“优雅”的工具包，它可以为开发者们建立功能完善的 Web 应用程序。
+
 ## Phinx-Migrations
 
 > 官方首页：[https://phinx.org/](https://phinx.org/)

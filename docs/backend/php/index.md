@@ -20,7 +20,7 @@
 
 - [后台管理框架](./php_admin)
 
-  ThinkAdmin、FastAdmin、Phinx-Migrations 等。
+  ThinkAdmin、FastAdmin、CodeIgniter、Phinx-Migrations 等。
 
 - [WordPress](./php_wordpress)
 

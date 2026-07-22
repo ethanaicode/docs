@@ -336,6 +336,12 @@ date: 2024-12-31 17:19:52
   首页：[xiuno.org](https://www.xiuno.org/)（不一定为官网） | 案例：[Xiuno BBS](https://bbs.xiuno.org/)
 
   主题：[此间社区论坛主题](https://www.kehua.me/cijian.html)
+  
+- [ThinkThinkSAAS开源社区](https://gitee.com/thinksaas/thinksaas): 一个轻量级的 PHP 开源社区系统
+
+  支持搭建讨论小组、BBS 论坛和圈子。结合 SNS 社会化网络元素，打造新型开源社区平台。
+
+  官网：[thinksaas.cn](https://www.thinksaas.cn/)
 
 ### 静态博客
 
