@@ -409,7 +409,7 @@
 
   `-e` 指定用户过期时间
 
-- **adduser newuser**: 添加新用户（更友好的方式）
+- **adduser FooName**: 添加新用户（更友好的方式）
 
   `--disabled-password` 创建用户但不设置密码
 
