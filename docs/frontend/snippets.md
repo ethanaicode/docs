@@ -335,11 +335,7 @@ layui.use("table", function () {
 
 `cols` 是一个二维数组，通常定义每一列的行为与样式。
 
-```
-js
-
-
-CopyEdit
+```js
 cols: [[
   {field: 'id', title: 'ID', width: 80, sort: true},
   {field: 'username', title: '用户名'},

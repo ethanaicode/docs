@@ -281,7 +281,7 @@ async function fetchData() {
 fetchData();
 ```
 
-### 模块化
+### ES Module 模块化
 
 `ES6` 引入了模块化的概念，可以使用 `import` 和 `export` 关键字导入和导出模块。
 
