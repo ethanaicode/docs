@@ -1189,7 +1189,7 @@ cat /etc/php/7.4/fpm/pool.d/www.conf | grep ^listen
 location /status {
     include fastcgi_params;
     fastcgi_pass unix:/run/php/php7.4-fpm.sock;
-    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_param SCRIPT_FILENAME $fastcgi_script_name;
 }
 ```
 
@@ -1201,9 +1201,11 @@ process manager:      dynamic
 start time:           11/Mar/2026:15:10:00 +0800
 # 运行了多少秒
 start since:          653
-# 处理过的请求总数（处以秒数就可以得到平均每秒处理的请求数）
+# 处理过的请求总数
+    # 处以秒数就可以得到平均每秒处理的请求数）
 accepted conn:        196384
-# 等待 PHP worker 处理的请求数量（如果 worker 不够时，请求就会排队等待）
+# 等待 PHP worker 处理的请求数量
+    # 如果 worker 不够时，请求就会排队等待
 listen queue:         0
 max listen queue:     0
 listen queue len:     0
@@ -1220,7 +1222,13 @@ max children reached: 0
 slow requests:        0
 ```
 
-php-fpm status 支持参数 **?full** 可以显示会显示每个 worker：
+想要查看更详细的格式可以试试以下参数：
+
+```bash
+curl 127.0.0.1/phpfpm_status?full
+curl 127.0.0.1/phpfpm_status?json
+curl 127.0.0.1/phpfpm_status?xml
+```
 
 
 
