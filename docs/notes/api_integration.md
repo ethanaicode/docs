@@ -462,18 +462,19 @@ composer require alibabacloud/darabonba-openapi
 #### 查询语句案例
 
 ```sql
--- 查询每天每个 topic 的独立 IP 数量
-* | SELECT
+-- 查询每天每个 topic 的独立 IP 数量以及总 IP 数量
+(*) | SELECT
   substr(date_min, 1, 10) AS date,
   __topic__ AS topic,
-  COUNT(DISTINCT ip) AS ip_count
+  COUNT(DISTINCT ip) AS unique_ip_count,
+  COUNT(ip) AS total_ip_count
 FROM log
-GROUP BY __topic__, substr(date_min, 1, 10)
+GROUP BY substr(date_min, 1, 10), __topic__
 ORDER BY date DESC, topic
 LIMIT 100
 
 -- 查询每天每个 type 的独立 IP 数量，并将 type 中的 foo 除以 10
-*| SELECT
+(*) | SELECT
   substr(date_min, 1, 10) AS date_day,
   CASE
   	WHEN type = 'foo' THEN 'foo ÷ 10'
@@ -482,7 +483,7 @@ LIMIT 100
   CASE
     WHEN type = 'foo' THEN CAST(COUNT(DISTINCT ip) / 10.0 AS BIGINT)
     ELSE COUNT(DISTINCT ip)
-  END AS ip_count
+  END AS unique_ip_count
 FROM log
 GROUP BY type, substr(date_min, 1, 10)
 ORDER BY date_day DESC, data_type
