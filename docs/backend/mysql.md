@@ -384,6 +384,10 @@ skip-log-bin
 
   示例: `SELECT FIND_IN_SET('b', 'a,b,c,d');` 返回 `2`
 
+- `SPLIT_PART(<string>, <delimiter>, <part_number>)`: 分割字符串并返回指定部分
+
+  示例: `SELECT SPLIT_PART('a,b,c,d', ',', 2);` 返回 `b`
+
 ### 日期时间函数
 
 - `TIMESTAMPDIFF(unit, start, end)`: 返回两个日期之间的差值
@@ -572,6 +576,37 @@ SUM(CASE WHEN GENDER ='2' THEN SALARY ELSE 0 END) AS COUNTB
 FROM EMPLOYEES
 GROUP BY COUNTRY
 ```
+
+### PV/UV 快速统计
+
+_综合案例，用到了 `SPLIT_PART`、`COUNT`、`COUNT(DISTINCT)`、`ROUND` 等函数。_
+
+```sql
+SELECT
+    -- 日期
+    date_format(from_unixtime(event_time), '%Y-%m-%d') AS date,
+    -- 统计域名
+    SPLIT_PART(url, '/', 3) AS domain,
+    -- 查看总次数（PV，不去重）
+    COUNT(CASE WHEN event_type = 'view' THEN 1 END) AS view_pv,
+    -- 查看独立用户数（UV，去重）
+    COUNT(DISTINCT CASE WHEN event_type = 'view' THEN ip END) AS view_uv,
+    -- 查看点击次数（UV，去重）
+    COUNT(DISTINCT CASE WHEN event_type = 'click' THEN ip END) AS click_uv,
+    -- 计算点击率（点击 UV / 浏览 UV）
+    ROUND(
+      COUNT(DISTINCT CASE WHEN event_type = 'click' THEN ip END) * 1.0 /
+      NULLIF(COUNT(CASE WHEN event_type = 'view' THEN ip END), 0), 4
+    ) AS click_rate
+FROM
+    events
+GROUP BY
+    date,
+    domain
+ORDER BY
+    date DESC, click_rate DESC
+```
+
 
 ## 高级操作
 
