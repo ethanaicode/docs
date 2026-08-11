@@ -63,6 +63,12 @@ date: 2024-12-31 17:19:52
 
 ### 文档知识库
 
+- [docsify](https://github.com/docsifyjs/docsify): 一款动态生成文档网站的工具
+
+  通过 Markdown 编写文档，然后通过 docsify 生成静态网站，支持自定义主题和插件
+
+  官网：[docsify.js.org](https://docsify.js.org/#/)
+
 - [Docusaurus](https://docusaurus.io/): 一款由 Facebook 开源的静态网站生成器
 
   适用于文档、网站、博客等静态网站生成，支持 React 组件、Markdown 编写文档
