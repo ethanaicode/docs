@@ -3541,14 +3541,12 @@ echo | openssl s_client -connect localhost:443 -servername your_domain.com 2>/de
 如果是本地证书，可以直接查看证书信息：
 
 ```bash
-openssl x509 -in /path/to/cert.crt -noout -dates
-# 或者
 openssl x509 -in /path/to/fullchain.pem -noout -dates
 ```
 
 - `x509` 表示查看证书信息
 
-- `-in` 指定证书文件
+- `-in` 指定证书文件，可以是 `.crt`、`.cer`、`.pem` 等格式的证书文件
 
 - `-noout` 不显示证书信息
 
@@ -3663,6 +3661,10 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 
 ### 其它常见 OpenSSL 用法
 
+> OpenSSL = 一套开源的密码学库 + 一个命令行工具。
+>
+> RSA 是一种非对称加密算法，常用于生成公钥和私钥。
+
 ```bash
 # 检查证书与私钥是否匹配，两个 MD5 结果相同表示匹配
 openssl x509 -noout -modulus -in fullchain.pem | openssl md5
@@ -3673,6 +3675,22 @@ openssl x509 -enddate -noout -in fullchain.pem
 
 # 生成随机密码
 openssl rand -base64 16
+
+# 生成 RSA 私钥（传统 RSA 私钥格式，PKCS#1）
+openssl genrsa -out rsa_private_key.pem 2048
+  # 如果需要生成 PKCS#8 格式的私钥，可以使用：
+  openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out rsa_private_key_pkcs8.pem
+  # 或者直接将传统 RSA 私钥转换为 PKCS#8 格式：
+  openssl pkcs8 -topk8 -inform PEM -outform PEM -in rsa_private_key.pem -out rsa_private_key_pkcs8.pem -nocrypt
+# 根据私钥生成公钥
+openssl pkey -in rsa_private_key.pem -pubout -out rsa_public_key.pem
+  # 或者使用传统 RSA 命令生成公钥
+  openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
+# 查看私钥信息
+openssl pkey -in rsa_private_key.pem -text -noout
+
+# 计算文件的 SHA256 哈希值
+openssl dgst -sha256 filename
 ```
 
 ### 使用 certbot 申请证书

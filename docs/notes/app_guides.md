@@ -160,7 +160,31 @@
 
 配置好之后就可以通过 `Tasks: Run Task` 来选择并运行任务了。
 
-### Extensions
+### 插件推荐
+
+- [SFTP](https://marketplace.visualstudio.com/items?itemName=Natizyskunk.sftp)
+
+  ```json
+  {
+      "name": "Office Server",
+      "host": "127.0.0.1",
+      "protocol": "sftp",
+      "port": 22,
+      "username": "root",
+      "remotePath": "/path/to/remote/folder",
+      "uploadOnSave": false,
+      "useTempFile": false,
+      "openSsh": false,
+      "profiles": {
+          "default": {
+              "host": "127.0.0.2"
+          },
+          "test": {
+              "host": "127.0.0.3"
+          }
+      }
+  }
+  ```
 
 - [Github Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
 

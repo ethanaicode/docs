@@ -1110,15 +1110,30 @@ try {
 #### php.ini 配置
 
 ```bash
+# /etc/php/7.4/fpm/php.ini
+
+# ========== 资源限制 ==========
+# 内存限制，单位为字节，默认值为 128M，如果需要更高的内存限制，可以修改为更大的值，比如 256M 或 512M
+memory_limit = 128M
+
 # ========== 错误日志的配置 ==========
 error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT
+display_errors = Off
 log_errors = On
 error_log = /var/log/php_errors.log
-display_errors = Off
 # 错误日志文件需要自己创建
-touch /var/log/php_errors.log
-chown www-data:www-data /var/log/php_errors.log
-chmod 664 /var/log/php_errors.log
+    # touch /var/log/php_errors.log
+    # chown www-data:www-data /var/log/php_errors.log
+    # chmod 664 /var/log/php_errors.log
+
+# ========== 上传文件的配置 ==========
+file_uploads = On
+upload_max_filesize = 50M
+post_max_size = 50M
+
+# ========== 日期 ==========
+date.timezone = Asia/Shanghai
+
 # ========== opcache 的配置 ==========
 # 确认是否包含扩展可以用命令
 #     php -m | grep opcache
@@ -1128,20 +1143,24 @@ chmod 664 /var/log/php_errors.log
 #     var_dump($status);
 [opcache]
 # 通常不需要手动加载 opcache 扩展，默认已经启用
-;zend_extension=opcache.so
+    # ;zend_extension=opcache.so
 opcache.enable=1
 opcache.enable_cli=0
+# 缓存大小，单位为 MB，默认值为 64M
 opcache.memory_consumption=128
-opcache.max_accelerated_files=20000
+# 预编译缓存的最大字符串数，默认值为 8M
+    # PHP 只保留一份相同的字符串，减少内存占用
 opcache.interned_strings_buffer=16
-
+# 缓存的最大文件数，默认值为 10000
+opcache.max_accelerated_files=20000
+# 验证文件是否有修改，设置为 1 表示启用，设置为 0 表示禁用
 opcache.validate_timestamps=1
 # 设置为 0 表示文件有修改就立即重新验证，适合开发环境
 # 生产环境建议设置为较大的值，比如 60 或 120，减少文件系统的 I/O 负载
 opcache.revalidate_freq=0
-
-opcache.fast_shutdown=1
 opcache.save_comments=1
+# fast_shutdown 可以加快 PHP-FPM 的关闭速度，减少请求处理时间，建议在生产环境中启用
+opcache.fast_shutdown=1
 ```
 
 ### PHP-FPM 通信
