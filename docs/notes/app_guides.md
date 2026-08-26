@@ -172,6 +172,7 @@
       "port": 22,
       "username": "root",
       "remotePath": "/path/to/remote/folder",
+      "context": "可选配置，用于表示本地目录，如果不是根目录和远程目录相同，则需要配置",
       "uploadOnSave": false,
       "useTempFile": false,
       "openSsh": false,
