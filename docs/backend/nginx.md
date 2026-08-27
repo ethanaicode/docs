@@ -591,7 +591,7 @@ http {
 
   如果希望为相同的 IP 不同的路径设置不同的限速，可以使用 `$binary_remote_addr$request_uri` 作为键，这样每个路径都会有独立的限速。
 
-**注意**: 限速配置需要在 `http` 块中定义 `limit_req_zone`，然后在 `server` 或 `location` 块中使用 `limit_req`，而且名字不可以搞错（复制代码是要注意），否则会报错。
+**注意**: 限速配置需要在 `http` 块中定义 `limit_req_zone`，然后在 `server` 或 `location` 块中使用 `limit_req`，一个定义规则，一个负责具体限速，而且名字不可以搞错（复制代码是要注意），否则会报错。
 
 ### 流量限制
 
