@@ -4184,6 +4184,78 @@ Host gitee.com
 
 ## 防火墙
 
+### ipset 和 iptables
+
+iptables 是“规则执行器”，负责根据定义的规则对数据包进行匹配和处理。ipset 是“IP 地址数据库/集合”，负责高效地管理大量 IP 地址或网段。
+
+ipset 本身并不会封 IP，它只是管理 IP 地址集合，真正的封禁动作需要通过 iptables 来实现。
+
+#### 常见用法
+
+```bash
+# 创建一个可同时容纳 IPv4 地址和网段的黑名单集合，名字为 blocklist
+sudo ipset create blocklist hash:net -exist
+
+# 添加单个 IP 或网段
+sudo ipset add blocklist 203.0.113.10 -exist
+sudo ipset add blocklist 198.51.100.0/24 -exist
+
+# 将集合中的来源地址丢弃；-I 1 插入到 INPUT 链第一条
+sudo iptables -I INPUT 1 -m set --match-set blocklist src -j DROP
+
+# 查看规则命中数和集合成员
+sudo iptables -L INPUT -n -v --line-numbers
+sudo ipset list blocklist
+
+# 删除整个集合
+sudo ipset destroy blocklist
+
+# 删除集合中的单个成员
+sudo ipset del blocklist 203.0.113.10
+
+# 根据规则编号删除，先用 iptables -L INPUT -n --line-numbers 确认编号
+sudo iptables -D INPUT <规则编号>
+```
+
+- `-exist` 让集合或成员已经存在时不报错，便于脚本重复执行。
+
+#### 案例：限制 SSH 仅允许办公网访问
+
+将可信来源放入白名单，再明确拒绝其他来源访问 22 端口。规则必须以给出的顺序添加：先允许白名单，再拒绝其他 SSH 流量。
+
+```bash
+# 允许的 IP 和网段
+sudo ipset create ssh_allowlist hash:net -exist
+sudo ipset add ssh_allowlist 203.0.113.10 -exist
+sudo ipset add ssh_allowlist 198.51.100.0/24 -exist
+
+# 仅允许白名单访问 SSH；将端口替换为实际 SSH 端口
+sudo iptables -I INPUT 1 -p tcp --dport 22 \
+  -m set --match-set ssh_allowlist src -j ACCEPT
+sudo iptables -I INPUT 2 -p tcp --dport 22 -j DROP
+```
+
+如果服务器已采用“默认拒绝入站”的策略，可只添加第一条 `ACCEPT` 规则，不必额外添加 SSH 的 `DROP` 规则。
+
+#### 案例：临时封禁异常来源
+
+`timeout` 由集合本身管理，到期后成员自动移除，不需要额外的定时任务。下面将来源临时封禁 1 小时：
+
+```bash
+# 创建支持超时的集合，默认超时 3600 秒
+sudo ipset create temporary_blocklist hash:ip timeout 3600 -exist
+
+# 单个成员也可以覆盖默认超时时间
+sudo ipset add temporary_blocklist 203.0.113.10 timeout 600 -exist
+
+# 仅在规则不存在时插入，避免重复执行脚本后生成相同规则
+sudo iptables -C INPUT -m set --match-set temporary_blocklist src -j DROP 2>/dev/null || \
+  sudo iptables -I INPUT 1 -m set --match-set temporary_blocklist src -j DROP
+
+# 查看剩余超时时间
+sudo ipset list temporary_blocklist
+```
+
 ### 使用 ufw 管理防火墙
 
 ufw 是 Ubuntu/Debian 系统中的一个简单的防火墙管理工具，可以用来配置 iptables 防火墙规则。
