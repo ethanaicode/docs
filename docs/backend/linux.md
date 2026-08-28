@@ -3148,24 +3148,6 @@ sort -nrk2 | head
 
 _统计的是不同 IP 地址的访问量，如果要统计行数，可以去掉 `sort` 和 `uniq`，直接使用 `wc -l`_
 
-**查看排名前 10 的访问路径**
-
-```bash
-awk '{print $7}' /var/log/nginx/access.log | sort | uniq -c | sort -nr | head -n 10
-```
-
-**查看返回码为 404 的请求路径，并统计数量**
-
-Nginx 默认日志格式中，`$9` 为状态码，`$7` 为请求路径，可以据此过滤和统计。
-
-```bash
-# 统计所有 404 请求路径的数量，按次数降序排列
-awk '$9==404 {print $7}' /var/log/nginx/access.log | sort | uniq -c | sort -nr
-
-# 统计 404 请求的总次数
-awk '$9==404' /var/log/nginx/access.log | wc -l
-```
-
 **统计访问路径、UV、流量**（输出字段依次为：`URL 访问次数 UV 流量`）
 
 ```bash
@@ -3214,6 +3196,30 @@ function human(x) {
         $3,
         human($4)
 }'
+```
+
+**查看排名前 10 的访问路径**
+
+```bash
+awk '{print $7}' /var/log/nginx/access.log | sort | uniq -c | sort -nr | head -n 10
+```
+
+**查看返回码为 404 的请求路径，并统计数量**
+
+Nginx 默认日志格式中，`$9` 为状态码，`$7` 为请求路径，可以据此过滤和统计。
+
+```bash
+# 统计所有 404 请求路径的数量，按次数降序排列
+awk '$9==404 {print $7}' /var/log/nginx/access.log | sort | uniq -c | sort -nr
+
+# 统计 404 请求的总次数
+awk '$9==404' /var/log/nginx/access.log | wc -l
+```
+
+**统计以 `/f?` 开头的访问路径**
+
+```bash
+awk '$7 ~ /^\/f\?/' /var/log/nginx/access.log | wc -l
 ```
 
 #### 耗时统计及分析
