@@ -149,11 +149,21 @@ def singleNumber(nums):
 
 - [ipgeolocation](https://ipgeolocation.io/what-is-my-ip/): 免费版每天 1000 次查询，返回详细信息（时区、ISP 等）
 
-#### DNS 查询
+#### DNS 解析记录查询
 
 - [www.nslookup.io](https://www.nslookup.io/): 在线查询域名的 DNS 记录
 
 - [dnschecker](https://dnschecker.org/#NS/example.com): 查询域名的 DNS 记录，也可以查询解析记录等
+
+- [Subdomain Api](https://subdomain.app): 查询域名的子域名信息。
+
+  同时包含历史和当前观察到的子域名信息。
+
+- [crt.sh](https://crt.sh/): 查询 Certificate Transparency
+
+  如果这些二级域名曾经配置过 HTTPS 证书，会在 crt.sh 上留下记录。
+
+- [ViewDNS.info](https://viewdns.info/): 提供多种 DNS 查询工具，可以查询域名的解析记录、反向解析等。
 
 ### 聊天应用
 

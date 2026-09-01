@@ -909,3 +909,31 @@ hdiutil imageinfo mydisk.dmg
 - `shasum -a 256 filename`: 计算文件的 SHA-256 校验和
 
 - `shasum -c filename.sha256`: 校验文件的 SHA-256 校验和
+
+### ncdu 磁盘使用分析工具
+
+`ncdu` 是一个用于分析磁盘使用情况的命令行工具，能够以交互式界面显示目录和文件的大小。
+
+**常用命令**
+
+```bash
+# 安装
+brew install ncdu
+
+# 分析当前目录的磁盘使用情况
+ncdu
+
+# 分析指定目录的磁盘使用情况
+ncdu /path/to/directory
+
+# 进入交互式界面后
+↑ ↓ 上下选择
+← 返回上一级目录
+Enter 进入目录
+q 退出 ncdu
+d 删除选中的文件或目录
+r 重新扫描当前目录
+n 按名称排序
+s 按大小排序
+g 显示百分比/图形
+```
