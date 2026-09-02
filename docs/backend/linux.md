@@ -4213,6 +4213,10 @@ sudo ipset create blocklist hash:net -exist
 sudo ipset add blocklist 203.0.113.10 -exist
 sudo ipset add blocklist 198.51.100.0/24 -exist
 
+# 添加单个 IP 或网段，带有过期时间
+sudo ipset add blocklist 203.0.113.10 timeout 86400 -exist
+sudo ipset add blocklist 198.51.100.0/24 timeout 86400 -exist
+
 # 将集合中的来源地址丢弃；-I 1 插入到 INPUT 链第一条
 sudo iptables -I INPUT 1 -m set --match-set blocklist src -j DROP
 
