@@ -6,73 +6,60 @@
 
 ### 常用方法
 
-#### 转 MP4 视频为音频 AAC 或者 MP3
-
-**Convert to AAC**
+#### 视频转换或提取音频
 
 ```bash
+# 提取音频
 ffmpeg -i input.mp4 -vn -acodec aac output.aac
+ffmpeg -i input.mp4 -vn -acodec mp3 output.mp3
+
+# 转换视频格式
+ffmpeg -i input.avi output.mp4
+# 转换 MP4 视频为 AVIF 图片序列（优秀的压缩效果）
+ffmpeg -i input.mp4 -c:v libsvtav1 -crf 30 -preset 5 output.avif
 ```
 
 - `-i input.mp4`: 指定输入文件
+
 - `-vn`: 取消视频流，只保留音频流
+
 - `-acodec aac`: 指定音频编码格式为 AAC
+
 - `output.aac`: 指定输出文件
 
-**Convert to MP3**
+#### 视频编辑
 
 ```bash
-ffmpeg -i input.mp4 -vn -acodec mp3 output.mp3
+# 剪切视频
+ffmpeg -i input.mp4 -ss 00:00:10 -t 00:00:30 -c copy output.mp4
+
+# 修改视频分辨率
+ffmpeg -i input.mp4 -vf scale=-1:360 output_360p.mp4
+# 使用 `-s` 参数修改视频分辨率
+ffmpeg -i input.mp4 -s 640x360 output_360p.mp4
 ```
 
-#### 压缩 MP4 视频
+- `-vf scale=-1:360`: 使用视频滤镜来缩放视频。宽度设置为 `-1` 以保持纵横比，同时将高度设置为 `360` 像素
+
+#### 视频压缩
 
 ```bash
 # 极致平衡推荐（H.264 + CRF）
 ffmpeg -i input.mp4 -vcodec libx264 -crf 23 -preset medium -acodec aac -b:a 128k output_compressed.mp4
 ```
 
-- `-i input.mp4`：输入视频文件。
+- `-vcodec libx264`: 视频编码器采用 H.264。
 
-- `-vcodec libx264`：视频编码器采用 H.264。
+- `-crf 23`: **核心控噪参数**。范围是 0~51，数值越小质量越好、体积越大。
 
-- `-crf 23`：**核心控噪参数**。范围是 0~51，数值越小质量越好、体积越大。
+  - `18 - 20`: 高画质（几乎无损，适合对画质有追求的视频）。
+  - `23`: **默认均衡值**（肉眼几乎看不出画质损失，体积大幅减小）。
+  - `26 - 28`: 低画质（体积非常小，适合对画质要求不高的网络传输）。
 
-  - `18 - 20`：高画质（几乎无损，适合对画质有追求的视频）。
-  - `23`：**默认均衡值**（肉眼几乎看不出画质损失，体积大幅减小）。
-  - `26 - 28`：低画质（体积非常小，适合对画质要求不高的网络传输）。
+- `-preset medium`: 编码速度预设。速度越慢，压缩率越高（相同体积下画质更好）。通常用 `medium` 或 `fast`，追求极致压缩可用 `slow`。
 
-- `-preset medium`：编码速度预设。速度越慢，压缩率越高（相同体积下画质更好）。通常用 `medium` 或 `fast`，追求极致压缩可用 `slow`。
+- `-acodec aac -b:a 128k`: 音频编码采用 AAC，比特率设置为 128k（既省空间又保证音质）。
 
-- `-acodec aac -b:a 128k`：音频编码采用 AAC，比特率设置为 128k（既省空间又保证音质）。
-
-#### 修改 MP4 视频的分辨率
-
-```bash
-ffmpeg -i input.mp4 -vf scale=-1:360 output_360p.mp4
-```
-
-或者使用 `s` 参数：
-
-```bash
-ffmpeg -i input.mp4 -s 640x360 output_360p.mp4
-```
-
-- `-vf scale=-1:360`: 使用视频滤镜来缩放视频。宽度设置为 `-1` 以保持纵横比，同时将高度设置为 `360` 像素
-
-#### 视频格式之间转换
-
-```bash
-ffmpeg -i input.mp4 output.avi
-ffmpeg -i input.avi output.mp4
-ffmpeg -i input.mp4 output.mkv
-```
-
-#### 视频剪切
-
-```bash
-ffmpeg -i input.mp4 -ss 00:00:10 -t 00:00:30 -c copy output.mp4
-```
 
 ## mpv
 
