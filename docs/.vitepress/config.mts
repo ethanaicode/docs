@@ -205,7 +205,7 @@ export default defineConfig({
 
     footer: {
       message: '请尊重他人劳动成果，未经授权禁止转载！',
-      copyright: 'Copyright © 2019-present Ethan'
+      copyright: 'Copyright © 2019-present EthanAiCode | Latest build 2026-09-04'
     }
   },
 
