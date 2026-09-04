@@ -14,11 +14,11 @@ You can visit the website at [http://doc.shejibiji.com/](http://doc.shejibiji.co
 
 ```bash
 # 打包本地构建的文档
-tar -cvzf ../docs_$(date +%Y%m%d).tar.gz docs/.vitepress/dist
+tar -czf ../docs_$(date +%Y%m%d).tar.gz docs/.vitepress/dist
 
 # 复制文件到目标目录
 scp -P 22 ../docs_$(date +%Y%m%d).tar.gz user@remote_host:/path/to/doc.shejibiji.com/
 
 # 解压到目标目录
-ssh -p 22 user@remote_host "tar -xvzf /path/to/doc.shejibiji.com/docs_$(date +%Y%m%d).tar.gz -C /path/to/doc.shejibiji.com/docs/.vitepress/ && find /path/to/doc.shejibiji.com/ -type f -name '._*' -delete"
+ssh -p 22 user@remote_host "tar -xzf /path/to/doc.shejibiji.com/docs_$(date +%Y%m%d).tar.gz -C /path/to/doc.shejibiji.com/ && find /path/to/doc.shejibiji.com/ -type f -name '._*' -delete"
 ```
