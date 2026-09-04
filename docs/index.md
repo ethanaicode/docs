@@ -7,7 +7,7 @@ hero:
   text: "Design Notes"
   tagline: 但行好事，乐于分享<br/>Do good things, happy to share
   image:
-    src: /welcome.png
+    src: /welcome.webp
     alt: Welcome
   actions:
     - theme: brand

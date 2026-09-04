@@ -6,7 +6,7 @@ hero:
   name: "Design Notes"
   text: "Do good things<br/>happy to share"
   image:
-    src: /welcome.png
+    src: /welcome.webp
     alt: Welcome
   actions:
     - theme: brand
