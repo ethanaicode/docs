@@ -147,7 +147,9 @@ date: 2024-12-31 17:19:52
 
 ### 基础框架
 
-- [MultiWechat](https://github.com/coderiderlin/MultiWechat): 微信多开开发框架
+- [Tauri](https://github.com/tauri-apps/tauri): 用于构建跨平台桌面应用的框架
+
+  Tauri 是一个轻量级的跨平台桌面应用开发框架，支持使用前端技术（如 HTML、CSS、JavaScript）构建用户界面，同时利用 Rust 提供高性能的后端逻辑。
 
 - [Electron + Vite + Vue](https://github.com/electron-vite/electron-vite-vue.git): Electron + Vite + Vue3 开发框架
 
@@ -160,6 +162,8 @@ date: 2024-12-31 17:19:52
 - [Plasmo Framework](https://github.com/PlasmoHQ/plasmo): Plasmo Framework
 
   Plasmo 框架是一款黑客为黑客打造的功能强大的浏览器扩展程序软件开发工具包（SDK）。使用 Plasmo 来构建你的浏览器扩展程序，不需要操心扩展的配置文件和构建时的一些奇怪特性。
+
+- [MultiWechat](https://github.com/coderiderlin/MultiWechat): 微信多开开发框架
 
 ### 后台管理
 
@@ -421,6 +425,10 @@ date: 2024-12-31 17:19:52
 ## AI 开发
 
 ### AI 客户端
+
+- [deepseek-harness](https://github.com/deepseek-ai/deepseek-harness): 由 DeepSeek AI 开发的开源智能体框架
+
+  它构建于一切皆插件的架构之上，由 Cordis 驱动整个系统的运行。
 
 - [NextChat](https://github.com/ChatGPTNextWeb/NextChat): 一键免费部署你的私人 ChatGPT 网页应用，支持 Claude, GPT4 & Gemini Pro 模型
 

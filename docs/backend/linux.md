@@ -1625,11 +1625,9 @@ find /path/to/directory -type f -size +100M -print0 | xargs -0 du -h | sort -nr
 
 **方法三、使用 ncdu 命令**
 
-`ncdu` 是一个交互式的磁盘使用情况分析工具，需要安装。
+`ncdu` 是一个交互式的磁盘使用情况分析工具，通常需要额外安装。
 
-```bash
-ncdu /path/to/directory
-```
+具体内容可以看: [ncdu文档](/notes/mac.html#ncdu-磁盘使用分析工具)
 
 ### 找出小文件过多的目录
 

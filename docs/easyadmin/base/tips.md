@@ -23,7 +23,21 @@
 > [!CAUTION]
 > 新增菜单后，记得更新节点，并给对应角色分配节点权限。
 >
-> 否则可能无法显示新增菜单，如果用管理员账号可以不受这个权限限制。
+> 否则可能无法显示新增的菜单，如果用管理员账号可以不受这个权限限制。
+
+新增节点时如果报错（懒得仔细找原因了），
+
+可以通过直接往数据库插入数据来实现（批量插入，也比较方便）：
+
+```sql
+-- 插入示例管理页面的节点，根据实际情况修改数据库名和表名及节点信息
+INSERT INTO dbname.ex_system_node (node,title,`type`) VALUES
+	 ('system.example_page','示例管理页面',1),
+	 ('system.example_page/index','列表',2),
+	 ('system.example_page/add','添加',2),
+	 ('system.example_page/edit','编辑',2),
+	 ('system.example_page/delete','删除',2);
+```
 
 ### 配置项
 
