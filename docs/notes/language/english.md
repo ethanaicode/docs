@@ -1,5 +1,17 @@
 # 英语
 
+## 学习导航
+
+### 学习资源
+
+- [BBC Learning English](https://www.bbc.co.uk/learningenglish) - BBC 英语学习网站
+
+### 学习工具
+
+- [YouGlish](https://youglish.com) - 真实视频演示英语正确发音
+
+- [Anki](https://apps.ankiweb.net) - 高效记忆工具
+
 ## 语法
 
 ### 基本句型
