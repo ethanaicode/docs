@@ -296,6 +296,8 @@ skip-log-bin
 
 - `DESC table_name`: 查看表结构
 
+- `SHOW CREATE TABLE table_name`: 查看创建表的 SQL 语句
+
 - `ALTER TABLE table_name ADD <column> <data_type>;`: 修改表，添加字段
 
 - `DROP TABLE table_name`: 删除表
@@ -377,6 +379,7 @@ skip-log-bin
   UPDATE `database_name`.`table_name`
   SET `field_name` = REPLACE(`field_name`, 'old.example.com', 'new.example.com')
   WHERE `field_name` LIKE '%old.example.com%';
+  -- 确认替换完成后再执行
 
   ```
 
