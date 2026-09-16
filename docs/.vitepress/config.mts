@@ -1,4 +1,28 @@
 import { defineConfig } from "vitepress";
+import { execSync } from "node:child_process";
+
+// 格式化日期为 2026/09/15 15:25:57 的形式
+function formatDate(date: Date) {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${date.getFullYear()}/${pad(date.getMonth() + 1)}/${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+}
+
+// 执行 git 命令获取信息，失败时返回占位符（例如未安装 git 或非 git 环境）
+function git(command: string, fallback = "unknown") {
+  try {
+    return execSync(command, { encoding: "utf-8" }).trim();
+  } catch {
+    return fallback;
+  }
+}
+
+// 版本信息在每次构建/启动 dev server 时自动生成，无需手动维护
+const versionInfo = {
+  buildTime: formatDate(new Date()),
+  commitTime: formatDate(new Date(git("git log -1 --format=%cI", new Date().toISOString()))),
+  branch: git("git rev-parse --abbrev-ref HEAD"),
+  commitHash: git("git rev-parse --short HEAD"),
+};
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -12,6 +36,10 @@ export default defineConfig({
   
   // Vite 构建优化配置
   vite: {
+    // 将版本信息注入客户端代码，供 theme 中打印控制台横幅使用
+    define: {
+      __APP_VERSION__: JSON.stringify(versionInfo),
+    },
     build: {
       chunkSizeWarningLimit: 2000, // 提高警告阈值到 2000 kB
       rollupOptions: {
@@ -205,7 +233,7 @@ export default defineConfig({
 
     footer: {
       message: '请尊重他人劳动成果，未经授权禁止转载！',
-      copyright: 'Copyright © 2019-present EthanAiCode | Latest build 2026-09-04'
+      copyright: 'Copyright © 2019-present EthanAiCode'
     }
   },
 
