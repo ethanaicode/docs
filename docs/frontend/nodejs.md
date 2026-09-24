@@ -8,6 +8,8 @@ Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境，可以让 
 
 你可以在这里获取到 Node.js 的最新版本：[Node.js 官网](https://nodejs.org/en/download/)
 
+#### 使用 nvm 安装 Node.js
+
 如果是 linux 系统，可以使用以下命令安装 Node.js：
 
 ```bash
@@ -39,6 +41,22 @@ npm -v
 - `nvm alias default <version>`: 设置默认版本的 Node.js
 
 **注意**：如果你使用的是 `nvm` 安装的 Node.js，那么 `npm` 也会随之安装。
+
+#### 使用 NodeSource 安装
+
+NodeSource 提供了最新版本的 Node.js 安装包，可以通过它来安装和升级 Node.js。
+
+```bash
+# 添加 NodeSource 仓库（以 Node.js 24 为例）
+curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
+
+# 安装 Node.js
+sudo apt install -y nodejs
+
+# 验证安装
+node -v
+npm -v
+```
 
 ### Corepack
 

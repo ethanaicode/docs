@@ -345,7 +345,6 @@
   `-delete` <u>删除搜索结果</u>
 
   `-exec` <u>执行命令</u>，`{}` 代表搜索到的文件
-
   - 批量删除搜索结果也可以通过 `-exec rm -f {} +` 来实现
 
   - `+` 表示将所有搜索结果作为参数传递给命令（比 `\;` 更高效）
@@ -4070,9 +4069,7 @@ Port 2222
 
 **ssh.socket**
 
-在有些最小化系统中， `sshd` 不是直接由 `ssh.service` 启动的，而是通过 **`ssh.socket`** 来按需启动（这意味着 `sshd` 是 socket 激活的子进程）。
-
-_当你发现没有 sshd 服务时可能就是这种情况_
+在有些系统中， `sshd` 不是直接由 `ssh.service` 启动的，而是通过 **`ssh.socket`** 来按需启动（这意味着 `sshd` 是 socket 激活的子进程）。
 
 这个时候单独改 `sshd_config` 的 Port 是没有用的，还需要改 `ssh.socket` 的监听端口。
 
@@ -4081,17 +4078,23 @@ _当你发现没有 sshd 服务时可能就是这种情况_
 正确修改端口方式（socket 模式）：
 
 ```bash
-# 使用命令可以创建一个 override 文件
+# 使用命令可以创建一个 override 文件，尽量避免直接改 socket 文件
 sudo systemctl edit ssh.socket
+    # 需要注意的是内容应该写在 ### Anything between here ... ### 下面
+
 # 在打开的文件中输入以下内容（第一行 ListenStream= 是清空旧配置，第二行是新端口）
+# 加入 ListenStream=0.0.0.0:22222 能够强行让服务器在 IPv4 网络下也开始监听该端口
 [Socket]
 ListenStream=
-ListenStream=22222
+ListenStream=0.0.0.0:22222
+ListenStream=[::]:22222
+Accept=no
+FreeBind=yes
+
 # 重新加载 systemd 配置
-sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
-# 重启 socket 服务
 sudo systemctl restart ssh.socket
+sudo systemctl restart ssh.service
 ```
 
 ### SSH 客户端配置
