@@ -46,37 +46,37 @@ systemctl status mysql
 
 ```bash
 # ================== 创建一个新用户 ==================
-CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+CREATE USER 'user1'@'localhost' IDENTIFIED BY 'password';
 # 授权用户访问指定数据库
-GRANT ALL PRIVILEGES ON database_name.* TO 'username'@'localhost';
+GRANT ALL PRIVILEGES ON database_name.* TO 'user1'@'localhost';
 # 授权用户访问所有数据库
-GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'user1'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 # ================== 修改用户密码 ==================
-ALTER USER 'username'@'localhost' IDENTIFIED BY 'new_password';
+ALTER USER 'user1'@'localhost' IDENTIFIED BY 'new_password';
 # 5.7.5 及以下版本修改密码
-SET PASSWORD FOR 'username'@'localhost' = PASSWORD('new_password');
+SET PASSWORD FOR 'user1'@'localhost' = PASSWORD('new_password');
 # ================== 删除用户 ==================
-DROP USER 'username'@'localhost';
+DROP USER 'user1'@'localhost';
 ```
 
 #### 创建用户命令详解
 
 ```sql
-CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' WITH GRANT OPTION;
+CREATE USER 'user1'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'user1'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 ```
 
-- `CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';`: 创建用户
+- `CREATE USER 'user1'@'localhost' IDENTIFIED BY 'password';`: 创建用户
 
-  `username` 新用户的用户名
+  `user1` 新用户的用户名
 
   `localhost` 新用户的主机名
 
   `password` 新用户的密码
 
-- `GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' WITH GRANT OPTION;`: 授权
+- `GRANT ALL PRIVILEGES ON *.* TO 'user1'@'localhost' WITH GRANT OPTION;`: 授权
 
   `ALL PRIVILEGES` 用户被授予所有权限
 

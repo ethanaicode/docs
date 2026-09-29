@@ -2749,7 +2749,9 @@ Documentation=file:///usr/share/doc/python-certbot-doc/html/index.html
 Documentation=https://certbot.eff.org/docs
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/certbot -q renew --no-random-sleep-on-renew --deploy-hook "systemctl reload nginx"
+ExecStart=/usr/bin/certbot renew --no-random-sleep-on-renew --deploy-hook "systemctl reload nginx"
+# pipx 全局安装的 certbot，通常需要使用 `/usr/local/bin/certbot` 来执行
+#ExecStart=/usr/local/bin/certbot renew --no-random-sleep-on-renew --deploy-hook "systemctl reload nginx"
 PrivateTmp=true
 ```
 
@@ -2764,7 +2766,7 @@ sudo systemctl start certbot.timer
 sudo systemctl start certbot.service
 sudo systemctl status certbot.service
     # OR
-    sudo journalctl -u certbot.service -f
+    sudo journalctl -u certbot.service
 ```
 
 ### crontab 定时任务
@@ -3803,6 +3805,8 @@ https://toolbox.googleapps.com/apps/dig/#TXT/_acme-challenge.example.com
 
 可以结合插件，通过自动设置 DNS 记录来实现自动化申请证书。
 
+为了方便使用插件，可以通过 pipx 全局安装的 certbot 来管理证书。
+
 这里以 Aliyun DNS 插件为例：
 
 ```bash
@@ -3847,6 +3851,8 @@ sudo certbot certonly \
 ```
 
 之后可以修改对应的定时任务来实现自动续期，并重启 Nginx 服务（参考[Systemd Timer 定时任务单元](#systemd-timer-定时任务单元)部分的案例）。
+
+**注意**：通过 pipx 全局安装的 certbot，可能并不会自动创建 systemd 定时任务，可以手动创建一个 systemd 定时任务来实现自动续期。
 
 #### 定时任务自动续期证书
 
