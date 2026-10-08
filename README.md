@@ -13,6 +13,9 @@ You can visit the website at [http://doc.shejibiji.com/](http://doc.shejibiji.co
 > 这样可以确保文档在国内服务器上能够顺利部署，而不依赖于外部资源，仅供参考。
 
 ```bash
+# 构建
+npm run docs:build
+
 # 打包本地构建的文档
 tar -czf ../docs_$(date +%Y%m%d).tar.gz docs/.vitepress/dist
 
