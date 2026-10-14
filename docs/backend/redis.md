@@ -120,7 +120,7 @@ redis-cli -a yourpassword
 
 | 命令                       | 说明           |
 | -------------------------- | -------------- |
-| `SADD key member1 member2` | 添加元素到集合 |
+| `SADD key member1 member2` | <u>添加元素到集合</u> |
 | `SREM key member`          | 移除元素       |
 | `SMEMBERS key`             | 获取所有元素   |
 | `SISMEMBER key member`     | 判断是否存在   |
@@ -132,9 +132,10 @@ redis-cli -a yourpassword
 
 | 命令                   | 说明             |
 | ---------------------- | ---------------- |
-| `HSET key field value` | 设置字段值       |
+| `HSET key field value` | <u>设置字段值</u>       |
+| `HSETNX key field value` | 仅在字段不存在时设置字段值 |
 | `HGET key field`       | 获取字段值       |
-| `HGETALL key`          | 获取所有字段和值 |
+| `HGETALL key`          | <u>获取所有字段和值</u> |
 | `HDEL key field`       | 删除字段         |
 | `HEXISTS key field`    | 判断字段是否存在 |
 | `HINCRBY key field 1`  | 对字段值自增     |
