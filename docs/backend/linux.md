@@ -1660,6 +1660,57 @@ find / -xdev -type f -size -4k 2>/dev/null | awk -F/ '{print "/"$2}' | uniq -c
 ls -lUR /var/lib 2>/dev/null | awk '$5 < 4096 {count++} END {print count}'
 ```
 
+### 快速比较两个文件
+
+- 需要记录校验值、验证下载文件或跨设备传输时，推荐使用 SHA-256。
+- MD5 可用于一般文件比对，但不适合安全敏感的完整性验证。
+
+#### 查看文件 MD5 和 SHA-256
+
+Linux（Ubuntu）：
+
+```bash
+# ============================================
+# 查看文件 MD5 值
+    # Linux（Ubuntu）
+md5sum file.zip
+    # macOS（Darwin）
+md5 file.zip
+
+# ============================================
+# 查看文件 SHA-256
+    # Linux（Ubuntu）
+sha256sum file.zip
+    # macOS（Darwin）
+shasum -a 256 file.zip
+
+# ============================================
+# 比较两个文件的 Hash
+    # Linux（Ubuntu）
+md5sum file1.zip file2.zip
+    # macOS（Darwin）
+md5 file1.zip file2.zip
+```
+
+#### 比较两个文件内容是否相同
+
+```bash
+# Linux / macOS 通用
+cmp -s file1.zip file2.zip && echo "文件内容相同" || echo "文件内容不同或比较失败"
+```
+
+#### 额外比较方法
+
+查看文件大小：
+
+```bash
+# Linux
+stat -c '%s' file.zip
+
+# macOS
+stat -f '%z' file.zip
+```
+
 ### 快速统计目录内文件个数
 
 可以先列出目录下的所有文件和子目录，并且通过`grep`命令筛选出文件行（以`-`开头），最后使用`wc -l`命令统计行数。
