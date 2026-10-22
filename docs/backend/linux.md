@@ -2489,66 +2489,70 @@ yum makecache
 
 #### 常用命令
 
-- `apt update`: 更新软件包列表，以获取最新的软件包信息。
+- `apt update`: 更新软件包列表，以获取最新的软件包信息
 
-- `apt install PACKAGE_NAME`: 安装一个特定的软件包。
+- `apt install PACKAGE_NAME`: 安装一个特定的软件包
 
-- `apt search KEYWORD`: 搜索软件包。
+- `apt install --only-upgrade PACKAGE_NAME`: <u>升级已安装的软件包，而不安装新的依赖，适合保持系统依赖稳定</u>
 
-- `apt show PACKAGE_NAME`: 显示软件包的详细信息。
+- `apt search KEYWORD`: <u>搜索软件包</u>
 
-- `apt list PACKAGE_NAME`: 快速查询包是否存在，是否安装以及版本信息。
+- `apt show PACKAGE_NAME`: 显示软件包的详细信息
 
-  `apt list --installed`: 列出所有已安装的软件包。
+- `apt policy PACKAGE_NAME`: 显示软件包的安装策略和可用版本
 
-  `apt list --upgradable`: 列出所有可以升级的软件包。
+- `apt list PACKAGE_NAME`: 快速查询包是否存在，是否安装以及版本信息
 
-- `apt purge PACKAGE_NAME`: <u>完全卸载一个软件包</u>，包括其配置文件（比 `remove` 更彻底）。
+  `apt list --installed`: 列出所有已安装的软件包
 
-- `apt autoremove`: 删除那些**曾被自动安装，但现在不再被任何已安装软件依赖**的包。
+  `apt list --upgradable`: 列出所有可以升级的软件包
 
-  通常配合 `apt purge` 一起使用。
+- `apt purge PACKAGE_NAME`: <u>完全卸载一个软件包</u>，包括其配置文件（比 `remove` 更彻底）
 
-- `apt remove PACKAGE_NAME`: 卸载一个特定的软件包。
+- `apt autoremove`: 删除那些**曾被自动安装，但现在不再被任何已安装软件依赖**的包
 
-  `apt autoremove --dry-run`: 模拟执行自动卸载，查看哪些包会被删除。
+  通常配合 `apt purge` 一起使用
 
-  `apt autoremove --purge`: 自动删除不再需要的包，并清除其配置文件。
+- `apt remove PACKAGE_NAME`: 卸载一个特定的软件包
 
-- `apt clean`: 清理下载的软件包文件。
+  `apt autoremove --dry-run`: 模拟执行自动卸载，查看哪些包会被删除
 
-- `apt autoclean`: 清理过期的软件包文件。
+  `apt autoremove --purge`: 自动删除不再需要的包，并清除其配置文件
 
-- `apt upgrade`: 升级所有已安装的软件包到最新版本。
+- `apt clean`: 清理下载的软件包文件
 
-- `apt-mark showauto`: 显示所有自动安装的软件包。
+- `apt autoclean`: 清理过期的软件包文件
+
+- `apt upgrade`: 升级所有已安装的软件包到最新版本
+
+- `apt-mark showauto`: 显示所有自动安装的软件包
 
 ### update-alternatives
 
-`update-alternatives` 是一个用于管理系统中多个软件版本的工具。
+`update-alternatives` 是一个用于管理系统中多个软件版本的工具
 
 #### 常用命令
 
-- `update-alternatives --config <name>`: 选择某个软件的默认版本。
+- `update-alternatives --config <name>`: 选择某个软件的默认版本
 
-- `update-alternatives --set <name> <path>`: 设置某个软件的默认版本。
+- `update-alternatives --set <name> <path>`: 设置某个软件的默认版本
 
-- `update-alternatives --display <name>`: 显示某个软件的所有可用版本。
+- `update-alternatives --display <name>`: 显示某个软件的所有可用版本
 
-- `update-alternatives --query <name>`: 以机器可读格式显示。
+- `update-alternatives --query <name>`: 以机器可读格式显示
 
-- `update-alternatives --list <name>`: 以机器可读格式显示。
+- `update-alternatives --list <name>`: 以机器可读格式显示
 
-- `update-alternatives --remove <name> <path>`: 删除某个软件的某个版本。
+- `update-alternatives --remove <name> <path>`: 删除某个软件的某个版本
 
-- `update-alternatives --install <link> <name> <path> <priority>`: 添加一个新的软件版本。
-  - `<link>`: 符号链接的路径。
+- `update-alternatives --install <link> <name> <path> <priority>`: 添加一个新的软件版本
+  - `<link>`: 符号链接的路径
 
-  - `<name>`: 软件的名称。
+  - `<name>`: 软件的名称
 
-  - `<path>`: 软件的实际路径。
+  - `<path>`: 软件的实际路径
 
-  - `<priority>`: 优先级，数字越大优先级越高。
+  - `<priority>`: 优先级，数字越大优先级越高
 
 #### 使用示例
 
