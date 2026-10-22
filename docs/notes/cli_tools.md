@@ -643,6 +643,20 @@ region=cn-shanghai
 endpoint=https://oss-cn-shanghai.aliyuncs.com
 ```
 
+### 全局参数
+
+```bash
+# 指定配置文件路径（默认是 ~/.ossutilconfig）
+# --config-file
+-c ~/.ossutilconfig
+
+# 指定区域和端点（如果和配置中的不同就需要额外指定）
+--region cn-hangzhou --endpoint oss-cn-hangzhou.aliyuncs.com
+
+# 指定配置文件中的 profile，节点格式键类似 [profile name]
+--profile name
+```
+
 ### 常用命令
 
 ```bash
@@ -650,9 +664,22 @@ endpoint=https://oss-cn-shanghai.aliyuncs.com
 ossutil ls
 # 列出 bucket 下的某个目录
 ossutil ls oss://bucket/path/to/directory
+
+# ============================================
 # 上传文件
 ossutil cp /path/to/file oss://bucket[/path/to/directory/]
 # 递归上传整个目录中的所有文件（-f 不询问是否覆盖）
 ossutil cp -rf /path/to/LocalFolder oss://bucket[/path/to/directory/]
 # 递归上传整个目录中的所有文件（排除部分文件）
 ossutil cp -rf /path/to/LocalFolder oss://bucket[/path/to/directory/] -exclude '.DS_Store'
+
+# ============================================
+# 同步本地文件到 OSS
+ossutil sync /localfolder/ oss://bucketname/path/
+# 同步本地文件到 OSS（删除目标中存在但源中不存在的文件）
+ossutil sync /localfolder/ oss://bucketname/path/ --delete
+# 同步 OSS 文件到本地
+ossutil sync oss://bucketname/path/ /localfolder/
+# 同步 OSS 文件到本地（删除目标中存在但源中不存在的文件）
+ossutil sync oss://bucketname/path/ /localfolder/ --delete
+```

@@ -1726,9 +1726,9 @@ https://www.example.com/wp-content/themes/theme-name/screenshot.png
 
 在境外，银行开户后一般会提供两张卡，一张提款卡，一张扣帐卡。
 
-- 提款卡只能用于存钱和提现
+- 提款卡只能用于存钱和 ATM 提现
 
-- 提款卡只能用于存钱和提现
+- 扣帐卡可以用于消费和支付账单
 
 ### 跨境汇款
 
@@ -1800,7 +1800,7 @@ https://www.example.com/wp-content/themes/theme-name/screenshot.png
 
    - 收款行地址: `63 CHULIA STREET 10-00, OCBC CENTRE EAST, SINGAPORE, 049514`
 
-> [!NOTE]
+> [!WARNING]
 > 币种一定要选择 SGD，才可以走“工银速汇”，否则会有非常夸张的电汇费用
 
 #### 币安出金到 Bybit
@@ -2352,7 +2352,7 @@ _[东京 Metro 地铁路线图](https://www.tokyometro.jp/cn/subwaymap/index.htm
 
 - ATM 取现先想好确定好，哪怕你插卡进去不能取现或者你只是查询余额（虽然很奇怪），也要收取一定的费用。
 
-- 电车（比如 JR）不是地铁。如果你的地图软件让你上几点几分哪个站台的哪辆车的哪节车厢，请一定一定，非常「刻板」地按照它的指示去做。如果在车厢内听到中文广播，请仔细听。
+- <u>电车（比如 JR）不是地铁（Subway）</u>。如果你的地图软件让你上几点几分哪个站台的哪辆车的哪节车厢，请一定一定，非常「刻板」地按照它的指示去做。如果在车厢内听到中文广播，请仔细听。
 
 ### 香港
 
