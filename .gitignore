@@ -14,4 +14,5 @@ examples-temp
 node_modules
 pnpm-global
 TODOs.md
-.README.md
+# Ignore all local markdown files ending with .local.md
+*.local.md
