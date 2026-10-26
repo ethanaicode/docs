@@ -676,10 +676,14 @@ ossutil cp -rf /path/to/LocalFolder oss://bucket[/path/to/directory/] -exclude '
 # ============================================
 # 同步本地文件到 OSS
 ossutil sync /localfolder/ oss://bucketname/path/
-# 同步本地文件到 OSS（删除目标中存在但源中不存在的文件）
-ossutil sync /localfolder/ oss://bucketname/path/ --delete
+  # 同步本地文件到 OSS（删除目标中存在但源中不存在的文件）
+  ossutil sync /localfolder/ oss://bucketname/path/ --delete
+  # 同步本地文件到 OSS（忽略目标中已存在的文件）
+  ossutil sync /localfolder/ oss://bucketname/path/ --ignore-existing
+  # 同步本地文件到 OSS（仅更新源中较新的文件，会对每个文件发起HEAD请求，会产生额外的请求费用）
+  ossutil sync /localfolder/ oss://bucketname/path/ --update
 # 同步 OSS 文件到本地
 ossutil sync oss://bucketname/path/ /localfolder/
-# 同步 OSS 文件到本地（删除目标中存在但源中不存在的文件）
-ossutil sync oss://bucketname/path/ /localfolder/ --delete
+  # 同步 OSS 文件到本地（删除目标中存在但源中不存在的文件）
+  ossutil sync oss://bucketname/path/ /localfolder/ --delete
 ```
