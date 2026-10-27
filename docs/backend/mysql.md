@@ -1224,25 +1224,28 @@ SQLite 的字段类型是动态类型的，字段类型并不严格。
 要使用 SQLite 命令行工具，需要先在服务器上安装 SQLite，ubuntu 和 debian 系统可以使用以下命令安装：
 
 ```bash
-sudo apt-get install sqlite3
+sudo apt install sqlite3
 ```
 
 #### 基础使用
 
-```bash
-# 进入
+```sql
+-- 进入
 sqlite3 database_name.db
-# 查看所有表
+
+-- 查看所有表
 .tables
-# 查看表结构
+-- 查看表结构
 .schema table_name
-# 格式化输出
+-- 格式化输出
 .mode column
 .headers on
-# 执行 sql 文件
+-- 执行 sql 文件
 .read file_name.sql
-# 退出
+-- 退出
 .exit
+
+-- 其它查询等操作可以直接参考 MySQL 的语法
 ```
 
 ### 连表查询
@@ -1252,6 +1255,15 @@ sqlite3 database_name.db
 ```sql
 SELECT * FROM table1
 LEFT JOIN table2 ON table1.id = table2.id;
+```
+
+### 查询分析
+
+使用 `EXPLAIN QUERY PLAN` 来分析查询计划。
+
+```sql
+EXPLAIN QUERY PLAN
+SELECT * FROM table_name WHERE column_name = 'value';
 ```
 
 ### 日期时间函数
@@ -1271,15 +1283,6 @@ LEFT JOIN table2 ON table1.id = table2.id;
 - `strftime('%Y-%m-%d %H:%M:%S', 'now')`: 返回当前日期和时间
 
   `strftime('%Y-%m-%d', 'now', '-1 day')` 返回昨天的日期
-
-### 查询分析
-
-使用 `EXPLAIN QUERY PLAN` 来分析查询计划。
-
-```sql
-EXPLAIN QUERY PLAN
-SELECT * FROM table_name WHERE column_name = 'value';
-```
 
 ## phpmyadmin
 
