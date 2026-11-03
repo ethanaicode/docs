@@ -30,6 +30,10 @@
 
   PHP HTTP 客户端，支持发送 HTTP 请求。
 
+- [Phinx-Migrations](./php_phinx_migrations)
+
+  数据库迁移工具，用于管理数据库版本和迁移。
+
 - [Twig](./php_twig)
 
   复杂、灵活、高性能的 PHP 模板引擎。
