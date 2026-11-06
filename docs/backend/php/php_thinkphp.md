@@ -14,6 +14,40 @@ _本来以为不会再更新，奈何公司有 TP 的项目，偶尔遇到问题
 
   所以如果用到这三个参数，那么在获取参数时，是无法正常获取到这三个参数的（这就是为什么 `a` 参数会消失之谜的原因）。
 
+### 推荐修改
+
+```php
+# ThinkPHP/Library/Think/Cache/Driver/File.class.php Line67
+$dir .= $name{$i} . '/';
+    # →
+    $dir .= $name[$i] . '/';
+
+# ThinkPHP/Library/Think/Log.class.php add
+    /**
+     * 调试日志直接写入，与常规日志分开存储
+     * 文件名以 $tag 为前缀，方便按用途区分调试日志文件
+     * @static
+     * @access public
+     * @param string $message 日志信息
+     * @param string $tag  日志文件名前缀，可自定义，例如传入 'sql' 会生成 sql_日期.log
+     * @return void
+     */
+    static function debug($message, $tag = 'debug') {
+        if (!self::$storage) {
+            $type = C('LOG_TYPE');
+            $class = 'Think\\Log\\Driver\\'. ucwords($type);
+            self::$storage = new $class(array('log_path' => C('LOG_PATH')));
+        }
+        $destination = C('LOG_PATH').$tag.'_'.date('y_m_d').'.log';
+        if (!is_string($message)) {
+            $message = print_r($message, true);
+        }
+        self::$storage->write($message, $destination);
+    }
+# 之后就可以直接使用 debug 方法记录调试日志，例如：
+Log::debug('这是调试信息', 'sql');
+```
+
 ### 内置帮助函数
 
 TP3 提供了一些内置函数，可以在项目中使用，比如`C`函数，`I`函数等。
@@ -119,7 +153,7 @@ require __DIR__ . '/vendor/autoload.php';
 - 需要对模板输出使用函数进行过滤或其它处理的时候，可以使用：
 
   ```
-  {$data.name|md5} 
+  {$data.name|md5}
   ```
 
   编译后的结果是：
@@ -141,7 +175,7 @@ require __DIR__ . '/vendor/autoload.php';
   ```
   {:substr(strtoupper(md5($name)),0,3)}
   ```
-  
+
   使用该方法输出的值**不会使用默认的过滤方法进行转义**。
 
 ## TP5 使用经验总结
@@ -205,7 +239,6 @@ composer create-project topthink/think=6.1.x-dev tp6
 - `Db::execute('sql语句')`：用于更新和写入数据的 SQL 操作，返回影响行数；
 
 - 支持两种参数绑定：
-
   - `?`：占位符；
 
   - `:name`：命名参数；
@@ -288,7 +321,6 @@ Db::transaction(function () use ($ids) {
 #### 日志使用
 
 - Log 类主要提供了 2 个方法用于记录日志：
-
   - `Log::record('日志内容', '日志级别')`: 这个方法会将日志内容记录到日志文件中，日志级别默认是 `info`，也可以指定日志级别
 
     `record` 方法方法记录的日志信息不是实时保存的，而是会在请求结束后统一保存到日志文件中。
@@ -322,7 +354,6 @@ php think make:command Hello hello
 ```
 
 2. 在生成的文件中，继承 `think\console\Command` 类，并实现 `configure` 和 `execute` 方法。
-
    - `configure` 方法用于配置命令的名称和描述等信息；
    - `execute` 方法用于执行命令的具体逻辑。
 

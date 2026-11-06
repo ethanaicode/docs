@@ -597,6 +597,36 @@ _`r2` 为别名，可以自定义_
 
   - `rclone sync remote:bucket /path/to/directory`: 同步存储桶到本地目录
 
+  - `sync` 会让目标端与源端一致，因此会删除目标端中源端不存在的文件。执行前建议先加 `--dry-run` 预览；不希望删除目标端多余文件时，使用 `copy`。
+
+  - 默认情况下，rclone 会跳过判断为相同的文件（通常按大小和修改时间比较，具体取决于后端）。
+
+  - 只下载目标端还没有的文件：
+
+    ```bash
+    rclone copy remote:bucket /path/to/directory --ignore-existing -P
+    ```
+
+    `--ignore-existing` 会跳过目标端已存在的文件，不比较内容是否相同。若在 `sync` 中使用它，仍可能删除目标端中源端没有的文件。
+
+  - 仅当源文件比目标端文件更新时才覆盖目标文件：
+
+    ```bash
+    rclone copy remote:bucket /path/to/directory --update -P
+    ```
+
+    `--update`（简写 `-u`）会跳过目标端修改时间比源端更新的文件；它不是“只下载新增文件”，相同文件仍按 rclone 的常规比较规则跳过。使用 `sync --update` 时，目标端多余文件仍会被删除。
+
+  - 预览同步将执行的操作，不实际传输或删除文件：
+
+    ```bash
+    rclone sync remote:bucket /path/to/directory --dry-run -P
+    ```
+
+  - `-P` / `--progress` 用于显示传输进度。
+
+  官方文档：[copy](https://rclone.org/commands/rclone_copy/)、[sync](https://rclone.org/commands/rclone_sync/)、[全局参数](https://rclone.org/flags/)
+
 - `rclone delete remote:bucket`: 删除存储桶中的文件
 
   - `rclone delete remote:bucket --dry-run`: 查看删除文件列表，不实际删除（强烈推荐）
