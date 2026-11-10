@@ -72,6 +72,15 @@ TP3 提供了一些内置函数，可以在项目中使用，比如`C`函数，`
 
   **注意**：如果存在空的 `NewModuleName` 目录，tp3 会报错，所以先确保目录不存在
 
+
+**清除缓存**
+
+关闭 `debug` 模式后，如果更新了 `function.php` 文件，需要清除缓存，否则修改不会生效。
+
+```bash
+rm -f /path/to/your/application/Application/Runtime/common~runtime.php
+```
+
 ### 命名空间和自动加载
 
 TP3 中自动加载是通过`ThinkPHP/Library/Think/Think.class.php`文件中的`autoload`方法实现的。
