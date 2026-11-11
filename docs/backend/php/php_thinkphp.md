@@ -29,7 +29,7 @@ $dir .= $name{$i} . '/';
      * @static
      * @access public
      * @param string $message 日志信息
-     * @param string $tag  日志文件名前缀，可自定义，例如传入 'sql' 会生成 sql_日期.log
+     * @param string $tag  日志文件名前缀，可自定义，例如传入 'debug' 会生成 debug_日期.log
      * @return void
      */
     static function debug($message, $tag = 'debug') {
@@ -39,13 +39,12 @@ $dir .= $name{$i} . '/';
             self::$storage = new $class(array('log_path' => C('LOG_PATH')));
         }
         $destination = C('LOG_PATH').$tag.'_'.date('y_m_d').'.log';
-        if (!is_string($message)) {
-            $message = print_r($message, true);
-        }
         self::$storage->write($message, $destination);
     }
 # 之后就可以直接使用 debug 方法记录调试日志，例如：
-Log::debug('这是调试信息', 'sql');
+Log::debug('这是调试信息', 'debug');
+# 其实用自带的 `Log::write` 方法也可以实现类似的功能，只是需要手动指定日志类型和文件名，比较麻烦
+Think\Log::write('这是调试信息',Think\Log::DEBUG,'',C('LOG_PATH') . 'debug_' . date('y_m_d') . '.log');
 ```
 
 ### 内置帮助函数
@@ -71,7 +70,6 @@ TP3 提供了一些内置函数，可以在项目中使用，比如`C`函数，`
 - tp3 允许自动生成模块目录，只需要在入口文件中，加上一句`define('BIND_MODULE','NewModuleName');`即可；
 
   **注意**：如果存在空的 `NewModuleName` 目录，tp3 会报错，所以先确保目录不存在
-
 
 **清除缓存**
 
