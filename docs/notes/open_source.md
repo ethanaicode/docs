@@ -458,6 +458,16 @@ date: 2024-12-31 17:19:52
 
   比如我有一个 Github 的 MCP 代理，可以通过 MCP 协议将 Github 的数据传递给 cline，然后 cline 可以使用这些数据来生成代码、回答问题等。
 
+### SKILL
+
+- [awesome-chatgpt-prompts](https://github.com/f/prompts.chat): 收集各种 ChatGPT 提示词
+
+  一个收集各种 ChatGPT 提示词的仓库，帮助用户更好地与 ChatGPT 进行交互。
+
+- [Taste Skill](https://github.com/Leonxlnx/taste-skill): 一个帮助编程智能体打造专业企业网站的 Agent Skill，目标是达到 figma.com 和 x.ai 的水准，而非拼装通用落地页。
+
+  它要求使用直白文案、统一设计系统、每屏一个区块、左右边缘对齐、真实照片（客户没有素材时使用授权替代图）、真实品牌图标和产品界面；每页还需有首屏入场效果和一两个精心设计的亮点，并采用克制的微交互。着色器效果和滚动场景仅用于科技、游戏和软件类页面，最终由真实浏览器中的检查器和完成门禁验证规则是否落实。
+
 ## 学习资源
 
 ### 综合学习
