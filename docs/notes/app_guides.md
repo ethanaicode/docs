@@ -88,7 +88,18 @@
 
 然后我们就可以使用 `code` 命令来打开文件和文件夹了。
 
-- `code -r filename` - 打开当前工作目录中的文件并保持终端窗口打开
+**code 命令**
+
+```bash
+# 打开目录
+code .
+
+# 打开当前工作目录中的文件并保持终端窗口打开
+code -r filename
+
+# 比较两个文件
+code --diff file1.txt file2.txt
+```
 
 **在 Windows 中手动添加 Path 实现命令行打开 VS Code**
 

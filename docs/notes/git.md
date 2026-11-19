@@ -637,6 +637,16 @@ git remote add origin <repository-url>
 
   左右箭头指示差异归属，`--left-right` 显示提交是在哪个分支上的
 
+**文件的比较**
+
+```bash
+# 比较文件修改
+git diff file.txt
+
+# 比较两个普通文件（不在 Git 仓库中）
+git diff --no-index file1.txt file2.txt
+```
+
 #### 自定义显示格式
 
 通过 `--pretty` 参数，可以自定义显示提交历史的格式。
